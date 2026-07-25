@@ -19,7 +19,6 @@ export const featuredConcerns: FeaturedConcerns[] = [
       " revolutionizing transportation with innovative designs, reliable performance, and sustainable solutions.",
     image: "/images/concerns/sampan-auto.png",
     href: "https://www.sampangroup.com.bd/sampan-auto",
-    accentColor: "#719b85",
   },
   {
     name: "Sampan Highway Motel",
@@ -31,10 +30,10 @@ export const featuredConcerns: FeaturedConcerns[] = [
 
   {
     name: "Sampan Eco & Agro",
-    title:
-      "Experience the freshness of nature—delivered from our farm to your home.",
+    title: "Experience the freshness of nature",
     category: "Agriculture",
     image: "/images/concerns/eco-agro.png",
     href: "https://www.sampangroup.com.bd/sampan-eco-agro",
+    accentColor: "#E72C13",
   },
 ];

@@ -4,4 +4,11 @@ export type NavItem = {
   href?: string;
   children?: NavItem[];
   external?: boolean;
+  megaMenu?: MegaMenuColumn[];
+};
+
+export type MegaMenuColumn = {
+  id: string;
+  title: string;
+  items: NavItem[];
 };
