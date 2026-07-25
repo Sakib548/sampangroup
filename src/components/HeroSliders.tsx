@@ -186,7 +186,7 @@ export default function HeroSlider() {
 
       <div className="absolute inset-0 bg-black/45" />
 
-      <div className="pointer-events-none absolute inset-0">
+      <div className=" absolute inset-0">
         {featuredConcerns.map((slide, index) => (
           <div
             key={slide.name}
@@ -194,7 +194,16 @@ export default function HeroSlider() {
               slideRefs.current[index] = element;
             }}
             aria-hidden={index !== activeIndex}
-            className="pointer-events-none absolute inset-0 "
+            className={`absolute inset-0 ${
+              index === activeIndex
+                ? "pointer-events-auto"
+                : "pointer-events-none"
+            }`}
+            style={{
+              opacity: index === 0 ? 1 : 0,
+              visibility: index === 0 ? "visible" : "hidden",
+              zIndex: index === 0 ? 1 : 0,
+            }}
           >
             <img
               src={slide.image}
@@ -217,12 +226,38 @@ export default function HeroSlider() {
                 <a
                   href={slide.href}
                   target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-8 inline-block border border-white px-6 py-3"
+                  className="mt-8 inline-block border border-red px-6 py-3 "
                 >
                   Explore {slide.name}
                 </a>
               </div>
+            </div>
+            <div className="absolute bottom-8 right-8 z-30 flex items-center gap-4">
+              <button
+                type="button"
+                onClick={previousSlide}
+                aria-label="Previous slide"
+                className="flex h-12 w-12 items-center justify-center rounded-full border border-white/50 text-xl transition hover:bg-white hover:text-black"
+              >
+                ←
+              </button>
+
+              <span
+                aria-live="polite"
+                className="min-w-16 text-center text-sm tracking-widest"
+              >
+                {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                {String(featuredConcerns.length).padStart(2, "0")}
+              </span>
+
+              <button
+                type="button"
+                onClick={nextSlide}
+                aria-label="Next slide"
+                className="flex h-12 w-12 items-center justify-center rounded-full border border-white/50 text-xl transition hover:bg-white hover:text-black"
+              >
+                →
+              </button>
             </div>
           </div>
         ))}
