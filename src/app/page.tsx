@@ -1,6 +1,7 @@
 import HeroSlider from "@/components/HeroSliders";
 import Navbar from "@/components/Navbar";
 import AboutPreview from "@/components/AboutPreview";
+import Counter from "@/components/Counter";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Navbar />
       <HeroSlider />
       <AboutPreview />
+      <Counter />
     </main>
   );
 }
