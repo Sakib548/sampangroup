@@ -131,7 +131,10 @@ export default function Navbar() {
       </div>
 
       {mobileMenuOpen && (
-        <nav className="max-h-[calc(100vh-5rem)] overflow-y-auto border-t border-white/15 bg-black/95 px-6 py-6 md:hidden">
+        <nav
+          data-lenis-prevent
+          className="max-h-[calc(100dvh-5rem)] touch-pan-y overscroll-contain overflow-y-auto border-t border-white/15 bg-black/95 px-6 py-6 md:hidden"
+        >
           <div className="flex flex-col gap-5">
             {navItems.map((item) => (
               <div key={item.id}>
