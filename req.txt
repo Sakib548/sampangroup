@@ -1,0 +1,11 @@
+*header-Mega menu
+*carousel
+*about
+*counter
+*concerns
+*partners
+*projects(ongoing)
+*success projects
+*life at sampan(image)
+*cta
+*footer
