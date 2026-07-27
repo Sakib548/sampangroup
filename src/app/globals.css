@@ -66,3 +66,9 @@ body {
 .learn-more span:not(hover) {
   transition: all 1s;
 }
+
+.counter-section {
+  /* font-family: "Plus Jakarta Sans", sans-serif; */
+  font-family: "Manrope", sans-serif;
+  font-weight: 600;
+}

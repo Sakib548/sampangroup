@@ -103,7 +103,7 @@ export default function AboutPreview() {
             {aboutPreview.title}
           </h2>
 
-          <p className="about-description mt-6 max-w-2xl text-base leading-8 text-neutral-600 sm:text-lg">
+          <p className="about-description mt-6 max-w-2xl text-sm leading-8 text-neutral-600  ">
             {aboutPreview.description}
           </p>
           <div className="about-button">
