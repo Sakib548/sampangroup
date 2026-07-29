@@ -2,7 +2,10 @@ import HeroSlider from "@/components/HeroSliders";
 import Navbar from "@/components/Navbar";
 import AboutPreview from "@/components/AboutPreview";
 import Counter from "@/components/Counter";
-import ConcernCard from "@/components/ConcernCard";
+import ConcernsSection2 from "@/components/ConcernsSection2";
+import ConcernsSection3 from "@/components/ConcernSection3";
+import PartnersSection from "@/components/PartnersSection";
+import OngoingProjects from "@/components/OngoingProjects";
 
 export default function Home() {
   return (
@@ -11,7 +14,11 @@ export default function Home() {
       <HeroSlider />
       <AboutPreview />
       <Counter />
-      {/* <ConcernCard /> */}
+      <ConcernsSection2 />
+      <PartnersSection />
+      <OngoingProjects />
+      {/* <ConcernsSection3 /> */}
+      {/* <ConcernsSection /> */}
     </main>
   );
 }
