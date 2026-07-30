@@ -14,8 +14,8 @@ function getInitials(name: string) {
 
 export default function ConcernCard({ concern }: { concern: Concern }) {
   return (
-    <article className="group overflow-hidden border border-neutral-200 bg-white transition duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-xl">
-      <div className="flex h-44 items-center justify-center bg-neutral-100 p-8">
+    <article className="group overflow-hidden rounded-2xl border border-neutral-200 bg-white transition duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-xl">
+      <div className="flex h-44 items-center justify-center bg-neutral-100 p-8 transition-colors duration-300 group-hover:bg-neutral-200/70">
         {concern.logo ? (
           <Image
             src={concern.logo}
