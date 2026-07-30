@@ -1,0 +1,208 @@
+HeroSlider / Carousel explanation
+=================================
+
+HeroSliders.tsx is a full-screen carousel for Sampan's featured concerns. It
+keeps all slides mounted, uses activeIndex to choose the current slide, uses
+GSAP to crossfade images, uses an autoplay timer, and provides previous/next
+buttons.
+
+1. Client component and imports
+--------------------------------
+
+"use client" is required because the component uses React state, browser
+timers, DOM refs, and GSAP.
+
+useState stores values that affect the UI. useRef stores DOM elements or values
+that persist without causing a render. useEffect manages autoplay. Use
+useLayoutEffect for the initial GSAP setup because it runs before the browser
+paints.
+
+The featuredConcerns array is imported from the data file. Each object should
+contain name, category, title, tagline, image, and href.
+
+2. State and refs
+-----------------
+
+  const [activeIndex, setActiveIndex] = useState(0)
+
+activeIndex is the selected slide number. Arrays start at zero, so 0 is the
+first slide.
+
+  const [isPaused, setIsPaused] = useState(false)
+
+This controls autoplay. Set it to true while the visitor hovers over or focuses
+the carousel.
+
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([])
+
+Each mapped slide stores its DOM element at the matching array index. GSAP
+needs these elements to animate them.
+
+  const currentIndex = useRef(0)
+  const hasInitialized = useRef(false)
+
+currentIndex remembers the visible slide without causing a render. It is used
+to identify the outgoing slide. hasInitialized prevents the first slide from
+performing a normal transition on page load.
+
+3. Rendering all slides
+-----------------------
+
+  {featuredConcerns.map((slide, index) => (
+    <div
+      key={slide.name}
+      ref={(element) => {
+        slideRefs.current[index] = element
+      }}
+      className="absolute inset-0"
+    >
+
+All slides stay mounted and are stacked in the same position. Do not render a
+separate activeSlide image outside this map and do not use key={activeSlide.image}
+on the image. Recreating the image causes abrupt transitions.
+
+Each slide contains its image, overlay, title, tagline, and external link. The
+active slide should have pointer-events-auto; inactive slides should have
+pointer-events-none so only the visible link can be clicked.
+
+4. Initial GSAP setup
+---------------------
+
+The layout effect first collects the non-null slide refs. It then hides every
+slide with:
+
+  gsap.set(slides, { autoAlpha: 0, zIndex: 0 })
+
+autoAlpha controls opacity and visibility. Then it shows the first slide:
+
+  gsap.set(incomingSlide, { autoAlpha: 1, zIndex: 1 })
+
+This prevents two images from appearing together on the initial page load.
+Adding an initial inline style to the first slide (opacity 1) and to the other
+slides (opacity 0) can also prevent a flash before React and GSAP run.
+
+5. GSAP crossfade
+-----------------
+
+When activeIndex changes, incomingSlide is the new slide and the slide stored
+at currentIndex.current is outgoingSlide. First cancel old tweens:
+
+  gsap.killTweensOf(slides)
+
+This prevents rapid animations from fighting each other.
+
+The incoming slide is placed above the outgoing slide and starts invisible:
+
+  .set(incomingSlide, { autoAlpha: 0, zIndex: 2 })
+
+Both fades must start at position 0:
+
+  .to(outgoingSlide, {
+    autoAlpha: 0,
+    duration: 2.5,
+    ease: "power1.inOut",
+  }, 0)
+  .to(incomingSlide, {
+    autoAlpha: 1,
+    duration: 2.5,
+    ease: "power1.inOut",
+  }, 0)
+
+The two zeroes mean the old image fades out while the new image fades in. The
+long duration and power1.inOut produce a calm corporate crossfade.
+
+When the timeline finishes, update currentIndex.current to activeIndex. The
+cleanup function calls timeline.kill() so an old timeline cannot continue
+after another slide change.
+
+6. Title, tagline, and CTA animation
+-------------------------------------
+
+Do not create React state variables for the title and tagline. Give the
+elements stable classes:
+
+  <div className="slide-content">
+    <h1 className="slide-title">{slide.title}</h1>
+    <p className="slide-tagline">{slide.tagline}</p>
+    <a className="slide-cta" href={slide.href}>
+      Explore {slide.name}
+    </a>
+  </div>
+
+Find the elements only inside the incoming slide:
+
+  const title = incomingSlide.querySelector(".slide-title")
+  const tagline = incomingSlide.querySelector(".slide-tagline")
+  const cta = incomingSlide.querySelector(".slide-cta")
+  const textElements = [title, tagline, cta].filter(Boolean)
+
+Before the slide appears, hide and lower those elements:
+
+  gsap.set(textElements, { autoAlpha: 0, y: 24 })
+
+Then add this to the timeline:
+
+  timeline.to(textElements, {
+    autoAlpha: 1,
+    y: 0,
+    duration: 0.9,
+    stagger: 0.12,
+    ease: "power3.out",
+  }, 0.8)
+
+The text begins 0.8 seconds after the crossfade starts. The title appears,
+then the tagline, then the CTA, each 0.12 seconds apart.
+
+7. Autoplay
+-----------
+
+The autoplay effect exits if isPaused is true. Otherwise it creates an
+interval that advances activeIndex every six seconds. The functional state
+update receives the latest index and loops from the final slide to slide zero.
+
+Always clear the interval in the effect cleanup:
+
+  return () => window.clearInterval(timer)
+
+Without cleanup, hot reloads or repeated effects can create multiple timers.
+
+8. Previous and next buttons
+----------------------------
+
+nextSlide increments the index and wraps to zero. previousSlide decrements the
+index and wraps to the final slide. Both functions should call a shared
+goToSlide function that ignores clicks while a fade is running:
+
+  if (isAnimating.current) return
+  isAnimating.current = true
+  setActiveIndex(index)
+
+Set isAnimating.current to false in the GSAP timeline's onComplete callback.
+This prevents quick clicks from starting overlapping transitions.
+
+Keep the controls outside the slides map and give them a high z-index such as
+z-30. Otherwise every slide creates duplicate controls or an inactive slide's
+pointer-events setting can block clicks.
+
+9. Recommended timings
+----------------------
+
+Image crossfade: duration 2.2 to 2.5, ease power1.inOut
+Text entrance: duration 0.8 to 1, ease power3.out
+Text stagger: 0.1 to 0.15 seconds
+Autoplay interval: 6 to 8 seconds
+
+Do not use Tailwind opacity transitions and GSAP autoAlpha on the same element.
+Choose GSAP as the owner of the animated opacity.
+
+10. Overall data flow
+---------------------
+
+featuredConcerns data
+  -> map creates all slide elements
+  -> slideRefs stores their DOM nodes
+  -> activeIndex identifies the incoming slide
+  -> GSAP fades outgoing and incoming slides
+  -> autoplay or buttons update activeIndex
+  -> the effect performs the next crossfade
+

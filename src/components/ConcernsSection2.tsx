@@ -66,18 +66,23 @@ export default function ConcernsSection2() {
     if (isWrapping) return;
 
     if (activeIndex === concerns.length - 1) {
-      setIsWrapping(true);
-      cardRefs.current[concerns.length]?.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "start",
-      });
+      const track = trackRef.current;
+      const cloneCard = cardRefs.current[concerns.length];
 
-      window.setTimeout(() => {
-        trackRef.current?.scrollTo({ left: 0, behavior: "auto" });
-        setActiveIndex(0);
-        setIsWrapping(false);
-      }, 750);
+      if (!track || !cloneCard) return;
+
+      setIsWrapping(true);
+      gsap.to(track, {
+        scrollLeft: cloneCard.offsetLeft,
+        duration: 0.8,
+        ease: "power3.inOut",
+        overwrite: true,
+        onComplete: () => {
+          track.scrollLeft = 0;
+          setActiveIndex(0);
+          setIsWrapping(false);
+        },
+      });
       return;
     }
 
@@ -138,7 +143,7 @@ export default function ConcernsSection2() {
         <div className="mt-10 overflow-hidden">
           <div
             ref={trackRef}
-            className="flex overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {loopedConcerns.map((concern, index) => (
               <div
