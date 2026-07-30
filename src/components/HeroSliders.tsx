@@ -202,7 +202,12 @@ export default function HeroSlider() {
     if (isPaused) return;
 
     const timer = window.setInterval(() => {
-      nextSlide();
+      if (isAnimating.current) return;
+
+      isAnimating.current = true;
+      setActiveIndex((current) =>
+        current === featuredConcerns.length - 1 ? 0 : current + 1,
+      );
     }, 6000);
 
     return () => {
@@ -286,7 +291,7 @@ export default function HeroSlider() {
                 </a>
               </div>
             </div>
-            <div className="absolute bottom-8 right-8 z-30 flex items-center gap-4">
+            {/* <div className="absolute bottom-8 right-8 z-30 flex items-center gap-4">
               <button
                 type="button"
                 onClick={previousSlide}
@@ -312,7 +317,7 @@ export default function HeroSlider() {
               >
                 →
               </button>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
