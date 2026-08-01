@@ -28,4 +28,49 @@ export const Projects: Project[] = [
     href: "",
     status: "ongoing",
   },
+  {
+    id: "Sampan-Taj-Bashundhara",
+    name: "Sampan Taj Bashundhara",
+    description:
+      "",
+    logo: "/images/projects/Sampan-Taj-Bashundhara.png",
+    href: "",
+    status: "completed",
+  },
+  {
+    id: "Sampan-Niketon",
+    name: "Sampan Niketon",
+    description:
+      "",
+    logo: "/images/projects/Sampan-Niketon.png",
+    href: "",
+    status: "completed",
+  },
+    {
+    id: "Sampan-White-House-&-Motel",
+    name: "Sampan White House & Motel",
+    description:
+      "",
+    logo: "/images/projects/Sampan-White-House-&-Motel.png",
+    href: "",
+    status: "completed",
+  },
+    {
+    id: "Sampan-21st-Century-Inn",
+    name: "Sampan 21st Century Inn",
+    description:
+      "",
+    logo: "/images/projects/Sampan-21st-Century-Inn.png",
+    href: "",
+    status: "completed",
+  },
+    {
+    id: "sampan-highway-inn",
+    name: "Sampan highway Inn",
+    description:
+      "",
+    logo: "/images/projects/sampan-highway-inn.png",
+    href: "",
+    status: "completed",
+  },
 ];
