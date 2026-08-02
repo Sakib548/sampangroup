@@ -29,11 +29,7 @@ function NavigationLink({
   }
 
   return (
-    <Link
-      href={item.href ?? "#"}
-      onClick={onClick}
-      className={className}
-    >
+    <Link href={item.href ?? "#"} onClick={onClick} className={className}>
       {item.label}
     </Link>
   );
@@ -159,7 +155,8 @@ export default function Navbar2() {
               href="/contact"
               className="inline-flex items-center gap-3 border border-white/35 px-5 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:border-white hover:bg-white hover:text-neutral-950"
             >
-              Let&apos;s talk
+              {/* Let&apos;s talk */}
+              Explore More
               <span aria-hidden="true">↗</span>
             </Link>
           </div>
