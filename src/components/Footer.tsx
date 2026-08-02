@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { FormEvent, useState } from "react";
 import { concerns } from "@/data/concerns";
 
@@ -18,6 +19,24 @@ const selectedConcernIds = [
   "sampan-eco-agro",
   "sampan-highway-motel",
   "sampan-sweets-box",
+];
+
+const socialLinks = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/sampangroup/",
+    logo: "/images/socials/facebook.png",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/sampangroup/",
+    logo: "/images/socials/linkedin.png",
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@SampanGroupbangladesh",
+    logo: "/images/socials/youtube.png",
+  },
 ];
 
 export default function Footer() {
@@ -108,14 +127,22 @@ export default function Footer() {
             </p>
 
             <div className="mt-8 flex gap-3">
-              {["f", "in", "yt"].map((social) => (
+              {socialLinks.map((social) => (
                 <a
-                  key={social}
-                  href="#"
-                  aria-label={`${social} social profile`}
-                  className="flex h-10 min-w-10 items-center justify-center border border-white/20 px-3 text-xs font-semibold uppercase text-white/70 transition hover:border-emerald-300 hover:text-emerald-300"
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Visit Sampan Group on ${social.label}`}
+                  className="flex h-10 w-10 items-center justify-center transition hover:scale-110"
                 >
-                  {social}
+                  <Image
+                    src={social.logo}
+                    alt=""
+                    width={32}
+                    height={32}
+                    className="h-8 w-8 object-contain"
+                  />
                 </a>
               ))}
             </div>

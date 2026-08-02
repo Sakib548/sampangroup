@@ -75,14 +75,14 @@ export default function CompletedProjectsShowcase() {
         </div>
 
         <div className="absolute right-8 top-1/2 hidden w-[48%] max-w-[760px] -translate-y-1/2 lg:block">
-          <div className="relative aspect-[1.45] overflow-hidden bg-white/90 shadow-2xl shadow-black/25">
+          <div className="relative aspect-[1.45] overflow-hidden bg-transparent shadow-2xl shadow-black/25">
             <Image
               key={activeProject.id}
               src={activeProject.logo}
               alt={activeProject.name}
               fill
               sizes="48vw"
-              className="object-contain p-12 transition-opacity duration-1000"
+              className="object-contain transition-opacity duration-1000"
             />
           </div>
           <div className="mt-6 flex items-center justify-end gap-3 sm:gap-5">
