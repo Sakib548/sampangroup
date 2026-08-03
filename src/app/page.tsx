@@ -1,3 +1,4 @@
+import HeroSlider2 from "@/components/HeroSlider2";
 import HeroSlider from "@/components/HeroSliders";
 import AboutPreview from "@/components/AboutPreview";
 import Counter from "@/components/Counter";
@@ -17,7 +18,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-neutral-950">
       <Navbar2 />
-      <HeroSlider />
+      <HeroSlider2 />
       <AboutPreview />
       <Counter />
       <ConcernsSection2 />

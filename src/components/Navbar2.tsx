@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { navItems } from "@/data/navigation";
 import type { NavItem } from "@/types/NavItem";
@@ -40,6 +41,7 @@ export default function Navbar2() {
   const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileConcernsOpen, setMobileConcernsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const concernItem = navItems.find((item) => item.megaMenu);
   const standardItems = navItems.filter(
@@ -71,12 +73,20 @@ export default function Navbar2() {
   }
 
   useEffect(() => {
+    function handleScroll() {
+      setIsScrolled(window.scrollY > window.innerHeight * 0.9);
+    }
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     function handleEscape(event: KeyboardEvent) {
       if (event.key === "Escape") closeMenus();
     }
 
     window.addEventListener("keydown", handleEscape);
     return () => {
+      window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("keydown", handleEscape);
       if (closeTimerRef.current !== null) {
         window.clearTimeout(closeTimerRef.current);
@@ -85,7 +95,13 @@ export default function Navbar2() {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/15 bg-black/25 text-white backdrop-blur-xl">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-colors duration-500 ${
+        isScrolled
+          ? "border-black/10 bg-white/95 text-neutral-950"
+          : "border-white/15 bg-black/25 text-white"
+      }`}
+    >
       <div
         className="relative mx-auto max-w-7xl"
         onMouseEnter={keepDesktopMenuOpen}
@@ -98,15 +114,14 @@ export default function Navbar2() {
             aria-label="Sampan Group home"
             className="group flex items-center gap-3"
           >
-            <span
-              aria-hidden="true"
-              className="relative h-8 w-8 overflow-hidden rounded-full border border-white/30 bg-white/10"
-            >
-              <span className="absolute -bottom-2 left-1/2 h-5 w-8 -translate-x-1/2 rotate-[-18deg] rounded-full border-2 border-white/90" />
-            </span>
-            <span className="text-sm font-bold tracking-[0.22em] sm:text-base">
-              SAMPAN
-            </span>
+            <Image
+              src="/images/Sampan-Group.png"
+              alt="Sampan Group"
+              width={190}
+              height={68}
+              priority
+              className={`h-auto w-48 object-contain sm:w-56 ${isScrolled ? "" : "brightness-0 invert"}`}
+            />
           </Link>
 
           <nav
@@ -128,7 +143,7 @@ export default function Navbar2() {
                     }}
                     onFocus={() => setDesktopMenuOpen(true)}
                     onClick={() => setDesktopMenuOpen((open) => !open)}
-                    className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-white/75 transition-colors hover:text-white"
+                    className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${isScrolled ? "text-neutral-600 hover:text-neutral-950" : "text-white/75 hover:text-white"}`}
                   >
                     {item.label}
                     <span
@@ -144,7 +159,7 @@ export default function Navbar2() {
                   <NavigationLink
                     key={item.id}
                     item={item}
-                    className="px-4 py-3 text-sm font-medium text-white/75 transition-colors hover:text-white"
+                    className={`px-4 py-3 text-sm font-medium transition-colors ${isScrolled ? "text-neutral-600 hover:text-neutral-950" : "text-white/75 hover:text-white"}`}
                   />
                 ),
               )}
@@ -153,7 +168,7 @@ export default function Navbar2() {
           <div className="hidden md:block">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-3 border border-white/35 px-5 py-3 text-xs font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:border-white hover:bg-white hover:text-neutral-950"
+              className={`inline-flex items-center gap-3 border px-5 py-3 text-xs font-semibold uppercase tracking-[0.14em] transition-colors ${isScrolled ? "border-neutral-300 text-neutral-950 hover:border-neutral-950 hover:bg-neutral-950 hover:text-white" : "border-white/35 text-white hover:border-white hover:bg-white hover:text-neutral-950"}`}
             >
               {/* Let&apos;s talk */}
               Explore More
@@ -166,7 +181,7 @@ export default function Navbar2() {
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
             onClick={() => setMobileMenuOpen((open) => !open)}
-            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 border border-white/30 text-white md:hidden"
+            className={`flex h-10 w-10 flex-col items-center justify-center gap-1.5 border md:hidden ${isScrolled ? "border-neutral-300 text-neutral-950" : "border-white/30 text-white"}`}
           >
             <span
               className={`h-px w-4 bg-current transition-transform ${

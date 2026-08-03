@@ -91,7 +91,7 @@ export default function AboutPreview() {
   return (
     <section
       ref={section}
-      className="bg-stone-100 px-6 py-24 text-neutral-950 lg:px-10 lg:py-32"
+      className="bg-[#E8EFE9] px-6 py-24 text-neutral-950 lg:px-10 lg:py-32"
     >
       <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-24">
         <div className="box">
