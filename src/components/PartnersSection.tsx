@@ -29,7 +29,7 @@ export default function PartnersSection() {
   }, [activeIndex]);
 
   return (
-    <section className="bg-white px-6 py-20 text-neutral-950 lg:px-10 lg:py-24">
+    <section className="bg-[#E8EFE9] px-6 py-20 text-neutral-950 lg:px-10 lg:py-24">
       <div className="mx-auto max-w-7xl">
         <div className="flex items-end justify-between gap-6">
           <div>
@@ -42,34 +42,53 @@ export default function PartnersSection() {
           </div>
 
           <div className="hidden items-center gap-2 sm:flex">
-            <button type="button" onClick={() => showPartner(activeIndex - 1)} aria-label="Previous partner" className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 text-xl transition hover:border-emerald-700 hover:bg-emerald-700 hover:text-white">←</button>
-            <button type="button" onClick={() => showPartner(activeIndex + 1)} aria-label="Next partner" className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 text-xl transition hover:border-emerald-700 hover:bg-emerald-700 hover:text-white">→</button>
+            <button
+              type="button"
+              onClick={() => showPartner(activeIndex - 1)}
+              aria-label="Previous partner"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 text-xl transition hover:border-emerald-700 hover:bg-emerald-700 hover:text-white"
+            >
+              ←
+            </button>
+            <button
+              type="button"
+              onClick={() => showPartner(activeIndex + 1)}
+              aria-label="Next partner"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 text-xl transition hover:border-emerald-700 hover:bg-emerald-700 hover:text-white"
+            >
+              →
+            </button>
           </div>
         </div>
 
-        <div ref={viewportRef} className="mt-10 overflow-x-auto overflow-y-hidden scrollbar-none">
+        <div
+          ref={viewportRef}
+          className="mt-10 overflow-x-auto overflow-y-hidden scrollbar-none"
+        >
           <div className="flex gap-4">
-          {partners.map((partner) => (
-            <article
-              key={partner.name}
-              ref={(element) => { cardRefs.current[partners.indexOf(partner)] = element; }}
-              className="flex min-h-44 min-w-[82%] flex-[0_0_82%] flex-col justify-between border border-neutral-200 p-5 sm:min-w-[46%] sm:flex-[0_0_46%] sm:min-h-48 sm:p-6 lg:min-w-[31.5%] lg:flex-[0_0_31.5%]"
-            >
-              <div className="flex h-24 items-center justify-center">
-                <Image
-                  src={partner.logo}
-                  alt={partner.name}
-                  width={180}
-                  height={110}
-                  className="max-h-20 w-full object-contain sm:max-h-24"
-                />
-              </div>
+            {partners.map((partner) => (
+              <article
+                key={partner.name}
+                ref={(element) => {
+                  cardRefs.current[partners.indexOf(partner)] = element;
+                }}
+                className="flex min-h-44 min-w-[82%] flex-[0_0_82%] flex-col justify-between border border-neutral-200 p-5 sm:min-w-[46%] sm:flex-[0_0_46%] sm:min-h-48 sm:p-6 lg:min-w-[31.5%] lg:flex-[0_0_31.5%]"
+              >
+                <div className="flex h-24 items-center justify-center">
+                  <Image
+                    src={partner.logo}
+                    alt={partner.name}
+                    width={180}
+                    height={110}
+                    className="max-h-20 w-full object-contain sm:max-h-24"
+                  />
+                </div>
 
-              <p className="mt-5 text-center text-xs font-medium uppercase tracking-[0.12em] text-neutral-600">
-                {partner.role}
-              </p>
-            </article>
-          ))}
+                <p className="mt-5 text-center text-xs font-medium uppercase tracking-[0.12em] text-neutral-600">
+                  {partner.role}
+                </p>
+              </article>
+            ))}
           </div>
         </div>
       </div>

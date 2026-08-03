@@ -136,6 +136,7 @@ export default function HeroSlider() {
       y: 24,
     });
 
+
     // timeline
     //   .set(incomingSlide, {
     //     autoAlpha: 0,
@@ -266,12 +267,12 @@ export default function HeroSlider() {
             <img
               src={slide.image}
               alt={slide.name}
-              className="absolute inset-0 h-full w-full object-cover"
+              className="slide-image absolute inset-0 h-full w-full object-cover"
             />
 
             <div className="absolute inset-0 bg-black/45" />
 
-            <div className="relative z-10 flex min-h-screen items-end px-6 pb-24 text-white lg:px-16">
+            <div className="relative z-10 flex min-h-screen items-end justify-center px-6 pb-24 text-center text-white lg:px-16">
               <div>
                 <h1 className="max-w-3xl text-4xl font-semibold lg:text-5xl slide-title">
                   {slide.title}
