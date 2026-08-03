@@ -1,25 +1,38 @@
+import HeroSlider2 from "@/components/HeroSlider2";
 import HeroSlider from "@/components/HeroSliders";
+import AboutPreview from "@/components/AboutPreview";
+import Counter from "@/components/Counter";
+import ConcernsSection2 from "@/components/ConcernsSection2";
+import PartnersSection from "@/components/PartnersSection";
+import OngoingProjects from "@/components/OngoingProjects";
+import CompletedProjectsFeatured from "@/components/CompletedProjectsFeatured";
+import Navbar2 from "@/components/Navbar2";
 import Navbar from "@/components/Navbar";
+
+import Footer from "@/components/Footer";
+import ContactCTA from "@/components/ContactCTA";
+import FullWidthVideo from "@/components/FullWidthVideo";
+import CompletedProjectsShowcase from "@/components/CompletedProjectsShowcase";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-neutral-950">
-      <Navbar />
-      <HeroSlider />
-      <section
-        className="relative flex min-h-screen items-center bg-cover bg-center px-6 pt-20 text-white"
-        style={{
-          backgroundImage: "url('/images/hero.png')",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/40" />
+      <Navbar2 />
+      <HeroSlider2 />
+      <AboutPreview />
+      <Counter />
+      <ConcernsSection2 />
+      <PartnersSection />
 
-        <div className="relative z-10">
-          <h1 className="text-5xl font-semibold">
-            The Village Will Be the City
-          </h1>
-        </div>
-      </section>
+      <OngoingProjects />
+      <CompletedProjectsFeatured />
+      <CompletedProjectsShowcase />
+      <FullWidthVideo />
+
+      {/* <ConcernsSection3 /> */}
+      {/* <ConcernsSection /> */}
+      <ContactCTA />
+      <Footer />
     </main>
   );
 }
