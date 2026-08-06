@@ -28,7 +28,7 @@ export const featuredConcerns: FeaturedConcerns[] = [
     title: "Pause, refresh, and move forward",
     tagline:
       "A welcoming highway destination for comfortable stays, dining, and rest along every journey.",
-    image: "/images/featuredConcerns/express-highway-inn.png",
+    image: "/images/projects/express-highway-inn.png",
     href: "https://www.expresshighwayinn.com/",
   },
   {
