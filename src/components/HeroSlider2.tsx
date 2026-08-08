@@ -135,7 +135,12 @@ export default function HeroSlider2() {
                   {slide.category}
                 </p> */}
                 <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl Text">
-                  {slide.name}
+                  <span className="greenText">
+                    {slide.name.slice(0, slide.name.indexOf(" "))}
+                  </span>
+                  <span className="redText">
+                    {slide.name.slice(slide.name.indexOf(" "))}
+                  </span>
                 </h1>
                 <p className="mt-5 max-w-xl text-base leading-7 text-white/80 sm:text-lg">
                   {slide.tagline}

@@ -21,7 +21,7 @@ export default function Home() {
       <Navbar2 />
       <HeroSlider2 />
       <AboutPreview />
-      {/* <AboutUsEditorial /> */}
+      <AboutUsEditorial />
       <Counter />
       <ConcernsSection2 />
       <PartnersSection />
