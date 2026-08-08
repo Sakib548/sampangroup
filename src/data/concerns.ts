@@ -8,6 +8,7 @@ export const concerns: Concern[] = [
     category: "Automotive & Energy",
     tagline: "Drives innovation forward",
     logo: "/images/concerns/sampan-auto.png",
+    href: "https://www.sampangroup.com.bd/sampan-auto",
   },
   {
     id: "sampan-highway-inn",
@@ -15,6 +16,7 @@ export const concerns: Concern[] = [
     category: "Hospitality & Leisure",
     tagline: "Your perfect stopover",
     logo: "/images/concerns/sampan-highway-inn.jpg",
+    href: "https://www.sampangroup.com.bd/sampan-highway-inn-restaurant-party-centre",
   },
   {
     id: "sampan-development-ltd",
@@ -22,6 +24,7 @@ export const concerns: Concern[] = [
     category: "Development & Construction",
     tagline: "Building dreams sustainably",
     logo: "/images/concerns/sampan-dev-ltd.png",
+    href: " https://www.sampangroup.com.bd/sampan-developments-limited",
   },
   {
     id: "sampan-filling-station",
@@ -29,6 +32,7 @@ export const concerns: Concern[] = [
     category: "Automotive & Energy",
     tagline: "Quality fuel service",
     logo: "/images/concerns/sampan-filling-station.png",
+    href: "https://www.sampangroup.com.bd/sampan-filling-station",
   },
   {
     id: "ehcl",
@@ -36,18 +40,23 @@ export const concerns: Concern[] = [
     category: "Hospitality & Leisure",
     tagline: "Relaxation meets luxury",
     logo: "/images/concerns/ehcl.png",
+    href: "https://www.sampangroup.com.bd/express-highway-inn-club-lounge",
   },
   {
     id: "sampan-sweets-box",
     name: "Sampan Sweets Box",
     category: "Retail & Consumer",
     tagline: "Unzip a sweet gift",
+    logo: "/images/logos/sweet-box.png",
+    href: "https://www.sampangroup.com.bd/sampan-sweet-box",
   },
   {
     id: "mini-sampan",
     name: "Mini Sampan",
     category: "Retail & Consumer",
     tagline: "Convenient daily shopping",
+    logo: "/images/logos/mini-sampan.png",
+    href: "https://www.sampangroup.com.bd/mini-sampan",
   },
   {
     id: "sampan-lpg-station",
@@ -55,6 +64,7 @@ export const concerns: Concern[] = [
     category: "Automotive & Energy",
     tagline: "Reliable LPG refueling",
     logo: "/images/concerns/lpg.png",
+    href: "https://www.sampangroup.com.bd/sampan-lpg-station",
   },
   {
     id: "sampan-hollow-bricks-tiles",
@@ -62,6 +72,7 @@ export const concerns: Concern[] = [
     category: "Development & Construction",
     tagline: "Durable building material",
     logo: "/images/concerns/shbt.webp",
+    href: "https://www.sampangroup.com.bd/sampan-hollow-bricks-tiles",
   },
   {
     id: "sampan-eco-agro",
@@ -69,12 +80,14 @@ export const concerns: Concern[] = [
     category: "Agriculture",
     tagline: "Sustainable farming solutions",
     logo: "/images/concerns/3-sampan-eco-agro.png",
+    href: "https://www.sampangroup.com.bd/sampan-eco-agro",
   },
   {
     id: "sampan-highway-motel",
     name: "Sampan Highway Motel",
     category: "Hospitality & Leisure",
     tagline: "Comfortable travel stay",
+    href: "https://www.sampangroup.com.bd/sampan-highway-motel-white-house",
   },
   {
     id: "nagar-arms-ammunition",
@@ -82,12 +95,15 @@ export const concerns: Concern[] = [
     category: "Security",
     tagline: "Reliable defence solution",
     logo: "/images/concerns/nanc.png",
+    href: "https://www.sampangroup.com.bd/nagar-arms-ammunition",
   },
   {
     id: "sampan-fire-arms-co",
     name: "Sampan Fire Arms Co.",
     category: "Security",
     tagline: "Precise. Power. Protection.",
+    logo: "/images/logos/sampan-fire-arms.png",
+    href: "https://www.sampangroup.com.bd/sampan-fire-arms-co",
   },
   {
     id: "sampan-pet-beverage",
@@ -95,17 +111,21 @@ export const concerns: Concern[] = [
     category: "Retail & Consumer",
     tagline: "Refreshing beverage choice",
     logo: "/images/concerns/pet-beverage.webp",
+    href: "https://www.sampangroup.com.bd/sampan-pet-beverage",
   },
   {
     id: "kingini-freight-system",
     name: "Kingini Freight System",
     category: "Logistics",
     tagline: "Reliable freight solutions",
+    logo: "/images/logos/kingkini.png",
+    // href: "https://www.sampangroup.com.bd/kingini-freight-system",
   },
   {
     id: "sampan-build-trade-ltd",
     name: "Sampan Build Trade Ltd.",
     category: "Development & Construction",
     tagline: "Trusted construction partner",
+    logo: "/images/logos/sampan-build-trade.png",
   },
 ];
