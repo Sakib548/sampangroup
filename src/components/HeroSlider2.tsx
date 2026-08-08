@@ -131,22 +131,36 @@ export default function HeroSlider2() {
             />
             <div className="absolute inset-0 bg-black/45" />
 
-            <div className="hero2-copy relative z-10 flex min-h-screen items-end justify-center px-6 pb-28 text-center lg:px-16">
-              <div>
+            <div className="hero2-copy relative z-10 flex min-h-screen items-end justify-start px-6 pb-28 text-left lg:px-16">
+              <div className="flex w-full max-w-3xl flex-col items-start text-left">
                 {/* <p className="text-xs font-medium uppercase tracking-[0.25em] text-white/75">
                   {slide.category}
                 </p> */}
-                <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl">
-                  {slide.name}
+                <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl Text">
+                  <span className="greenText">
+                    {slide.name.slice(0, slide.name.indexOf(" "))}
+                  </span>
+                  <span className="redText">
+                    {slide.name.slice(slide.name.indexOf(" "))}
+                  </span>
                 </h1>
                 <p className="mt-5 max-w-xl text-base leading-7 text-white/80 sm:text-lg">
                   {slide.tagline}
                 </p>
-                <a
+
+                {/* <a
                   href={slide.href}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-8 inline-flex border border-white/70 px-6 py-3 text-sm uppercase tracking-[0.16em] transition hover:bg-white hover:text-black"
+                >
+                  Explore {slide.name}
+                </a> */}
+                <a
+                  href={slide.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-8 inline-flex border greenText px-6 py-3 text-sm uppercase tracking-[0.16em] transition hover:bg-white hover:text-black"
                 >
                   Explore {slide.name}
                 </a>
