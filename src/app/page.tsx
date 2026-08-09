@@ -14,6 +14,9 @@ import Footer from "@/components/Footer";
 import ContactCTA from "@/components/ContactCTA";
 import FullWidthVideo from "@/components/FullWidthVideo";
 import CompletedProjectsShowcase from "@/components/CompletedProjectsShowcase";
+import ExpressFacilities from "@/components/ExpressFacilities";
+import HighwayInnShowcase from "@/components/HighwayInnShowcase";
+import HighwayInnCardStack from "@/components/HighwayInnCardStack";
 
 export default function Home() {
   return (
@@ -31,6 +34,9 @@ export default function Home() {
       <CompletedProjectsShowcase />
       {/* <CompletedProjectsEditorial /> */}
       <FullWidthVideo />
+      <ExpressFacilities />
+      <HighwayInnShowcase />
+      <HighwayInnCardStack />
 
       {/* <ConcernsSection3 /> */}
       {/* <ConcernsSection /> */}
