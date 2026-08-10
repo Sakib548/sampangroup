@@ -100,7 +100,11 @@ export default function AboutPreview() {
           </p>
 
           <h2 className="about-title max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-            {aboutPreview.title}
+            <span className="greenTextDark">
+              {aboutPreview.title.slice(0, 15)}
+            </span>
+
+            <span className="redTextDark"> {aboutPreview.title.slice(15)}</span>
           </h2>
 
           <p className="about-description mt-6 max-w-2xl text-sm leading-8 text-neutral-600  ">
