@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Projects } from "@/data/projects";
 
 const completedProjects = Projects.filter(
@@ -15,15 +15,6 @@ export default function CompletedProjectsEditorial() {
     "next",
   );
   const activeProject = completedProjects[activeIndex];
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setTurnDirection("next");
-      setActiveIndex((current) => (current + 1) % completedProjects.length);
-    }, 6500);
-
-    return () => window.clearInterval(timer);
-  }, []);
 
   if (!activeProject) return null;
 
@@ -43,9 +34,9 @@ export default function CompletedProjectsEditorial() {
   });
 
   return (
-    <section className="overflow-hidden bg-[#E8EFE9]  py-24 text-[#123B2C] sm:py-32 lg:py-40">
-      <div className="mx-auto grid max-w-[1500px] items-center gap-16 px-6 lg:grid-cols-2 lg:gap-24 lg:px-12">
-        <div className="relative mx-auto h-[430px] w-full max-w-[560px] sm:h-[560px]">
+    <section className="overflow-hidden bg-[#E8EFE9] px-10 py-16 text-[#123B2C] sm:py-20 lg:px-20 lg:py-24">
+      <div className="mx-auto grid w-full max-w-[1200px] items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="relative mx-auto h-[360px] w-full max-w-[500px] sm:h-[460px]">
           {imageLayers.map(({ project, offset }) => {
             const isFront = offset === 0;
             const rotation = offset === -1 ? -8 : offset === 1 ? 7 : 0;
@@ -88,13 +79,13 @@ export default function CompletedProjectsEditorial() {
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-[#B83232]">
             Completed projects
           </p>
-          <h2 className="mt-6 text-5xl font-medium leading-[0.95] tracking-[-0.055em] sm:text-7xl">
+          <h2 className="mt-6 text-[clamp(2.5rem,4.3vw,4.75rem)] font-medium leading-[0.95] tracking-[-0.055em]">
             Places made to last.
           </h2>
           <h3 className="mt-8 text-2xl font-semibold tracking-tight text-[#B83232] sm:text-3xl">
             {activeProject.name}
           </h3>
-          <p className="mt-8 max-w-lg text-lg leading-8 text-[#123B2C]/70 sm:text-xl">
+          <p className="mt-7 max-w-lg text-base leading-7 text-[#123B2C]/70 sm:text-lg">
             {activeProject.description ||
               `${activeProject.name} is part of Sampan Group's growing portfolio of places, services, and experiences.`}
           </p>

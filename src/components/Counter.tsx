@@ -71,11 +71,11 @@ export default function Counter() {
   return (
     <section
       ref={section}
-      className="relative overflow-hidden bg-neutral-950 py-24 text-white lg:py-32"
+      className="relative overflow-hidden bg-neutral-950 py-16 text-white sm:py-20 lg:py-24"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_35%)]" />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
+      <div className="relative mx-auto w-full max-w-[1200px] px-2">
         <div className="flex items-center justify-center gap-4">
           <span className="h-px w-10 bg-emerald-400/70" />
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-emerald-300">
@@ -88,13 +88,13 @@ export default function Counter() {
           Growing with purpose.
         </h2>
 
-        <div className="mt-12 grid grid-cols-2 border-y border-white/10 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-2 border-y border-white/10 lg:grid-cols-4">
           {stats.map((stat) => (
             <div
               key={stat.id}
-              className="stat-card flex flex-col items-center justify-center border-b border-white/10 px-4 py-8 text-center odd:border-r sm:py-10 lg:border-b-0 lg:border-r lg:px-6 lg:py-12 lg:last:border-r-0"
+              className="stat-card flex flex-col items-center justify-center border-b border-white/10 px-4 py-7 text-center odd:border-r sm:py-8 lg:border-b-0 lg:border-r lg:px-6 lg:py-10 lg:last:border-r-0"
             >
-              <p className="tabular-nums text-4xl font-semibold tracking-tight text-white sm:text-5xl lg:text-6xl">
+              <p className="tabular-nums text-[clamp(2.25rem,4vw,4rem)] font-semibold tracking-tight text-white">
                 <span className="stat-value" data-value={stat.value}>
                   0
                 </span>

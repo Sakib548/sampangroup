@@ -19,7 +19,7 @@ export default function AboutUsEditorial() {
   const [isWideLayout, setIsWideLayout] = useState(false);
 
   const selectPanel = (index: number) => {
-    if (window.innerWidth < 1280) {
+    if (window.innerWidth < 1024) {
       setActivePanel(index);
       return;
     }
@@ -36,7 +36,7 @@ export default function AboutUsEditorial() {
   useLayoutEffect(() => {
     const media = gsap.matchMedia();
 
-    media.add("(min-width: 1280px)", () => {
+    media.add("(min-width: 1024px)", () => {
       const track = trackRef.current;
       const section = sectionRef.current;
       if (!track || !section) return;
@@ -71,7 +71,7 @@ export default function AboutUsEditorial() {
   }, []);
 
   useEffect(() => {
-    const desktopQuery = window.matchMedia("(min-width: 1280px)");
+    const desktopQuery = window.matchMedia("(min-width: 1024px)");
     const updateLayout = () => setIsWideLayout(desktopQuery.matches);
 
     updateLayout();
@@ -87,7 +87,7 @@ export default function AboutUsEditorial() {
   }, [isWideLayout]);
 
   useEffect(() => {
-    const mobileQuery = window.matchMedia("(max-width: 1279px)");
+    const mobileQuery = window.matchMedia("(max-width: 1023px)");
     let timer: number | undefined;
 
     const startAutoplay = () => {
@@ -121,23 +121,23 @@ export default function AboutUsEditorial() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#080808] text-white xl:h-[300vh]"
+      className="bg-[#080808] text-white lg:h-[300vh]"
     >
       <div
         ref={storyRef}
-        className="grid min-h-screen min-w-0 grid-cols-1 xl:sticky xl:top-0 xl:h-screen xl:grid-cols-2"
+        className="grid min-h-screen min-w-0 grid-cols-1 lg:sticky lg:top-0 lg:h-screen lg:grid-cols-2"
         style={{
           gridTemplateColumns: isWideLayout ? "repeat(2, minmax(0, 1fr))" : "1fr",
         }}
       >
-        <div className="flex min-h-screen min-w-0 flex-col justify-center border-white/20 bg-[#080808] px-6 py-12 xl:min-h-0 xl:border-r xl:px-12 xl:py-16">
-          <h2 className="text-xl font-medium uppercase tracking-[0.15em] text-red-400 sm:text-2xl xl:text-3xl">
+        <div className="flex min-h-screen min-w-0 flex-col justify-center border-white/20 bg-[#080808] px-6 py-10 sm:px-10 lg:min-h-0 lg:border-r lg:px-12 lg:py-12">
+          <h2 className="text-xl font-medium uppercase tracking-[0.15em] text-red-400 sm:text-2xl lg:text-3xl">
             About Us
           </h2>
-          <h3 className="mt-8 max-w-2xl text-4xl font-light leading-[1.08] tracking-[-0.04em] sm:text-5xl xl:mt-10 xl:text-6xl">
+          <h3 className="mt-7 max-w-2xl text-[clamp(2.5rem,3.8vw,4.25rem)] font-light leading-[1.04] tracking-[-0.04em]">
             Building a better future through purpose and progress.
           </h3>
-          <p className="mt-7 max-w-xl text-base leading-7 text-white/65 sm:text-lg">
+          <p className="mt-6 max-w-xl text-base leading-7 text-white/65 sm:text-lg">
             SAMPAN Group is a diversified enterprise creating sustainable value
             across real estate, hospitality, construction, agriculture,
             automotive, retail, and more.
@@ -160,17 +160,17 @@ export default function AboutUsEditorial() {
           </nav>
         </div>
 
-        <div className="min-h-screen min-w-0 overflow-visible px-6 py-12 sm:px-12 xl:h-screen xl:overflow-hidden xl:px-16 xl:py-16">
+        <div className="min-h-screen min-w-0 overflow-visible px-6 py-10 sm:px-10 lg:h-screen lg:overflow-hidden lg:px-14 lg:py-12">
           <div ref={trackRef} className="flex min-w-0 flex-col">
             <section
-              className={`min-h-screen shrink-0 xl:flex xl:flex-col ${
-                activePanel === 0 ? "flex flex-col" : "hidden xl:flex xl:flex-col"
+              className={`min-h-screen shrink-0 lg:flex lg:flex-col ${
+                activePanel === 0 ? "flex flex-col" : "hidden lg:flex lg:flex-col"
               }`}
             >
-              <h2 className="text-3xl font-medium uppercase tracking-[0.12em] text-red-400 sm:text-4xl xl:text-5xl">
+              <h2 className="text-[clamp(2rem,3.2vw,3.75rem)] font-medium uppercase tracking-[0.12em] text-red-400">
                 Who We Are
               </h2>
-              <div className="mt-16 grid gap-12 xl:grid-cols-2">
+              <div className="mt-12 grid gap-10 lg:grid-cols-2">
                 <Stat value="20+" label="Years of experience" />
                 <Stat value="16" label="Active concerns" />
                 <Stat value="1000+" label="People and partners" />
@@ -179,11 +179,11 @@ export default function AboutUsEditorial() {
             </section>
 
             <section
-              className={`min-h-screen shrink-0 xl:flex xl:flex-col ${
-                activePanel === 1 ? "flex flex-col" : "hidden xl:flex xl:flex-col"
+              className={`min-h-screen shrink-0 lg:flex lg:flex-col ${
+                activePanel === 1 ? "flex flex-col" : "hidden lg:flex lg:flex-col"
               }`}
             >
-              <h2 className="text-3xl font-medium uppercase tracking-[0.12em] text-red-400 sm:text-4xl xl:text-5xl">
+              <h2 className="text-[clamp(2rem,3.2vw,3.75rem)] font-medium uppercase tracking-[0.12em] text-red-400">
                 Our Values
               </h2>
               <div className="mt-12 overflow-hidden rounded-2xl border border-emerald-300/70 bg-[#211d1a]">
@@ -217,19 +217,19 @@ export default function AboutUsEditorial() {
             </section>
 
             <section
-              className={`min-h-screen shrink-0 xl:flex xl:flex-col ${
-                activePanel === 2 ? "flex flex-col" : "hidden xl:flex xl:flex-col"
+              className={`min-h-screen shrink-0 lg:flex lg:flex-col ${
+                activePanel === 2 ? "flex flex-col" : "hidden lg:flex lg:flex-col"
               }`}
             >
-              <h2 className="text-3xl font-medium uppercase tracking-[0.12em] text-red-400 sm:text-4xl xl:text-5xl">
+              <h2 className="text-[clamp(2rem,3.2vw,3.75rem)] font-medium uppercase tracking-[0.12em] text-red-400">
                 Founders
               </h2>
-              <h3 className="mt-10 text-5xl font-light leading-none text-emerald-300 sm:text-7xl xl:text-8xl">
+              <h3 className="mt-8 text-[clamp(3rem,5vw,5.5rem)] font-light leading-none text-emerald-300">
                 Meet our
                 <br />
                 founder
               </h3>
-              <div className="mt-10 grid gap-5 xl:grid-cols-2">
+              <div className="mt-10 grid gap-5 lg:grid-cols-2">
                 <div className="overflow-hidden bg-[#D6A400]">
                   <Image
                     src="/images/Boss-profile-1.png"
@@ -262,7 +262,7 @@ export default function AboutUsEditorial() {
 function Stat({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <p className="text-7xl font-light leading-none text-red-400 sm:text-8xl">
+      <p className="text-[clamp(3rem,5vw,5.5rem)] font-light leading-none text-red-400">
         {value}
       </p>
       <p className="mt-4 max-w-[150px] text-lg leading-7 text-emerald-300">

@@ -112,7 +112,7 @@ export default function Navbar2() {
         onMouseEnter={keepDesktopMenuOpen}
         onMouseLeave={scheduleDesktopMenuClose}
       >
-        <div className="flex h-20 items-center justify-between px-6 lg:px-10">
+        <div className="flex h-16 items-center justify-between px-6 lg:px-10">
           <Link
             href="/"
             onClick={closeMenus}
@@ -125,7 +125,7 @@ export default function Navbar2() {
               width={190}
               height={68}
               priority
-              className={`h-auto w-48 object-contain sm:w-56 ${isScrolled ? "" : "brightness-0 invert"}`}
+              className={`h-auto w-40 object-contain sm:w-44 ${isScrolled ? "" : "brightness-0 invert"}`}
             />
           </Link>
 

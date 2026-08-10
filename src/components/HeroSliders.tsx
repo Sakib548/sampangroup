@@ -272,9 +272,9 @@ export default function HeroSlider() {
 
             <div className="absolute inset-0 bg-black/45" />
 
-            <div className="relative z-10 flex min-h-screen items-end justify-center px-6 pb-24 text-center text-white lg:px-16">
+            <div className="relative z-10 flex min-h-screen items-end justify-center px-6 pb-20 text-center text-white sm:pb-24 lg:px-16 lg:pb-28">
               <div className="flex w-full max-w-3xl flex-col items-center text-center">
-                <h1 className="max-w-3xl text-4xl font-semibold lg:text-5xl slide-title">
+                <h1 className="max-w-3xl text-[clamp(2.5rem,4.4vw,4.5rem)] font-semibold leading-[1.02] slide-title">
                   {slide.title}
                 </h1>
 

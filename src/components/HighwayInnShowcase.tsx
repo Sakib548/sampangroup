@@ -50,7 +50,7 @@ export default function HighwayInnShowcase() {
   const [lead, topCard, bottomCard] = orderedFacilities;
 
   return (
-    <section className="bg-[#080808] px-6 py-20 text-white sm:px-8 lg:px-12 lg:py-28">
+    <section className="bg-[#080808] px-10 py-16 text-white sm:px-12 lg:px-20 lg:py-24">
       <div className="mx-auto max-w-[1700px]">
         <div className="mb-10 max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-red-400">
@@ -116,7 +116,7 @@ function ShowcaseCard({
     <article
       data-highway-card
       className={`group relative min-h-0 overflow-hidden bg-[#211d1a] ${
-        variant === "lead" ? "lg:row-span-2 lg:min-h-[620px]" : "min-h-[280px]"
+        variant === "lead" ? "lg:row-span-2 lg:min-h-[500px]" : "min-h-[240px]"
       }`}
     >
       <Image

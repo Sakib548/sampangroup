@@ -38,7 +38,6 @@ export default function Home() {
       {/* <ConcernsSection3 /> */}
       {/* <ConcernsSection /> */}
       <ContactCTA />
-      <Footer />
     </main>
   );
 }

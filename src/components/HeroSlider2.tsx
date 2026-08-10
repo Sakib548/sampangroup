@@ -129,12 +129,12 @@ export default function HeroSlider2() {
             />
             <div className="absolute inset-0 bg-black/45" />
 
-            <div className="hero2-copy relative z-10 flex min-h-screen items-end justify-start px-6 pb-28 text-left lg:px-16">
-              <div className="flex w-full max-w-3xl flex-col items-start text-left">
+            <div className="hero2-copy relative z-10 flex min-h-screen items-end justify-start px-6 pb-16 text-left sm:pb-20 lg:px-20 lg:pb-24">
+              <div className="flex w-full max-w-2xl flex-col items-start text-left">
                 {/* <p className="text-xs font-medium uppercase tracking-[0.25em] text-white/75">
                   {slide.category}
                 </p> */}
-                <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl Text">
+                <h1 className="mt-4 max-w-2xl text-[clamp(2rem,3.4vw,4rem)] font-semibold leading-[1] tracking-tight Text">
                   <span className="greenText">
                     {slide.name.slice(0, slide.name.indexOf(" "))}
                   </span>
@@ -142,7 +142,7 @@ export default function HeroSlider2() {
                     {slide.name.slice(slide.name.indexOf(" "))}
                   </span>
                 </h1>
-                <p className="mt-5 max-w-xl text-base leading-7 text-white/80 sm:text-lg">
+                <p className="mt-5 max-w-lg text-sm leading-6 text-white/80 sm:text-base">
                   {slide.tagline}
                 </p>
 
