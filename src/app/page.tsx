@@ -7,8 +7,6 @@ import ConcernsSection2 from "@/components/ConcernsSection2";
 import PartnersSection from "@/components/PartnersSection";
 import OngoingProjects from "@/components/OngoingProjects";
 import CompletedProjectsEditorial from "@/components/CompletedProjectsEditorial";
-import Navbar2 from "@/components/Navbar2";
-import Navbar from "@/components/Navbar";
 
 import Footer from "@/components/Footer";
 import ContactCTA from "@/components/ContactCTA";
@@ -21,7 +19,6 @@ import HighwayInnCardStack from "@/components/HighwayInnCardStack";
 export default function Home() {
   return (
     <main className="min-h-screen bg-neutral-950">
-      <Navbar2 />
       <HeroSlider2 />
       <AboutPreview />
       <AboutUsEditorial />

@@ -19,7 +19,8 @@ export default function HighwayInnCardStack() {
     if (!cards.length) return;
 
     gsap.set(cards, {
-      xPercent: (index) => (index === 0 ? 0 : index === 1 ? cardStep : -cardStep),
+      xPercent: (index) =>
+        index === 0 ? 0 : index === 1 ? cardStep : -cardStep,
       yPercent: (index) => (index === 0 ? -8 : index === 1 ? 4 : 9),
       autoAlpha: 1,
       scale: (index) => (index === 0 ? 1.05 : index === 1 ? 0.94 : 0.9),
@@ -68,10 +69,10 @@ export default function HighwayInnCardStack() {
 
   return (
     <section className="bg-[#080808] px-6 py-20 text-white sm:px-8 lg:px-12 lg:py-28">
-      <div className="mx-auto grid max-w-[1700px] gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center lg:gap-20">
+      <div className="mx-auto grid max-w-[1700px] gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-20">
         <div className="relative aspect-[0.82] overflow-hidden rounded-2xl bg-[#211d1a]">
           <Image
-            src={mainInnImage}
+            src="/images/featuredConcerns/highway-inn.png"
             alt="Express Highway Inn exterior"
             fill
             sizes="(min-width: 1024px) 40vw, 90vw"
@@ -82,7 +83,7 @@ export default function HighwayInnCardStack() {
               Sampan Hospitality
             </p>
             <h2 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
-              Express Highway Inn
+              Sampan Highway Inn
             </h2>
           </div>
         </div>
@@ -111,10 +112,16 @@ export default function HighwayInnCardStack() {
                   sizes="(min-width: 1024px) 45vw, 85vw"
                   className="object-cover"
                 />
-                <div className="absolute inset-x-0 bottom-0 bg-black/55 p-5 sm:p-7">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300">
+                <div
+                  className={`absolute inset-x-0 bottom-0 bg-black/55 p-5 transition-opacity duration-500 sm:p-7 ${
+                    activeIndex === index
+                      ? "opacity-100"
+                      : "pointer-events-none opacity-0"
+                  }`}
+                >
+                  {/* <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300">
                     0{index + 1}
-                  </p>
+                  </p> */}
                   <h4 className="mt-2 text-2xl font-semibold tracking-tight sm:text-4xl">
                     {facility.title}
                   </h4>
@@ -135,7 +142,9 @@ export default function HighwayInnCardStack() {
                 <span
                   key={facility.id}
                   className={`h-1.5 rounded-full transition-all ${
-                    activeIndex === index ? "w-12 bg-red-400" : "w-5 bg-white/20"
+                    activeIndex === index
+                      ? "w-12 bg-red-400"
+                      : "w-5 bg-white/20"
                   }`}
                 />
               ))}
