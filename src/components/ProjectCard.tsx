@@ -33,9 +33,9 @@ export default function ProjectCard({ project, index }: Props) {
       {/* Content */}
 
       <div className="max-w-xl">
-        <span className="inline-flex rounded-full border border-amber-500/40 bg-amber-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-amber-400">
+        {/* <span className="inline-flex rounded-full border border-amber-500/40 bg-amber-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-amber-400">
           Now Developing
-        </span>
+        </span> */}
 
         <h3 className="mt-6 text-4xl font-semibold leading-tight lg:text-5xl">
           {project.name}
