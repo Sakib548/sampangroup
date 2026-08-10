@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { navItems } from "@/data/navigation";
 import type { NavItem } from "@/types/NavItem";
@@ -37,6 +38,8 @@ function NavigationLink({
 }
 
 export default function Navbar2() {
+  const pathname = usePathname();
+  const isAboutPage = pathname === "/about";
   const closeTimerRef = useRef<number | null>(null);
   const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -96,7 +99,9 @@ export default function Navbar2() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-colors duration-500 ${
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-500 ${
+        !isAboutPage ? "backdrop-blur-xl" : ""
+      } ${
         isScrolled
           ? "border-black/10 bg-white/95 text-neutral-950"
           : "border-white/15 bg-black/25 text-white"
