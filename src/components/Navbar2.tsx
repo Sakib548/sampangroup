@@ -134,7 +134,7 @@ export default function Navbar2() {
             className="hidden items-center gap-1 md:flex"
           >
             {navItems
-              .filter((item) => item.href !== "/contact")
+              // .filter((item) => item.href !== "/contact")
               .map((item) =>
                 item.megaMenu ? (
                   <button

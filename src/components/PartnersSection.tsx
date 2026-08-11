@@ -19,7 +19,7 @@ export default function PartnersSection() {
           </p>
         </div>
 
-        <div className="mt-10 grid border-l border-t border-neutral-950/15 sm:grid-cols-2 lg:grid-cols-6">
+        <div className="mt-10 grid grid-cols-2 border-l border-t border-neutral-950/15 lg:grid-cols-6">
           {partners.map((partner) => (
             <article
               key={partner.name}

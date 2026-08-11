@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Projects } from "@/data/projects";
 
 const completedProjects = Projects.filter(
@@ -15,6 +15,15 @@ export default function CompletedProjectsEditorial() {
     "next",
   );
   const activeProject = completedProjects[activeIndex];
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setTurnDirection("next");
+      setActiveIndex((current) => (current + 1) % completedProjects.length);
+    }, 6500);
+
+    return () => window.clearInterval(timer);
+  }, []);
 
   if (!activeProject) return null;
 
@@ -73,6 +82,14 @@ export default function CompletedProjectsEditorial() {
               </div>
             );
           })}
+          <button
+            type="button"
+            onClick={() => move(1)}
+            aria-label="Next completed project"
+            className="absolute bottom-4 right-4 z-30 flex h-12 w-12 items-center justify-center rounded-full bg-[#123B2C] text-xl text-white shadow-lg sm:hidden"
+          >
+            â†’
+          </button>
         </div>
 
         <div className="max-w-xl">
@@ -109,7 +126,7 @@ export default function CompletedProjectsEditorial() {
               type="button"
               onClick={() => move(1)}
               aria-label="Next completed project"
-              className="flex h-14 w-14 items-center justify-center rounded-full border border-[#123B2C] text-2xl transition hover:bg-[#123B2C] hover:text-white"
+              className="hidden h-14 w-14 items-center justify-center rounded-full border border-[#123B2C] text-2xl transition hover:bg-[#123B2C] hover:text-white sm:flex"
             >
               →
             </button>
