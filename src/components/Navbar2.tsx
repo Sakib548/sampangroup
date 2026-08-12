@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { navItems } from "@/data/navigation";
 import type { NavItem } from "@/types/NavItem";
@@ -37,6 +38,8 @@ function NavigationLink({
 }
 
 export default function Navbar2() {
+  const pathname = usePathname();
+  const isAboutPage = pathname === "/about";
   const closeTimerRef = useRef<number | null>(null);
   const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -96,7 +99,9 @@ export default function Navbar2() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-colors duration-500 ${
+      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-500 ${
+        !isAboutPage ? "backdrop-blur-xl" : ""
+      } ${
         isScrolled
           ? "border-black/10 bg-white/95 text-neutral-950"
           : "border-white/15 bg-black/25 text-white"
@@ -107,7 +112,7 @@ export default function Navbar2() {
         onMouseEnter={keepDesktopMenuOpen}
         onMouseLeave={scheduleDesktopMenuClose}
       >
-        <div className="flex h-20 items-center justify-between px-6 lg:px-10">
+        <div className="flex h-16 items-center justify-between px-6 lg:px-10">
           <Link
             href="/"
             onClick={closeMenus}
@@ -120,7 +125,7 @@ export default function Navbar2() {
               width={190}
               height={68}
               priority
-              className={`h-auto w-48 object-contain sm:w-56 ${isScrolled ? "" : "brightness-0 invert"}`}
+              className={`h-auto w-40 object-contain sm:w-44 ${isScrolled ? "" : "brightness-0 invert"}`}
             />
           </Link>
 
@@ -129,7 +134,7 @@ export default function Navbar2() {
             className="hidden items-center gap-1 md:flex"
           >
             {navItems
-              .filter((item) => item.href !== "/contact")
+              // .filter((item) => item.href !== "/contact")
               .map((item) =>
                 item.megaMenu ? (
                   <button
