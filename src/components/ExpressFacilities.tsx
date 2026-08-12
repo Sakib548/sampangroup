@@ -57,8 +57,8 @@ export default function ExpressFacilities() {
   };
 
   return (
-    <section className="bg-[#080808] px-6 py-20 text-white sm:px-8 lg:px-12 lg:py-28">
-      <div className="mx-auto grid max-w-[1700px] gap-12 lg:grid-cols-[0.85fr_1.4fr] lg:items-center lg:gap-20">
+    <section className="bg-[#080808] px-10 py-16 text-white sm:px-12 lg:px-20 lg:py-24">
+      <div className="mx-auto grid w-full max-w-[1200px] gap-10 lg:grid-cols-[0.85fr_1.4fr] lg:items-center lg:gap-16">
         <div>
           <div className="relative aspect-[0.82] overflow-hidden bg-[#211d1a]">
             <Image

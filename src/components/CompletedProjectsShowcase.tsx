@@ -31,7 +31,7 @@ export default function CompletedProjectsShowcase() {
   };
 
   return (
-    <section className="relative isolate h-[760px] overflow-hidden bg-neutral-900 text-white lg:h-screen">
+    <section className="relative isolate h-[620px] overflow-hidden bg-neutral-900 text-white lg:h-[680px]">
       <Image
         key={`background-${activeProject.id}`}
         src={activeProject.logo}
@@ -44,7 +44,7 @@ export default function CompletedProjectsShowcase() {
       <div className="absolute inset-0 bg-[#071526]/55" />
       <div className="absolute inset-0 bg-gradient-to-r from-[#071526]/80 via-[#071526]/35 to-[#071526]/10" />
 
-      <div className="relative mx-auto h-full max-w-[1600px] px-8 sm:px-12 lg:px-16">
+      <div className="relative mx-auto h-full w-full max-w-[1200px] px-10 sm:px-12 lg:px-20">
         <div className="absolute left-8 top-10 z-10 max-w-xl sm:left-12 sm:top-10 lg:left-16 lg:top-10 lg:w-[38%] lg:max-w-none">
           {/* <p className="text-sm font-medium uppercase tracking-[0.08em] text-white/90 sm:text-base">
             Featured projects
@@ -53,11 +53,11 @@ export default function CompletedProjectsShowcase() {
             Completed Projects
           </p>
 
-          <h2 className="mt-8 max-w-[10ch] break-words text-5xl font-light uppercase leading-[0.95] tracking-[0.02em] sm:text-7xl lg:text-7xl xl:text-8xl">
+          <h2 className="mt-8 max-w-[10ch] break-words text-[clamp(2.5rem,4.3vw,5rem)] font-light uppercase leading-[0.95] tracking-[0.02em]">
             {activeProject.name}
           </h2>
 
-          <p className="mt-10 max-w-md text-xl font-light leading-relaxed text-white/90 sm:text-2xl">
+          <p className="mt-8 max-w-md text-base font-light leading-7 text-white/90 sm:text-lg">
             {activeProject.description || "A Sampan Group development."}
           </p>
 

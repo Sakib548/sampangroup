@@ -4,7 +4,7 @@ export default function ContactCTA() {
   return (
     <section
       id="contact-cta"
-      className="relative isolate overflow-hidden bg-emerald-800 px-6 py-24 text-white lg:px-10 lg:py-32"
+      className="relative isolate overflow-hidden bg-emerald-800 px-10 py-16 text-white sm:px-12 lg:px-20 lg:py-24"
     >
       <div
         aria-hidden="true"
@@ -19,13 +19,13 @@ export default function ContactCTA() {
         className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:64px_64px]"
       />
 
-      <div className="relative mx-auto flex max-w-7xl flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+      <div className="relative mx-auto flex w-full max-w-[1200px] flex-col gap-10 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
         <div className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-100">
             Let&apos;s build what comes next
           </p>
 
-          <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-7xl">
+          <h2 className="mt-5 text-[clamp(2.25rem,3.7vw,4rem)] font-semibold leading-tight tracking-tight">
             Have a vision for tomorrow?
           </h2>
 

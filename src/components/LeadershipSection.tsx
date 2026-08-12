@@ -66,13 +66,13 @@ export default function LeadershipSection() {
   }, []);
 
   return (
-    <section className="border-y border-white/10 bg-[#111] px-6 py-24 sm:px-10 lg:py-32">
-      <div className="mx-auto max-w-6xl">
+    <section className="border-y border-white/10 bg-[#111] px-8 py-16 sm:px-12 lg:px-20 lg:py-20">
+      <div className="mx-auto w-full max-w-[1200px]">
         <div className="max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-300">
             Leadership
           </p>
-          <h2 className="mt-4 text-4xl font-semibold tracking-tight sm:text-6xl">
+          <h2 className="mt-4 text-[clamp(2.25rem,3.7vw,3.75rem)] font-semibold tracking-tight">
             The people behind the progress.
           </h2>
           <p className="mt-5 text-base leading-7 text-white/65 sm:text-lg">

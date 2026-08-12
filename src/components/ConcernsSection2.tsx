@@ -13,14 +13,14 @@ function getInitials(name: string) {
 
 export default function ConcernsSection2() {
   return (
-    <section className="bg-stone-100 px-6 py-20 text-neutral-950 lg:px-10 lg:py-28">
-      <div className="mx-auto max-w-7xl">
+    <section className="bg-stone-100 px-10 py-16 text-neutral-950 lg:px-20 lg:py-20">
+      <div className="mx-auto w-full max-w-[1200px]">
         <div className="flex flex-col justify-between gap-6 border-b border-neutral-950/15 pb-8 sm:flex-row sm:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">
               Our businesses
             </p>
-            <h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl">
+            <h2 className="mt-4 max-w-3xl text-[clamp(2.25rem,3.7vw,3.75rem)] font-semibold leading-tight tracking-tight">
               One group, many ambitions.
             </h2>
           </div>
