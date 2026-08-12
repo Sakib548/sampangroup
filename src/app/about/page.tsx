@@ -10,7 +10,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="bg-[#080808] text-white">
+    <main className="bg-[#E8EFE9] text-[#253247]">
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-8 py-24 sm:px-12 lg:px-20">
         <Image
           src="/images/the_village.png"
@@ -22,12 +22,13 @@ export default function AboutPage() {
         />
         <div className="pointer-events-none absolute inset-0 bg-black/45" />
 
-        <div className="relative z-10 w-full max-w-[920px] border border-white/20 bg-black/55 p-8 text-center sm:p-12 lg:p-14">
+        <div className="relative z-10 w-full max-w-[920px] border border-white/25 bg-black/55 p-8 text-center sm:p-12 lg:p-14">
           <p className="text-lg font-semibold uppercase tracking-[0.28em] text-red-400 sm:text-xl lg:text-2xl">
             {aboutPreview.eyebrow}
           </p>
-          <h1 className="mt-5 text-[clamp(2.25rem,4.2vw,4.5rem)] font-semibold leading-tight tracking-tight">
-            {aboutPreview.title}
+          <h1 className="mt-5 text-[clamp(2.25rem,4.2vw,4.5rem)] font-semibold leading-tight tracking-tight drop-shadow-lg">
+            <span className="text-emerald-300">{aboutPreview.title.slice(0, 15)}</span>
+            <span className="text-red-300"> {aboutPreview.title.slice(15)}</span>
           </h1>
           <p className="mx-auto mt-7 max-w-3xl text-base leading-7 text-white/80 sm:text-lg sm:leading-8">
             {aboutPreview.description}
@@ -35,26 +36,26 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="border-y border-white/10 bg-[#111] px-8 py-16 sm:px-12 lg:px-20 lg:py-20">
+      <section className="border-y border-neutral-900/10 bg-[#E8EFE9] px-8 py-16 sm:px-12 lg:px-20 lg:py-20">
         <div className="mx-auto grid w-full max-w-[1200px] gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-red-400">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-red-600">
               Our story
             </p>
             <h2 className="mt-5 text-[clamp(2.25rem,3.7vw,3.75rem)] font-semibold leading-tight tracking-tight">
               Built with vision. Growing with purpose.
             </h2>
             <div className="mt-10 border-l-2 border-emerald-300 pl-5">
-              <p className="text-5xl font-semibold text-emerald-300">2007</p>
-              <p className="mt-2 text-sm uppercase tracking-[0.18em] text-white/55">
+              <p className="text-5xl font-semibold text-emerald-800">2007</p>
+              <p className="mt-2 text-sm uppercase tracking-[0.18em] text-slate-500">
                 Founded in Bangladesh
               </p>
             </div>
           </div>
 
-          <div className="space-y-5 text-base leading-7 text-white/70 sm:text-lg">
+          <div className="space-y-5 text-base leading-7 text-slate-600 sm:text-lg">
             <p>
-              <strong className="font-semibold text-white">SAMPAN Group</strong>{" "}
+              <strong className="font-semibold text-[#253247]">SAMPAN Group</strong>{" "}
               began in 2007 with a clear ambition: to create sustainable value
               through businesses that improve everyday life. From that starting
               point, the Group has grown into a diversified conglomerate with a
@@ -80,13 +81,13 @@ export default function AboutPage() {
       </section>
 
       <section className="mx-auto w-full max-w-[1200px] px-8 py-16 sm:px-12 lg:px-20 lg:py-20">
-        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-300">
+        <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">
           The Sampan vision
         </p>
         <h2 className="mt-4 max-w-3xl text-[clamp(2rem,3.2vw,3.25rem)] font-semibold tracking-tight">
           The village will be the city.
         </h2>
-        <p className="mt-6 max-w-3xl text-base leading-8 text-white/65 sm:text-lg">
+        <p className="mt-6 max-w-3xl text-base leading-8 text-slate-600 sm:text-lg">
           We build businesses, destinations, and opportunities that connect
           people with a more sustainable and prosperous future.
         </p>

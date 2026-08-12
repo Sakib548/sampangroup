@@ -7,6 +7,9 @@ import { useEffect, useRef, useState } from "react";
 import { navItems } from "@/data/navigation";
 import type { NavItem } from "@/types/NavItem";
 
+// Add routes here when their first section uses a light background.
+// const lightNavbarRoutes = ["/contact", "/concerns"];
+const lightNavbarRoutes = ["/concerns"];
 function NavigationLink({
   item,
   className,
@@ -39,7 +42,10 @@ function NavigationLink({
 
 export default function Navbar2() {
   const pathname = usePathname();
-  const isAboutPage = pathname === "/about";
+  const isAboutPage = pathname === "/about ";
+  const isLightPage = lightNavbarRoutes.some(
+    (route) => pathname === route || pathname.startsWith(`${route}/`),
+  );
   const closeTimerRef = useRef<number | null>(null);
   const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -102,7 +108,7 @@ export default function Navbar2() {
       className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-500 ${
         !isAboutPage ? "backdrop-blur-xl" : ""
       } ${
-        isScrolled
+        isScrolled || isLightPage
           ? "border-black/10 bg-white/95 text-neutral-950"
           : "border-white/15 bg-black/25 text-white"
       }`}
@@ -125,7 +131,7 @@ export default function Navbar2() {
               width={190}
               height={68}
               priority
-              className={`h-auto w-40 object-contain sm:w-44 ${isScrolled ? "" : "brightness-0 invert"}`}
+              className={`h-auto w-40 object-contain sm:w-44 ${isScrolled || isLightPage ? "" : "brightness-0 invert"}`}
             />
           </Link>
 
@@ -135,8 +141,11 @@ export default function Navbar2() {
           >
             {navItems
               // .filter((item) => item.href !== "/contact")
-              .map((item) =>
-                item.megaMenu ? (
+              .map((item) => {
+                const isActive =
+                  pathname == item.href ||
+                  (pathname.startsWith(item.href) && item.href !== "/");
+                return item.megaMenu ? (
                   <button
                     key={item.id}
                     type="button"
@@ -148,7 +157,7 @@ export default function Navbar2() {
                     }}
                     onFocus={() => setDesktopMenuOpen(true)}
                     onClick={() => setDesktopMenuOpen((open) => !open)}
-                    className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${isScrolled ? "text-neutral-600 hover:text-neutral-950" : "text-white/75 hover:text-white"}`}
+                    className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${isScrolled || isLightPage ? "text-neutral-600 hover:text-neutral-950" : "text-white/75 hover:text-white"}`}
                   >
                     {item.label}
                     <span
@@ -164,16 +173,22 @@ export default function Navbar2() {
                   <NavigationLink
                     key={item.id}
                     item={item}
-                    className={`px-4 py-3 text-sm font-medium transition-colors ${isScrolled ? "text-neutral-600 hover:text-neutral-950" : "text-white/75 hover:text-white"}`}
+                    className={`relative px-4 py-3 text-sm font-medium transition-colors duration-300 after:absolute after:bottom-1 after:left-4 after:h-px after:bg-current after:transition-all after:duration-300 ${
+                      isActive
+                        ? "text-emerald-500 after:w-[calc(100%-2rem)]"
+                        : isScrolled || isLightPage
+                          ? "text-neutral-600 hover:text-emerald-700 after:w-0 hover:after:w-[calc(100%-2rem)]"
+                          : "text-white/80 hover:text-emerald-300 after:w-0 hover:after:w-[calc(100%-2rem)]"
+                    }`}
                   />
-                ),
-              )}
+                );
+              })}
           </nav>
 
           <div className="hidden md:block">
             <Link
               href="/contact"
-              className={`inline-flex items-center gap-3 border px-5 py-3 text-xs font-semibold uppercase tracking-[0.14em] transition-colors ${isScrolled ? "border-neutral-300 text-neutral-950 hover:border-neutral-950 hover:bg-neutral-950 hover:text-white" : "border-white/35 text-white hover:border-white hover:bg-white hover:text-neutral-950"}`}
+              className={`inline-flex items-center gap-3 border px-5 py-3 text-xs font-semibold uppercase tracking-[0.14em] transition-colors ${isScrolled || isLightPage ? "border-neutral-300 text-neutral-950 hover:border-neutral-950 hover:bg-neutral-950 hover:text-white" : "border-white/35 text-white hover:border-white hover:bg-white hover:text-neutral-950"}`}
             >
               {/* Let&apos;s talk */}
               Explore More
@@ -186,7 +201,7 @@ export default function Navbar2() {
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
             onClick={() => setMobileMenuOpen((open) => !open)}
-            className={`flex h-10 w-10 flex-col items-center justify-center gap-1.5 border md:hidden ${isScrolled ? "border-neutral-300 text-neutral-950" : "border-white/30 text-white"}`}
+            className={`flex h-10 w-10 flex-col items-center justify-center gap-1.5 border md:hidden ${isScrolled || isLightPage ? "border-neutral-300 text-neutral-950" : "border-white/30 text-white"}`}
           >
             <span
               className={`h-px w-4 bg-current transition-transform ${

@@ -169,7 +169,7 @@ export default function Footer() {
               {selectedConcerns.slice(0, 3).map((concern) => (
                 <Link
                   key={concern.id}
-                  href={`/concerns#${concern.id}`}
+                  href={concern.href ?? `/concerns#${concern.id}`}
                   className="block text-sm text-white/55 transition hover:text-white"
                 >
                   {concern.name}
@@ -184,7 +184,7 @@ export default function Footer() {
               {selectedConcerns.slice(3).map((concern) => (
                 <Link
                   key={concern.id}
-                  href={`/concerns#${concern.id}`}
+                  href={concern.href ?? `/concerns#${concern.id}`}
                   className="block text-sm text-white/55 transition hover:text-white"
                 >
                   {concern.name}
