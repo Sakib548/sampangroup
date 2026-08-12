@@ -68,7 +68,7 @@ export default function HighwayInnCardStack() {
   }, []);
 
   return (
-    <section className="bg-[#080808] px-6 py-20 text-white sm:px-8 lg:px-12 lg:py-28">
+    <section className="bg-[#080808] px-10 py-16 text-white sm:px-12 lg:px-20 lg:py-24">
       <div className="mx-auto grid max-w-[1700px] gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start lg:gap-20">
         <div className="relative aspect-[0.82] overflow-hidden rounded-2xl bg-[#211d1a]">
           <Image

@@ -91,15 +91,15 @@ export default function AboutPreview() {
   return (
     <section
       ref={section}
-      className="bg-[#E8EFE9] px-6 py-24 text-neutral-950 lg:px-10 lg:py-32"
+      className="bg-[#E8EFE9] px-10 py-14 text-neutral-950 sm:py-16 lg:px-20 lg:py-20"
     >
-      <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-24">
+      <div className="mx-auto grid w-full max-w-[1200px] gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
         <div className="box">
           <p className="about-eyebrow mb-5 text-sm font-medium uppercase tracking-[0.25em] text-emerald-800">
             {aboutPreview.eyebrow}
           </p>
 
-          <h2 className="about-title max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+          <h2 className="about-title max-w-2xl text-[clamp(2.1rem,3.7vw,3.5rem)] font-semibold leading-[1.05] tracking-tight">
             <span className="greenTextDark">
               {aboutPreview.title.slice(0, 15)}
             </span>
@@ -107,7 +107,7 @@ export default function AboutPreview() {
             <span className="redTextDark"> {aboutPreview.title.slice(15)}</span>
           </h2>
 
-          <p className="about-description mt-6 max-w-2xl text-sm leading-8 text-neutral-600  ">
+          <p className="about-description mt-6 max-w-xl text-sm leading-7 text-neutral-600">
             {aboutPreview.description}
           </p>
           <div className="about-button">
