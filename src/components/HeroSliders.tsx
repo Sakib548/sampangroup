@@ -136,6 +136,7 @@ export default function HeroSlider() {
       y: 24,
     });
 
+
     // timeline
     //   .set(incomingSlide, {
     //     autoAlpha: 0,
@@ -202,7 +203,12 @@ export default function HeroSlider() {
     if (isPaused) return;
 
     const timer = window.setInterval(() => {
-      nextSlide();
+      if (isAnimating.current) return;
+
+      isAnimating.current = true;
+      setActiveIndex((current) =>
+        current === featuredConcerns.length - 1 ? 0 : current + 1,
+      );
     }, 6000);
 
     return () => {
@@ -261,14 +267,14 @@ export default function HeroSlider() {
             <img
               src={slide.image}
               alt={slide.name}
-              className="absolute inset-0 h-full w-full object-cover"
+              className="slide-image absolute inset-0 h-full w-full object-cover"
             />
 
             <div className="absolute inset-0 bg-black/45" />
 
-            <div className="relative z-10 flex min-h-screen items-end px-6 pb-24 text-white lg:px-16">
-              <div>
-                <h1 className="max-w-3xl text-4xl font-semibold lg:text-5xl slide-title">
+            <div className="relative z-10 flex min-h-screen items-end justify-center px-6 pb-20 text-center text-white sm:pb-24 lg:px-16 lg:pb-28">
+              <div className="flex w-full max-w-3xl flex-col items-center text-center">
+                <h1 className="max-w-3xl text-[clamp(2.5rem,4.4vw,4.5rem)] font-semibold leading-[1.02] slide-title">
                   {slide.title}
                 </h1>
 
@@ -286,7 +292,7 @@ export default function HeroSlider() {
                 </a>
               </div>
             </div>
-            <div className="absolute bottom-8 right-8 z-30 flex items-center gap-4">
+            {/* <div className="absolute bottom-8 right-8 z-30 flex items-center gap-4">
               <button
                 type="button"
                 onClick={previousSlide}
@@ -312,7 +318,7 @@ export default function HeroSlider() {
               >
                 →
               </button>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>

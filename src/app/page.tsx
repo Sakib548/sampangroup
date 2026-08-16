@@ -1,25 +1,41 @@
+import HeroSlider2 from "@/components/HeroSlider2";
 import HeroSlider from "@/components/HeroSliders";
-import Navbar from "@/components/Navbar";
+import AboutPreview from "@/components/AboutPreview";
+import AboutUsEditorial from "@/components/AboutUsEditorial";
+import Counter from "@/components/Counter";
+import ConcernsSection2 from "@/components/ConcernsSection2";
+import PartnersSection from "@/components/PartnersSection";
+import OngoingProjects from "@/components/OngoingProjects";
+import CompletedProjectsEditorial from "@/components/CompletedProjectsEditorial";
+import ContactCTA from "@/components/ContactCTA";
+import FullWidthVideo from "@/components/FullWidthVideo";
+import CompletedProjectsShowcase from "@/components/CompletedProjectsShowcase";
+import ExpressFacilities from "@/components/ExpressFacilities";
+import HighwayInnShowcase from "@/components/HighwayInnShowcase";
+import HighwayInnCardStack from "@/components/HighwayInnCardStack";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-neutral-950">
-      <Navbar />
-      <HeroSlider />
-      <section
-        className="relative flex min-h-screen items-center bg-cover bg-center px-6 pt-20 text-white"
-        style={{
-          backgroundImage: "url('/images/hero.png')",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/40" />
+      <HeroSlider2 />
+      <AboutPreview />
+      <AboutUsEditorial />
+      <Counter />
+      <ConcernsSection2 />
+      <PartnersSection />
 
-        <div className="relative z-10">
-          <h1 className="text-5xl font-semibold">
-            The Village Will Be the City
-          </h1>
-        </div>
-      </section>
+      <OngoingProjects />
+      <CompletedProjectsEditorial />
+      <CompletedProjectsShowcase />
+      {/* <CompletedProjectsEditorial /> */}
+      <FullWidthVideo />
+      <ExpressFacilities />
+      <HighwayInnShowcase />
+      <HighwayInnCardStack />
+
+      {/* <ConcernsSection3 /> */}
+      {/* <ConcernsSection /> */}
+      <ContactCTA />
     </main>
   );
 }
