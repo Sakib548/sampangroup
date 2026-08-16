@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { navItems } from "@/data/navigation";
 import type { NavItem } from "@/types/NavItem";
+import MegaMenu from "@/components/MegaMenu";
 
 // Add routes here when their first section uses a light background.
 // const lightNavbarRoutes = ["/contact", "/concerns"];
@@ -48,6 +49,7 @@ export default function Navbar2() {
   );
   const closeTimerRef = useRef<number | null>(null);
   const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
+  const [openMegaId, setOpenMegaId] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileConcernsOpen, setMobileConcernsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -63,6 +65,7 @@ export default function Navbar2() {
       closeTimerRef.current = null;
     }
     setDesktopMenuOpen(false);
+    setOpenMegaId(null);
     setMobileMenuOpen(false);
     setMobileConcernsOpen(false);
   }
@@ -149,21 +152,28 @@ export default function Navbar2() {
                   <button
                     key={item.id}
                     type="button"
-                    aria-expanded={desktopMenuOpen}
+                    aria-expanded={desktopMenuOpen && openMegaId === item.id}
                     aria-controls="navbar2-concerns"
                     onMouseEnter={() => {
                       keepDesktopMenuOpen();
                       setDesktopMenuOpen(true);
+                      setOpenMegaId(item.id);
                     }}
-                    onFocus={() => setDesktopMenuOpen(true)}
-                    onClick={() => setDesktopMenuOpen((open) => !open)}
+                    onFocus={() => {
+                      setDesktopMenuOpen(true);
+                      setOpenMegaId(item.id);
+                    }}
+                    onClick={() => {
+                      setDesktopMenuOpen((open) => !open);
+                      setOpenMegaId((current) => (current === item.id ? null : item.id));
+                    }}
                     className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors ${isScrolled || isLightPage ? "text-neutral-600 hover:text-neutral-950" : "text-white/75 hover:text-white"}`}
                   >
                     {item.label}
                     <span
                       aria-hidden="true"
                       className={`text-xs transition-transform duration-300 ${
-                        desktopMenuOpen ? "rotate-180" : ""
+                        desktopMenuOpen && openMegaId === item.id ? "rotate-180" : ""
                       }`}
                     >
                       ↓
@@ -216,16 +226,23 @@ export default function Navbar2() {
           </button>
         </div>
 
-        {concernItem?.megaMenu && desktopMenuOpen && (
+        {desktopMenuOpen && openMegaId && (
+          <MegaMenu
+            item={navItems.find((item) => item.id === openMegaId) ?? navItems[0]}
+            onClose={closeMenus}
+          />
+        )}
+
+        {false && concernItem?.megaMenu && desktopMenuOpen && (
           <div
             id="navbar2-concerns"
             onMouseEnter={keepDesktopMenuOpen}
-            className="absolute inset-x-0 top-full hidden overflow-hidden border-x border-b border-white/15 bg-neutral-950/95 text-white shadow-[0_30px_70px_rgba(0,0,0,0.35)] backdrop-blur-2xl md:block"
+            className="absolute inset-x-0 top-full hidden max-h-[calc(100vh-4rem)] overflow-y-auto border-x border-b border-slate-200 bg-[#f7f8f5] text-[#253247] shadow-[0_30px_70px_rgba(15,35,28,0.18)] md:block"
           >
-            <div className="grid grid-cols-4 gap-x-8 gap-y-9 p-8 lg:p-10">
-              {concernItem.megaMenu.map((column) => (
+            <div className="grid grid-cols-5 gap-x-7 gap-y-9 p-8 lg:p-10">
+              {(navItems.find((item) => item.id === openMegaId)?.megaMenu ?? []).map((column) => (
                 <div key={column.id}>
-                  <p className="mb-4 text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400">
+                  <p className="mb-4 text-xs font-bold uppercase leading-5 tracking-[0.12em] text-emerald-700">
                     {column.title}
                   </p>
                   <div className="space-y-1">
@@ -234,21 +251,21 @@ export default function Navbar2() {
                         key={item.id}
                         item={item}
                         onClick={closeMenus}
-                        className="block border-b border-transparent py-1.5 text-sm leading-5 text-white/60 transition-colors hover:border-white/20 hover:text-white"
+                        className="block border-b border-transparent py-2 text-[15px] leading-5 text-slate-700 transition-colors hover:border-emerald-700/30 hover:text-emerald-800"
                       />
                     ))}
                   </div>
                 </div>
               ))}
             </div>
-            <div className="flex items-center justify-between border-t border-white/10 bg-white/[0.03] px-8 py-5 lg:px-10">
-              <p className="text-sm text-white/45">
+            <div className="flex items-center justify-between border-t border-slate-200 bg-white/60 px-8 py-5 lg:px-10">
+              <p className="text-sm text-slate-500">
                 Explore the businesses behind Sampan Group.
               </p>
               <Link
                 href="/concerns"
                 onClick={closeMenus}
-                className="text-sm font-semibold text-emerald-400 transition hover:text-emerald-300"
+                className="text-sm font-semibold text-emerald-800 transition hover:text-red-600"
               >
                 View all concerns →
               </Link>
@@ -260,7 +277,7 @@ export default function Navbar2() {
           <nav
             data-lenis-prevent
             aria-label="Mobile navigation"
-            className="absolute inset-x-0 top-full max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-x border-b border-white/15 bg-neutral-950/95 p-6 text-white shadow-[0_24px_70px_rgba(0,0,0,0.35)] backdrop-blur-2xl md:hidden"
+            className="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-x border-b border-slate-200 bg-[#f7f8f5] p-6 text-[#253247] shadow-[0_24px_70px_rgba(15,35,28,0.18)] md:hidden"
           >
             <div className="flex flex-col">
               {standardItems.map((item, index) => (
@@ -280,7 +297,7 @@ export default function Navbar2() {
                     type="button"
                     aria-expanded={mobileConcernsOpen}
                     onClick={() => setMobileConcernsOpen((open) => !open)}
-                    className="flex w-full items-center justify-between py-4 text-2xl font-medium"
+                    className="flex w-full items-center justify-between py-4 text-2xl font-medium text-[#253247]"
                   >
                     {concernItem.label}
                     <span
@@ -294,10 +311,10 @@ export default function Navbar2() {
                   </button>
 
                   {mobileConcernsOpen && (
-                    <div className="space-y-6 border-t border-white/10 bg-white/[0.03] px-4 py-6">
+                    <div className="space-y-6 border-t border-slate-200 bg-white/60 px-4 py-6">
                       {concernItem.megaMenu.map((column) => (
                         <div key={column.id}>
-                          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-400">
+                          <p className="mb-2 text-xs font-bold uppercase tracking-[0.12em] text-emerald-700">
                             {column.title}
                           </p>
                           <div>
@@ -306,7 +323,7 @@ export default function Navbar2() {
                                 key={item.id}
                                 item={item}
                                 onClick={closeMenus}
-                                className="block py-1.5 text-sm text-white/60 transition hover:text-white"
+                                className="block py-2 text-base text-slate-700 transition hover:text-emerald-800"
                               />
                             ))}
                           </div>
@@ -321,7 +338,7 @@ export default function Navbar2() {
             <Link
               href="/contact"
               onClick={closeMenus}
-              className="mt-6 flex items-center justify-between border border-white/30 px-6 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-white"
+              className="mt-6 flex items-center justify-between border border-emerald-800/40 px-6 py-4 text-sm font-semibold uppercase tracking-[0.14em] text-emerald-900"
             >
               Let&apos;s talk
               <span aria-hidden="true">↗</span>
