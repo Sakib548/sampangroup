@@ -36,6 +36,7 @@ const locationContacts = [
     address: "Dhaka–Chattogram Highway, Bangladesh",
     phone: "+880 1700 000 001",
     email: "expressinn@example.com",
+    mapQuery: "Express Highway Inn Bangladesh",
   },
   {
     name: "Sampan Highway Inn",
@@ -43,6 +44,25 @@ const locationContacts = [
     address: "Sampan Highway Inn Road, Bangladesh",
     phone: "+880 1700 000 002",
     email: "highwayinn@example.com",
+    mapQuery: "Sampan Highway Inn Bangladesh",
+  },
+];
+
+const mapLocations = [
+  {
+    name: "Express Highway Inn",
+    query: "23.6968347,90.5335419",
+    url: "https://www.google.com/maps/place/Express+Highway+Inn/@23.6968347,90.5335419",
+  },
+  {
+    name: "Sampan Mart",
+    query: "23.2605109,89.7660614",
+    url: "https://www.google.com/maps/place/Sampan+mart/@23.2605109,89.7660614",
+  },
+  {
+    name: "Sampan Highway Inn Restaurant & Party Centre",
+    query: "23.2604651,89.7659791",
+    url: "https://www.google.com/maps/place/Sampan+Highway+Inn+Restaurant+%26+Party+Centre/@23.2604651,89.7659791",
   },
 ];
 
@@ -161,6 +181,53 @@ export default function ContactPage() {
                 </div>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-white/10 bg-neutral-950 px-8 py-16 text-white sm:px-12 lg:px-20 lg:py-24">
+        <div className="mx-auto w-full max-w-[1200px]">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300">
+            Find us
+          </p>
+          <h2 className="mt-4 text-[clamp(2rem,3.5vw,3.5rem)] font-semibold tracking-tight">
+            Our locations on the map.
+          </h2>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-white/60">
+            Select a Sampan location to view its area in Google Maps. These map
+            searches are temporary and can be replaced with exact pins later.
+          </p>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1.5fr_0.5fr]">
+            <div className="min-h-[420px] overflow-hidden border border-slate-200 bg-slate-200">
+              <iframe
+                title="Sampan Group locations map"
+                src="https://www.google.com/maps/d/embed?mid=1R2pIMXvDY53ZxxMXJEHImPXbEB9C1-Q"
+                loading="lazy"
+                className="h-full min-h-[420px] w-full border-0"
+              />
+            </div>
+            <div className="divide-y divide-white/10 border border-white/15 bg-[#151b19]">
+              {mapLocations.map((location, index) => (
+                <a
+                  key={location.name}
+                  href={location.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block p-6 transition hover:bg-white/10"
+                >
+                  <span className="text-xs font-semibold tracking-[0.2em] text-red-400">
+                    0{index + 1}
+                  </span>
+                  <h3 className="mt-2 font-semibold leading-6 text-white">
+                    {location.name}
+                  </h3>
+                  <span className="mt-3 inline-block text-xs font-semibold uppercase tracking-[0.12em] text-emerald-300">
+                    Open in Google Maps ↗
+                  </span>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>
