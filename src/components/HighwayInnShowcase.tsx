@@ -130,8 +130,8 @@ function ShowcaseCard({
         }
         className="object-cover transition duration-700 ease-out group-hover:scale-105"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/45 to-black/10" />
+      <div className="absolute inset-x-0 bottom-0 bg-black/35 p-6 backdrop-blur-[2px] sm:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-emerald-300">
           {facility.id}
         </p>
@@ -144,7 +144,7 @@ function ShowcaseCard({
         >
           {facility.title}
         </h3>
-        <p className="mt-3 max-w-2xl text-sm leading-6 text-white/70">
+        <p className="mt-3 max-w-2xl text-sm leading-6 text-white/85">
           {facility.description}
         </p>
       </div>
