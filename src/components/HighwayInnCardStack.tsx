@@ -78,7 +78,7 @@ export default function HighwayInnCardStack() {
             sizes="(min-width: 1024px) 40vw, 90vw"
             className="object-cover"
           />
-          <div className="absolute inset-x-0 bottom-0 bg-black/45 p-6 sm:p-8">
+          <div className="absolute inset-x-0 bottom-0 bg-black/70 p-6 backdrop-blur-[2px] sm:p-8">
             <p className="text-xs font-semibold uppercase tracking-[0.25em] text-red-400">
               Sampan Hospitality
             </p>
@@ -113,7 +113,7 @@ export default function HighwayInnCardStack() {
                   className="object-cover"
                 />
                 <div
-                  className={`absolute inset-x-0 bottom-0 bg-black/55 p-5 transition-opacity duration-500 sm:p-7 ${
+                    className={`absolute inset-x-0 bottom-0 bg-black/75 p-5 backdrop-blur-[2px] transition-opacity duration-500 sm:p-7 ${
                     activeIndex === index
                       ? "opacity-100"
                       : "pointer-events-none opacity-0"
@@ -125,7 +125,7 @@ export default function HighwayInnCardStack() {
                   <h4 className="mt-2 text-2xl font-semibold tracking-tight sm:text-4xl">
                     {facility.title}
                   </h4>
-                  <p className="mt-3 line-clamp-3 text-sm leading-6 text-white/70">
+                  <p className="mt-3 line-clamp-3 text-sm leading-6 text-white/85">
                     {facility.description}
                   </p>
                 </div>
