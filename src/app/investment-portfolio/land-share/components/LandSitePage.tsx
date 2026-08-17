@@ -486,7 +486,7 @@ export default function SampanDevelopmentsPage() {
         <div className="absolute inset-0">
           <div className="hero-bg-img absolute inset-0 scale-110">
             <Image
-              src="/images/projects/land-site-hero.png"
+              src="/images.jpg"
               alt="Innovative real estate by Sampan Developments"
               fill
               priority
@@ -544,7 +544,7 @@ export default function SampanDevelopmentsPage() {
           <div className="relative">
             <div className="cinematic-img-wrap relative aspect-[4/5] w-full overflow-hidden ">
               <Image
-                src="/images/land/urban.jfif"
+                src="/images.jpg"
                 alt="Modern urban infrastructure"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
@@ -629,7 +629,7 @@ export default function SampanDevelopmentsPage() {
           </div>
           <div className="cinematic-img-wrap relative aspect-[4/5] w-full overflow-hidden ">
             <Image
-              src="/images/land/urban.jfif"
+              src="/images.jpg"
               alt="Thoughtful architectural design"
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
@@ -878,7 +878,7 @@ export default function SampanDevelopmentsPage() {
           </div>
           <div className="cinematic-img-wrap relative aspect-video w-full overflow-hidden  border border-neutral-200 bg-neutral-900">
             <Image
-              src="/images/land/urban.jfif"
+              src="/images.jpg"
               alt="Video walkthrough thumbnail"
               fill
               sizes="100vw"
@@ -943,7 +943,7 @@ export default function SampanDevelopmentsPage() {
           <div className="relative z-10 -mb-40 lg:-mb-32">
             <div className="cinematic-img-wrap relative aspect-[4/3] w-full overflow-hidden  shadow-2xl">
               <Image
-                src="/images/land/urban.jfif"
+                src="/images.jpg"
                 alt="Global NRB investment"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
@@ -984,7 +984,7 @@ export default function SampanDevelopmentsPage() {
       >
         <div className="bg-parallax absolute inset-0 opacity-20 scale-110">
           <Image
-            src="/images/land/urban.jfif"
+            src="/images.jpg"
             alt=""
             fill
             sizes="100vw"
@@ -1011,7 +1011,7 @@ export default function SampanDevelopmentsPage() {
             <div className="cinematic-img-wrap w-full overflow-hidden  border border-white/10">
               <div className="relative aspect-[4/3] w-full">
                 <Image
-                  src="/images/land/urban.jfif"
+                  src="/images.jpg"
                   alt="Sampan Agro & Golf Resort"
                   fill
                   className="cinematic-img object-cover"
@@ -1038,7 +1038,7 @@ export default function SampanDevelopmentsPage() {
           <div className="grid gap-8 lg:grid-cols-3">
             <div className="cinematic-img-wrap lg:col-span-2 relative aspect-[16/9] overflow-hidden  border border-neutral-200 bg-neutral-50">
               <Image
-                src="/images/land/urban.jfif"
+                src="/images.jpg"
                 alt="Map of investment locations"
                 fill
                 className="cinematic-img object-cover"

@@ -423,7 +423,7 @@ export default function ClubAndMembershipPage() {
         <div className="absolute inset-0">
           <div className="hero-bg-img absolute inset-0 scale-110">
             <Image
-              src="/images/land/urban.jfif"
+                src="/images.jpg"
               alt="Sampan Club & Membership"
               fill
               priority
@@ -479,7 +479,7 @@ export default function ClubAndMembershipPage() {
           <div className="relative">
             <div className="cinematic-img-wrap relative aspect-[4/5] w-full overflow-hidden">
               <Image
-                src="/images/land/urban.jfif"
+                  src="/images.jpg"
                 alt="Modern club infrastructure"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
@@ -576,7 +576,7 @@ export default function ClubAndMembershipPage() {
           </div>
           <div className="cinematic-img-wrap relative aspect-[4/5] w-full overflow-hidden">
             <Image
-              src="/images/land/urban.jfif"
+                src="/images.jpg"
               alt="Express Highway Inn"
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
@@ -966,7 +966,7 @@ export default function ClubAndMembershipPage() {
             </p>
             <div className="cinematic-img-wrap relative mt-10 aspect-[16/10] w-full overflow-hidden border border-neutral-200">
               <Image
-                src="/images/land/urban.jfif"
+                  src="/images.jpg"
                 alt="Transparency"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"

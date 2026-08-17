@@ -394,7 +394,7 @@ export default function ShipSharePage() {
         <div className="absolute inset-0">
           <div className="hero-bg-img absolute inset-0 scale-110">
             <Image
-              src="/images/projects/ship-share-hero.png"
+              src="/images.jpg"
               alt="Maritime shipping and commercial vessels"
               fill
               priority
@@ -454,7 +454,7 @@ export default function ShipSharePage() {
               style={angleTR}
             >
               <Image
-                src="/images/projects/ship-overview.png"
+                src="/images.jpg"
                 alt="Commercial cargo ship at port"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
