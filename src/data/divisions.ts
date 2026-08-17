@@ -2,6 +2,8 @@ const divisionLinks: Record<string, string> = {
   "Sampan Highway Inn": "/our_divisions/hospitality-highway-travel/sampan-highway-inn",
   "Sampan Highway Motel & White Hall": "/our_divisions/hospitality-highway-travel/sampan-highway-motel-white-house",
   "Sampan Agro & Golf Resort": "/our_divisions/hospitality-highway-travel/sampan-agro-golf-resort",
+  "Sampan Eco & Agro": "/our_divisions/hospitality-highway-travel/sampan-eco-agro",
+  "Sampan Eco & Agro Resort": "/our_divisions/hospitality-highway-travel/sampan-eco-agro",
 };
 
 export const divisionGroups = [

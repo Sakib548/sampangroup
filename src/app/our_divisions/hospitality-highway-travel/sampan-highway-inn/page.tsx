@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { highwayInnFacilities } from "@/data/highwayInnFacility";
+import { HighwayInnModern } from "@/components/HospitalityDistinctPages";
 
 const heroImage = "/images/projects/sampan-highway-inn.png";
 const galleryImages = [
@@ -14,7 +15,7 @@ export const metadata = {
     "A comfortable stopover for rooms, dining, celebrations, and official outings on the Dhaka–Khulna Highway.",
 };
 
-export default function SampanHighwayInnPage() {
+function LegacySampanHighwayInnPage() {
   return (
     <main className="bg-[#080808] text-white">
       <section className="relative flex min-h-[78vh] items-end overflow-hidden px-8 pb-16 pt-32 sm:px-12 lg:px-20 lg:pb-24">
@@ -150,3 +151,5 @@ export default function SampanHighwayInnPage() {
     </main>
   );
 }
+
+export default HighwayInnModern;

@@ -100,7 +100,9 @@ export default function HeroSlider2() {
         0.65,
       );
 
-    return () => timeline.kill();
+    return () => {
+      timeline.kill();
+    };
   }, [activeIndex]);
 
   return (

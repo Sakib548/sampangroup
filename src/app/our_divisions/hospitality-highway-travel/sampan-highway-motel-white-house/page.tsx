@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { HighwayMotelModern } from "@/components/HospitalityDistinctPages";
 
 const heroImage = "/images/projects/Sampan-White-House-&-Motel.png";
 
@@ -39,7 +40,7 @@ export const metadata = {
   description: "Comfortable and convenient lodging along key travel routes.",
 };
 
-export default function SampanHighwayMotelPage() {
+function LegacySampanHighwayMotelPage() {
   return (
     <main className="bg-[#f7f8f5] text-[#253247]">
       <section className="relative flex min-h-screen items-end overflow-hidden px-8 pb-16 pt-32 text-white sm:px-12 lg:px-20 lg:pb-24">
@@ -105,3 +106,5 @@ export default function SampanHighwayMotelPage() {
     </main>
   );
 }
+
+export default HighwayMotelModern;

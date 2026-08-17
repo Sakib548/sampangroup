@@ -7,8 +7,6 @@ import ConcernsSection2 from "@/components/ConcernsSection2";
 import PartnersSection from "@/components/PartnersSection";
 import OngoingProjects from "@/components/OngoingProjects";
 import CompletedProjectsEditorial from "@/components/CompletedProjectsEditorial";
-
-import Footer from "@/components/Footer";
 import ContactCTA from "@/components/ContactCTA";
 import FullWidthVideo from "@/components/FullWidthVideo";
 import CompletedProjectsShowcase from "@/components/CompletedProjectsShowcase";
