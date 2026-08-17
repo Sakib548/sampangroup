@@ -37,7 +37,7 @@ export default function Home() {
 
       {/* <ConcernsSection3 /> */}
       {/* <ConcernsSection /> */}
-      {/* <ContactCTA /> */}
+      <ContactCTA />
     </main>
   );
 }

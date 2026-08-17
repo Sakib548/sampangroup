@@ -1,12 +1,7 @@
 "use client";
 
 import { FormEvent } from "react";
-import {
-  FaClock,
-  FaEnvelope,
-  FaLocationArrow,
-  FaPhone,
-} from "react-icons/fa6";
+import { FaClock, FaEnvelope, FaLocationArrow, FaPhone } from "react-icons/fa6";
 
 const contactItems = [
   {
@@ -23,7 +18,8 @@ const contactItems = [
   },
   {
     title: "Visit us",
-    value: "Sampan 21st Century, House-284, Block-B Road-1/A, Bashundhara, Dhaka-1229, Bangladesh.",
+    value:
+      "Sampan 21st Century, House-284, Block-B Road-1/A, Bashundhara, Dhaka-1229, Bangladesh.",
     icon: FaLocationArrow,
   },
   {
@@ -40,6 +36,7 @@ const locationContacts = [
     address: "Dhaka–Chattogram Highway, Bangladesh",
     phone: "+880 1700 000 001",
     email: "expressinn@example.com",
+    mapQuery: "Express Highway Inn Bangladesh",
   },
   {
     name: "Sampan Highway Inn",
@@ -47,6 +44,25 @@ const locationContacts = [
     address: "Sampan Highway Inn Road, Bangladesh",
     phone: "+880 1700 000 002",
     email: "highwayinn@example.com",
+    mapQuery: "Sampan Highway Inn Bangladesh",
+  },
+];
+
+const mapLocations = [
+  {
+    name: "Express Highway Inn",
+    query: "23.6968347,90.5335419",
+    url: "https://www.google.com/maps/place/Express+Highway+Inn/@23.6968347,90.5335419",
+  },
+  {
+    name: "Sampan Mart",
+    query: "23.2605109,89.7660614",
+    url: "https://www.google.com/maps/place/Sampan+mart/@23.2605109,89.7660614",
+  },
+  {
+    name: "Sampan Highway Inn Restaurant & Party Centre",
+    query: "23.2604651,89.7659791",
+    url: "https://www.google.com/maps/place/Sampan+Highway+Inn+Restaurant+%26+Party+Centre/@23.2604651,89.7659791",
   },
 ];
 
@@ -57,26 +73,31 @@ export default function ContactPage() {
 
   return (
     <main className="bg-[#f7f8f5] text-[#253247]">
-      <section className="px-8 pb-16 pt-32 sm:px-12 lg:px-20 lg:pb-24 lg:pt-40">
-        <div className="mx-auto w-full max-w-[1200px] text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
+      <section className="relative overflow-hidden px-8 pb-16 pt-32 text-white sm:px-12 lg:px-20 lg:pb-24 lg:pt-40">
+        <img
+          src="/images/sampan-4.png"
+          alt="Sampan Group office"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[#071b16]/75" />
+        <div className="relative z-10 mx-auto w-full max-w-[1200px] text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300">
             Sampan Group
           </p>
           <h1 className="mt-5 text-[clamp(2.75rem,5vw,5rem)] font-semibold leading-none tracking-tight">
             Contact us
           </h1>
-          <p className="mx-auto mt-8 max-w-4xl text-base leading-7 text-slate-500 sm:text-lg">
+          <p className="mx-auto mt-8 max-w-4xl text-base leading-7 text-white/80 sm:text-lg">
             At <strong className="text-[#253247]">SAMPAN Group</strong>, we
             value every opportunity to connect, collaborate, and grow together.
             Whether you have a question, a business inquiry, or seek to partner
             with us, our team is ready to assist you.
           </p>
-          <p className="mx-auto mt-4 max-w-4xl text-base leading-7 text-slate-500 sm:text-lg">
+          <p className="mx-auto mt-4 max-w-4xl text-base leading-7 text-white/75 sm:text-lg">
             Feel free to reach out through the following channels. We look
             forward to hearing from you.
           </p>
         </div>
-
         <div className="mx-auto mt-16 grid w-full max-w-[1200px] border-y border-slate-200 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4">
           {contactItems.map((item) => {
             const Icon = item.icon;
@@ -164,6 +185,53 @@ export default function ContactPage() {
         </div>
       </section>
 
+      <section className="border-t border-white/10 bg-neutral-950 px-8 py-16 text-white sm:px-12 lg:px-20 lg:py-24">
+        <div className="mx-auto w-full max-w-[1200px]">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300">
+            Find us
+          </p>
+          <h2 className="mt-4 text-[clamp(2rem,3.5vw,3.5rem)] font-semibold tracking-tight">
+            Our locations on the map.
+          </h2>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-white/60">
+            Select a Sampan location to view its area in Google Maps. These map
+            searches are temporary and can be replaced with exact pins later.
+          </p>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1.5fr_0.5fr]">
+            <div className="min-h-[420px] overflow-hidden border border-slate-200 bg-slate-200">
+              <iframe
+                title="Sampan Group locations map"
+                src="https://www.google.com/maps/d/embed?mid=1R2pIMXvDY53ZxxMXJEHImPXbEB9C1-Q"
+                loading="lazy"
+                className="h-full min-h-[420px] w-full border-0"
+              />
+            </div>
+            <div className="divide-y divide-white/10 border border-white/15 bg-[#151b19]">
+              {mapLocations.map((location, index) => (
+                <a
+                  key={location.name}
+                  href={location.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="block p-6 transition hover:bg-white/10"
+                >
+                  <span className="text-xs font-semibold tracking-[0.2em] text-red-400">
+                    0{index + 1}
+                  </span>
+                  <h3 className="mt-2 font-semibold leading-6 text-white">
+                    {location.name}
+                  </h3>
+                  <span className="mt-3 inline-block text-xs font-semibold uppercase tracking-[0.12em] text-emerald-300">
+                    Open in Google Maps ↗
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="border-t border-slate-200 bg-white px-8 py-16 sm:px-12 lg:px-20 lg:py-24">
         <div className="mx-auto w-full max-w-[1200px]">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-red-400">
@@ -173,8 +241,8 @@ export default function ContactPage() {
             Tell us how we can help.
           </h2>
           <p className="mt-4 max-w-3xl text-base leading-7 text-slate-500">
-            Contact us about anything related to our company or services. We&apos;ll
-            do our best to get back to you as soon as possible.
+            Contact us about anything related to our company or services.
+            We&apos;ll do our best to get back to you as soon as possible.
           </p>
 
           <form onSubmit={handleSubmit} className="mt-10 space-y-6">
@@ -185,7 +253,10 @@ export default function ContactPage() {
               <Field label="Company" name="company" />
               <Field label="Subject" name="subject" required />
             </div>
-            <label className="block text-sm font-medium text-slate-600" htmlFor="question">
+            <label
+              className="block text-sm font-medium text-slate-600"
+              htmlFor="question"
+            >
               Question <span className="text-red-500">*</span>
               <textarea
                 id="question"

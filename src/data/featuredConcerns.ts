@@ -7,7 +7,8 @@ export const featuredConcerns: FeaturedConcerns[] = [
     title:
       "Building better places, businesses, and communities for generations to come",
     tagline: "",
-    image: "/images/featuredConcerns/sampan-group.png",
+    // image: "/images/featuredConcerns/sampan-group.png",
+    image: "/images/sampan-3.png",
     href: "https://www.sampangroup.com.bd/",
     accentColor: "#d6a85f",
     textPosition: "left",

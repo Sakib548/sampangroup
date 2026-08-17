@@ -1,5 +1,6 @@
 import { NavItem } from "@/types/NavItem";
 import { concerns } from "@/data/concerns";
+import { divisionGroups } from "@/data/divisions";
 
 const concernCategories = [
   "Hospitality & Leisure",
@@ -28,11 +29,17 @@ export const navItems: NavItem[] = [
   { id: "1", label: "About", href: "/about" },
   {
     id: "2",
+    label: "Our Divisions",
+    href: "/our_divisions",
+    megaMenu: divisionGroups,
+  },
+  {
+    id: "3",
     label: "Concerns",
     href: "/concerns",
     megaMenu: concernMegaMenu,
   },
-  { id: "3", label: "Projects", href: "/projects" },
+  { id: "4", label: "Projects", href: "/projects" },
 
-  { id: "4", label: "Contact", href: "/contact" },
+  { id: "5", label: "Contact", href: "/contact" },
 ];
