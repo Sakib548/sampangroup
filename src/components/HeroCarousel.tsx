@@ -4,10 +4,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { getNextSlideIndex, shouldAutoplay } from "../data/carousel-logic";
+import {
+  getAnimationPreview,
+  getCarouselLayers,
+  getNextSlideIndex,
+  resolveTransitionMode,
+  type TransitionMode,
+} from "../data/carousel-logic";
 import styles from "../app/HeroCarousel.module.css";
 
 const AUTO_ADVANCE_MS = 6500;
+
+const transitionOptions: Array<{
+  value: TransitionMode;
+  label: string;
+}> = [
+  { value: "crossfade", label: "Original" },
+  { value: "parallax", label: "Parallax" },
+  { value: "mask", label: "Masked reveal" },
+  { value: "split", label: "Split panels" },
+  { value: "blur", label: "Blur to sharp" },
+  { value: "pan", label: "Slow pan" },
+];
 
 type HeroSlide = {
   id: string;
@@ -42,7 +60,7 @@ const slides: HeroSlide[] = [
       "A land-share residential project built for people who want to invest in a home, not just a plot.",
     cta: "Explore Metro Square",
     href: "/sampan-metro-square",
-    image: "/images/hero/sampan-metro-square.jpg",
+    image: "/images/projects/sampan-metro-square.png",
     imagePosition: "center center",
     drift: "driftLeft",
   },
@@ -72,66 +90,81 @@ const slides: HeroSlide[] = [
   },
 ];
 
-export default function HeroCarousel() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [manuallyPaused, setManuallyPaused] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
-  const [touching, setTouching] = useState(false);
+type HeroCarouselProps = {
+  defaultTransition?: TransitionMode;
+  showAnimationPicker?: boolean;
+};
 
-  const autoplaying = shouldAutoplay({
-    manuallyPaused,
-    hovered: false,
-    focused,
-    touching,
-  });
+const transitionClassNames: Record<TransitionMode, string> = {
+  crossfade: styles.modeCrossfade,
+  parallax: styles.modeParallax,
+  mask: styles.modeMask,
+  split: styles.modeSplit,
+  blur: styles.modeBlur,
+  pan: styles.modePan,
+};
+
+export default function HeroCarousel({
+  defaultTransition = "crossfade",
+  showAnimationPicker = true,
+}: HeroCarouselProps) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [previousIndex, setPreviousIndex] = useState(0);
+  const [transitionMode, setTransitionMode] = useState<TransitionMode>(() =>
+    resolveTransitionMode(defaultTransition),
+  );
+  const [transitionRun, setTransitionRun] = useState(0);
 
   useEffect(() => {
-    if (!autoplaying) return;
-
     const timer = window.setTimeout(() => {
-      setActiveIndex((current) => getNextSlideIndex(current, slides.length));
+      setPreviousIndex(activeIndex);
+      setActiveIndex(getNextSlideIndex(activeIndex, slides.length));
+      setTransitionRun((run) => run + 1);
     }, AUTO_ADVANCE_MS);
 
     return () => window.clearTimeout(timer);
-  }, [activeIndex, autoplaying]);
+  }, [activeIndex]);
 
   const activeSlide = slides[activeIndex];
+  const layers = getCarouselLayers(activeIndex, previousIndex, transitionMode);
+  const panelSlide =
+    layers.panelIndex === null ? null : slides[layers.panelIndex];
+  const transitionClassName = transitionClassNames[transitionMode];
+
+  function showSlide(index: number) {
+    if (index === activeIndex) return;
+
+    setPreviousIndex(activeIndex);
+    setActiveIndex(index);
+    setTransitionRun((run) => run + 1);
+  }
+
+  function previewAnimation(mode: TransitionMode) {
+    const preview = getAnimationPreview(activeIndex, slides.length, mode);
+
+    setPreviousIndex(activeIndex);
+    setTransitionMode(preview.transitionMode);
+    setActiveIndex(preview.activeIndex);
+    setTransitionRun((run) => run + 1);
+  }
 
   return (
     <section
-      className={styles.hero}
+      className={`${styles.hero} ${
+        showAnimationPicker ? styles.heroWithPicker : ""
+      }`}
       role="region"
       aria-roledescription="carousel"
       aria-label="Sampan Group featured destinations and projects"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onTouchStart={() => setTouching(true)}
-      onTouchEnd={() => setTouching(false)}
-      onTouchCancel={() => setTouching(false)}
-      onFocusCapture={(event) => {
-        const target = event.target as HTMLElement;
-
-        if (target.dataset.autoplayControl !== "true") {
-          setFocused(true);
-        }
-      }}
-      onBlurCapture={(event) => {
-        const nextTarget = event.relatedTarget as Node | null;
-
-        if (!event.currentTarget.contains(nextTarget)) {
-          setFocused(false);
-        }
-      }}
     >
       <div className={styles.slides} aria-hidden="true">
         {slides.map((slide, index) => {
-          const isActive = index === activeIndex;
+          const isActive = index === layers.baseIndex;
 
           return (
             <div
               key={slide.id}
-              className={`${styles.slide} ${styles[slide.drift]} ${
+              className={`${styles.slide} ${styles[slide.drift]} ${transitionClassName} ${
                 isActive ? styles.slideActive : ""
               }`}
             >
@@ -149,26 +182,83 @@ export default function HeroCarousel() {
         })}
       </div>
 
+      {panelSlide && (
+        <div
+          key={`split-${activeSlide.id}-${transitionRun}`}
+          className={styles.splitStage}
+          aria-hidden="true"
+        >
+          {[0, 1, 2].map((panel) => (
+            <div key={panel} className={styles.splitPanel}>
+              <div
+                className={styles.splitMedia}
+                style={{
+                  backgroundImage: `url(${panelSlide.image})`,
+                  backgroundPosition: panelSlide.imagePosition,
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
       <div className={styles.overlay} aria-hidden="true" />
 
       <div className={styles.shell}>
         <p className={styles.motto}>The village will be the city.</p>
 
+        {showAnimationPicker && (
+          <div className={styles.animationLab}>
+            <p className={styles.animationLabLabel}>Animation Lab</p>
+            <div
+              className={styles.animationOptions}
+              aria-label="Choose a carousel animation"
+            >
+              {transitionOptions.map((option) => {
+                const selected = option.value === transitionMode;
+
+                return (
+                  <button
+                    key={option.value}
+                    type="button"
+                    className={`${styles.animationOption} ${
+                      selected ? styles.animationOptionActive : ""
+                    }`}
+                    aria-pressed={selected}
+                    onClick={() => previewAnimation(option.value)}
+                  >
+                    {option.label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
         <div
           key={activeSlide.id}
           className={styles.content}
-          aria-live={autoplaying ? "off" : "polite"}
+          aria-live="off"
           aria-atomic="true"
         >
-          <p className={styles.eyebrow}>{activeSlide.eyebrow}</p>
+          <div className={styles.eyebrowRow}>
+            <span className={styles.slideNumber}>
+              {String(activeIndex + 1).padStart(2, "0")}
+            </span>
+            <span className={styles.eyebrowLine} aria-hidden="true" />
+            <p className={styles.eyebrow}>{activeSlide.eyebrow}</p>
+          </div>
 
           <h1 className={styles.title}>{activeSlide.title}</h1>
 
           <p className={styles.subhead}>{activeSlide.subhead}</p>
 
-          <Link href={activeSlide.href} className={styles.cta}>
+          <Link
+            href={activeSlide.href}
+            className="site-btn site-btn--green   mt-3"
+          >
             <span>{activeSlide.cta}</span>
-            <span className={styles.ctaArrow} aria-hidden="true">
+            <span className="site-btn__arrow" aria-hidden="true">
               →
             </span>
           </Link>
@@ -186,7 +276,7 @@ export default function HeroCarousel() {
                   className={styles.dotButton}
                   aria-label={`Show ${slide.title}`}
                   aria-current={isActive ? "true" : undefined}
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => showSlide(index)}
                 >
                   {isActive ? (
                     <span className={styles.progressTrack}>
@@ -195,9 +285,6 @@ export default function HeroCarousel() {
                         className={styles.progressFill}
                         style={{
                           animationDuration: `${AUTO_ADVANCE_MS}ms`,
-                          animationPlayState: autoplaying
-                            ? "running"
-                            : "paused",
                         }}
                       />
                     </span>
@@ -209,16 +296,11 @@ export default function HeroCarousel() {
             })}
           </div>
 
-          {/* <button
-            type="button"
-            className={styles.autoplayButton}
-            data-autoplay-control="true"
-            aria-label={manuallyPaused ? "Resume carousel" : "Pause carousel"}
-            aria-pressed={manuallyPaused}
-            onClick={() => setManuallyPaused((paused) => !paused)}
-          >
-            <span aria-hidden="true">{manuallyPaused ? "Play" : "Pause"}</span>
-          </button> */}
+          <p className={styles.slidePosition} aria-hidden="true">
+            <span>{String(activeIndex + 1).padStart(2, "0")}</span>
+            <span className={styles.slidePositionDivider} />
+            <span>{String(slides.length).padStart(2, "0")}</span>
+          </p>
         </div>
       </div>
     </section>

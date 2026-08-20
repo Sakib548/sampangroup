@@ -46,7 +46,7 @@
   --color-foreground: var(--foreground);
   /* Updated to use the fonts loaded via <link> in layout.tsx */
   --font-sans: "Manrope", sans-serif;
-  --font-mono: "Roboto", monospace; 
+  --font-mono: "Roboto", monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -130,4 +130,147 @@ h6 {
 }
 .redTextDark {
   color: oklch(50% 0.14 25);
+}
+
+/* button style */
+
+/* Base button */
+.site-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  min-height: 3.25rem;
+  padding: 0.7rem 1.15rem;
+
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  border: 1px solid transparent;
+  border-radius: 2px;
+  cursor: pointer;
+
+  transition:
+    color 250ms ease,
+    background-color 250ms ease,
+    border-color 250ms ease,
+    box-shadow 250ms ease,
+    transform 250ms ease;
+}
+
+.site-btn:hover {
+  transform: translateY(-2px);
+}
+
+.site-btn__arrow {
+  display: inline-block;
+  font-size: 1.05rem;
+  line-height: 1;
+  transition: transform 250ms ease;
+}
+
+.site-btn:hover .site-btn__arrow {
+  transform: translateX(4px);
+}
+
+/* 1. Recommended: green glass with red arrow */
+.site-btn--glass-brand {
+  background: rgba(0, 161, 116, 0.22);
+  border-color: rgba(65, 220, 168, 0.48);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 12px 32px rgba(0, 0, 0, 0.12);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.site-btn--glass-brand .site-btn__arrow {
+  color: #ef636b;
+}
+
+.site-btn--glass-brand:hover {
+  background: rgba(0, 161, 116, 0.36);
+  border-color: rgba(65, 220, 168, 0.72);
+}
+
+/* 2. Neutral dark glass */
+.site-btn--glass-dark {
+  background: rgba(8, 21, 16, 0.38);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.site-btn--glass-dark:hover {
+  background: rgba(8, 21, 16, 0.58);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* 3. Red glass */
+.site-btn--glass-red {
+  background: rgba(239, 99, 107, 0.2);
+  border-color: rgba(255, 135, 143, 0.5);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.site-btn--glass-red:hover {
+  background: rgba(239, 99, 107, 0.36);
+  border-color: rgba(255, 135, 143, 0.75);
+}
+
+/* 4. Solid green */
+.site-btn--solid-green {
+  background: #00a174;
+  border-color: #00a174;
+}
+
+.site-btn--solid-green:hover {
+  background: #008f68;
+  border-color: #008f68;
+}
+
+.site-btn--green {
+  background: rgba(22, 129, 91, 0.88);
+  border: 1px solid rgba(168, 223, 115, 0.65);
+  color: white;
+  backdrop-filter: blur(10px);
+  transition: all 300ms ease;
+}
+
+.site-btn--green:hover {
+  background: #a8df73;
+  border-color: #a8df73;
+  color: #183b2b;
+}
+
+/* 5. Transparent outline */
+.site-btn--outline {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.42);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.site-btn--outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Optional: even smaller button */
+.site-btn--compact {
+  min-height: 2.9rem;
+  padding: 0.6rem 0.95rem;
+  font-size: 0.67rem;
 }
