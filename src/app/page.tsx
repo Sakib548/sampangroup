@@ -13,11 +13,13 @@ import CompletedProjectsShowcase from "@/components/CompletedProjectsShowcase";
 import ExpressFacilities from "@/components/ExpressFacilities";
 import HighwayInnShowcase from "@/components/HighwayInnShowcase";
 import HighwayInnCardStack from "@/components/HighwayInnCardStack";
+import HeroCarousel from "@/components/HeroCarousel";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-neutral-950">
-      <HeroSlider2 />
+      {/* <HeroSlider2 /> */}
+      <HeroCarousel />
       <AboutPreview />
       <AboutUsEditorial />
       <Counter />
