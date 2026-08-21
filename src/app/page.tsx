@@ -13,6 +13,7 @@ import CompletedProjectsShowcase from "@/components/CompletedProjectsShowcase";
 import ExpressFacilities from "@/components/ExpressFacilities";
 import HighwayInnShowcase from "@/components/HighwayInnShowcase";
 import HighwayInnCardStack from "@/components/HighwayInnCardStack";
+import ConcernsSection3 from "@/components/ConcernSection3";
 
 export default function Home() {
   return (
@@ -33,7 +34,7 @@ export default function Home() {
       <HighwayInnShowcase />
       <HighwayInnCardStack />
 
-      {/* <ConcernsSection3 /> */}
+      <ConcernsSection3 />
       {/* <ConcernsSection /> */}
       {/* <ContactCTA />*/}
     </main>
