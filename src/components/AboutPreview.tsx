@@ -1,150 +1,126 @@
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { aboutPreview } from "@/data/aboutPreview";
-import gsap from "gsap";
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(useGSAP);
+const snapshots = [
+  {
+    title: "Sampan Group",
+    type: "The parent group",
+    logo: "/images/Sampan-Group.png",
+    copy: "From one highway stop to a group spanning real estate, hospitality, education, agriculture, manufacturing, and mobility.",
+    href: "/about",
+  },
+  {
+    title: "Sampan Development Ltd",
+    type: "Real estate & land",
+    logo: "/images/logos/6-sampan-dev-ltd.png",
+    copy: "Sampan’s REHAB-member real estate arm, delivering land-share, residential, commercial, and outright-sale projects.",
+    href: "/our_divisions/real-estate-land-investment/sampan-development-ltd",
+  },
+  {
+    title: "London School of Higher Studies",
+    type: "Professional education",
+    logo: "/images/logos/5-lshs.png",
+    copy: "CIPS and CMI qualifications taught in Bangladesh through UK-affiliated professional education and recognized internationally.",
+    href: "/concerns#professional-education",
+  },
+] as const;
 
 export default function AboutPreview() {
-  const section = useRef<HTMLElement>(null);
-
-  useGSAP(
-    () => {
-      const select = gsap.utils.selector(section);
-      const timeline = gsap.timeline({ paused: true });
-
-      timeline
-        .from(select(".about-eyebrow"), {
-          y: 20,
-          autoAlpha: 0,
-          duration: 0.7,
-          ease: "power3.out",
-        })
-        .from(
-          select(".about-title"),
-          {
-            y: 35,
-            autoAlpha: 0,
-            duration: 0.9,
-            ease: "power3.out",
-          },
-          "-=0.45",
-        )
-        .from(
-          select(".about-description"),
-          {
-            y: 25,
-            autoAlpha: 0,
-            duration: 0.8,
-            ease: "power3.out",
-          },
-          "-=0.55",
-        )
-        .from(
-          select(".about-button"),
-          {
-            y: 20,
-            autoAlpha: 0,
-            duration: 0.7,
-            ease: "power3.out",
-          },
-          "-=0.45",
-        )
-        .from(
-          select(".about-visual"),
-          {
-            x: 35,
-            autoAlpha: 0,
-            duration: 1,
-            ease: "power3.out",
-          },
-          "-=0.8",
-        );
-
-      const sectionElement = section.current;
-      if (!sectionElement) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            timeline.restart();
-          }
-        },
-        {
-          threshold: 0.2,
-          rootMargin: "0px 0px -10% 0px",
-        },
-      );
-
-      observer.observe(sectionElement);
-
-      return () => {
-        observer.disconnect();
-      };
-    },
-    { scope: section },
-  );
-
   return (
-    <section
-      ref={section}
-      className="bg-[#E8EFE9] px-10 py-14 text-neutral-950 sm:py-16 lg:px-20 lg:py-20"
-    >
-      <div className="mx-auto grid w-full max-w-[1200px] gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
-        <div className="box">
-          <p className="about-eyebrow mb-5 text-sm font-medium uppercase tracking-[0.25em] text-emerald-800">
-            {aboutPreview.eyebrow}
-          </p>
+    <section className="relative overflow-hidden bg-[#f3f6f2] px-5 py-20 text-[#183b2b] sm:px-10 lg:px-16 lg:py-28">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_5%,rgba(0,161,116,0.09),transparent_28%),radial-gradient(circle_at_90%_95%,rgba(239,99,107,0.07),transparent_24%)]"
+      />
 
-          <h2 className="about-title max-w-2xl text-[clamp(2.1rem,3.7vw,3.5rem)] font-semibold leading-[1.05] tracking-tight">
-            <span className="greenTextDark">
-              {aboutPreview.title.slice(0, 15)}
-            </span>
-
-            <span className="redTextDark"> {aboutPreview.title.slice(15)}</span>
-          </h2>
-
-          <p className="about-description mt-6 max-w-xl text-sm leading-7 text-neutral-600">
-            {aboutPreview.description}
-          </p>
-          <div className="about-button">
-            <Link
-              href={aboutPreview.href}
-              className="group relative mt-8 inline-flex items-center gap-4 overflow-hidden border border-neutral-900 px-7 py-4 text-sm font-medium uppercase tracking-[0.18em] text-neutral-900 transition-colors duration-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 focus-visible:ring-offset-4"
-            >
-              <span className="absolute inset-0 -translate-x-full bg-neutral-900 transition-transform duration-500 ease-out group-hover:translate-x-0" />
-
-              <span className="relative z-10">Learn More</span>
-
-              <span className="relative z-10 flex h-7 w-7 items-center justify-center rounded-full border border-current text-base transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
-            </Link>
-          </div>
-        </div>
-
-        <div className="about-visual relative min-h-80 overflow-hidden bg-neutral-950 p-8 text-white sm:p-12">
-          <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full border border-emerald-300/30" />
-          <div className="absolute -bottom-24 -left-16 h-64 w-64 rounded-full border border-amber-200/20" />
-
-          <div className="relative flex h-full min-h-64 flex-col justify-between">
-            <span className="text-sm uppercase tracking-[0.25em] text-emerald-300">
-              Sampan Group
-            </span>
-
-            <p className="max-w-sm text-3xl font-light leading-tight sm:text-4xl">
-              The village will be the city.
-            </p>
-
-            <div className="flex gap-5 text-xs uppercase tracking-[0.18em] text-white/60">
-              <span>Imagine</span>
-              <span>Build</span>
-              <span>Grow</span>
+      <div className="relative mx-auto w-full max-w-[1400px]">
+        <header className="grid gap-8 border-b border-[#183b2b]/14 pb-10 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-end">
+          <div>
+            <div className="flex items-center gap-3">
+              <span className="h-2 w-2 bg-[#ef636b]" />
+              <p className="text-[0.68rem] font-bold uppercase tracking-[0.26em] text-[#008f68]">
+                A closer look at Sampan
+              </p>
             </div>
+
+            <h2 className="mt-5 max-w-4xl text-[clamp(2.7rem,5vw,5.4rem)] font-medium leading-[0.95] tracking-[-0.055em] text-balance">
+              One group.
+              <span className="block text-[#183b2b]/42">
+                Three ways to create value.
+              </span>
+            </h2>
           </div>
+
+          <p className="max-w-md text-sm leading-7 text-[#183b2b]/62 lg:justify-self-end">
+            A snapshot of the group and two concerns helping turn a shared
+            vision into opportunity, expertise, and lasting value.
+          </p>
+        </header>
+
+        <div className="mt-8 border-y border-[#183b2b]/14 lg:grid lg:grid-cols-3">
+          {snapshots.map((snapshot, index) => (
+            <article
+              key={snapshot.title}
+              className={`group relative flex min-h-[29rem] flex-col overflow-hidden px-1 py-9 transition-colors duration-500 sm:px-7 lg:min-h-[32rem] lg:px-9 lg:py-10 ${
+                index > 0
+                  ? "border-t border-[#183b2b]/14 lg:border-l lg:border-t-0"
+                  : ""
+              } hover:bg-white/48`}
+            >
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-[#00a174] transition-transform duration-500 group-hover:scale-x-100"
+              />
+
+              <div className="flex items-start justify-between gap-6">
+                <div className="grid h-16 w-44 place-items-center">
+                  <div className="relative h-full w-full">
+                    <Image
+                      src={snapshot.logo}
+                      alt={`${snapshot.title} logo`}
+                      fill
+                      sizes="176px"
+                      className="object-contain object-left transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
+                </div>
+
+                <span className="font-mono text-[0.63rem] font-bold tracking-[0.18em] text-[#183b2b]/36">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </div>
+
+              <div className="mt-auto pt-16">
+                <div className="mb-5 flex items-center gap-3">
+                  <span className="h-px w-8 bg-[#ef636b]" />
+                  <p className="text-[0.62rem] font-bold uppercase tracking-[0.18em] text-[#008f68]">
+                    {snapshot.type}
+                  </p>
+                </div>
+
+                <h3 className="max-w-[18ch] text-[clamp(1.75rem,2.3vw,2.55rem)] font-medium leading-[1.03] tracking-[-0.045em]">
+                  {snapshot.title}
+                </h3>
+
+                <p className="mt-5 max-w-sm text-sm leading-7 text-[#183b2b]/60">
+                  {snapshot.copy}
+                </p>
+
+                <Link
+                  href={snapshot.href}
+                  className="mt-8 inline-flex w-fit items-center gap-3 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#007d5b] transition-colors duration-300 hover:text-[#ef636b]"
+                >
+                  Learn more
+                  <span
+                    aria-hidden="true"
+                    className="text-base text-[#ef636b] transition-transform duration-300 group-hover:translate-x-1.5"
+                  >
+                    →
+                  </span>
+                </Link>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>

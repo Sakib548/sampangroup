@@ -1,180 +1,150 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { featuredConcerns } from "@/data/featuredConcerns";
+import { useEffect, useRef, useState } from "react";
 
-const cinematicStart = Math.max(featuredConcerns.length - 3, 0);
+const slides = [
+  {
+    name: "Sampan Highway Inn",
+    eyebrow: "Your Perfect Stopover on the Dhaka–Khulna Highway",
+    subhead:
+      "Cozy rooms, honest meals, a place to breathe before the road takes you again.",
+    cta: "Book a Stay →",
+    href: "/our_divisions/hospitality-highway-travel/sampan-highway-inn",
+    image: "/images/featuredConcerns/highway-inn.png",
+  },
+  {
+    name: "Sampan Metro Square",
+    eyebrow: "Own a Piece of Ashulia's Next Address",
+    subhead:
+      "A land-share residential project built for people who want to invest in a home, not just a plot.",
+    cta: "Explore Metro Square →",
+    href: "/concerns",
+    image: "/images/projects/sampan-metro-square.png",
+  },
+  {
+    name: "Express Highway Inn",
+    eyebrow: "The Highway, Reimagined",
+    subhead:
+      "Everything travelers love about Sampan Highway Inn - modernized, elevated, and opening soon.",
+    cta: "See What's Coming →",
+    href: "/concerns",
+    image: "/images/featuredConcerns/express-highway-inn.png",
+  },
+  {
+    name: "London School of Higher Studies",
+    eyebrow: "UK-Accredited Courses, Built for Bangladesh",
+    subhead:
+      "CIPS and CMI qualifications from London School of Higher Studies - study locally, get recognized globally.",
+    cta: "Explore LSHS →",
+    href: "/concerns",
+    image: "/images/concerns/5-lshs.png",
+  },
+];
 
 export default function HeroSlider2() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const activeIndexRef = useRef(0);
-  const isAnimating = useRef(false);
-  const slideRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const hasInitialized = useRef(false);
-
-  const goToSlide = (nextIndex: number) => {
-    if (isAnimating.current || nextIndex === activeIndexRef.current) return;
-    isAnimating.current = true;
-    setActiveIndex(
-      (nextIndex + featuredConcerns.length) % featuredConcerns.length,
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+  const restart = () => {
+    if (timer.current) clearInterval(timer.current);
+    timer.current = setInterval(
+      () => setActive((i) => (i + 1) % slides.length),
+      6500,
     );
   };
-
+  const goTo = (index: number) => {
+    setActive((index + slides.length) % slides.length);
+    restart();
+  };
   useEffect(() => {
-    const timer = window.setInterval(() => {
-      goToSlide(activeIndexRef.current + 1);
-    }, 5500);
-
-    return () => window.clearInterval(timer);
-  }, []);
-
-  useLayoutEffect(() => {
-    const slides = slideRefs.current.filter(
-      (slide): slide is HTMLDivElement => slide !== null,
-    );
-    const incoming = slideRefs.current[activeIndex];
-    if (!incoming) return;
-
-    if (!hasInitialized.current) {
-      gsap.set(slides, { autoAlpha: 0, zIndex: 0 });
-      gsap.set(incoming, { autoAlpha: 1, zIndex: 1 });
-      hasInitialized.current = true;
-      activeIndexRef.current = activeIndex;
-      return;
-    }
-
-    const outgoing = slideRefs.current[activeIndexRef.current];
-    const image = incoming.querySelector(".hero2-image");
-    const text = incoming.querySelectorAll(".hero2-copy > *");
-
-    if (!outgoing || outgoing === incoming) return;
-
-    gsap.killTweensOf(slides);
-    gsap.killTweensOf(image);
-
-    const isCinematic = activeIndex >= cinematicStart;
-
-    if (isCinematic && image) {
-      gsap.set(image, {
-        scale: 1.05,
-        xPercent: 0,
-        yPercent: 0,
-      });
-    } else if (image) {
-      gsap.set(image, { scale: 1, xPercent: 0, yPercent: 0 });
-    }
-    gsap.set(text, { autoAlpha: 0, y: 24 });
-
-    const timeline = gsap.timeline({
-      onComplete: () => {
-        activeIndexRef.current = activeIndex;
-        isAnimating.current = false;
-      },
-      onInterrupt: () => {
-        isAnimating.current = false;
-      },
-    });
-
-    timeline
-      .set(incoming, { autoAlpha: 0, zIndex: 2 })
-      .to(outgoing, { autoAlpha: 0, duration: 1.8, ease: "power1.inOut" }, 0)
-      .to(incoming, { autoAlpha: 1, duration: 1.8, ease: "power1.inOut" }, 0)
-      .to(
-        image,
-        isCinematic
-          ? {
-              scale: 1.12,
-              xPercent: 0,
-              yPercent: 0,
-              duration: 6.5,
-              ease: "none",
-            }
-          : { scale: 1, xPercent: 0, yPercent: 0, duration: 0.01 },
-        0,
-      )
-      .to(
-        text,
-        { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" },
-        0.65,
-      );
-
+    if (!paused) restart();
     return () => {
-      timeline.kill();
+      if (timer.current) clearInterval(timer.current);
     };
-  }, [activeIndex]);
-
+  }, [paused]);
+  const slide = slides[active];
   return (
-    <section className="relative min-h-screen overflow-hidden bg-black text-white">
-      <div className="absolute inset-0">
-        {featuredConcerns.map((slide, index) => (
-          <div
-            key={slide.name}
-            ref={(element) => {
-              slideRefs.current[index] = element;
-            }}
-            aria-hidden={index !== activeIndex}
-            className={`absolute inset-0 ${index === activeIndex ? "pointer-events-auto" : "pointer-events-none"}`}
-            style={{
-              opacity: index === 0 ? 1 : 0,
-              visibility: index === 0 ? "visible" : "hidden",
-            }}
+    <section
+      className="relative min-h-screen overflow-hidden bg-[#071b13] text-white"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onTouchStart={() => setPaused(true)}
+      onTouchEnd={() => setPaused(false)}
+    >
+      <p className="absolute left-1/2 top-24 z-30 -translate-x-1/2 whitespace-nowrap text-center text-sm font-semibold uppercase tracking-[0.32em] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] sm:top-28 sm:text-base">
+        THE VILLAGE WILL BE THE CITY.
+      </p>
+      {slides.map((item, index) => (
+        <div
+          key={item.name}
+          className={`absolute inset-0 transition-opacity duration-[1400ms] ${index === active ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        >
+          <Image
+            src={item.image}
+            alt={item.name}
+            fill
+            priority={index === 0}
+            sizes="100vw"
+            className={`object-cover transition-transform duration-[6500ms] ease-linear ${index === active ? "scale-110" : "scale-100"}`}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/15" />
+        </div>
+      ))}
+      <div className="relative z-10 flex min-h-screen items-end justify-center px-6 pb-28 text-center sm:justify-start sm:px-10 sm:pb-24 sm:text-left lg:px-16">
+        <div className="max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#ef636b]">
+            <span aria-hidden="true">— </span>
+            {slide.eyebrow}
+            <span aria-hidden="true"> —</span>
+          </p>
+          <h1 className="mt-4 text-[clamp(2.25rem,4.8vw,4.8rem)] font-medium leading-[0.92] tracking-[-0.05em]">
+            {slide.name}
+          </h1>
+          <p className="mt-6 max-w-xl text-base leading-7 text-white/80 sm:text-lg">
+            {slide.subhead}
+          </p>
+          <a
+            href={slide.href}
+            className="mt-8 inline-flex border border-white/70 px-6 py-3 text-xs font-semibold uppercase tracking-[0.16em] transition hover:bg-white hover:text-[#183b2b]"
           >
-            <Image
-              src={slide.image}
-              alt={slide.name}
-              fill
-              priority={index === 0}
-              sizes="100vw"
-              className="hero2-image object-cover"
-            />
-            <div className="absolute inset-0 bg-black/45" />
-
-            <div className="hero2-copy relative z-10 flex min-h-screen items-end justify-start px-6 pb-16 text-left sm:pb-20 lg:px-20 lg:pb-24">
-              <div className="flex w-full max-w-2xl flex-col items-start text-left">
-                {/* <p className="text-xs font-medium uppercase tracking-[0.25em] text-white/75">
-                  {slide.category}
-                </p> */}
-                <h1 className="mt-4 max-w-2xl text-[clamp(2rem,3.4vw,4rem)] font-semibold leading-[1] tracking-tight Text">
-                  <span className="greenText">
-                    {slide.name.slice(0, slide.name.indexOf(" "))}
-                  </span>
-                  <span className="redText">
-                    {slide.name.slice(slide.name.indexOf(" "))}
-                  </span>
-                </h1>
-                <p className="mt-5 max-w-lg text-sm leading-6 text-white/80 sm:text-base">
-                  {slide.tagline}
-                </p>
-
-                {/* <a
-                  href={slide.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-8 inline-flex border border-white/70 px-6 py-3 text-sm uppercase tracking-[0.16em] transition hover:bg-white hover:text-black"
-                >
-                  Explore {slide.name}
-                </a> */}
-                <a
-                  href={slide.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-8 inline-flex border greenText px-6 py-3 text-sm uppercase tracking-[0.16em] transition hover:bg-white hover:text-black"
-                >
-                  Explore {slide.name}
-                </a>
-              </div>
-            </div>
-          </div>
+            {slide.cta}
+          </a>
+        </div>
+      </div>
+      <button
+        type="button"
+        aria-label="Previous slide"
+        onClick={() => goTo(active - 1)}
+        className="absolute bottom-4 left-4 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/50 text-xl text-white transition hover:border-white hover:bg-white hover:text-[#183b2b] sm:bottom-5 sm:left-8 sm:h-12 sm:w-12 sm:text-2xl"
+      >
+        ←
+      </button>
+      <button
+        type="button"
+        aria-label="Next slide"
+        onClick={() => goTo(active + 1)}
+        className="absolute bottom-4 right-4 z-20 flex h-10 w-10 items-center justify-center rounded-full border border-white/50 text-xl text-white transition hover:border-white hover:bg-white hover:text-[#183b2b] sm:bottom-5 sm:right-8 sm:h-12 sm:w-12 sm:text-2xl"
+      >
+        →
+      </button>
+      <div
+        className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-2"
+        role="tablist"
+        aria-label="Hero slides"
+      >
+        {slides.map((item, index) => (
+          <button
+            key={item.name}
+            type="button"
+            role="tab"
+            aria-selected={active === index}
+            aria-label={`Show ${item.name}`}
+            onClick={() => goTo(index)}
+            className={`h-1.5 rounded-full transition-all ${active === index ? "w-10 bg-[#ef636b]" : "w-5 bg-white/50 hover:bg-white"}`}
+          />
         ))}
       </div>
-
-      {/* <div className="absolute bottom-8 right-6 z-20 flex items-center gap-3 lg:right-16">
-        <button type="button" onClick={() => goToSlide(activeIndex - 1)} aria-label="Previous slide" className="text-3xl transition-opacity hover:opacity-60">←</button>
-        <span className="text-xs tracking-[0.2em] text-white/70">{String(activeIndex + 1).padStart(2, "0")} / {String(featuredConcerns.length).padStart(2, "0")}</span>
-        <button type="button" onClick={() => goToSlide(activeIndex + 1)} aria-label="Next slide" className="text-3xl transition-opacity hover:opacity-60">→</button>
-      </div> */}
     </section>
   );
 }
