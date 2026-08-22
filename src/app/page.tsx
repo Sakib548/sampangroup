@@ -29,16 +29,16 @@ export default function Home() {
       <DivisionsSection />
       <ProjectsSection />
       {/* <ConcernsSection2 /> */}
-      <PartnersSection />
+      {/* <PartnersSection />
 
       <OngoingProjects />
       <CompletedProjectsEditorial />
-      <CompletedProjectsShowcase />
+      <CompletedProjectsShowcase /> */}
       {/* <CompletedProjectsEditorial /> */}
-      <FullWidthVideo />
+      {/* <FullWidthVideo />
       <ExpressFacilities />
       <HighwayInnShowcase />
-      <HighwayInnCardStack />
+      <HighwayInnCardStack /> */}
 
       {/* <ConcernsSection3 /> */}
       {/* <ConcernsSection /> */}
