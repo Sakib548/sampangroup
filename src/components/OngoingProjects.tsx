@@ -12,6 +12,7 @@ export default function OngoingProjects() {
   return (
     <section className="overflow-hidden bg-neutral-950 px-10 py-16 text-white sm:py-20 lg:px-20 lg:py-24">
       <div className="mx-auto w-full max-w-[1200px]">
+        {/* Header */}
         <div className="mb-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-end lg:mb-12">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.32em] text-red-300">
@@ -28,7 +29,8 @@ export default function OngoingProjects() {
           </p>
         </div>
 
-        <div className="flex min-h-[380px] flex-col gap-2 overflow-hidden sm:flex-row lg:h-[430px]">
+        {/* Cards — mobile: stacked column, desktop: horizontal flex row */}
+        <div className="flex flex-col gap-2 overflow-hidden sm:flex-row sm:h-[430px] lg:h-[480px]">
           {projects.map((project, index) => {
             const isActive = activeIndex === index;
 
@@ -37,28 +39,31 @@ export default function OngoingProjects() {
                 key={project.id}
                 onMouseEnter={() => setActiveIndex(index)}
                 onMouseLeave={() => setActiveIndex(null)}
-                className={`group relative isolate min-h-[300px] overflow-hidden transition-[flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:min-h-0 ${
+                className={`group relative isolate min-h-[300px] overflow-hidden transition-[flex] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:min-h-0 sm:flex-1 ${
                   activeIndex === null
-                    ? "flex-1"
+                    ? "sm:flex-1"
                     : isActive
                       ? "sm:flex-[1.8]"
                       : "sm:flex-[0.7]"
                 }`}
               >
-                <Image
-                  src={project.logo}
-                  alt={project.name}
-                  fill
-                  sizes="(max-width: 640px) 100vw, 33vw"
-                  className={`object-cover transition duration-1000 ease-out ${
-                    isActive ? "scale-110" : "scale-100"
-                  }`}
-                />
+                {/* Image wrapper — explicit relative + h-full guarantees
+                    the fill image always has a computed height */}
+                <div className="absolute inset-0">
+                  <Image
+                    src={project.logo}
+                    alt={project.name}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                    className={`object-cover transition duration-1000 ease-out ${
+                      isActive ? "scale-110" : "scale-100"
+                    }`}
+                  />
+                </div>
+
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/5" />
+
                 <div className="absolute inset-x-5 bottom-6 sm:inset-x-6 sm:bottom-8">
-                  {/* <span className="block text-sm font-medium tracking-[0.2em] text-red-300">
-                    {String(index + 1).padStart(2, "0")}
-                  </span> */}
                   <h3 className="mt-4 max-w-[14ch] text-2xl font-semibold uppercase leading-[0.95] tracking-[-0.02em] sm:text-3xl">
                     {project.name}
                   </h3>
