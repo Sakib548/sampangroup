@@ -1,0 +1,756 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  overflow: hidden;
+  color: #fff;
+  background: #06150f;
+}
+
+.slides,
+.slide,
+.overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.slide {
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 1200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slideActive {
+  z-index: 1;
+  opacity: 1;
+}
+
+.media {
+  object-fit: cover;
+  will-change: opacity, filter, transform;
+}
+
+.slideActive.modeCrossfade.driftRight .media {
+  animation: drift-right 7.8s cubic-bezier(0.2, 0.65, 0.3, 1) both;
+}
+
+.slideActive.modeCrossfade.driftLeft .media {
+  animation: drift-left 7.8s cubic-bezier(0.2, 0.65, 0.3, 1) both;
+}
+
+.slideActive.modeParallax.driftRight .media {
+  animation: parallax-right 7.2s linear both;
+}
+
+.slideActive.modeParallax.driftLeft .media {
+  animation: parallax-left 7.2s linear both;
+}
+
+.modeParallax .media {
+  left: -2% !important;
+  width: 104% !important;
+  max-width: none;
+}
+
+.slideActive.modeMask {
+  animation: masked-reveal 1050ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.slideActive.modeBlur .media {
+  animation: blur-to-sharp 1100ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.modeSplit {
+  transition-duration: 0ms;
+}
+
+.modePan .media {
+  left: -4% !important;
+  width: 108% !important;
+  max-width: none;
+}
+
+.slideActive.modePan.driftRight .media {
+  animation: pan-right 7.2s linear both;
+}
+
+.slideActive.modePan.driftLeft .media {
+  animation: pan-left 7.2s linear both;
+}
+
+.splitStage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.splitPanel {
+  position: relative;
+  overflow: hidden;
+  transform: translateY(0);
+  animation: split-panel-up 950ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.splitPanel:nth-child(2) {
+  animation-name: split-panel-down;
+  animation-delay: 90ms;
+}
+
+.splitPanel:nth-child(3) {
+  animation-delay: 180ms;
+}
+
+.splitMedia {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 300%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.splitPanel:nth-child(1) .splitMedia {
+  left: 0;
+}
+
+.splitPanel:nth-child(2) .splitMedia {
+  left: -100%;
+}
+
+.splitPanel:nth-child(3) .splitMedia {
+  left: -200%;
+}
+
+.overlay {
+  z-index: 1;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(3, 16, 11, 0.2) 0%,
+      rgba(3, 16, 11, 0.04) 34%,
+      rgba(3, 16, 11, 0.24) 62%,
+      rgba(3, 16, 11, 0.88) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(3, 16, 11, 0.72) 0%,
+      rgba(3, 16, 11, 0.38) 36%,
+      rgba(3, 16, 11, 0.04) 72%
+    );
+  pointer-events: none;
+}
+
+.shell {
+  position: relative;
+  z-index: 2;
+  width: min(100% - clamp(2rem, 6vw, 7rem), 1480px);
+  min-height: 100svh;
+  margin-inline: auto;
+}
+
+/* .motto {
+  position: absolute;
+  top: clamp(7.25rem, 14vh, 9.5rem);
+  left: 0;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.64rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+} */
+.motto {
+  position: absolute;
+  right: 0px;
+  bottom: 150px;
+
+  margin: 0;
+  /* color: rgba(255, 255, 255, 0.68); */
+  color: rgba(255, 122, 130, 0.9);
+  font-size: 0.64rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+.motto::before {
+  display: inline-block;
+  width: 2.25rem;
+  height: 1px;
+  margin-right: 0.9rem;
+  vertical-align: middle;
+  content: "";
+  background: rgba(255, 122, 130, 0.9);
+}
+
+.animationLab {
+  position: absolute;
+  top: clamp(6.6rem, 12vh, 8rem);
+  right: 0;
+  width: min(29rem, 45vw);
+  padding: 0.7rem;
+  background: rgba(4, 20, 14, 0.56);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 0.4rem;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(16px);
+}
+
+.animationLabLabel {
+  margin: 0 0 0.55rem;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.animationOptions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+
+.animationOption {
+  min-height: 2.25rem;
+  padding: 0.45rem 0.6rem;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.68);
+  font: inherit;
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition:
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.animationOption:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.animationOptionActive {
+  color: #fff;
+  background: rgba(239, 99, 107, 0.2);
+  border-color: rgba(255, 122, 130, 0.78);
+}
+
+.content {
+  position: absolute;
+  bottom: clamp(8.75rem, 16vh, 11.5rem);
+  left: 0;
+  width: min(57rem, 76vw);
+}
+
+.content > * {
+  animation: content-reveal 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.content > :nth-child(2) {
+  animation-delay: 80ms;
+}
+
+.content > :nth-child(3) {
+  animation-delay: 160ms;
+}
+
+.content > :nth-child(4) {
+  animation-delay: 240ms;
+}
+
+.eyebrowRow {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  max-width: 52rem;
+  margin-bottom: 1.25rem;
+}
+
+.slideNumber {
+  color: #ff7a82;
+  font-family: "Geist Mono", "Roboto Mono", monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.eyebrowLine {
+  width: 2.1rem;
+  height: 1px;
+  flex: 0 0 auto;
+  background: rgba(255, 122, 130, 0.72);
+}
+
+.eyebrow {
+  max-width: 46rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(0.64rem, 0.76vw, 0.75rem);
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: 55rem;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(3.35rem, 5.1vw, 6rem);
+  font-weight: 500;
+  line-height: 0.93;
+  letter-spacing: -0.06em;
+  text-shadow: 0 0.15em 0.65em rgba(0, 0, 0, 0.18);
+  text-wrap: balance;
+}
+
+.subhead {
+  max-width: 39rem;
+  margin: 1.4rem 0 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(0.98rem, 1.12vw, 1.12rem);
+  font-weight: 400;
+  line-height: 1.62;
+  text-wrap: balance;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.05rem;
+  min-height: 3.45rem;
+  margin-top: 1.9rem;
+  padding: 0.34rem 0.38rem 0.34rem 1.35rem;
+  color: #092016;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-decoration: none;
+  text-transform: uppercase;
+  background: rgba(250, 249, 245, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.15);
+  transition:
+    color 250ms ease,
+    background-color 250ms ease,
+    transform 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.cta:hover {
+  color: #092016;
+  background: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.22);
+}
+
+.cta:focus-visible,
+.dotButton:focus-visible,
+.animationOption:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+.ctaArrow {
+  display: grid;
+  width: 2.7rem;
+  height: 2.7rem;
+  color: #fff;
+  font-size: 1.05rem;
+  background: #ef636b;
+  border-radius: 50%;
+  transition: transform 250ms ease;
+  place-items: center;
+}
+
+.cta:hover .ctaArrow {
+  transform: rotate(-35deg);
+}
+
+.controls {
+  position: absolute;
+  right: 0;
+  bottom: 2.25rem;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.dotButton {
+  display: grid;
+  width: 2.25rem;
+  height: 2rem;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  place-items: center;
+}
+
+.dot {
+  width: 0.34rem;
+  height: 0.34rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 999px;
+  transition:
+    background-color 200ms ease,
+    transform 200ms ease;
+}
+
+.dotButton:hover .dot {
+  background: #fff;
+  transform: scale(1.35);
+}
+
+.progressTrack {
+  position: relative;
+  display: block;
+  width: 2.75rem;
+  height: 0.14rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.34);
+  border-radius: 999px;
+}
+
+.progressFill {
+  position: absolute;
+  inset: 0;
+  background: #ef636b;
+  border-radius: inherit;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation-name: progress;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.slidePosition {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.58);
+  font-family: "Geist Mono", "Roboto Mono", monospace;
+  font-size: 0.61rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.slidePosition span:first-child {
+  color: #fff;
+}
+
+.slidePositionDivider {
+  display: block;
+  width: 1.5rem;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@keyframes drift-right {
+  from {
+    transform: scale(1.035) translate3d(-0.8%, 0, 0);
+  }
+
+  to {
+    transform: scale(1.095) translate3d(0.8%, -0.5%, 0);
+  }
+}
+
+@keyframes drift-left {
+  from {
+    transform: scale(1.035) translate3d(0.8%, 0, 0);
+  }
+
+  to {
+    transform: scale(1.095) translate3d(-0.8%, -0.5%, 0);
+  }
+}
+
+@keyframes parallax-right {
+  from {
+    transform: translate3d(-1.5%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(1.5%, 0, 0);
+  }
+}
+
+@keyframes parallax-left {
+  from {
+    transform: translate3d(1.5%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-1.5%, 0, 0);
+  }
+}
+
+@keyframes masked-reveal {
+  from {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+
+  to {
+    clip-path: polygon(0 0, 112% 0, 100% 100%, 0 100%);
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+
+.modeMask {
+  -webkit-mask-image: linear-gradient(
+    108deg,
+    transparent 0%,
+    #000 12%,
+    #000 100%
+  );
+  mask-image: linear-gradient(108deg, transparent 0%, #000 12%, #000 100%);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 220% 100%;
+  mask-size: 220% 100%;
+}
+
+@keyframes split-panel-up {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-102%);
+  }
+}
+
+@keyframes split-panel-down {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(102%);
+  }
+}
+
+@keyframes blur-to-sharp {
+  from {
+    filter: blur(18px);
+    opacity: 0.12;
+    transform: translate3d(0, 1%, 0);
+  }
+
+  to {
+    filter: blur(0);
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes pan-right {
+  from {
+    transform: translate3d(-3.5%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(3.5%, 0, 0);
+  }
+}
+
+@keyframes pan-left {
+  from {
+    transform: translate3d(3.5%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-3.5%, 0, 0);
+  }
+}
+
+@keyframes content-reveal {
+  from {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(1.4rem);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 767px) {
+  .heroWithPicker,
+  .heroWithPicker .shell {
+    min-height: max(100svh, 52rem);
+  }
+
+  .shell {
+    width: min(100% - 2rem, 42rem);
+  }
+
+  .overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(3, 16, 11, 0.32) 0%,
+        rgba(3, 16, 11, 0.05) 25%,
+        rgba(3, 16, 11, 0.4) 52%,
+        rgba(3, 16, 11, 0.92) 100%
+      ),
+      linear-gradient(90deg, rgba(3, 16, 11, 0.16), rgba(3, 16, 11, 0.16));
+  }
+
+  .motto {
+    top: 6.5rem;
+    right: 0;
+    text-align: center;
+    letter-spacing: 0.2em;
+  }
+
+  .motto::before {
+    display: none;
+  }
+
+  .animationLab {
+    top: 8.75rem;
+    right: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.55rem;
+  }
+
+  .animationOptions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .animationOption {
+    min-height: 2rem;
+    padding-inline: 0.35rem;
+    font-size: 0.56rem;
+  }
+
+  .content {
+    right: 0;
+    bottom: 7.5rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .eyebrowRow {
+    justify-content: center;
+    margin-right: auto;
+    margin-bottom: 1rem;
+    margin-left: auto;
+  }
+
+  .eyebrowLine {
+    width: 1.4rem;
+  }
+
+  .eyebrow {
+    font-size: 0.64rem;
+  }
+
+  .title {
+    margin-inline: auto;
+    font-size: clamp(2.65rem, 12vw, 4.1rem);
+    line-height: 0.96;
+    letter-spacing: -0.05em;
+  }
+
+  .subhead {
+    max-width: 34rem;
+    margin-top: 1.2rem;
+    margin-inline: auto;
+    font-size: 0.96rem;
+    line-height: 1.55;
+  }
+
+  .cta {
+    min-height: 3.25rem;
+    margin-top: 1.5rem;
+    padding-left: 1.2rem;
+  }
+
+  .ctaArrow {
+    width: 2.55rem;
+    height: 2.55rem;
+  }
+
+  .controls {
+    bottom: 1.65rem;
+  }
+}
+
+@media (min-width: 768px) and (max-height: 760px) {
+  .heroWithPicker,
+  .heroWithPicker .shell {
+    min-height: 52rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide,
+  .media,
+  .splitPanel,
+  .content,
+  .content > *,
+  .progressFill,
+  .cta,
+  .dot {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .media {
+    transform: none !important;
+  }
+
+  .splitPanel {
+    transform: none !important;
+  }
+
+  .splitStage {
+    display: none;
+  }
+
+  .modeMask {
+    clip-path: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+}
