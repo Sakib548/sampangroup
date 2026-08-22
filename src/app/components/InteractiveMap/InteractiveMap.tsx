@@ -21,7 +21,7 @@ type Location = {
   location: string;
   description: string;
   image: string;
-  x: number; // Adjusted for accurate Bangladesh geography
+  x: number;
   y: number;
 };
 
@@ -33,9 +33,9 @@ const locations: Location[] = [
     location: "Dhaka–Khulna Highway",
     description:
       "A premium hospitality destination strategically positioned along the Dhaka–Khulna Highway.",
-    image: "/images.jpg",
-    x: 38, // Southwest (Khulna Highway area)
-    y: 60,
+    image: "/images.jpg", // Replace with actual map/image
+    x: 47,
+    y: 42,
   },
   {
     id: "metro-square",
@@ -45,8 +45,8 @@ const locations: Location[] = [
     description:
       "A modern land-share development designed for commercial and residential opportunities.",
     image: "/images.jpg",
-    x: 47, // Central (Ashulia/Dhaka area)
-    y: 48,
+    x: 43,
+    y: 32,
   },
   {
     id: "motalib-skyline",
@@ -56,8 +56,8 @@ const locations: Location[] = [
     description:
       "A contemporary mixed-use development combining residential and commercial spaces.",
     image: "/images.jpg",
-    x: 49,
-    y: 50,
+    x: 45,
+    y: 37,
   },
   {
     id: "nexus",
@@ -67,8 +67,8 @@ const locations: Location[] = [
     description:
       "A thoughtfully planned residential development focused on modern living.",
     image: "/images.jpg",
-    x: 48, // North of Dhaka (Gazipur/Mawna area)
-    y: 42,
+    x: 52,
+    y: 28,
   },
   {
     id: "residency",
@@ -78,8 +78,8 @@ const locations: Location[] = [
     description:
       "Premium hospitality towers designed for travellers and long-term guests.",
     image: "/images.jpg",
-    x: 54,
-    y: 52,
+    x: 55,
+    y: 47,
   },
   {
     id: "agro-golf",
@@ -89,8 +89,8 @@ const locations: Location[] = [
     description:
       "An integrated lifestyle destination bringing together golf, leisure and agro-based experiences.",
     image: "/images.jpg",
-    x: 60,
-    y: 45,
+    x: 61,
+    y: 55,
   },
   {
     id: "industrial-park",
@@ -100,8 +100,8 @@ const locations: Location[] = [
     description:
       "A strategic manufacturing and industrial ecosystem built for long-term growth.",
     image: "/images.jpg",
-    x: 55, // Chattogram/Industrial belt
-    y: 65,
+    x: 68,
+    y: 39,
   },
   {
     id: "floating-pearl",
@@ -111,8 +111,8 @@ const locations: Location[] = [
     description:
       "A distinctive maritime investment concept connecting business with the waterways of Bangladesh.",
     image: "/images.jpg",
-    x: 40, // Bay of Bengal / Southern coast
-    y: 75,
+    x: 39,
+    y: 59,
   },
 ];
 
@@ -122,9 +122,7 @@ const locations: Location[] = [
 
 export default function LocationMap() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activeLocation, setActiveLocation] = useState<Location | null>(
-    locations[0],
-  );
+  const [activeLocation, setActiveLocation] = useState<Location | null>(locations[0]);
 
   useGSAP(
     () => {
@@ -150,12 +148,8 @@ export default function LocationMap() {
             duration: 1,
             stagger: 0.15,
             ease: "power3.out",
-            scrollTrigger: {
-              trigger: ".map-header",
-              start: "top 85%",
-              once: true,
-            },
-          },
+            scrollTrigger: { trigger: ".map-header", start: "top 85%", once: true },
+          }
         );
 
         /* MAP STAGE ENTRANCE */
@@ -167,12 +161,8 @@ export default function LocationMap() {
             opacity: 1,
             duration: 1.2,
             ease: "power3.out",
-            scrollTrigger: {
-              trigger: ".map-stage",
-              start: "top 85%",
-              once: true,
-            },
-          },
+            scrollTrigger: { trigger: ".map-stage", start: "top 85%", once: true },
+          }
         );
 
         /* MOBILE LIST STAGGER */
@@ -185,16 +175,12 @@ export default function LocationMap() {
             duration: 0.5,
             stagger: 0.06,
             ease: "power3.out",
-            scrollTrigger: {
-              trigger: ".map-list",
-              start: "top 85%",
-              once: true,
-            },
-          },
+            scrollTrigger: { trigger: ".map-list", start: "top 85%", once: true },
+          }
         );
       });
     },
-    { scope: containerRef },
+    { scope: containerRef }
   );
 
   return (
@@ -203,90 +189,46 @@ export default function LocationMap() {
       className="relative w-full overflow-hidden bg-[#050505] py-24 lg:py-32"
     >
       {/* Subtle Film Grain Overlay */}
-      <div
-        className="pointer-events-none absolute inset-0 z-[100] opacity-[0.03] mix-blend-multiply"
-        aria-hidden="true"
-      >
+      <div className="pointer-events-none absolute inset-0 z-[100] opacity-[0.03] mix-blend-multiply" aria-hidden="true">
         <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
           <filter id="noiseFilterMap">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.65"
-              numOctaves="3"
-              stitchTiles="stitch"
-            />
+            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
           </filter>
           <rect width="100%" height="100%" filter="url(#noiseFilterMap)" />
         </svg>
       </div>
 
       <div className="mx-auto max-w-[1400px] px-[5vw]">
+        
         {/* ====== SECTION HEADER ====== */}
         <div className="map-header mb-16 max-w-3xl lg:mb-24">
-          <p className="mb-6 font-mono text-[11px] font-semibold uppercase tracking-[0.4em] text-emerald-600">
-            03 / Our Presence
-          </p>
           <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-white">
             Growing across
             <br />
             <span className="text-white/40">Bangladesh.</span>
           </h2>
           <p className="mt-8 max-w-xl text-base leading-[1.8] text-white/50 lg:text-lg">
-            From hospitality and real estate to industrial and lifestyle
-            ventures, explore the locations where Sampan Group is building
-            opportunities for tomorrow.
+            From hospitality and real estate to industrial and lifestyle ventures, explore the locations where Sampan Group is building opportunities for tomorrow.
           </p>
         </div>
 
         {/* ====== MAP STAGE ====== */}
-        <div className="map-stage relative aspect-[16/9] w-full overflow-hidden border border-white/10 bg-[#080808]">
-          {/* Custom Architectural SVG Map of Bangladesh */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <svg
-              viewBox="0 0 100 100"
-              preserveAspectRatio="xMidYMid meet"
-              className="h-full w-full"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {/* Grid Pattern */}
-              <defs>
-                <pattern
-                  id="map-grid"
-                  width="4"
-                  height="4"
-                  patternUnits="userSpaceOnUse"
-                >
-                  <path
-                    d="M 4 0 L 0 0 0 4"
-                    fill="none"
-                    stroke="rgba(255,255,255,0.03)"
-                    strokeWidth="0.2"
-                  />
-                </pattern>
-              </defs>
-              <rect width="100" height="100" fill="url(#map-grid)" />
-
-              {/* Stylized Bangladesh Landmass */}
-              <path
-                d="M20,55 C22,45 30,40 35,35 C40,30 45,25 50,25 C55,25 60,30 65,35 C70,40 75,45 78,55 C80,65 75,75 65,80 C55,85 45,85 35,80 C25,75 18,65 20,55 Z"
-                fill="rgba(255,255,255,0.02)"
-                stroke="rgba(255,255,255,0.1)"
-                strokeWidth="0.3"
-                strokeDasharray="1 1"
-              />
-
-              {/* Inner contour lines for architectural feel */}
-              <path
-                d="M25,55 C27,48 33,43 38,39 C43,35 48,31 52,31 C57,31 62,35 67,40 C71,45 73,50 75,55 C76,62 72,70 64,74 C56,78 46,78 38,74 C30,70 23,63 25,55 Z"
-                fill="none"
-                stroke="rgba(255,255,255,0.05)"
-                strokeWidth="0.2"
-              />
-            </svg>
-          </div>
+        <div className="map-stage relative aspect-[16/9] w-full overflow-hidden border border-white/10 bg-neutral-950">
+          
+          {/* Base Map Image */}
+          <Image
+            src="/images.jpg" // Replace with your dark architectural map of Bangladesh
+            alt="Sampan Group locations across Bangladesh"
+            fill
+            priority
+            className="object-cover opacity-40"
+          />
 
           {/* Map Overlays */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
+          
+          {/* Grid Pattern */}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:32px_32px]" />
 
           {/* Location Pins */}
           {locations.map((location) => {
@@ -303,9 +245,7 @@ export default function LocationMap() {
                 {/* Pulse Effect */}
                 <span
                   className={`absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-500/40 ${
-                    isActive
-                      ? "animate-ping"
-                      : "opacity-0 group-hover:opacity-100"
+                    isActive ? "animate-ping" : "opacity-0 group-hover:opacity-100"
                   }`}
                 />
                 {/* Dot */}
@@ -319,9 +259,7 @@ export default function LocationMap() {
                 {/* Label */}
                 <span
                   className={`absolute left-1/2 top-full mt-3 -translate-x-1/2 whitespace-nowrap text-[9px] font-mono uppercase tracking-widest transition-all duration-300 ${
-                    isActive
-                      ? "text-emerald-300"
-                      : "text-white/40 group-hover:text-white"
+                    isActive ? "text-emerald-300" : "text-white/40 group-hover:text-white"
                   }`}
                 >
                   {location.name}
@@ -333,14 +271,13 @@ export default function LocationMap() {
           {/* Counter (Top Right) */}
           <div className="absolute right-6 top-6 z-20 border-l border-white/10 bg-black/30 px-4 py-2 backdrop-blur-sm">
             <span className="font-mono text-xs tracking-widest text-white/50">
-              <strong className="text-white">{locations.length}</strong>{" "}
-              LOCATIONS
+              <strong className="text-white">{locations.length}</strong> LOCATIONS
             </span>
           </div>
 
           {/* Active Location Information Panel (Bottom Left) */}
           {activeLocation && (
-            <div
+            <div 
               key={activeLocation.id} // Key forces re-mount for CSS animation
               className="absolute bottom-0 left-0 z-30 w-full max-w-md border-t border-white/10 bg-gradient-to-t from-black via-black/90 to-transparent p-8 lg:p-12 animate-[slideUp_0.5s_ease-out]"
             >
@@ -395,29 +332,22 @@ export default function LocationMap() {
                     isActive ? "bg-white/[0.02]" : "hover:bg-white/[0.02]"
                   }`}
                 >
-                  <span
-                    className={`font-mono text-xs tracking-widest transition-colors duration-300 ${isActive ? "text-emerald-400" : "text-white/40 group-hover:text-white/80"}`}
-                  >
+                  <span className={`font-mono text-xs tracking-widest transition-colors duration-300 ${isActive ? "text-emerald-400" : "text-white/40 group-hover:text-white/80"}`}>
                     0{i + 1}
                   </span>
                   <div className="flex-1">
-                    <h3
-                      className={`text-lg font-semibold tracking-tight transition-colors duration-300 ${isActive ? "text-white" : "text-white/60 group-hover:text-white"}`}
-                    >
+                    <h3 className={`text-lg font-semibold tracking-tight transition-colors duration-300 ${isActive ? "text-white" : "text-white/60 group-hover:text-white"}`}>
                       {location.name}
                     </h3>
-                    <p className="mt-1 text-xs text-white/40">
-                      {location.location}
-                    </p>
+                    <p className="mt-1 text-xs text-white/40">{location.location}</p>
                   </div>
-                  <FiMapPin
-                    className={`h-5 w-5 transition-colors duration-300 ${isActive ? "text-emerald-400" : "text-white/20 group-hover:text-white/50"}`}
-                  />
+                  <FiMapPin className={`h-5 w-5 transition-colors duration-300 ${isActive ? "text-emerald-400" : "text-white/20 group-hover:text-white/50"}`} />
                 </button>
               );
             })}
           </div>
         </div>
+
       </div>
     </section>
   );
