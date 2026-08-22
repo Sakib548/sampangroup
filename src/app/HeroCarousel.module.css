@@ -152,7 +152,7 @@
   margin-inline: auto;
 }
 
-.motto {
+/* .motto {
   position: absolute;
   top: clamp(7.25rem, 14vh, 9.5rem);
   left: 0;
@@ -163,8 +163,21 @@
   line-height: 1;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-}
+} */
+.motto {
+  position: absolute;
+  right: 0px;
+  bottom: 150px;
 
+  margin: 0;
+  /* color: rgba(255, 255, 255, 0.68); */
+  color: rgba(255, 122, 130, 0.9);
+  font-size: 0.64rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
 .motto::before {
   display: inline-block;
   width: 2.25rem;

@@ -13,7 +13,7 @@ import {
 } from "../data/carousel-logic";
 import styles from "../app/HeroCarousel.module.css";
 
-const AUTO_ADVANCE_MS = 6500;
+const AUTO_ADVANCE_MS = 4500;
 
 const transitionOptions: Array<{
   value: TransitionMode;
@@ -205,7 +205,7 @@ export default function HeroCarousel({
       <div className={styles.overlay} aria-hidden="true" />
 
       <div className={styles.shell}>
-        <p className={styles.motto}>The village will be the city.</p>
+        {/* <p className={styles.motto}>The village will be the city.</p> */}
 
         {showAnimationPicker && (
           <div className={styles.animationLab}>
@@ -302,6 +302,7 @@ export default function HeroCarousel({
             <span>{String(slides.length).padStart(2, "0")}</span>
           </p>
         </div>
+        <p className={styles.motto}>The village will be the city.</p>
       </div>
     </section>
   );

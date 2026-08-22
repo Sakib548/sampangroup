@@ -22,7 +22,7 @@ function Arrow() {
 
 export default function SampanMetroSquareFeature() {
   return (
-    <section className="relative isolate overflow-hidden bg-[#073b27] text-white">
+    <section className="relative left-1/2 w-[100dvw] max-w-none -translate-x-1/2 isolate overflow-hidden bg-[#073b27] text-white">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(196,229,96,0.18),transparent_30%),linear-gradient(115deg,#052e20_0%,#073b27_55%,#0b5134_100%)]" />
       <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(rgba(255,255,255,.65)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.65)_1px,transparent_1px)] [background-size:72px_72px]" />
 
@@ -51,7 +51,7 @@ export default function SampanMetroSquareFeature() {
       <div className="absolute inset-0 z-[2] bg-gradient-to-r from-[#052e20] via-[#052e20]/65 to-transparent" />
       <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#052e20] via-transparent to-transparent" />
 
-      <div className="relative z-10 mx-auto flex min-h-[740px] w-full max-w-[1500px] flex-col px-6 py-20 sm:px-10 lg:min-h-[720px] lg:px-16 lg:py-24">
+      <div className="relative z-10 flex min-h-[740px] w-full flex-col px-6 py-20 sm:px-10 lg:min-h-[720px] lg:px-16 lg:py-24">
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/15 pb-5">
           <div className="flex items-center gap-3 text-[0.65rem] font-bold uppercase tracking-[0.26em] text-[#c4e560]">
             <span className="h-px w-9 bg-current" />
