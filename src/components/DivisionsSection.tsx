@@ -34,20 +34,20 @@ const findConcern = (label: string) => {
   });
 };
 
-export default function DivisionsSection() {
-  const visibleDivisions = divisionGroups.filter(
-    (division) => division.id !== "maritime",
-  );
+const visibleDivisions = divisionGroups.filter(
+  (division) => division.id !== "maritime",
+);
 
+export default function DivisionsSection() {
   return (
-    <section className="relative overflow-hidden bg-[#f3f6f2] px-5 py-20 text-[#183b2b] sm:px-10 lg:px-16 lg:py-28">
+    <section className="relative overflow-hidden bg-[#f3f6f2] px-5 py-16 text-[#183b2b] sm:px-10 lg:px-16 lg:py-20">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_4%,rgba(0,161,116,0.09),transparent_26%),radial-gradient(circle_at_94%_92%,rgba(239,99,107,0.07),transparent_23%)]"
       />
 
       <div className="relative mx-auto max-w-[1400px]">
-        <header className="grid gap-8 border-b border-[#183b2b]/14 pb-10 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-end">
+        <header className="grid gap-8 border-b border-[#183b2b]/14 pb-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-end">
           <div>
             <div className="flex items-center gap-3">
               <span className="h-2 w-2 bg-[#ef636b]" />
@@ -70,37 +70,33 @@ export default function DivisionsSection() {
           </p>
         </header>
 
-        <div>
+        <div className="border-b border-[#183b2b]/14">
           {visibleDivisions.map((division, divisionIndex) => (
             <section
               key={division.id}
-              className="border-b border-[#183b2b]/14 py-12 lg:py-16"
+              className="border-t border-[#183b2b]/14 first:border-t-0"
             >
-              <header className="grid gap-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-                <div>
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-[0.62rem] font-bold tracking-[0.18em] text-[#183b2b]/34">
-                      {String(divisionIndex + 1).padStart(2, "0")}
-                    </span>
-                    <span className="h-px w-8 bg-[#ef636b]" />
-                  </div>
+              <header className="grid min-h-[6.25rem] grid-cols-[2.5rem_minmax(0,1fr)] items-center gap-3 py-4 sm:grid-cols-[3.5rem_minmax(0,1fr)_auto] sm:gap-6 sm:py-5">
+                <span className="font-mono text-[0.62rem] font-bold tracking-[0.18em] text-[#183b2b]/35">
+                  {String(divisionIndex + 1).padStart(2, "0")}
+                </span>
 
-                  <h3 className="mt-4 max-w-3xl text-[clamp(1.9rem,3vw,3.2rem)] font-medium leading-[1.02] tracking-[-0.045em]">
+                <div className="grid min-w-0 gap-2 lg:grid-cols-[minmax(0,0.9fr)_minmax(16rem,1.1fr)] lg:items-center lg:gap-8">
+                  <h3 className="text-[clamp(1.25rem,2vw,2rem)] font-medium leading-tight tracking-[-0.035em]">
                     {division.title}
                   </h3>
-
-                  <p className="mt-3 max-w-xl text-sm leading-6 text-[#183b2b]/56">
+                  <p className="max-w-xl text-xs leading-5 text-[#183b2b]/52 sm:text-sm">
                     {taglines[division.id] ??
                       "Part of Sampan Group’s connected portfolio."}
                   </p>
                 </div>
 
-                <p className="text-[0.62rem] font-bold uppercase tracking-[0.17em] text-[#008f68]">
+                <p className="hidden text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[#008f68] sm:block">
                   {String(division.items.length).padStart(2, "0")} concerns
                 </p>
               </header>
 
-              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mb-8 grid gap-px border border-[#183b2b]/10 bg-[#183b2b]/10 sm:grid-cols-2 lg:grid-cols-4">
                 {division.items.map((item, itemIndex) => {
                   const concern = findConcern(item.label);
                   const logo = concern?.logo;
@@ -108,71 +104,53 @@ export default function DivisionsSection() {
                   return (
                     <article
                       key={item.id}
-                      className="group relative min-h-[20rem] overflow-hidden border border-[#183b2b]/12 bg-white/76 transition duration-500 hover:-translate-y-1 hover:border-[#00a174]/48 hover:bg-white hover:shadow-[0_22px_60px_rgba(14,47,33,0.10)]"
+                      className="group/card relative min-h-[10rem] bg-white/90 transition-colors duration-300 hover:bg-white"
                     >
                       <Link
                         href={item.href}
                         aria-label={`Explore ${item.label}`}
-                        className="flex min-h-[20rem] flex-col p-6 sm:p-7"
+                        className="flex min-h-[10rem] flex-col p-4 sm:p-5"
                       >
-                        <div className="flex items-start justify-between gap-6">
-                          <div className="grid h-24 w-48 place-items-center border border-[#183b2b]/9 bg-[#edf2ed] p-3 sm:h-28 sm:w-52 sm:p-4">
-                            {logo ? (
-                              <div className="relative h-full w-full">
-                                <Image
-                                  src={logo}
-                                  alt={`${item.label} logo`}
-                                  fill
-                                  sizes="(max-width: 640px) 192px, 208px"
-                                  className="object-contain transition-transform duration-500 group-hover:scale-[1.04]"
-                                />
-                              </div>
-                            ) : (
-                              <div className="flex h-full w-full flex-col items-center justify-center gap-2 px-2 text-center">
-                                <span className="grid h-11 w-11 place-items-center border border-[#00a174]/28 bg-white/70 text-xs font-bold tracking-[0.12em] text-[#007d5b]">
-                                  {initials(item.label)}
-                                </span>
-                                <span className="line-clamp-2 text-[0.62rem] font-bold uppercase leading-4 tracking-[0.1em] text-[#183b2b]/58">
-                                  {item.label}
-                                </span>
-                              </div>
-                            )}
-                          </div>
+                        <div className="flex items-start justify-between gap-4">
+                          {logo ? (
+                            <div className="relative h-12 w-32 sm:h-14 sm:w-36">
+                              <Image
+                                src={logo}
+                                alt={`${item.label} logo`}
+                                fill
+                                sizes="(max-width: 640px) 128px, 144px"
+                                className="object-contain object-left transition-transform duration-500 group-hover/card:scale-[1.04]"
+                              />
+                            </div>
+                          ) : (
+                            <span className="grid h-10 w-10 place-items-center rounded-full bg-[#e5eee8] text-[0.65rem] font-bold tracking-[0.12em] text-[#007d5b]">
+                              {initials(item.label)}
+                            </span>
+                          )}
 
-                          <span className="font-mono text-[0.58rem] font-bold tracking-[0.14em] text-[#183b2b]/30">
+                          <span className="font-mono text-[0.55rem] font-bold tracking-[0.13em] text-[#183b2b]/28">
                             {String(itemIndex + 1).padStart(2, "0")}
                           </span>
                         </div>
 
-                        <div className="mt-auto pt-10">
-                          <p className="text-[0.58rem] font-bold uppercase tracking-[0.16em] text-[#008f68]">
-                            {division.title}
-                          </p>
-
-                          <h4 className="mt-3 max-w-[20ch] text-[clamp(1.3rem,1.65vw,1.65rem)] font-medium leading-[1.08] tracking-[-0.035em]">
-                            {item.label}
-                          </h4>
-
-                          <p className="mt-3 line-clamp-2 max-w-sm text-sm leading-6 text-[#183b2b]/54">
+                        <div className="mt-auto pt-4">
+                          <p className="line-clamp-1 text-[0.62rem] font-semibold leading-4 text-[#008f68]">
                             {concern?.tagline ??
-                              "Part of Sampan Group’s growing portfolio."}
+                              "Part of Sampan Group’s connected portfolio."}
                           </p>
 
-                          <span className="mt-6 inline-flex w-fit items-center gap-3 text-[0.65rem] font-bold uppercase tracking-[0.15em] text-[#007d5b] transition-colors duration-300 group-hover:text-[#ef636b]">
-                            Explore
+                          <div className="mt-2 flex items-end justify-between gap-4">
+                            <h4 className="line-clamp-2 max-w-[18ch] text-base font-medium leading-[1.12] tracking-[-0.025em] sm:text-lg">
+                              {item.label}
+                            </h4>
                             <span
                               aria-hidden="true"
-                              className="text-sm text-[#ef636b] transition-transform duration-300 group-hover:translate-x-1.5"
+                              className="shrink-0 pb-0.5 text-lg text-[#ef636b] transition-transform duration-300 group-hover/card:translate-x-1"
                             >
                               →
                             </span>
-                          </span>
+                          </div>
                         </div>
-
-                        <span
-                          aria-hidden="true"
-                          className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-[#00a174] transition-transform duration-500 group-hover:scale-x-100"
-                        />
                       </Link>
                     </article>
                   );
@@ -180,6 +158,18 @@ export default function DivisionsSection() {
               </div>
             </section>
           ))}
+        </div>
+
+        <div className="mt-8 flex justify-end">
+          <Link
+            href="/our_divisions"
+            className="group inline-flex min-h-12 items-center gap-6 border border-[#183b2b]/18 bg-white/55 px-5 text-[0.64rem] font-bold uppercase tracking-[0.16em] text-[#183b2b] backdrop-blur transition duration-300 hover:border-[#008f68]/45 hover:bg-white"
+          >
+            View all divisions
+            <span className="text-[#ef636b] transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </Link>
         </div>
       </div>
     </section>
