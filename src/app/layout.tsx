@@ -5,11 +5,19 @@ import Navbar3 from "@/components/Navbar3";
 import Footer from "@/components/Footer";
 import Navbar2 from "@/components/Navbar2";
 
-const SITE_URL = "https://www.sampangroup.com.bd";
+// const SITE_URL = "https://www.sampangroup.com.bd";
+const SITE_URL = "https://sampangroup.vercel.app";
 const LOGO_URL = `${SITE_URL}/images/Sampan-Group.png`;
 
 export const metadata: Metadata = {
+  // FIX: metadataBase must be the root URL of your site, not an image path
   metadataBase: new URL(SITE_URL),
+  // FIX: Explicitly define icons so Next.js doesn't look for src/app/favicon.ico
+  icons: {
+    icon: "/images/Sampan-Group.png",
+    shortcut: "/images/Sampan-Group.png",
+    apple: "/images/Sampan-Group.png",
+  },
   title: {
     default: "SAMPAN Group | Diversified Business Conglomerate in Bangladesh",
     template: "%s | SAMPAN Group",
@@ -30,13 +38,15 @@ export const metadata: Metadata = {
     title: "SAMPAN Group | Diversified Business Conglomerate in Bangladesh",
     description:
       "Official website of SAMPAN Group, a diversified Bangladeshi business group.",
+    // FIX: url should be the site URL
     url: SITE_URL,
     siteName: "SAMPAN Group",
     type: "website",
     locale: "en_US",
     images: [
       {
-        url: LOGO_URL,
+        // Relative paths are fine here because metadataBase is set correctly
+        url: "/images/Sampan-Group.png",
         width: 1200,
         height: 630,
         alt: "SAMPAN Group Logo",
@@ -48,7 +58,7 @@ export const metadata: Metadata = {
     title: "SAMPAN Group | Diversified Business Conglomerate in Bangladesh",
     description:
       "Official website of SAMPAN Group, a diversified Bangladeshi business group.",
-    images: [LOGO_URL],
+    images: ["/images/Sampan-Group.png"],
   },
   robots: {
     index: true,
@@ -67,6 +77,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // FIX: Updated schema URLs to use SITE_URL and LOGO_URL
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",

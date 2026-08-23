@@ -211,7 +211,7 @@ export default function HighwayInnHorizontalStory() {
           </div>
 
           <span className="font-mono text-[0.58rem] font-bold tracking-[0.16em] text-white/42">
-            01 — 05
+            01 -  05
           </span>
         </div>
       </div>

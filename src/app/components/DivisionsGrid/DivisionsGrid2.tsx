@@ -42,7 +42,7 @@ const divisions = [
     title: "Hospitality, Resort & Highway Travel",
     shortTitle: "Hospitality",
     subTitle: "Resort & Highway Travel",
-    oneLiner: "Stay, celebrate, and unwind — on the highway and beyond.",
+    oneLiner: "Stay, celebrate, and unwind -  on the highway and beyond.",
     cta: "Explore Hospitality",
     href: "#hospitality",
     image: "/images.jpg",

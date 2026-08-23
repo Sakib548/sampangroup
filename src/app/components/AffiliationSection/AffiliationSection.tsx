@@ -18,7 +18,7 @@ const affiliations = [
     name: "REHAB",
     fullName: "Real Estate & Housing Association of Bangladesh",
     desc: "Proud member, championing regulated and quality-driven real estate development across the country.",
-    logo: "/images.jpg", // Replace with actual REHAB logo
+    logo: "/trust/rehab.webp", // Replace with actual REHAB logo
     role: "Corporate Member",
   },
   {
@@ -26,7 +26,7 @@ const affiliations = [
     name: "BIA",
     fullName: "Bangladesh Indenting Association",
     desc: "Member, representing Sampan's commitment to ethical and professional international trade.",
-    logo: "/images.jpg", // Replace with actual BIA logo
+    logo: "/trust/bia.jfif", // Replace with actual BIA logo
     role: "Corporate Member",
   },
   {
@@ -34,7 +34,7 @@ const affiliations = [
     name: "BARVIDA",
     fullName: "Bangladesh Reconditioned Vehicles Importer & Dealer Association",
     desc: "MD Emamul Hasan served as former Organizing Secretary, guiding the future of national mobility.",
-    logo: "/images.jpg", // Replace with actual BARVIDA logo
+    logo: "/images/partners/7.b.png", // Replace with actual BARVIDA logo
     role: "Leadership History",
   },
   {
@@ -42,7 +42,7 @@ const affiliations = [
     name: "BADIA",
     fullName: "Bangladesh Arms Dealer & Importer Association",
     desc: "MD Emamul Hasan served as former Joint Secretary, ensuring licensed and regulated security supply.",
-    logo: "/images.jpg", // Replace with actual BADIA logo
+    logo: "/images/partners/5.badia.png", // Replace with actual BADIA logo
     role: "Leadership History",
   },
   {
@@ -50,7 +50,7 @@ const affiliations = [
     name: "LSHS UK",
     fullName: "CIPS and CMI Accredited Affiliation",
     desc: "Delivering internationally recognized UK-accredited professional coursework right here in Bangladesh.",
-    logo: "/images.jpg", // Replace with actual LSHS UK logo
+    logo: "/images/logos/5-lshs.png", // Replace with actual LSHS UK logo
     role: "International Accreditation",
   },
   {
@@ -58,7 +58,7 @@ const affiliations = [
     name: "Sampan Group",
     fullName: "Integrated Ecosystem Compliance",
     desc: "Operating across nine divisions with unified standards in safety, investment, and corporate governance.",
-    logo: "/images.jpg", // Replace with actual Sampan logo
+    logo: "/images/Sampan-Group.png", // Replace with actual Sampan logo
     role: "Corporate Standard",
   },
 ];

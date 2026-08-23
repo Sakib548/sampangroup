@@ -637,7 +637,7 @@ export default function SampanDevelopmentLtd() {
               <div className="h-img-mask relative h-[55vh] w-full lg:h-screen lg:clip-path-[polygon(25%_0,_100%_0,_100%_100%,_0%_100%)]">
                 <Image
                   src="/images.jpg"
-                  alt="Sampan Development Ltd — Architectural Perspective"
+                  alt="Sampan Development Ltd -  Architectural Perspective"
                   fill
                   priority
                   sizes="(min-width:1024px)42vw,100vw"
@@ -658,7 +658,7 @@ export default function SampanDevelopmentLtd() {
         </section>
 
         {/* ============================================================ */}
-        {/* 2. WHAT WE BUILD — Interactive Text Mask Index                */}
+        {/* 2. WHAT WE BUILD -  Interactive Text Mask Index                */}
         {/* ============================================================ */}
         <section className="relative bg-white py-36 lg:py-52">
           <div className="mx-auto max-w-[100%] px-8 lg:px-20">
@@ -705,7 +705,7 @@ export default function SampanDevelopmentLtd() {
         </section>
 
         {/* ============================================================ */}
-        {/* 3. SDL STORY — Sticky Text + Parallax Image                  */}
+        {/* 3. SDL STORY -  Sticky Text + Parallax Image                  */}
         {/* ============================================================ */}
         <section className="relative bg-neutral-50">
           <div className="story-container relative h-[200vh]">
@@ -762,7 +762,7 @@ export default function SampanDevelopmentLtd() {
         </section>
 
         {/* ============================================================ */}
-        {/* 4. DEVELOPMENT ATLAS — Wipe Transition Portfolio             */}
+        {/* 4. DEVELOPMENT ATLAS -  Wipe Transition Portfolio             */}
         {/* ============================================================ */}
         <section
           id="atlas"
@@ -845,7 +845,7 @@ export default function SampanDevelopmentLtd() {
         </section>
 
         {/* ============================================================ */}
-        {/* 5. THE LAND SHARE — Dark Statement with SVG Line Draw        */}
+        {/* 5. THE LAND SHARE -  Dark Statement with SVG Line Draw        */}
         {/* ============================================================ */}
         <section className="ls-sec relative overflow-hidden bg-[#050505] py-44 text-white lg:py-60">
           <div className="mx-auto grid max-w-[1400px] grid-cols-12 items-center gap-12 px-8 lg:px-20">
@@ -987,7 +987,7 @@ export default function SampanDevelopmentLtd() {
         </section>
 
         {/* ============================================================ */}
-        {/* 6. DEVELOPMENT IN MOTION — Horizontal Scroll                  */}
+        {/* 6. DEVELOPMENT IN MOTION -  Horizontal Scroll                  */}
         {/* ============================================================ */}
         <section ref={horizontalRef} className="relative bg-white">
           {/* Mobile Header */}
@@ -1048,7 +1048,7 @@ export default function SampanDevelopmentLtd() {
         </section>
 
         {/* ============================================================ */}
-        {/* 7. REAL ESTATE CATEGORIES — Frosted Glass Selector            */}
+        {/* 7. REAL ESTATE CATEGORIES -  Frosted Glass Selector            */}
         {/* ============================================================ */}
         <section className="relative overflow-hidden bg-white py-36 lg:py-52">
           <div className="mx-auto max-w-[100%] px-8 lg:px-20">
@@ -1099,7 +1099,7 @@ export default function SampanDevelopmentLtd() {
         </section>
 
         {/* ============================================================ */}
-        {/* 8. LOCATION LAYER — Minimalist Architectural Map              */}
+        {/* 8. LOCATION LAYER -  Minimalist Architectural Map              */}
         {/* ============================================================ */}
         <section className="loc-sec relative overflow-hidden bg-[#080808] py-36 text-white lg:py-52">
           <div className="absolute inset-0 opacity-[0.03]">
@@ -1137,7 +1137,7 @@ export default function SampanDevelopmentLtd() {
                   <div className="loc-dot mt-2 h-2 w-2 shrink-0 rounded-full bg-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.5)]" />
                   <div>
                     <p className="text-[10px] font-mono uppercase tracking-[0.35em] text-neutral-700">
-                      LOC — {String(i + 1).padStart(2, "0")}
+                      LOC -  {String(i + 1).padStart(2, "0")}
                     </p>
                     <h3 className="mt-3 text-2xl font-bold tracking-tight">
                       {loc.name}
@@ -1155,7 +1155,7 @@ export default function SampanDevelopmentLtd() {
         </section>
 
         {/* ============================================================ */}
-        {/* 9. INSIDE THE PORTFOLIO — Project Navigation                  */}
+        {/* 9. INSIDE THE PORTFOLIO -  Project Navigation                  */}
         {/* ============================================================ */}
         <section className="relative bg-white py-36 lg:py-52">
           <div className="mx-auto max-w-[1400px] px-8 lg:px-20">
@@ -1196,7 +1196,7 @@ export default function SampanDevelopmentLtd() {
         </section>
 
         {/* ============================================================ */}
-        {/* 10. FINAL CTA — Giant Editorial Footer with Magnetic Button    */}
+        {/* 10. FINAL CTA -  Giant Editorial Footer with Magnetic Button    */}
         {/* ============================================================ */}
         <section className="fc-sec relative flex min-h-[80vh] items-center overflow-hidden bg-[#050505]">
           <div className="absolute inset-0 z-0 opacity-0 transition-opacity duration-1500 hover:opacity-[0.08]">
