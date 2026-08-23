@@ -24,7 +24,7 @@ export default function SampanAgroGolfFeature() {
   return (
     <section className="relative left-1/2 isolate min-h-[680px] w-screen -translate-x-1/2 overflow-hidden bg-[#071b13] text-white lg:min-h-[650px]">
       <Image
-        src="/images/agro-golf/hero-aerial.webp"
+        src="/images/featuredConcerns/sampan-agro-golf-resort.png"
         alt="Aerial concept view of Sampan Agro & Golf Resort"
         fill
         sizes="100vw"

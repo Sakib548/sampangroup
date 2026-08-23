@@ -7,6 +7,15 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { highwayInnFacilities } from "@/data/highwayInnFacility";
+import {
+  getPanelXOffset,
+  getPinGuardCorrection,
+  getPinGuardScroll,
+  getProtectedPinDistance,
+  getStoryExitScroll,
+  getWheelPanelTarget,
+  isScrollInsidePin,
+} from "./highway-story-wheel";
 
 const panels = [
   [
@@ -65,54 +74,238 @@ export default function HighwayInnHorizontalStory() {
 
       if (!track || !progress) return;
 
-      const distance = () => Math.max(0, track.scrollWidth - window.innerWidth);
-
-      gsap.set(progress, { scaleX: 0 });
-
-      const horizontalTween = gsap.to(track, {
-        x: () => -distance(),
-        ease: "none",
-        scrollTrigger: {
-          trigger: scope,
-          start: "top top",
-          end: () => `+=${distance()}`,
-          scrub: 0.8,
-          pin: true,
-          pinSpacing: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            gsap.set(progress, { scaleX: self.progress });
-          },
-        },
-      });
-
       const storyPanels = gsap.utils.toArray<HTMLElement>(
         ".highway-story-panel",
         track,
       );
+      let activePanelIndex = 0;
+      let gestureLocked = false;
+      let trackTween: gsap.core.Tween | null = null;
+      let progressTween: gsap.core.Tween | null = null;
+      let mediaTween: gsap.core.Tween | null = null;
+      let unlockTimer: number | undefined;
+      let guardFrame: number | undefined;
+      let pinGuardActive = false;
+      let guardRepositioning = false;
 
-      storyPanels.forEach((panel) => {
-        const media = panel.querySelector<HTMLElement>(".highway-story-media");
+      const lastPanelIndex = Math.max(0, storyPanels.length - 1);
 
-        if (!media) return;
+      const scheduleGestureUnlock = () => {
+        window.clearTimeout(unlockTimer);
 
-        gsap.fromTo(
-          media,
-          { xPercent: -3 },
-          {
-            xPercent: 3,
-            ease: "none",
-            scrollTrigger: {
-              trigger: panel,
-              containerAnimation: horizontalTween,
-              start: "left right",
-              end: "right left",
-              scrub: true,
-            },
-          },
+        unlockTimer = window.setTimeout(() => {
+          if (trackTween?.isActive()) {
+            scheduleGestureUnlock();
+            return;
+          }
+
+          gestureLocked = false;
+        }, 160);
+      };
+
+      const setPanel = (
+        panelIndex: number,
+        animate: boolean,
+        direction: -1 | 0 | 1 = 0,
+      ) => {
+        activePanelIndex = panelIndex;
+
+        const targetX = getPanelXOffset(
+          panelIndex,
+          window.innerWidth,
+          storyPanels.length,
         );
+        const targetProgress =
+          lastPanelIndex > 0 ? panelIndex / lastPanelIndex : 0;
+
+        trackTween?.kill();
+        progressTween?.kill();
+        mediaTween?.kill();
+
+        if (!animate) {
+          gsap.set(track, { x: targetX });
+          gsap.set(progress, { scaleX: targetProgress });
+          return;
+        }
+
+        gestureLocked = true;
+        scheduleGestureUnlock();
+
+        trackTween = gsap.to(track, {
+          x: targetX,
+          duration: 0.82,
+          ease: "power3.inOut",
+          overwrite: true,
+          onComplete: () => {
+            trackTween = null;
+            scheduleGestureUnlock();
+          },
+        });
+
+        progressTween = gsap.to(progress, {
+          scaleX: targetProgress,
+          duration: 0.82,
+          ease: "power3.inOut",
+          overwrite: true,
+        });
+
+        const activeMedia = storyPanels[panelIndex]?.querySelector<HTMLElement>(
+          ".highway-story-media",
+        );
+
+        if (activeMedia && direction !== 0) {
+          mediaTween = gsap.fromTo(
+            activeMedia,
+            { xPercent: direction > 0 ? -2.5 : 2.5 },
+            {
+              xPercent: 0,
+              duration: 1.05,
+              ease: "power2.out",
+              overwrite: true,
+            },
+          );
+        }
+      };
+
+      gsap.set(track, { x: 0 });
+      gsap.set(progress, { scaleX: 0 });
+
+      const storyTrigger = ScrollTrigger.create({
+        trigger: scope,
+        start: "top top",
+        end: () =>
+          `+=${getProtectedPinDistance(
+            window.innerHeight,
+            storyPanels.length,
+          )}`,
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onEnter: () => {
+          pinGuardActive = false;
+          setPanel(0, false);
+        },
+        onEnterBack: () => {
+          pinGuardActive = false;
+          setPanel(lastPanelIndex, false);
+        },
+        onRefresh: () => setPanel(activePanelIndex, false),
       });
+
+      const setProtectedScroll = (scrollPosition: number) => {
+        guardRepositioning = true;
+        storyTrigger.scroll(scrollPosition);
+        ScrollTrigger.update();
+
+        if (guardFrame !== undefined) {
+          window.cancelAnimationFrame(guardFrame);
+        }
+        guardFrame = window.requestAnimationFrame(() => {
+          guardRepositioning = false;
+        });
+      };
+
+      const enforcePinGuard = () => {
+        if (guardRepositioning) return;
+
+        const safeScroll = getPinGuardScroll(
+          storyTrigger.start,
+          storyTrigger.end,
+        );
+        const correction = getPinGuardCorrection(
+          pinGuardActive,
+          storyTrigger.isActive,
+          storyTrigger.scroll() ?? window.scrollY,
+          safeScroll,
+        );
+
+        if (correction !== null) {
+          setProtectedScroll(correction);
+        }
+      };
+
+      const normalizeWheelDelta = (event: WheelEvent) => {
+        if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) {
+          return event.deltaY * 16;
+        }
+
+        if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) {
+          return event.deltaY * window.innerHeight;
+        }
+
+        return event.deltaY;
+      };
+
+      const handleWheel = (event: WheelEvent) => {
+        const currentScroll = storyTrigger.scroll() ?? window.scrollY;
+        const insideStory = isScrollInsidePin(
+          storyTrigger.isActive,
+          currentScroll,
+          storyTrigger.start,
+          storyTrigger.end,
+        );
+
+        if (!insideStory) return;
+
+        if (gestureLocked) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          scheduleGestureUnlock();
+          return;
+        }
+
+        const navigation = getWheelPanelTarget(
+          activePanelIndex,
+          normalizeWheelDelta(event),
+          storyPanels.length,
+        );
+
+        if (!navigation.capture) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          pinGuardActive = false;
+          setProtectedScroll(
+            getStoryExitScroll(
+              storyTrigger.start,
+              storyTrigger.end,
+              navigation.direction,
+            ),
+          );
+          return;
+        }
+
+        event.preventDefault();
+        event.stopImmediatePropagation();
+
+        if (navigation.direction === 0) return;
+
+        pinGuardActive = true;
+        setProtectedScroll(
+          getPinGuardScroll(storyTrigger.start, storyTrigger.end),
+        );
+
+        setPanel(navigation.targetIndex, true, navigation.direction);
+      };
+
+      window.addEventListener("wheel", handleWheel, {
+        passive: false,
+        capture: true,
+      });
+      window.addEventListener("scroll", enforcePinGuard, { passive: true });
+
+      return () => {
+        pinGuardActive = false;
+        window.removeEventListener("wheel", handleWheel, true);
+        window.removeEventListener("scroll", enforcePinGuard);
+        trackTween?.kill();
+        progressTween?.kill();
+        mediaTween?.kill();
+        window.clearTimeout(unlockTimer);
+        if (guardFrame !== undefined) {
+          window.cancelAnimationFrame(guardFrame);
+        }
+      };
     });
 
     return () => mediaQuery.revert();

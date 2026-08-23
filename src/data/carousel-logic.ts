@@ -1,10 +1,3 @@
-export type CarouselPauseState = {
-  manuallyPaused: boolean;
-  hovered: boolean;
-  focused: boolean;
-  touching: boolean;
-};
-
 export const TRANSITION_MODES = [
   "crossfade",
   "parallax",
@@ -46,23 +39,30 @@ export function getCarouselLayers(
   };
 }
 
-export function getProgressAnimationKey(
-  slideId: string,
-  activeIndex: number,
-  progressRun: number,
-) {
-  return `${slideId}-${activeIndex}-${progressRun}`;
-}
-
 export function getNextSlideIndex(activeIndex: number, slideCount: number) {
   return (activeIndex + 1) % slideCount;
 }
 
-export function shouldAutoplay({
-  manuallyPaused,
-  hovered,
-  focused,
-  touching,
-}: CarouselPauseState) {
-  return !manuallyPaused && !hovered && !focused && !touching;
+export function getPreviousSlideIndex(activeIndex: number, slideCount: number) {
+  return (activeIndex - 1 + slideCount) % slideCount;
+}
+
+export type SwipeDirection = "previous" | "next" | null;
+
+export function getSwipeDirection(
+  deltaX: number,
+  deltaY: number,
+  threshold = 50,
+): SwipeDirection {
+  const horizontalDistance = Math.abs(deltaX);
+  const verticalDistance = Math.abs(deltaY);
+
+  if (
+    horizontalDistance < threshold ||
+    horizontalDistance <= verticalDistance
+  ) {
+    return null;
+  }
+
+  return deltaX < 0 ? "next" : "previous";
 }

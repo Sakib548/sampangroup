@@ -68,7 +68,7 @@ export default function SampanMetroSquareFeature() {
           </p>
           <h2 className="text-[clamp(3.6rem,7.2vw,7.9rem)] font-medium leading-[0.8] tracking-[-0.07em]">
             Sampan
-            <span className="mt-2 block text-[#c4e560]">Metro Square.</span>
+            <span className="mt-2 block ">Metro Square.</span>
           </h2>
 
           <div className="mt-8 grid max-w-2xl gap-6 sm:grid-cols-[1fr_13rem] sm:items-start">
@@ -89,7 +89,7 @@ export default function SampanMetroSquareFeature() {
           </div>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link
+            {/* <Link
               href="/our_divisions/real-estate-land-investment/sampan-metro-square"
               className="group inline-flex min-h-14 items-center justify-between gap-8 bg-[#ef636b] px-6 text-xs font-bold uppercase tracking-[0.15em] text-[#071b13] transition duration-300 hover:bg-white"
             >
@@ -106,7 +106,7 @@ export default function SampanMetroSquareFeature() {
               <span className="transition-transform duration-300 group-hover:translate-x-1">
                 <Arrow />
               </span>
-            </Link>
+            </Link> */}
           </div>
         </div>
 

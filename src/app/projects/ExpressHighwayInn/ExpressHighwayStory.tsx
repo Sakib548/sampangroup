@@ -100,7 +100,7 @@ export default function ExpressHighwayStory() {
 
             <h2 className="mt-5 max-w-4xl text-[clamp(3rem,6.2vw,7rem)] font-medium leading-[0.9] tracking-[-0.065em] text-balance">
               Everything you need,
-              <span className="block text-[#58b9eb]">all in one stop.</span>
+              <span className="block ">all in one stop.</span>
             </h2>
           </div>
 
