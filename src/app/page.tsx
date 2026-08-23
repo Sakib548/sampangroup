@@ -34,7 +34,7 @@ export default function Home() {
       <HighwayInnShowcase />
       <HighwayInnCardStack />
 
-      <ConcernsSection3 />
+      {/* <ConcernsSection3 /> */}
       <ConcernsSection /> 
       {/* <ContactCTA />*/}
     </main>
