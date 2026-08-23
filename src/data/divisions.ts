@@ -16,14 +16,18 @@ export const divisionGroups = [
     id: "real-estate",
     title: "Real Estate & Land Investment",
     items: [
-      "Sampan Development Ltd (SDL)",
+      "Sampan Development Ltd",
       "Sampan Metro Square",
+      "Sampan Cafe Metro",
+      "Sampan Residency Tower 1 & 2",
+      "Sampan Trade Emporium",
       "Sampan Motalib Skyline",
       "Sampan Nexus",
-      "Sampan Residency Tower 1 & 2",
+
       "Sampan 21st Century",
-      "Sampan Niketon",
+
       "Sampan Taj",
+      "Sampan Niketon",
     ],
   },
   {
@@ -31,35 +35,38 @@ export const divisionGroups = [
     title: "Hospitality & Highway Travel",
     items: [
       "Sampan Highway Inn",
+      "Sampan White House",
+      "Sampan Highway Inn Restaurant & Party Center",
+      "Sampan Eco & Agro Resort",
       "Express Highway Inn",
       "Express Highway Inn Club & Lounge",
-      "Sampan Highway Motel & White Hall",
+      // "Sampan Highway Motel & White Hall",
       "Sampan Agro & Golf Resort",
-      "Agro and Golf Club & Lounge",
-      "Sampan Eco & Agro Resort",
+      "Sampan Agro and Golf Inn Club and Lounge",
     ],
   },
-  { id: "agro", title: "Agro & Fresh Produce", items: ["Sampan Eco & Agro"] },
+  {
+    id: "education",
+    title: "Professional Education",
+    items: ["London School of Higher Studies (LSHS)"],
+  },
+  {
+    id: "agro",
+    title: "Agro & Fresh Produce",
+    items: ["Sampan Eco & Agro", "Sampan Fish & Meat"],
+  },
   {
     id: "retail",
     title: "Retail & Super Shops",
-    items: ["Sampan Mart", "Mini Sampan Super Shop", "Sampan Trade Emporium"],
+    items: ["Sampan Sweet Box", "Sampan Mart", "Mini Sampan Super Shop"],
   },
-  {
-    id: "manufacturing",
-    title: "Manufacturing & Industrial",
-    items: [
-      "Sampan Hollow Bricks & Tile",
-      "Sampan Pet & Beverage",
-      "Sampan Industrial Park",
-    ],
-  },
+
   {
     id: "mobility",
     title: "Automotive, Fuel & Mobility",
     items: [
       "Sampan Auto",
-      "Sampan Cafe Metro",
+
       "Sampan Filling Station",
       "Sampan LPG Filling Station",
       "Sampan EV Car Charging Station",
@@ -67,9 +74,13 @@ export const divisionGroups = [
     ],
   },
   {
-    id: "education",
-    title: "Professional Education",
-    items: ["London School of Higher Studies (LSHS)"],
+    id: "manufacturing",
+    title: "Manufacturing & Industrial",
+    items: [
+      "Sampan Industrial Park",
+      "Sampan Hollow Bricks & Tile",
+      "Sampan Pet & Beverage",
+    ],
   },
   {
     id: "security",

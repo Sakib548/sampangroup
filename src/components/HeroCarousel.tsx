@@ -2,18 +2,25 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 
 import {
   getAnimationPreview,
   getCarouselLayers,
   getNextSlideIndex,
+  getPreviousSlideIndex,
+  getSwipeDirection,
   resolveTransitionMode,
   type TransitionMode,
 } from "../data/carousel-logic";
 import styles from "../app/HeroCarousel.module.css";
 
-const AUTO_ADVANCE_MS = 4500;
+const AUTO_ADVANCE_MS = 6000;
 
 const transitionOptions: Array<{
   value: TransitionMode;
@@ -46,7 +53,7 @@ const slides: HeroSlide[] = [
     eyebrow: "Your Perfect Stopover on the Dhaka–Khulna Highway",
     subhead:
       "Cozy rooms, honest meals, a place to breathe before the road takes you again.",
-    cta: "Book a Stay",
+    cta: "Visit us",
     href: "/sampan-highway-inn-restaurant-party-centre",
     image: "/images/featuredConcerns/highway-inn.png",
     imagePosition: "center center",
@@ -67,7 +74,7 @@ const slides: HeroSlide[] = [
   {
     id: "ehi",
     title: "Express Highway Inn",
-    eyebrow: "The Highway, Reimagined",
+    eyebrow: "The Highway, Reimagined at Dhaka-Chattogram highway",
     subhead:
       "Everything travelers love about Sampan Highway Inn—modernized, elevated, and opening soon.",
     cta: "See What’s Coming",
@@ -114,6 +121,11 @@ export default function HeroCarousel({
     resolveTransitionMode(defaultTransition),
   );
   const [transitionRun, setTransitionRun] = useState(0);
+  const swipeStart = useRef<{
+    x: number;
+    y: number;
+    pointerId: number;
+  } | null>(null);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -139,6 +151,44 @@ export default function HeroCarousel({
     setTransitionRun((run) => run + 1);
   }
 
+  function showPreviousSlide() {
+    showSlide(getPreviousSlideIndex(activeIndex, slides.length));
+  }
+
+  function showNextSlide() {
+    showSlide(getNextSlideIndex(activeIndex, slides.length));
+  }
+
+  function handlePointerDown(event: ReactPointerEvent<HTMLElement>) {
+    if (event.pointerType !== "touch") return;
+
+    swipeStart.current = {
+      x: event.clientX,
+      y: event.clientY,
+      pointerId: event.pointerId,
+    };
+  }
+
+  function handlePointerUp(event: ReactPointerEvent<HTMLElement>) {
+    const start = swipeStart.current;
+
+    if (!start || start.pointerId !== event.pointerId) return;
+
+    const direction = getSwipeDirection(
+      event.clientX - start.x,
+      event.clientY - start.y,
+    );
+
+    swipeStart.current = null;
+
+    if (direction === "next") showNextSlide();
+    if (direction === "previous") showPreviousSlide();
+  }
+
+  function handlePointerCancel() {
+    swipeStart.current = null;
+  }
+
   function previewAnimation(mode: TransitionMode) {
     const preview = getAnimationPreview(activeIndex, slides.length, mode);
 
@@ -156,6 +206,9 @@ export default function HeroCarousel({
       role="region"
       aria-roledescription="carousel"
       aria-label="Sampan Group featured destinations and projects"
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerCancel}
     >
       <div className={styles.slides} aria-hidden="true">
         {slides.map((slide, index) => {
@@ -205,8 +258,6 @@ export default function HeroCarousel({
       <div className={styles.overlay} aria-hidden="true" />
 
       <div className={styles.shell}>
-        {/* <p className={styles.motto}>The village will be the city.</p> */}
-
         {showAnimationPicker && (
           <div className={styles.animationLab}>
             <p className={styles.animationLabLabel}>Animation Lab</p>
@@ -242,9 +293,6 @@ export default function HeroCarousel({
           aria-atomic="true"
         >
           <div className={styles.eyebrowRow}>
-            <span className={styles.slideNumber}>
-              {String(activeIndex + 1).padStart(2, "0")}
-            </span>
             <span className={styles.eyebrowLine} aria-hidden="true" />
             <p className={styles.eyebrow}>{activeSlide.eyebrow}</p>
           </div>
@@ -255,7 +303,7 @@ export default function HeroCarousel({
 
           <Link
             href={activeSlide.href}
-            className="site-btn site-btn--green   mt-3"
+            className="site-btn site-btn--green mt-3"
           >
             <span>{activeSlide.cta}</span>
             <span className="site-btn__arrow" aria-hidden="true">
@@ -296,12 +344,51 @@ export default function HeroCarousel({
             })}
           </div>
 
-          <p className={styles.slidePosition} aria-hidden="true">
-            <span>{String(activeIndex + 1).padStart(2, "0")}</span>
-            <span className={styles.slidePositionDivider} />
-            <span>{String(slides.length).padStart(2, "0")}</span>
-          </p>
+          <div className={styles.controlEnd}>
+            <p className={styles.slidePosition} aria-hidden="true">
+              <span>{String(activeIndex + 1).padStart(2, "0")}</span>
+              <span className={styles.slidePositionDivider} />
+              <span>{String(slides.length).padStart(2, "0")}</span>
+            </p>
+
+            <div
+              className={styles.navigationArrows}
+              role="group"
+              aria-label="Carousel navigation"
+            >
+              <button
+                type="button"
+                className={styles.arrowButton}
+                aria-label="Show previous slide"
+                onClick={showPreviousSlide}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  className={styles.arrowIcon}
+                >
+                  <path d="M14.5 5 7.5 12l7 7M8 12h10" />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                className={styles.arrowButton}
+                aria-label="Show next slide"
+                onClick={showNextSlide}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  className={styles.arrowIcon}
+                >
+                  <path d="m9.5 5 7 7-7 7M16 12H6" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
+
         <p className={styles.motto}>The village will be the city.</p>
       </div>
     </section>
