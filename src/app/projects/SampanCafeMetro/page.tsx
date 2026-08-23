@@ -93,7 +93,7 @@ export default function SampanCafeMetroFeature() {
 
                 <div className="flex items-center gap-3">
                   <span className="font-mono text-[0.58rem] font-bold tracking-[0.16em] text-[#ef636b]">
-                    {highlight.number}
+                    {/* {highlight.number} */}
                   </span>
                   <span className="h-px w-7 bg-white/25" />
                 </div>

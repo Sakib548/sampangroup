@@ -74,7 +74,7 @@ export default function SampanAutoFeature() {
           </p>
 
           <Link
-            href="/concerns#automotive-fuel-mobility"
+            href="https://www.sampangroup.com.bd/sampan-auto"
             className="group mt-8 inline-flex min-h-14 items-center justify-between gap-10 bg-[#ffc52f] px-6 text-xs font-bold uppercase tracking-[0.15em] text-[#07131f] transition duration-300 hover:bg-white"
           >
             Explore Sampan Auto
@@ -91,7 +91,7 @@ export default function SampanAutoFeature() {
               className="grid grid-cols-[2.5rem_1fr] gap-3 border-b border-white/15 py-5 md:border-b-0 md:border-r md:px-6 md:first:pl-0 md:last:border-r-0"
             >
               <span className="pt-1 text-[0.62rem] font-bold tracking-[0.18em] text-[#4db7ff]">
-                {value.number}
+                {/* {value.number} */}
               </span>
               <div>
                 <h3 className="text-xl font-medium tracking-[-0.03em]">
