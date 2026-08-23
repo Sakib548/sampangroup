@@ -320,7 +320,7 @@ export default function HighwayInnHorizontalStory() {
       <div className="highway-story-eyebrow sticky top-24 z-40 h-0 md:absolute md:left-1/2 md:top-24 md:h-auto md:-translate-x-1/2">
         <div className="mx-auto flex w-max items-center gap-3 border border-white/16 bg-[#071b13]/58 px-4 py-3 text-[0.62rem] font-bold uppercase tracking-[0.22em] text-white/76 shadow-[0_12px_35px_rgba(0,0,0,0.16)] backdrop-blur-xl">
           <span className="h-1.5 w-1.5 bg-[#ef636b]" />
-          <span className="text-[#a8df73]">04</span>
+          {/* <span className="text-[#a8df73]">04</span> */}
           <span className="text-white/30">—</span>
           <span className="text-[#f5c84c]">Sampan Highway Inn</span>
         </div>

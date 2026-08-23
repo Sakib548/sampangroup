@@ -173,9 +173,9 @@ export default function ExpressHighwayStory() {
                       }`}
                     />
 
-                    <span className="font-mono text-[0.56rem] font-bold tracking-[0.14em] text-[#58b9eb]">
+                    {/* <span className="font-mono text-[0.56rem] font-bold tracking-[0.14em] text-[#58b9eb]">
                       {String(index + 1).padStart(2, "0")}
-                    </span>
+                    </span> */}
 
                     <span className="mt-3 block max-w-[15ch] text-[0.62rem] font-bold uppercase leading-4 tracking-[0.13em]">
                       {slide.tabLabel}
