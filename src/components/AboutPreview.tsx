@@ -84,10 +84,10 @@ export default function AboutPreview() {
                     />
                   </div>
                 </div>
-
+                {/* 
                 <span className="font-mono text-[0.63rem] font-bold tracking-[0.18em] text-[#183b2b]/36">
                   {String(index + 1).padStart(2, "0")}
-                </span>
+                </span> */}
               </div>
 
               <div className="mt-auto pt-16">

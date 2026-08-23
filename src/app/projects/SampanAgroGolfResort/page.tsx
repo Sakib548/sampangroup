@@ -47,14 +47,12 @@ export default function SampanAgroGolfFeature() {
         </div>
 
         <div className="my-auto max-w-[53rem] py-14">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-[#d7e969]">
+          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] ">
             A destination in development
           </p>
           <h2 className="text-[clamp(3.6rem,7vw,7.6rem)] font-medium leading-[0.8] tracking-[-0.07em]">
             Where the green
-            <span className="mt-2 block text-[#d7e969]">
-              becomes the getaway.
-            </span>
+            <span className="mt-2 block ">becomes the getaway.</span>
           </h2>
           <p className="mt-7 max-w-2xl text-base leading-7 text-white/70 sm:text-lg sm:leading-8">
             Golf, sustainable agriculture, premium hospitality, and open-air
@@ -63,7 +61,7 @@ export default function SampanAgroGolfFeature() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/our_divisions/hospitality-highway-travel/sampan-agro-golf-resort"
+              href="https://sampangolfresort.com/"
               className="group inline-flex min-h-14 items-center justify-between gap-8 bg-[#d7e969] px-6 text-xs font-bold uppercase tracking-[0.15em] text-[#071b13] transition duration-300 hover:bg-white"
             >
               Explore the resort
@@ -71,7 +69,7 @@ export default function SampanAgroGolfFeature() {
                 <Arrow />
               </span>
             </Link>
-            <Link
+            {/* <Link
               href="/contact?project=sampan-agro-golf-resort"
               className="group inline-flex min-h-14 items-center justify-between gap-8 border border-white/25 bg-white/[0.08] px-6 text-xs font-bold uppercase tracking-[0.15em] backdrop-blur-xl transition duration-300 hover:border-white/45 hover:bg-white/[0.14]"
             >
@@ -79,7 +77,7 @@ export default function SampanAgroGolfFeature() {
               <span className="transition-transform duration-300 group-hover:translate-x-1">
                 <Arrow />
               </span>
-            </Link>
+            </Link> */}
           </div>
         </div>
 
