@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { concerns } from "@/data/concerns";
+import { concerns } from "@/data/concerns2";
 import { divisionGroups } from "@/data/divisions";
 
 const taglines: Record<string, string> = {
@@ -19,21 +19,32 @@ const initials = (label: string) =>
   label
     .split(" ")
     .filter(Boolean)
-    .slice(0, 2)
+    .filter((word) => word !== "&" && word !== "of" && word !== "(")
+
+    .slice(0)
     .map((word) => word[0])
     .join("")
     .toUpperCase();
 
+// const findConcern = (label: string) => {
+//   const normalized = label.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+//   return concerns.find((concern) => {
+//     const name = concern.id.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+//     return name.includes(normalized) || normalized.includes(name);
+//   });
+// };
+const normalize = (value: string) =>
+  value.toLowerCase().replace(/[^a-z0-9]/g, "");
+
 const findConcern = (label: string) => {
-  const normalized = label.toLowerCase().replace(/[^a-z0-9]/g, "");
+  const normalizedLabel = normalize(label);
 
-  return concerns.find((concern) => {
-    const name = concern.name.toLowerCase().replace(/[^a-z0-9]/g, "");
-
-    return name.includes(normalized) || normalized.includes(name);
-  });
+  return concerns.find(
+    (concern) => normalize(concern.name) === normalizedLabel,
+  );
 };
-
 const visibleDivisions = divisionGroups.filter(
   (division) => division.id !== "maritime",
 );
@@ -70,48 +81,36 @@ export default function DivisionsSection() {
           </p>
         </header>
 
-        <div className="border-b border-[#183b2b]/14">
-          {visibleDivisions.map((division, divisionIndex) => (
-            <section
-              key={division.id}
-              className="border-t border-[#183b2b]/14 first:border-t-0"
-            >
-              <header className="grid min-h-[6.25rem] grid-cols-[2.5rem_minmax(0,1fr)] items-center gap-3 py-4 sm:grid-cols-[3.5rem_minmax(0,1fr)_auto] sm:gap-6 sm:py-5">
-                <span className="font-mono text-[0.62rem] font-bold tracking-[0.18em] text-[#183b2b]/35">
-                  {String(divisionIndex + 1).padStart(2, "0")}
-                </span>
+        <div className=" border-[#183b2b]/14">
+          {visibleDivisions.map((division) => (
+            <section key={division.id} className=" first:border-t-0">
+              <header className="grid min-h-[5.5rem] gap-2 py-4 sm:grid-cols-[minmax(0,1fr)_minmax(16rem,0.85fr)] sm:items-center sm:gap-8 sm:py-5">
+                <h3 className="text-[clamp(1.25rem,2vw,2rem)] font-medium leading-tight tracking-[-0.035em]">
+                  {division.title}
+                </h3>
 
-                <div className="grid min-w-0 gap-2 lg:grid-cols-[minmax(0,0.9fr)_minmax(16rem,1.1fr)] lg:items-center lg:gap-8">
-                  <h3 className="text-[clamp(1.25rem,2vw,2rem)] font-medium leading-tight tracking-[-0.035em]">
-                    {division.title}
-                  </h3>
-                  <p className="max-w-xl text-xs leading-5 text-[#183b2b]/52 sm:text-sm">
-                    {taglines[division.id] ??
-                      "Part of Sampan Group’s connected portfolio."}
-                  </p>
-                </div>
-
-                <p className="hidden text-[0.6rem] font-bold uppercase tracking-[0.16em] text-[#008f68] sm:block">
-                  {String(division.items.length).padStart(2, "0")} concerns
+                <p className="max-w-xl text-xs leading-5 text-[#183b2b]/52 sm:justify-self-end sm:text-right sm:text-sm">
+                  {taglines[division.id] ??
+                    "Part of Sampan Group’s connected portfolio."}
                 </p>
               </header>
 
-              <div className="mb-8 grid gap-px border border-[#183b2b]/10 bg-[#183b2b]/10 sm:grid-cols-2 lg:grid-cols-4">
-                {division.items.map((item, itemIndex) => {
-                  const concern = findConcern(item.label);
+              <div className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                {division.items.map((item) => {
+                  const concern = findConcern(item.id);
                   const logo = concern?.logo;
 
                   return (
                     <article
                       key={item.id}
-                      className="group/card relative min-h-[10rem] bg-white/90 transition-colors duration-300 hover:bg-white"
+                      className="group/card relative min-h-[10rem] border border-[#183b2b]/10 bg-white/90 transition duration-300 hover:-translate-y-0.5 hover:border-[#008f68]/30 hover:bg-white hover:shadow-[0_14px_35px_rgba(14,47,33,0.07)]"
                     >
                       <Link
                         href={item.href}
                         aria-label={`Explore ${item.label}`}
                         className="flex min-h-[10rem] flex-col p-4 sm:p-5"
                       >
-                        <div className="flex items-start justify-between gap-4">
+                        <div className="flex items-start gap-4">
                           {logo ? (
                             <div className="relative h-12 w-32 sm:h-14 sm:w-36">
                               <Image
@@ -127,10 +126,6 @@ export default function DivisionsSection() {
                               {initials(item.label)}
                             </span>
                           )}
-
-                          <span className="font-mono text-[0.55rem] font-bold tracking-[0.13em] text-[#183b2b]/28">
-                            {String(itemIndex + 1).padStart(2, "0")}
-                          </span>
                         </div>
 
                         <div className="mt-auto pt-4">
@@ -140,7 +135,7 @@ export default function DivisionsSection() {
                           </p>
 
                           <div className="mt-2 flex items-end justify-between gap-4">
-                            <h4 className="line-clamp-2 max-w-[18ch] text-base font-medium leading-[1.12] tracking-[-0.025em] sm:text-lg">
+                            <h4 className="line-clamp-2 max-w-[18ch] text-base font-medium leading-[1.25] tracking-[-0.025em] sm:text-lg">
                               {item.label}
                             </h4>
                             <span

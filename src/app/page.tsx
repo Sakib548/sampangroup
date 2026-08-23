@@ -16,11 +16,12 @@ export default function Home() {
     <main className="min-h-screen bg-neutral-950">
       {/* <HeroSlider2 /> */}
       <HeroCarousel defaultTransition="mask" showAnimationPicker={false} />
+      <DivisionsSection />
       <AboutPreview />
 
       {/* <AboutUsEditorial /> */}
       <Counter />
-      <DivisionsSection />
+
       <ProjectsSection />
       <LocationMap />
       <LeadershipMessage />
