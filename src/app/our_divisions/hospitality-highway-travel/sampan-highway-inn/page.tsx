@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { highwayInnFacilities } from "@/data/highwayInnFacility";
-import { HighwayInnModern } from "@/components/HospitalityDistinctPages";
+import HighwayInnExperiencePage from "./components/HighwayInnExperiencePage";
 
 const heroImage = "/images/projects/sampan-highway-inn.png";
 const galleryImages = [
@@ -152,4 +152,4 @@ function LegacySampanHighwayInnPage() {
   );
 }
 
-export default HighwayInnModern;
+export default HighwayInnExperiencePage;

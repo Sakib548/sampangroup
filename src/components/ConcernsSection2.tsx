@@ -1,69 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import { concerns } from "@/data/concerns";
 
-function getInitials(name: string) {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .slice(0, 2)
-    .map((word) => word[0])
-    .join("")
-    .toUpperCase();
-}
-
 export default function ConcernsSection2() {
-  return (
-    <section className="bg-stone-100 px-10 py-16 text-neutral-950 lg:px-20 lg:py-20">
-      <div className="mx-auto w-full max-w-[1200px]">
-        <div className="flex flex-col justify-between gap-6 border-b border-neutral-950/15 pb-8 sm:flex-row sm:items-end">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-emerald-700">
-              Our businesses
-            </p>
-            <h2 className="mt-4 max-w-3xl text-[clamp(2.25rem,3.7vw,3.75rem)] font-semibold leading-tight tracking-tight">
-              One group, many ambitions.
-            </h2>
-          </div>
-          <p className="max-w-sm text-sm leading-6 text-neutral-600 sm:text-right">
-            Diverse businesses connected by one shared vision for progress.
-          </p>
-        </div>
-
-        <div className="mt-10 grid grid-cols-2 border-l border-t border-neutral-950/15 sm:grid-cols-3 lg:grid-cols-6">
-          {concerns.map((concern, index) => (
-            <article
-              key={concern.id}
-              className={`group flex min-h-64 flex-col justify-between border-b border-r border-neutral-950/15 bg-white p-5 transition duration-500 hover:-translate-y-1 hover:shadow-xl sm:min-h-72 sm:p-7 ${
-                index % 4 === 1 ? "hover:border-red-500" : "hover:border-emerald-700"
-              }`}
-            >
-              <div className="flex min-h-32 items-center justify-center sm:min-h-40">
-                {concern.logo ? (
-                  <Image
-                    src={concern.logo}
-                    alt={`${concern.name} logo`}
-                    width={220}
-                    height={160}
-                    className="max-h-28 w-full object-contain transition duration-500 group-hover:scale-105 sm:max-h-32"
-                  />
-                ) : (
-                  <span className="flex h-20 w-20 items-center justify-center rounded-full border border-neutral-300 text-xl font-semibold tracking-[0.12em] text-neutral-700">
-                    {getInitials(concern.name)}
-                  </span>
-                )}
-              </div>
-              <div className="border-t border-neutral-200 pt-4">
-                <h3 className="text-sm font-semibold leading-5 tracking-tight">
-                  {concern.name}
-                </h3>
-                <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.12em] text-neutral-500">
-                  {concern.category}
-                </p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return <section className="bg-[#f7f8f5] px-6 py-20 text-[#183b2b] sm:px-10 lg:px-16 lg:py-28"><div className="mx-auto max-w-[1400px]"><div className="flex flex-col justify-between gap-6 border-b border-[#183b2b]/15 pb-8 sm:flex-row sm:items-end"><div><p className="text-xs font-semibold uppercase tracking-[0.28em] text-[#ef636b]">Our concerns</p><h2 className="mt-4 max-w-3xl text-[clamp(2.25rem,3.7vw,4rem)] font-semibold leading-tight tracking-tight">Businesses built around real needs.</h2></div><p className="max-w-sm text-sm leading-6 text-[#183b2b]/60 sm:text-right">Explore the concerns and projects contributing to Sampan Group’s growing presence.</p></div><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{concerns.map((concern) => <article key={concern.id} className="group relative min-h-[22rem] overflow-hidden bg-[#183b2b] text-white"><div className="absolute inset-0 bg-gradient-to-t from-[#071b13] via-[#183b2b]/65 to-[#183b2b]/15" /><div className="absolute inset-0 opacity-35 transition duration-700 group-hover:scale-105 group-hover:opacity-55">{concern.logo ? <Image src={concern.logo} alt="" fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-contain p-12" /> : <div className="flex h-full items-center justify-center px-8 text-center text-3xl font-semibold tracking-tight text-white/80">{concern.name}</div>}</div><div className="relative z-10 flex min-h-[22rem] flex-col justify-end p-6 sm:p-7"><div className="mb-auto flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-white/90 p-2">{concern.logo ? <Image src={concern.logo} alt={`${concern.name} logo`} width={56} height={56} className="h-full w-full object-contain" /> : <span className="text-center text-[10px] font-bold uppercase leading-tight text-[#183b2b]">{concern.name.slice(0, 3)}</span>}</div><p className="mt-10 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#a8df73]">{concern.category}</p><h3 className="mt-2 max-w-[16ch] text-2xl font-medium leading-tight">{concern.name}</h3><p className="mt-3 max-w-xs text-sm leading-6 text-white/70">{concern.tagline}</p><Link href={`/concerns#${concern.id}`} className="mt-6 inline-flex w-fit items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-[#a8df73] transition hover:text-white">Explore <span className="transition-transform duration-300 group-hover:translate-x-2">→</span></Link></div></article>)}</div></div></section>;
 }

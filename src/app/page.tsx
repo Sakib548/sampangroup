@@ -4,6 +4,8 @@ import AboutPreview from "@/components/AboutPreview";
 import AboutUsEditorial from "@/components/AboutUsEditorial";
 import Counter from "@/components/Counter";
 import ConcernsSection2 from "@/components/ConcernsSection2";
+import DivisionsSection from "@/components/DivisionsSection";
+import ProjectsSection from "@/components/ProjectsSection";
 import PartnersSection from "@/components/PartnersSection";
 import OngoingProjects from "@/components/OngoingProjects";
 import CompletedProjectsEditorial from "@/components/CompletedProjectsEditorial";
@@ -13,30 +15,34 @@ import CompletedProjectsShowcase from "@/components/CompletedProjectsShowcase";
 import ExpressFacilities from "@/components/ExpressFacilities";
 import HighwayInnShowcase from "@/components/HighwayInnShowcase";
 import HighwayInnCardStack from "@/components/HighwayInnCardStack";
-import ConcernsSection3 from "@/components/ConcernSection3";
+import HeroCarousel from "@/components/HeroCarousel";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-neutral-950">
-      <HeroSlider2 />
+      {/* <HeroSlider2 /> */}
+      <HeroCarousel defaultTransition="mask" showAnimationPicker={false} />
       <AboutPreview />
-      <AboutUsEditorial />
+
+      {/* <AboutUsEditorial /> */}
       <Counter />
-      <ConcernsSection2 />
-      <PartnersSection />
+      <DivisionsSection />
+      <ProjectsSection />
+      {/* <ConcernsSection2 /> */}
+      {/* <PartnersSection />
 
       <OngoingProjects />
       <CompletedProjectsEditorial />
-      <CompletedProjectsShowcase />
+      <CompletedProjectsShowcase /> */}
       {/* <CompletedProjectsEditorial /> */}
-      <FullWidthVideo />
+      {/* <FullWidthVideo />
       <ExpressFacilities />
       <HighwayInnShowcase />
-      <HighwayInnCardStack />
+      <HighwayInnCardStack /> */}
 
       {/* <ConcernsSection3 /> */}
-      <ConcernsSection /> 
-      {/* <ContactCTA />*/}
+      {/* <ConcernsSection /> */}
+      <ContactCTA />
     </main>
   );
 }

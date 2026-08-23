@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import AnimationProvider from "@/components/providers/AnimationProvider";
-import Navbar2 from "@/components/Navbar2";
+import Navbar3 from "@/components/Navbar3";
 import Footer from "@/components/Footer";
+import Navbar2 from "@/components/Navbar2";
 
 const SITE_URL = "https://www.sampangroup.com.bd";
 const LOGO_URL = `${SITE_URL}/images/Sampan-Group.png`;

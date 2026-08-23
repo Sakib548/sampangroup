@@ -1,0 +1,2 @@
+type Props = { name: string; status: string; color: string };
+export default function ProjectPlaceholder({ name, status, color }: Props) { return <section className="border-b border-[#183b2b]/15 py-12 first:pt-0"><div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-center"><h3 className="text-3xl font-medium tracking-tight sm:text-5xl">{name}</h3><span className={`w-fit rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] ${color}`}>{status}</span></div></section>; }

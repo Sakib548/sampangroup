@@ -47,7 +47,9 @@ export default function AnimationProvider({
           if (!entry.isIntersecting || revealed.has(section)) return
 
           revealed.add(section)
-          gsap.fromTo(
+          const revealItems = section.querySelectorAll<HTMLElement>(".reveal-item")
+          const timeline = gsap.timeline()
+          timeline.fromTo(
             section,
             { autoAlpha: 0, y: 28 },
             {
@@ -58,6 +60,14 @@ export default function AnimationProvider({
               clearProps: "transform,opacity,visibility",
             },
           )
+          if (revealItems.length) {
+            timeline.fromTo(
+              revealItems,
+              { autoAlpha: 0, y: 18 },
+              { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.08, ease: "power2.out", clearProps: "transform,opacity,visibility" },
+              "-=0.55",
+            )
+          }
           observer.unobserve(section)
         })
       },
