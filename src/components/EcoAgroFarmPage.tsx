@@ -11,10 +11,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 const farmImage = "/images/our_divisions/eco_agro/fruits.jpg";
 const farmMark = "/images/our_divisions/eco_agro/veg.jpg";
+
 const crops = [
   {
     name: "Fruits",
-    image: farmImages,
+    image: farmImage, // Fixed: Changed from farmImages to farmImage
     copy: "Seasonal fruit, grown slowly and picked with cares.",
   },
   {
