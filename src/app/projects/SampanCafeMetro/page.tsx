@@ -54,9 +54,9 @@ export default function SampanCafeMetroFeature() {
             Coming soon
           </div>
 
-          <p className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/50">
+          {/* <p className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/50">
             A new Sampan experience
-          </p>
+          </p> */}
         </div>
 
         <div className="mt-auto pt-20">
