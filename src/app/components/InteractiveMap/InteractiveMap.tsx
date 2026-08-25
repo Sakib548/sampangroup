@@ -293,7 +293,7 @@ export default function LocationMap() {
               {/* Content */}
               <div className="flex flex-col">
                 <p className="mb-4 font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-emerald-400">
-                  {activeLocation.category} — {activeLocation.location}
+                  {activeLocation.category} -  {activeLocation.location}
                 </p>
                 <h3 className="text-[clamp(2rem,3vw,3rem)] font-semibold leading-[0.95] tracking-tight text-white">
                   {activeLocation.name}

@@ -37,7 +37,7 @@ const slides = [
     eyebrow: "The Highway, Reimagined",
     title: "Express Highway Inn",
     subhead:
-      "Everything travelers love about Sampan Highway Inn — modernized, elevated, and opening soon.",
+      "Everything travelers love about Sampan Highway Inn -  modernized, elevated, and opening soon.",
     cta: "See What's Coming",
     href: "#express-highway",
     image: "/images.jpg",
@@ -46,7 +46,7 @@ const slides = [
     eyebrow: "UK-Accredited Courses, Built for Bangladesh",
     title: "LSHS",
     subhead:
-      "CIPS and CMI qualifications from London School of Higher Studies — study locally, get recognized globally.",
+      "CIPS and CMI qualifications from London School of Higher Studies -  study locally, get recognized globally.",
     cta: "Apply to LSHS",
     href: "#lshs",
     image: "/images.jpg",

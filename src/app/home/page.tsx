@@ -10,6 +10,7 @@ import AffiliationSection from '../components/AffiliationSection/AffiliationSect
 import InvestmentPortfolio from '../components/InvestmentPortfolio/InvestmentPortfolio';
 import TrustBadges from '../components/TrustBadges/TrustBadges';
 import ContactCTA from '@/components/ContactCTA';
+import NewsroomPreview from '../components/NewsroomPreview/NewsroomPreview';
 
 const HomePages = () => {
     return (
@@ -25,6 +26,7 @@ const HomePages = () => {
             <InvestmentPortfolio/>
             <TrustBadges/>
             <ContactCTA/>
+            <NewsroomPreview/>
         </div>
     );
 };

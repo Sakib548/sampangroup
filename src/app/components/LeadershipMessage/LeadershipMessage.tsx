@@ -13,6 +13,10 @@ export default function LeadershipMessage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [playing, setPlaying] = useState(false);
 
+  // YouTube Video ID from your link
+  const youtubeId = "YjhMZwyZZ_Y";
+  const youtubeThumbnail = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
+
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
@@ -169,12 +173,11 @@ export default function LeadershipMessage() {
                 <>
                   {/* Parallax Image Wrapper (Oversized to prevent empty edges) */}
                   <div className="lead-image absolute inset-0 h-[120%] w-[110%] -left-[5%] -top-[10%] will-change-transform">
-                    <Image
-                      src="/images.jpg" // Replace with actual leadership image
+                    {/* Using standard img tag to avoid next/image remote domain config issues for YouTube thumbnails */}
+                    <img
+                      src={youtubeThumbnail}
                       alt="Emamul Hasan, Managing Director of Sampan Group"
-                      fill
-                      priority
-                      className="object-cover"
+                      className="h-full w-full object-cover"
                     />
                   </div>
 
@@ -216,24 +219,21 @@ export default function LeadershipMessage() {
                   </div>
                 </>
               ) : (
-                <video
-                  autoPlay
-                  controls
-                  playsInline
-                  className="h-full w-full object-cover"
-                >
-                  <source
-                    src="/videos/leadership-message.mp4"
-                    type="video/mp4"
-                  />
-                </video>
+                <iframe
+                  className="absolute inset-0 h-full w-full"
+                  src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`}
+                  title="Leadership Message - Emamul Hasan"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
               )}
             </div>
 
             {/* Video caption */}
             <div className="mt-4 flex items-center justify-between border-t border-neutral-300/60 pt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">
               <span>Managing Director</span>
-              <span>01 : 30</span>
+              <span>YouTube Playback</span>
             </div>
           </div>
 
@@ -260,16 +260,40 @@ export default function LeadershipMessage() {
                 what the road needed next.
               </blockquote>
 
-              {/* Author */}
-              <div className="mt-10 flex items-center gap-4">
-                <div className="h-px w-12 bg-neutral-400" />
-                <div>
-                  <p className="text-base font-semibold text-neutral-950">
-                    Emamul Hasan
-                  </p>
-                  <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">
-                    Managing Director
-                  </p>
+              {/* Author & Affiliations */}
+              <div className="mt-10 flex flex-col gap-6 border-t border-neutral-300/60 pt-8">
+                <div className="flex items-center gap-4">
+                  <div className="h-px w-12 bg-neutral-400" />
+                  <div>
+                    <p className="text-base font-semibold text-neutral-950">
+                      Emamul Hasan
+                    </p>
+                    <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">
+                      Managing Director
+                    </p>
+                  </div>
+                </div>
+
+                {/* Institutional Affiliations List */}
+                <div className="flex flex-wrap gap-x-4 gap-y-2">
+                  {[
+                    "President",
+                    "Vice President",
+                    "Joint Secretary",
+                    "Organizing Secretary",
+                    "GB Member",
+                    "Member",
+                    "Co-Owner",
+                    "MOU Partner",
+                    "Enlisted",
+                  ].map((role) => (
+                    <span
+                      key={role}
+                      className="font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-400 transition-colors duration-300 hover:text-emerald-600"
+                    >
+                      {role}
+                    </span>
+                  ))}
                 </div>
               </div>
 

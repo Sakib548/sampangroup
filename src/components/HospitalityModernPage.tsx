@@ -95,7 +95,7 @@ export default function HospitalityModernPage({
             className="text-xs font-semibold uppercase tracking-[0.3em]"
             style={{ color: c.accent }}
           >
-            01 — The experience
+            01 -  The experience
           </p>
           <div>
             <h2 className="max-w-4xl text-4xl font-medium leading-[1.05] tracking-[-0.035em] sm:text-6xl">
@@ -125,7 +125,7 @@ export default function HospitalityModernPage({
               className="text-xs font-semibold uppercase tracking-[0.3em]"
               style={{ color: c.accent }}
             >
-              02 — Make it yours
+              02 -  Make it yours
             </p>
             <h2 className="mt-5 max-w-xl text-4xl font-medium leading-tight tracking-tight sm:text-5xl">
               Simple comforts. Memorable moments.
@@ -160,7 +160,7 @@ export default function HospitalityModernPage({
                 className="text-xs font-semibold uppercase tracking-[0.3em]"
                 style={{ color: c.accent }}
               >
-                03 — A sense of place
+                03 -  A sense of place
               </p>
               <h2 className="mt-5 text-4xl font-medium tracking-tight sm:text-6xl">
                 See what awaits.
@@ -195,7 +195,7 @@ export default function HospitalityModernPage({
         <div className="mx-auto flex w-full max-w-[1400px] flex-col justify-between gap-8 px-6 sm:px-8 lg:flex-row lg:items-center lg:px-12">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.3em] opacity-70">
-              04 — Begin here
+              04 -  Begin here
             </p>
             <h2 className="mt-4 max-w-2xl text-4xl font-medium tracking-tight sm:text-5xl">
               Make the journey part of the destination.
