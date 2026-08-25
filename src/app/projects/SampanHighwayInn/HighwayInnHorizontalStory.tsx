@@ -151,7 +151,6 @@ function MobileHighwayInnCarousel() {
         (direction > 0 && swiper.isEnd) ||
         (direction < 0 && swiper.isBeginning);
 
-      // Only a fresh gesture that starts at an outer edge may move the page.
       if (leavingAtEdge) {
         accumulatedWheelDelta.current = 0;
         clearWheelTimer();
@@ -681,9 +680,10 @@ export default function HighwayInnHorizontalStory() {
               <div className="highway-story-progress h-full w-full origin-left scale-x-0 bg-[#ef636b]" />
             </div>
 
-          <span className="font-mono text-[0.58rem] font-bold tracking-[0.16em] text-white/42">
-            01 -  05
-          </span>
+            <span className="font-mono text-[0.58rem] font-bold tracking-[0.16em] text-white/42">
+              01 - 05
+            </span>
+          </div>
         </div>
       </div>
     </section>

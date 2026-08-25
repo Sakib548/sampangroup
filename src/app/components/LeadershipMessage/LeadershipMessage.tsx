@@ -140,34 +140,13 @@ export default function LeadershipMessage() {
       ref={containerRef}
       className="relative w-full overflow-hidden bg-[#F5F5F2] py-24 lg:py-32"
     >
-      {/* Giant Ghost Number (Editorial Depth) */}
-      <span className="pointer-events-none absolute -right-6 top-10 select-none text-[14rem] font-black leading-none text-neutral-950 opacity-[0.02] md:text-[20rem]">
-        05
-      </span>
 
       <div className="relative mx-auto max-w-[1400px] px-[5vw]">
-        {/* ====== SECTION HEADER ====== */}
-        <div className="lead-header mb-16 flex items-center justify-between border-b border-neutral-300/60 pb-6 lg:mb-24">
-          <div className="flex items-center gap-4">
-            <span className="h-px w-8 bg-emerald-500" />
-            <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.4em] text-neutral-600">
-              Leadership
-            </span>
-          </div>
-          <span className="hidden font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-400 lg:block">
-            Message from the Managing Director
-          </span>
-        </div>
 
         {/* ====== MAIN GRID ====== */}
         <div className="lead-grid grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           {/* ================= VIDEO ================= */}
           <div className="lead-video group relative lg:col-span-7">
-            {/* Vertical Name Tag */}
-            <div className="absolute -left-4 top-1/2 hidden -translate-y-1/2 -rotate-90 origin-left font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-500 lg:block">
-              Emamul Hasan / 01
-            </div>
-
             <div className="relative aspect-[16/10] w-full overflow-hidden border border-neutral-300/60 bg-neutral-950">
               {!playing ? (
                 <>
@@ -202,21 +181,6 @@ export default function LeadershipMessage() {
                       fill="currentColor"
                     />
                   </button>
-
-                  {/* Bottom video metadata */}
-                  <div className="absolute bottom-0 left-0 right-0 z-10 flex items-end justify-between p-8">
-                    <div>
-                      <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.3em] text-emerald-400">
-                        Leadership Message
-                      </p>
-                      <p className="text-lg font-semibold text-white">
-                        Emamul Hasan
-                      </p>
-                    </div>
-                    <div className="hidden border border-white/20 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/70 sm:block">
-                      Play Film
-                    </div>
-                  </div>
                 </>
               ) : (
                 <iframe
@@ -231,10 +195,10 @@ export default function LeadershipMessage() {
             </div>
 
             {/* Video caption */}
-            <div className="mt-4 flex items-center justify-between border-t border-neutral-300/60 pt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">
+            {/* <div className="mt-4 flex items-center justify-between border-t border-neutral-300/60 pt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">
               <span>Managing Director</span>
               <span>YouTube Playback</span>
-            </div>
+            </div> */}
           </div>
 
           {/* ================= QUOTE ================= */}
@@ -260,42 +224,6 @@ export default function LeadershipMessage() {
                 what the road needed next.
               </blockquote>
 
-              {/* Author & Affiliations */}
-              <div className="mt-10 flex flex-col gap-6 border-t border-neutral-300/60 pt-8">
-                <div className="flex items-center gap-4">
-                  <div className="h-px w-12 bg-neutral-400" />
-                  <div>
-                    <p className="text-base font-semibold text-neutral-950">
-                      Emamul Hasan
-                    </p>
-                    <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">
-                      Managing Director
-                    </p>
-                  </div>
-                </div>
-
-                {/* Institutional Affiliations List */}
-                <div className="flex flex-wrap gap-x-4 gap-y-2">
-                  {[
-                    "President",
-                    "Vice President",
-                    "Joint Secretary",
-                    "Organizing Secretary",
-                    "GB Member",
-                    "Member",
-                    "Co-Owner",
-                    "MOU Partner",
-                    "Enlisted",
-                  ].map((role) => (
-                    <span
-                      key={role}
-                      className="font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-400 transition-colors duration-300 hover:text-emerald-600"
-                    >
-                      {role}
-                    </span>
-                  ))}
-                </div>
-              </div>
 
               {/* CTA */}
               <button
@@ -308,17 +236,6 @@ export default function LeadershipMessage() {
               </button>
             </div>
           </div>
-        </div>
-
-        {/* ====== BOTTOM STATEMENT ====== */}
-        <div className="mt-20 flex flex-col gap-5 border-t border-neutral-300/60 pt-6 lg:mt-28 lg:flex-row lg:items-center lg:justify-between">
-          <p className="max-w-md text-sm leading-6 text-neutral-500">
-            From a single roadside destination to a growing group of businesses,
-            our journey has always been shaped by what comes next.
-          </p>
-          <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-emerald-600">
-            Sampan Group
-          </span>
         </div>
       </div>
     </section>
