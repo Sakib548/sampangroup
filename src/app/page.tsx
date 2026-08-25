@@ -10,6 +10,8 @@ import AwardsRecognition from "./components/AwardsRecognition/AwardsRecognition"
 import AffiliationSection from "./components/AffiliationSection/AffiliationSection";
 import InvestmentPortfolio from "./components/InvestmentPortfolio/InvestmentPortfolio";
 import TrustBadges from "./components/TrustBadges/TrustBadges";
+import CompletedProjectsEditorial from "@/components/CompletedProjectsEditorial";
+import CompletedProjectsShowcase from "@/components/CompletedProjectsShowcase";
 
 export default function Home() {
   return (
@@ -21,6 +23,7 @@ export default function Home() {
 
       {/* <AboutUsEditorial /> */}
       <Counter />
+      {/* <CompletedProjectsEditorial /> */}
 
       <ProjectsSection />
       <LocationMap />
