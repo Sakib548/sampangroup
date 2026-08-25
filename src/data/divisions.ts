@@ -48,7 +48,7 @@ export const divisionGroups = [
   },
   {
     id: "golf zone",
-    title: "Bangladesh's new full golf destination is in the making.",
+    title: "Golf Zone.",
     items: ["Sampan Golf Academy", "Sampan Golf Short Drive Range"],
   },
   {
