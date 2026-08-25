@@ -1,21 +1,33 @@
+import Link from "next/link";
+
 const cafeHighlights = [
   {
     number: "01",
-    title: "Freshly Crafted",
-    copy: "Coffee and casual food thoughtfully prepared for every part of the day.",
+    title: "Modern Showroom",
+    copy: "Premium Automotive Experience.",
   },
   {
     number: "02",
-    title: "Made to Meet",
-    copy: "A welcoming city space for quick stops, conversations, and time together.",
+    title: "Lifestyle & Wellness",
+    copy: "Café, Juice Bar, Pool & Gym.",
   },
   {
     number: "03",
-    title: "City Rhythm",
-    copy: "Contemporary convenience designed around people and life on the move.",
+    title: "Complete Car Care",
+    copy: "Professional Car Wash.",
   },
 ] as const;
-
+function Arrow() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-4 w-4 fill-none stroke-current stroke-[1.8]"
+    >
+      <path d="M5 12h13M13 6l6 6-6 6" />
+    </svg>
+  );
+}
 export default function SampanCafeMetroFeature() {
   return (
     <section className="relative left-1/2 isolate min-h-[70svh] w-[100dvw] max-w-none -translate-x-1/2 overflow-hidden bg-[#071b13] text-white lg:min-h-[720px]">
@@ -48,20 +60,20 @@ export default function SampanCafeMetroFeature() {
 
       <div className="relative z-10 flex min-h-[70svh] w-full flex-col px-6 py-12 sm:px-10 sm:py-14 lg:min-h-[720px] lg:px-16 lg:py-16">
         {/* Top label */}
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/20 pb-5">
+        {/* <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/20 pb-5">
           <div className="flex items-center gap-3 text-[0.64rem] font-bold uppercase tracking-[0.28em] text-[#a8df73]">
             <span className="h-px w-9 bg-current" />
             Coming soon
           </div>
 
-          {/* <p className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/50">
+          <p className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/50">
             A new Sampan experience
-          </p> */}
-        </div>
+          </p>
+        </div> */}
 
         <div className="mt-auto pt-20">
           {/* Main content */}
-          <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
+          {/* <div className="flex flex-col justify-between gap-8 sm:flex-row sm:items-end">
             <div>
               <p className="mb-4 text-xs font-semibold uppercase tracking-[0.32em] text-white/55">
                 Coffee · Food · City life
@@ -76,6 +88,32 @@ export default function SampanCafeMetroFeature() {
             <p className="max-w-[20rem] border-l-2 border-[#ef636b] pl-4 text-sm leading-6 text-white/65 sm:mb-2 sm:border-l-0 sm:border-r-2 sm:pl-0 sm:pr-4 sm:text-right">
               A new place to pause, meet, and move with the rhythm of the city.
             </p>
+          </div> */}
+          <div className="my-auto max-w-[52rem] py-14 lg:py-10">
+            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.32em] text-[#a8df73]">
+              Our New-Generation Automotive Destination
+            </p>
+            <h2 className="max-w-[10ch] text-[clamp(3.8rem,7.4vw,8rem)] font-medium leading-[0.79] tracking-[-0.072em]">
+              Sampan Cafe Metro
+              {/* <span className="mt-2 block text-[#ffc52f]">
+              made for what&apos;s next.
+            </span> */}
+            </h2>
+            <p className="mt-7 max-w-xl text-base leading-7 text-white/70 sm:text-lg sm:leading-8">
+              A modern automotive lifestyle destination featuring a contemporary
+              car showroom, café, swimming pool, gym, and professional car-wash
+              experience, all under one roof.
+            </p>
+
+            <Link
+              href="https://www.sampangroup.com.bd/sampan-auto"
+              className="group mt-8 inline-flex min-h-14 items-center justify-between gap-10 bg-[#ffc52f] px-6 text-xs font-bold uppercase tracking-[0.15em] text-[#07131f] transition duration-300 hover:bg-white"
+            >
+              Explore Cafe Metro
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                <Arrow />
+              </span>
+            </Link>
           </div>
 
           {/* Feature pillars */}

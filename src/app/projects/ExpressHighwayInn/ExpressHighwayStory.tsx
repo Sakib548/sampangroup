@@ -69,7 +69,7 @@ export default function ExpressHighwayStory() {
       />
 
       <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1480px] flex-col px-6 pb-8 pt-28 sm:px-10 sm:pb-10 lg:px-16 lg:pt-32">
-        <header className="flex flex-col justify-between gap-6 border-b border-white/16 pb-5 sm:flex-row sm:items-start">
+        {/* <header className="flex flex-col justify-between gap-6 border-b border-white/16 pb-5 sm:flex-row sm:items-start">
           <div className="flex items-center gap-3">
             <span className="h-1.5 w-1.5 bg-[#ef636b]" />
             <p className="text-[0.66rem] font-bold uppercase tracking-[0.24em] text-[#58b9eb]">
@@ -83,7 +83,7 @@ export default function ExpressHighwayStory() {
               Opening soon
             </p>
           </div>
-        </header>
+        </header> */}
 
         <div className="mt-auto grid items-end gap-8 pb-10 pt-16 lg:grid-cols-[minmax(0,1fr)_25rem] lg:gap-16 lg:pb-12">
           <div>
