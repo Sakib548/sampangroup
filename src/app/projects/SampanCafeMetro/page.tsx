@@ -107,7 +107,7 @@ export default function SampanCafeMetroFeature() {
 
             <Link
               href="https://www.sampangroup.com.bd/sampan-auto"
-              className="group mt-8 inline-flex min-h-14 items-center justify-between gap-10 bg-[#ffc52f] px-6 text-xs font-bold uppercase tracking-[0.15em] text-[#07131f] transition duration-300 hover:bg-white"
+              className="group mt-8 inline-flex min-h-14 items-center justify-between gap-10 bg-[#a8df73] px-6 text-xs font-bold uppercase tracking-[0.15em] text-[#07131f] transition duration-300 hover:bg-white"
             >
               Explore Cafe Metro
               <span className="transition-transform duration-300 group-hover:translate-x-1">
