@@ -2,691 +2,373 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { A11y } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-
-import "swiper/css";
-import "swiper/css/a11y";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { highwayInnFacilities } from "@/data/highwayInnFacility";
 import {
-  getPanelXOffset,
-  getPinGuardCorrection,
-  getPinGuardScroll,
-  getProtectedPinDistance,
-  getStoryExitScroll,
-  getWheelPanelTarget,
-  isScrollInsidePin,
-} from "./highway-story-wheel";
+  getEditorialImageLayers,
+  getSwipeGalleryAmount,
+  getWrappedGalleryIndex,
+} from "./highway-inn-editorial-logic";
 
-const panels = [
-  [
-    "01",
-    "The stopover",
-    "Rest, refresh, and continue.",
-    "Your perfect pause on the Dhaka–Khulna Highway.",
-    "/images/projects/sampan-highway-inn.png",
-  ],
-  [
-    "02",
-    "Rest",
-    "Room to breathe.",
-    "Comfortable spaces for travelers, families, and every kind of journey.",
-    highwayInnFacilities[0]?.image ?? "/images/projects/sampan-highway-inn.png",
-  ],
-  [
-    "03",
-    "Dine",
-    "Worth stopping for.",
-    "Honest meals, warm hospitality, and time to enjoy the table.",
-    highwayInnFacilities[1]?.image ?? "/images/projects/sampan-highway-inn.png",
-  ],
-  [
-    "04",
-    "Celebrate",
-    "Make the stop memorable.",
-    "Official outings, parties, and gatherings made simple by a thoughtful team.",
-    highwayInnFacilities[2]?.image ?? "/images/projects/sampan-highway-inn.png",
-  ],
-  [
-    "05",
-    "Continue",
-    "Leave ready for what comes next.",
-    "Find us, plan your stop, and make the journey feel better.",
-    "/images/projects/sampan-highway-inn.png",
-  ],
-] as const;
+const AUTO_ADVANCE_MS = 6500;
 
-type MobileSwiperController = {
-  activeIndex: number;
-  animating: boolean;
-  isBeginning: boolean;
-  isEnd: boolean;
-  slideNext: () => void;
-  slidePrev: () => void;
-};
+const galleryImages = [
+  {
+    id: "highway-inn",
+    src: "/images/projects/sampan-highway-inn.png",
+    alt: "Sampan Highway Inn",
+  },
+  ...highwayInnFacilities.slice(0, 4).map((facility, index) => ({
+    id: `facility-${index + 1}`,
+    src: facility.image,
+    alt: `Sampan Highway Inn facility ${index + 1}`,
+  })),
+];
 
-const MOBILE_WHEEL_THRESHOLD = 24;
-const MOBILE_WHEEL_IDLE_MS = 220;
+type TurnDirection = "next" | "previous";
 
-function MobileHighwayInnCarousel() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const viewport = useRef<HTMLDivElement>(null);
-  const swiperController = useRef<MobileSwiperController | null>(null);
-  const wheelLocked = useRef(false);
-  const accumulatedWheelDelta = useRef(0);
-  const wheelIdleTimer = useRef<number | null>(null);
-
-  useEffect(() => {
-    const element = viewport.current;
-
-    if (!element) return;
-
-    const clearWheelTimer = () => {
-      if (wheelIdleTimer.current !== null) {
-        window.clearTimeout(wheelIdleTimer.current);
-        wheelIdleTimer.current = null;
-      }
-    };
-
-    const scheduleWheelUnlock = () => {
-      clearWheelTimer();
-
-      const releaseWhenReady = () => {
-        if (swiperController.current?.animating) {
-          wheelIdleTimer.current = window.setTimeout(releaseWhenReady, 80);
-          return;
-        }
-
-        wheelLocked.current = false;
-        accumulatedWheelDelta.current = 0;
-        wheelIdleTimer.current = null;
-      };
-
-      wheelIdleTimer.current = window.setTimeout(
-        releaseWhenReady,
-        MOBILE_WHEEL_IDLE_MS,
-      );
-    };
-
-    const normalizeWheelDelta = (event: WheelEvent) => {
-      if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) {
-        return event.deltaY * 16;
-      }
-
-      if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) {
-        return event.deltaY * window.innerHeight;
-      }
-
-      return event.deltaY;
-    };
-
-    const captureWheel = (event: WheelEvent) => {
-      event.preventDefault();
-      event.stopPropagation();
-    };
-
-    const handleWheel = (event: WheelEvent) => {
-      const swiper = swiperController.current;
-
-      if (!swiper) return;
-
-      const deltaY = normalizeWheelDelta(event);
-
-      if (Math.abs(deltaY) <= Math.abs(event.deltaX) || deltaY === 0) {
-        return;
-      }
-
-      if (wheelLocked.current) {
-        captureWheel(event);
-        scheduleWheelUnlock();
-        return;
-      }
-
-      const direction = deltaY > 0 ? 1 : -1;
-      const leavingAtEdge =
-        (direction > 0 && swiper.isEnd) ||
-        (direction < 0 && swiper.isBeginning);
-
-      // Only a fresh gesture that starts at an outer edge may move the page.
-      if (leavingAtEdge) {
-        accumulatedWheelDelta.current = 0;
-        clearWheelTimer();
-        return;
-      }
-
-      captureWheel(event);
-
-      if (swiper.animating) {
-        wheelLocked.current = true;
-        scheduleWheelUnlock();
-        return;
-      }
-
-      if (
-        accumulatedWheelDelta.current !== 0 &&
-        Math.sign(accumulatedWheelDelta.current) !== direction
-      ) {
-        accumulatedWheelDelta.current = 0;
-      }
-
-      accumulatedWheelDelta.current += deltaY;
-      scheduleWheelUnlock();
-
-      if (Math.abs(accumulatedWheelDelta.current) < MOBILE_WHEEL_THRESHOLD) {
-        return;
-      }
-
-      wheelLocked.current = true;
-      accumulatedWheelDelta.current = 0;
-
-      if (direction > 0) {
-        swiper.slideNext();
-      } else {
-        swiper.slidePrev();
-      }
-
-      scheduleWheelUnlock();
-    };
-
-    element.addEventListener("wheel", handleWheel, { passive: false });
-
-    return () => {
-      element.removeEventListener("wheel", handleWheel);
-      clearWheelTimer();
-      wheelLocked.current = false;
-      accumulatedWheelDelta.current = 0;
-    };
-  }, []);
-
+function Arrow({ direction = "right" }: { direction?: "left" | "right" }) {
   return (
-    <div
-      ref={viewport}
-      className="relative h-[100svh] overflow-hidden bg-[#071b13] md:hidden"
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={`h-4 w-4 fill-none stroke-current stroke-[1.8] transition-transform duration-300 ${
+        direction === "left" ? "rotate-180" : ""
+      }`}
     >
-      <Swiper
-        direction="vertical"
-        slidesPerView={1}
-        speed={850}
-        threshold={0}
-        resistanceRatio={0}
-        touchReleaseOnEdges
-        preventInteractionOnTransition
-        modules={[A11y]}
-        a11y={{
-          enabled: true,
-          prevSlideMessage: "Previous Highway Inn slide",
-          nextSlideMessage: "Next Highway Inn slide",
-        }}
-        onSwiper={(swiper) => {
-          swiperController.current = swiper;
-        }}
-        onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-        className="h-full w-full"
-      >
-        {panels.map(([number, label, title, copy, image]) => (
-          <SwiperSlide key={number} className="!h-full">
-            {({ isActive }) => (
-              <article className="group relative flex h-full w-full items-end overflow-hidden">
-                <div className="absolute inset-0">
-                  <Image
-                    src={image}
-                    alt=""
-                    fill
-                    priority={number === "01"}
-                    sizes="100vw"
-                    className={`object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                      isActive ? "scale-[1.045]" : "scale-100"
-                    }`}
-                  />
-                </div>
-
-                <div className="absolute inset-0 bg-[#071b13]/22" />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,27,19,0.22)_0%,rgba(7,27,19,0.08)_30%,rgba(7,27,19,0.92)_100%),linear-gradient(90deg,rgba(7,27,19,0.68)_0%,rgba(7,27,19,0.20)_72%,rgba(7,27,19,0.06)_100%)]" />
-
-                <span
-                  aria-hidden="true"
-                  className="absolute -bottom-[0.08em] right-3 font-mono text-[clamp(10rem,48vw,15rem)] font-medium leading-none tracking-[-0.1em] text-white/[0.055]"
-                >
-                  {number}
-                </span>
-
-                <div
-                  className={`relative z-10 w-full px-6 pb-24 pt-36 transition-all duration-700 ease-out ${
-                    isActive
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-8 opacity-0"
-                  }`}
-                >
-                  <div className="max-w-xl">
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-[0.62rem] font-bold tracking-[0.18em] text-[#ef636b]">
-                        {number} / {String(panels.length).padStart(2, "0")}
-                      </span>
-                      <span className="h-px w-8 bg-[#ef636b]/72" />
-                      <p className="text-[0.62rem] font-bold uppercase tracking-[0.18em] text-[#f5c84c]">
-                        {label}
-                      </p>
-                    </div>
-
-                    <h2 className="mt-5 max-w-[13ch] text-[clamp(2.8rem,13vw,5rem)] font-medium leading-[0.88] tracking-[-0.06em] text-balance text-[#f7f4ed]">
-                      {title}
-                    </h2>
-
-                    <p className="mt-5 max-w-md text-sm leading-7 text-white/68">
-                      {copy}
-                    </p>
-
-                    {number === "05" && (
-                      <Link
-                        href="/contact"
-                        className="mt-7 inline-flex items-center gap-3 border border-[#00a174]/55 bg-[#00a174]/24 px-5 py-3.5 text-[0.65rem] font-bold uppercase tracking-[0.16em] text-white backdrop-blur-xl transition duration-300 hover:bg-[#00a174]/38"
-                      >
-                        Plan your stop
-                        <span
-                          aria-hidden="true"
-                          className="text-base text-[#ef636b]"
-                        >
-                          →
-                        </span>
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </article>
-            )}
-          </SwiperSlide>
-        ))}
-      </Swiper>
-
-      <div className="pointer-events-none absolute left-1/2 top-24 z-40 -translate-x-1/2">
-        <div className="flex w-max items-center gap-2.5 border border-white/16 bg-[#071b13]/58 px-3.5 py-2.5 text-[0.56rem] font-bold uppercase tracking-[0.18em] text-white/76 shadow-[0_12px_35px_rgba(0,0,0,0.16)] backdrop-blur-xl">
-          <span className="h-1.5 w-1.5 bg-[#ef636b]" />
-          <span className="text-white/30">—</span>
-          <span className="text-[#f5c84c]">Sampan Highway Inn</span>
-        </div>
-      </div>
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-4 top-1/2 z-40 flex -translate-y-1/2 flex-col items-center gap-2"
-      >
-        {panels.map(([number], index) => (
-          <span
-            key={number}
-            className={`w-1 rounded-full transition-all duration-300 ${
-              activeIndex === index ? "h-9 bg-[#f5c84c]" : "h-3 bg-white/35"
-            }`}
-          />
-        ))}
-      </div>
-
-      <div className="pointer-events-none absolute bottom-6 left-6 z-40 flex items-center gap-3 text-[0.56rem] font-bold uppercase tracking-[0.16em] text-white/45">
-        <span>Scroll or swipe</span>
-        <span className="text-[#ef636b]">↓</span>
-      </div>
-    </div>
+      <path d="M5 12h13M13 6l6 6-6 6" />
+    </svg>
   );
 }
 
 export default function HighwayInnHorizontalStory() {
-  const root = useRef<HTMLElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [turnDirection, setTurnDirection] = useState<TurnDirection>("next");
+  const touchStartX = useRef<number | null>(null);
 
-  useLayoutEffect(() => {
-    const scope = root.current;
-    if (!scope) return;
+  const imageLayers = useMemo(
+    () => getEditorialImageLayers(activeIndex, galleryImages.length),
+    [activeIndex],
+  );
 
-    gsap.registerPlugin(ScrollTrigger);
+  const hasMultipleImages = galleryImages.length > 1;
 
-    const mediaQuery = gsap.matchMedia();
+  useEffect(() => {
+    if (!hasMultipleImages) return;
 
-    mediaQuery.add("(min-width: 768px)", () => {
-      const track = scope.querySelector<HTMLElement>(".highway-story-track");
-      const progress = scope.querySelector<HTMLElement>(
-        ".highway-story-progress",
+    const timer = window.setTimeout(() => {
+      setTurnDirection("next");
+      setActiveIndex((current) =>
+        getWrappedGalleryIndex(current, 1, galleryImages.length),
       );
+    }, AUTO_ADVANCE_MS);
 
-      if (!track || !progress) return;
+    return () => window.clearTimeout(timer);
+  }, [activeIndex, hasMultipleImages]);
 
-      const storyPanels = gsap.utils.toArray<HTMLElement>(
-        ".highway-story-panel",
-        track,
-      );
-      let activePanelIndex = 0;
-      let gestureLocked = false;
-      let trackTween: gsap.core.Tween | null = null;
-      let progressTween: gsap.core.Tween | null = null;
-      let mediaTween: gsap.core.Tween | null = null;
-      let unlockTimer: number | undefined;
-      let guardFrame: number | undefined;
-      let pinGuardActive = false;
-      let guardRepositioning = false;
+  const move = (amount: -1 | 1) => {
+    if (!hasMultipleImages) return;
 
-      const lastPanelIndex = Math.max(0, storyPanels.length - 1);
+    setTurnDirection(amount > 0 ? "next" : "previous");
+    setActiveIndex((current) =>
+      getWrappedGalleryIndex(current, amount, galleryImages.length),
+    );
+  };
 
-      const scheduleGestureUnlock = () => {
-        window.clearTimeout(unlockTimer);
+  const showImage = (index: number) => {
+    if (index === activeIndex) return;
 
-        unlockTimer = window.setTimeout(() => {
-          if (trackTween?.isActive()) {
-            scheduleGestureUnlock();
-            return;
-          }
+    setTurnDirection(index > activeIndex ? "next" : "previous");
+    setActiveIndex(index);
+  };
 
-          gestureLocked = false;
-        }, 160);
-      };
-
-      const setPanel = (
-        panelIndex: number,
-        animate: boolean,
-        direction: -1 | 0 | 1 = 0,
-      ) => {
-        activePanelIndex = panelIndex;
-
-        const targetX = getPanelXOffset(
-          panelIndex,
-          window.innerWidth,
-          storyPanels.length,
-        );
-        const targetProgress =
-          lastPanelIndex > 0 ? panelIndex / lastPanelIndex : 0;
-
-        trackTween?.kill();
-        progressTween?.kill();
-        mediaTween?.kill();
-
-        if (!animate) {
-          gsap.set(track, { x: targetX });
-          gsap.set(progress, { scaleX: targetProgress });
-          return;
-        }
-
-        gestureLocked = true;
-        scheduleGestureUnlock();
-
-        trackTween = gsap.to(track, {
-          x: targetX,
-          duration: 0.82,
-          ease: "power3.inOut",
-          overwrite: true,
-          onComplete: () => {
-            trackTween = null;
-            scheduleGestureUnlock();
-          },
-        });
-
-        progressTween = gsap.to(progress, {
-          scaleX: targetProgress,
-          duration: 0.82,
-          ease: "power3.inOut",
-          overwrite: true,
-        });
-
-        const activeMedia = storyPanels[panelIndex]?.querySelector<HTMLElement>(
-          ".highway-story-media",
-        );
-
-        if (activeMedia && direction !== 0) {
-          mediaTween = gsap.fromTo(
-            activeMedia,
-            { xPercent: direction > 0 ? -2.5 : 2.5 },
-            {
-              xPercent: 0,
-              duration: 1.05,
-              ease: "power2.out",
-              overwrite: true,
-            },
-          );
-        }
-      };
-
-      gsap.set(track, { x: 0 });
-      gsap.set(progress, { scaleX: 0 });
-
-      const storyTrigger = ScrollTrigger.create({
-        trigger: scope,
-        start: "top top",
-        end: () =>
-          `+=${getProtectedPinDistance(
-            window.innerHeight,
-            storyPanels.length,
-          )}`,
-        pin: true,
-        pinSpacing: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        onEnter: () => {
-          pinGuardActive = false;
-          setPanel(0, false);
-        },
-        onEnterBack: () => {
-          pinGuardActive = false;
-          setPanel(lastPanelIndex, false);
-        },
-        onRefresh: () => setPanel(activePanelIndex, false),
-      });
-
-      const setProtectedScroll = (scrollPosition: number) => {
-        guardRepositioning = true;
-        storyTrigger.scroll(scrollPosition);
-        ScrollTrigger.update();
-
-        if (guardFrame !== undefined) {
-          window.cancelAnimationFrame(guardFrame);
-        }
-        guardFrame = window.requestAnimationFrame(() => {
-          guardRepositioning = false;
-        });
-      };
-
-      const enforcePinGuard = () => {
-        if (guardRepositioning) return;
-
-        const safeScroll = getPinGuardScroll(
-          storyTrigger.start,
-          storyTrigger.end,
-        );
-        const correction = getPinGuardCorrection(
-          pinGuardActive,
-          storyTrigger.isActive,
-          storyTrigger.scroll() ?? window.scrollY,
-          safeScroll,
-        );
-
-        if (correction !== null) {
-          setProtectedScroll(correction);
-        }
-      };
-
-      const normalizeWheelDelta = (event: WheelEvent) => {
-        if (event.deltaMode === WheelEvent.DOM_DELTA_LINE) {
-          return event.deltaY * 16;
-        }
-
-        if (event.deltaMode === WheelEvent.DOM_DELTA_PAGE) {
-          return event.deltaY * window.innerHeight;
-        }
-
-        return event.deltaY;
-      };
-
-      const handleWheel = (event: WheelEvent) => {
-        const currentScroll = storyTrigger.scroll() ?? window.scrollY;
-        const insideStory = isScrollInsidePin(
-          storyTrigger.isActive,
-          currentScroll,
-          storyTrigger.start,
-          storyTrigger.end,
-        );
-
-        if (!insideStory) return;
-
-        if (gestureLocked) {
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          scheduleGestureUnlock();
-          return;
-        }
-
-        const navigation = getWheelPanelTarget(
-          activePanelIndex,
-          normalizeWheelDelta(event),
-          storyPanels.length,
-        );
-
-        if (!navigation.capture) {
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          pinGuardActive = false;
-          setProtectedScroll(
-            getStoryExitScroll(
-              storyTrigger.start,
-              storyTrigger.end,
-              navigation.direction,
-            ),
-          );
-          return;
-        }
-
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        if (navigation.direction === 0) return;
-
-        pinGuardActive = true;
-        setProtectedScroll(
-          getPinGuardScroll(storyTrigger.start, storyTrigger.end),
-        );
-
-        setPanel(navigation.targetIndex, true, navigation.direction);
-      };
-
-      window.addEventListener("wheel", handleWheel, {
-        passive: false,
-        capture: true,
-      });
-      window.addEventListener("scroll", enforcePinGuard, { passive: true });
-
-      return () => {
-        pinGuardActive = false;
-        window.removeEventListener("wheel", handleWheel, true);
-        window.removeEventListener("scroll", enforcePinGuard);
-        trackTween?.kill();
-        progressTween?.kill();
-        mediaTween?.kill();
-        window.clearTimeout(unlockTimer);
-        if (guardFrame !== undefined) {
-          window.cancelAnimationFrame(guardFrame);
-        }
-      };
-    });
-
-    return () => mediaQuery.revert();
-  }, []);
   return (
     <section
-      ref={root}
-      aria-label="Sampan Highway Inn story"
-      className="relative left-1/2 -ml-[50vw] w-screen max-w-none overflow-x-clip bg-[#071b13] text-white"
+      aria-labelledby="highway-inn-title"
+      className="relative isolate overflow-hidden bg-[#e8efe9] px-5 py-16 text-[#123b2c] sm:px-10 sm:py-20 lg:h-[100svh] lg:min-h-0 lg:px-16 lg:py-8 xl:py-10"
     >
-      <MobileHighwayInnCarousel />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_10%_12%,rgba(245,200,76,0.16),transparent_26%),radial-gradient(circle_at_92%_88%,rgba(0,161,116,0.10),transparent_25%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(18,59,44,.75)_1px,transparent_1px),linear-gradient(90deg,rgba(18,59,44,.75)_1px,transparent_1px)] [background-size:64px_64px]"
+      />
 
-      <div className="hidden md:block">
-        <div className="highway-story-eyebrow absolute left-1/2 top-24 z-40 -translate-x-1/2">
-          <div className="mx-auto flex w-max items-center gap-3 border border-white/16 bg-[#071b13]/58 px-4 py-3 text-[0.62rem] font-bold uppercase tracking-[0.22em] text-white/76 shadow-[0_12px_35px_rgba(0,0,0,0.16)] backdrop-blur-xl">
-            <span className="h-1.5 w-1.5 bg-[#ef636b]" />
-            <span className="text-white/30">—</span>
-            <span className="text-[#f5c84c]">Sampan Highway Inn</span>
+      <div className="relative mx-auto flex w-full max-w-[1400px] flex-col lg:h-full">
+        <div className="hidden shrink-0 lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(28rem,0.95fr)] lg:gap-20">
+          <span aria-hidden="true" />
+          <div className="flex items-center gap-3">
+            <span className="h-2 w-2 bg-[#ef636b]" />
+            <p className="text-[0.66rem] font-bold uppercase tracking-[0.25em] text-[#9b7410]">
+              Our Flagship Hospitality &amp; Travel Destination
+            </p>
           </div>
         </div>
 
-        <div className="relative h-[100svh] overflow-hidden">
-          <div className="highway-story-track flex h-full w-max flex-row">
-            {panels.map(([number, label, title, copy, image]) => (
-              <article
-                key={number}
-                className="highway-story-panel group relative flex h-full min-h-0 w-screen shrink-0 items-end overflow-hidden border-r border-white/12"
-              >
-                <div className="highway-story-media absolute -inset-x-[4%] inset-y-0 scale-[1.06] will-change-transform">
-                  <Image
-                    src={image}
-                    alt=""
-                    fill
-                    sizes="100vw"
-                    className="object-cover"
-                    priority={number === "01"}
-                  />
-                </div>
+        <div className="mt-14 grid items-center gap-14 lg:mt-5 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(28rem,0.95fr)] lg:items-stretch lg:gap-20">
+          <div
+            className="relative mx-auto h-[390px] w-full max-w-[620px] touch-pan-y select-none sm:h-[500px] lg:h-[min(60svh,540px)] lg:self-start"
+            onTouchStart={(event) => {
+              touchStartX.current =
+                event.changedTouches.item(0)?.clientX ?? null;
+            }}
+            onTouchEnd={(event) => {
+              const startX = touchStartX.current;
+              const endX = event.changedTouches.item(0)?.clientX;
 
-                <div className="absolute inset-0 bg-[#071b13]/22" />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,27,19,0.15)_0%,rgba(7,27,19,0.08)_30%,rgba(7,27,19,0.86)_100%),linear-gradient(90deg,rgba(7,27,19,0.72)_0%,rgba(7,27,19,0.28)_48%,rgba(7,27,19,0.06)_78%)]" />
+              touchStartX.current = null;
+              if (startX === null || endX === undefined) return;
 
-                <span
-                  aria-hidden="true"
-                  className="absolute -bottom-[0.12em] right-4 font-mono text-[clamp(10rem,24vw,25rem)] font-medium leading-none tracking-[-0.1em] text-white/[0.055] md:right-12"
+              const amount = getSwipeGalleryAmount(startX, endX);
+              if (amount !== 0) move(amount);
+            }}
+          >
+            <div
+              aria-hidden="true"
+              className="absolute -left-4 top-7 h-[76%] w-[72%] border border-[#123b2c]/12 sm:-left-8 sm:top-10 lg:top-0 lg:h-full"
+            />
+
+            {imageLayers.map(({ index, offset }) => {
+              const image = galleryImages[index];
+              const isFront = offset === 0;
+              const rotation = offset === -1 ? -6 : offset === 1 ? 5 : 0;
+              const translateX =
+                offset === -1 ? "-7%" : offset === 1 ? "7%" : "0";
+              const translateY =
+                offset === -1 ? "2.5%" : offset === 1 ? "4%" : "0";
+
+              return (
+                <div
+                  key={`${image.id}-${offset}`}
+                  aria-hidden={!isFront}
+                  className={`absolute inset-x-5 inset-y-4 overflow-hidden rounded-[1.75rem] border border-white/35 bg-[#123b2c] shadow-[0_32px_80px_rgba(9,45,31,0.22)] sm:inset-x-10 sm:inset-y-8 lg:inset-y-0 ${
+                    isFront
+                      ? `z-20 ${
+                          turnDirection === "next"
+                            ? "shi-page-turn-next"
+                            : "shi-page-turn-previous"
+                        }`
+                      : "z-10 opacity-75"
+                  }`}
+                  style={
+                    isFront
+                      ? undefined
+                      : {
+                          transform: `translate(${translateX}, ${translateY}) rotate(${rotation}deg) scale(0.94)`,
+                        }
+                  }
                 >
-                  {number}
-                </span>
-
-                <div className="relative z-10 mx-auto w-full max-w-[1480px] px-6 pb-28 pt-40 sm:px-10 md:px-16 md:pb-32 lg:px-24">
-                  <div className="max-w-[52rem]">
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-[0.64rem] font-bold tracking-[0.18em] text-[#ef636b]">
-                        {number} / {String(panels.length).padStart(2, "0")}
+                  <Image
+                    src={image.src}
+                    alt={isFront ? image.alt : ""}
+                    fill
+                    priority={isFront && activeIndex === 0}
+                    sizes="(max-width: 1024px) 90vw, 48vw"
+                    className="object-cover"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-gradient-to-t from-[#071b13]/52 via-transparent to-black/5"
+                  />
+                  {isFront && (
+                    <div className="absolute inset-x-5 bottom-5 flex items-center justify-between border-t border-white/28 pt-4 text-[0.58rem] font-bold uppercase tracking-[0.2em] text-white/72 sm:inset-x-7 sm:bottom-7">
+                      <span>Dhaka–Khulna Highway</span>
+                      <span className="text-[#f5c84c]">
+                        {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                        {String(galleryImages.length).padStart(2, "0")}
                       </span>
-                      <span className="h-px w-9 bg-[#ef636b]/72" />
-                      <p className="text-[0.66rem] font-bold uppercase tracking-[0.2em] text-[#f5c84c]">
-                        {label}
-                      </p>
                     </div>
-
-                    <h2 className="mt-6 max-w-[14ch] text-[clamp(3rem,6.5vw,7.5rem)] font-medium leading-[0.9] tracking-[-0.065em] text-balance text-[#f7f4ed]">
-                      {title}
-                    </h2>
-
-                    <p className="mt-6 max-w-xl text-base leading-7 text-white/68 sm:text-lg sm:leading-8">
-                      {copy}
-                    </p>
-
-                    {number === "05" && (
-                      <Link
-                        href="/contact"
-                        className="mt-8 inline-flex items-center gap-3 border border-[#00a174]/55 bg-[#00a174]/24 px-5 py-3.5 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white backdrop-blur-xl transition duration-300 hover:border-[#00a174]/80 hover:bg-[#00a174]/38"
-                      >
-                        Plan your stop
-                        <span
-                          aria-hidden="true"
-                          className="text-base text-[#ef636b] transition-transform duration-300 group-hover:translate-x-1.5"
-                        >
-                          →
-                        </span>
-                      </Link>
-                    )}
-                  </div>
+                  )}
                 </div>
-              </article>
-            ))}
+              );
+            })}
+
+            {/* {hasMultipleImages && (
+              <button
+                type="button"
+                onClick={() => move(1)}
+                aria-label="Show next Highway Inn image"
+                className="group absolute bottom-1 right-1 z-30 grid h-13 w-13 place-items-center rounded-full border border-white/30 bg-[#123b2c] text-white shadow-[0_14px_35px_rgba(7,27,19,0.28)] transition duration-300 hover:bg-[#ef636b] sm:hidden"
+              >
+                <span className="transition-transform duration-300 group-hover:translate-x-0.5">
+                  <Arrow />
+                </span>
+              </button>
+            )} */}
           </div>
 
-          <div className="pointer-events-none absolute inset-x-8 bottom-7 z-20 flex items-center gap-5 lg:inset-x-16">
-            <span className="text-[0.58rem] font-bold uppercase tracking-[0.18em] text-white/42">
-              Scroll to explore
-            </span>
-
-            <div className="h-px flex-1 bg-white/24">
-              <div className="highway-story-progress h-full w-full origin-left scale-x-0 bg-[#ef636b]" />
+          <div className="max-w-[42rem] lg:flex lg:h-full lg:min-h-0 lg:flex-col">
+            <div className="flex items-center gap-3 lg:hidden">
+              <span className="h-2 w-2 bg-[#ef636b]" />
+              <p className="text-[0.66rem] font-bold uppercase tracking-[0.25em] text-[#9b7410]">
+                Our Flagship Hospitality &amp; Travel Destination
+              </p>
             </div>
 
-            <span className="font-mono text-[0.58rem] font-bold tracking-[0.16em] text-white/42">
-              01 — 05
-            </span>
+            <h2
+              id="highway-inn-title"
+              className="mt-6 text-[clamp(3rem,5.8vw,6.5rem)] font-medium leading-[0.88] tracking-[-0.065em] text-balance lg:mt-0"
+            >
+              Sampan
+              <span className="mt-2 block text-[#b48812]">Highway Inn.</span>
+            </h2>
+
+            <p className="mt-8 max-w-xl text-base leading-8 text-[#123b2c]/66 sm:text-lg sm:leading-8">
+              One of Sampan&apos;s most recognized flagship projects, a familiar
+              name and trusted highway destination known to travelers across
+              Bangladesh.
+            </p>
+
+            <div className="mt-9 flex flex-wrap items-center gap-3">
+              <Link
+                href="/sampan-highway-inn-restaurant-party-centre"
+                className="group inline-flex min-h-14 items-center justify-between gap-10 bg-[#123b2c] px-6 text-[0.68rem] font-bold uppercase tracking-[0.17em] text-white transition duration-300 hover:bg-[#00a174]"
+              >
+                Explore More
+                <span className="text-[#f5c84c] transition-transform duration-300 group-hover:translate-x-1">
+                  <Arrow />
+                </span>
+              </Link>
+
+              {/* {hasMultipleImages && (
+                <button
+                  type="button"
+                  onClick={() => move(1)}
+                  aria-label="Show next Highway Inn image"
+                  className="group hidden h-14 w-14 place-items-center border border-[#123b2c]/30 text-[#123b2c] transition duration-300 hover:border-[#ef636b] hover:bg-[#ef636b] hover:text-white sm:grid"
+                >
+                  <span className="transition-transform duration-300 group-hover:translate-x-0.5">
+                    <Arrow />
+                  </span>
+                </button>
+              )} */}
+            </div>
+
+            {hasMultipleImages && (
+              <div className="mt-12 flex items-center gap-4 border-t border-[#123b2c]/16 pt-5 lg:mt-auto">
+                <button
+                  type="button"
+                  onClick={() => move(-1)}
+                  aria-label="Show previous Highway Inn image"
+                  className="group grid h-10 w-10 shrink-0 place-items-center text-[#123b2c]/65 transition hover:text-[#ef636b]"
+                >
+                  <span className="transition-transform duration-300 group-hover:-translate-x-0.5">
+                    <Arrow direction="left" />
+                  </span>
+                </button>
+
+                <div
+                  className="flex min-w-0 flex-1 items-center gap-2"
+                  aria-label="Choose a Highway Inn image"
+                >
+                  {galleryImages.map((image, index) => {
+                    const isActive = index === activeIndex;
+
+                    return (
+                      <button
+                        key={image.id}
+                        type="button"
+                        onClick={() => showImage(index)}
+                        aria-label={`Show image ${index + 1}`}
+                        aria-current={isActive ? "true" : undefined}
+                        className={`relative h-1 overflow-hidden transition-[width,background-color] duration-500 ${
+                          isActive
+                            ? "w-14 bg-[#123b2c]/18"
+                            : "w-5 bg-[#123b2c]/22 hover:bg-[#123b2c]/40"
+                        }`}
+                      >
+                        {isActive && (
+                          <span
+                            key={`progress-${activeIndex}`}
+                            aria-hidden="true"
+                            className="shi-auto-progress absolute inset-0 origin-left bg-[#ef636b]"
+                          />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <p
+                  className="shrink-0 font-mono text-[0.6rem] font-bold tracking-[0.16em] text-[#123b2c]/48"
+                  aria-live="polite"
+                >
+                  {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                  {String(galleryImages.length).padStart(2, "0")}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
+
+      <style jsx global>{`
+        .shi-page-turn-next {
+          animation: shi-page-turn-next 850ms cubic-bezier(0.22, 1, 0.36, 1)
+            both;
+          backface-visibility: hidden;
+          transform-origin: left center;
+        }
+
+        .shi-page-turn-previous {
+          animation: shi-page-turn-previous 850ms cubic-bezier(0.22, 1, 0.36, 1)
+            both;
+          backface-visibility: hidden;
+          transform-origin: right center;
+        }
+
+        .shi-auto-progress {
+          animation: shi-auto-progress ${AUTO_ADVANCE_MS}ms linear forwards;
+        }
+
+        @keyframes shi-page-turn-next {
+          from {
+            opacity: 0;
+            transform: perspective(1200px) rotateY(-38deg) translateX(-6%)
+              scale(0.97);
+          }
+          to {
+            opacity: 1;
+            transform: perspective(1200px) rotateY(0deg) translateX(0) scale(1);
+          }
+        }
+
+        @keyframes shi-page-turn-previous {
+          from {
+            opacity: 0;
+            transform: perspective(1200px) rotateY(38deg) translateX(6%)
+              scale(0.97);
+          }
+          to {
+            opacity: 1;
+            transform: perspective(1200px) rotateY(0deg) translateX(0) scale(1);
+          }
+        }
+
+        @keyframes shi-auto-progress {
+          from {
+            transform: scaleX(0);
+          }
+          to {
+            transform: scaleX(1);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .shi-page-turn-next,
+          .shi-page-turn-previous {
+            animation: none;
+          }
+
+          .shi-auto-progress {
+            animation: none;
+            transform: scaleX(1);
+          }
+        }
+      `}</style>
     </section>
   );
 }

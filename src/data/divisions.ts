@@ -19,7 +19,7 @@ export const divisionGroups = [
       "Sampan Development Ltd",
       "Sampan Metro Square",
       "Sampan Cafe Metro",
-      "Sampan Residency Tower 1 & 2",
+      "Sampan Tower 1 & 2",
       "Sampan Trade Emporium",
       "Sampan Motalib Skyline",
       "Sampan Nexus",
@@ -42,14 +42,21 @@ export const divisionGroups = [
       "Express Highway Inn Club & Lounge",
       // "Sampan Highway Motel & White Hall",
       "Sampan Agro & Golf Resort",
-      "Sampan Agro and Golf Inn Club and Lounge",
+      "Sampan Agro & Golf Club & Lounge",
+      "Sampan Floating Pearl",
     ],
+  },
+  {
+    id: "golf zone",
+    title: "Bangladesh's new full golf destination is in the making.",
+    items: ["Sampan Golf Academy", "Sampan Golf Short Drive Range"],
   },
   {
     id: "education",
     title: "Professional Education",
     items: ["London School of Higher Studies (LSHS)"],
   },
+
   {
     id: "agro",
     title: "Agro & Fresh Produce",
