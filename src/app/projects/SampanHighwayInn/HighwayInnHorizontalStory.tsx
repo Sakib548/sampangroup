@@ -681,10 +681,9 @@ export default function HighwayInnHorizontalStory() {
               <div className="highway-story-progress h-full w-full origin-left scale-x-0 bg-[#ef636b]" />
             </div>
 
-            <span className="font-mono text-[0.58rem] font-bold tracking-[0.16em] text-white/42">
-              01 — 05
-            </span>
-          </div>
+          <span className="font-mono text-[0.58rem] font-bold tracking-[0.16em] text-white/42">
+            01 -  05
+          </span>
         </div>
       </div>
     </section>

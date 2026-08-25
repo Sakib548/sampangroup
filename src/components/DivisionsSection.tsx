@@ -6,7 +6,7 @@ import { divisionGroups } from "@/data/divisions";
 
 const taglines: Record<string, string> = {
   "real-estate": "Own land, not just visit it.",
-  hospitality: "Stay, celebrate, and unwind — on the highway and beyond.",
+  hospitality: "Stay, celebrate, and unwind -  on the highway and beyond.",
   agro: "From our farm to your table.",
   retail: "Everyday essentials, always nearby.",
   manufacturing: "Built by us, for what we build.",

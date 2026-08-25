@@ -128,7 +128,7 @@ export default function EcoAgroFarmPage() {
         <div className="mx-auto grid w-full max-w-[1400px] gap-14 px-6 sm:px-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24 lg:px-12">
           <div>
             <p className="text-xs uppercase tracking-[0.32em] text-[#65825d]">
-              01 — Our belief
+              01 -  Our belief
             </p>
             <h2 className="mt-6 text-4xl font-medium leading-[1.02] tracking-[-0.04em] sm:text-6xl">
               Food should feel as natural as the land it comes from.
@@ -153,7 +153,7 @@ export default function EcoAgroFarmPage() {
         <div className="mx-auto grid w-full max-w-[1400px] gap-12 px-6 sm:px-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24 lg:px-12">
           <div className="lg:sticky lg:top-24 lg:h-fit">
             <p className="text-xs uppercase tracking-[0.32em] text-[#b9e583]">
-              02 — What we grow
+              02 -  What we grow
             </p>
             <h2 className="mt-6 text-4xl font-light sm:text-6xl">
               Meet the harvest.
@@ -196,7 +196,7 @@ export default function EcoAgroFarmPage() {
         <div className="mx-auto w-full max-w-[1400px] px-6 sm:px-8 lg:px-12">
           <div className="max-w-3xl">
             <p className="text-xs uppercase tracking-[0.32em] text-[#65825d]">
-              03 — From our farm to your home
+              03 -  From our farm to your home
             </p>
             <h2 className="mt-6 text-4xl font-medium tracking-tight sm:text-6xl">
               A simple journey, handled with care.
@@ -225,7 +225,7 @@ export default function EcoAgroFarmPage() {
         <div className="mx-auto grid w-full max-w-[1400px] gap-14 px-6 sm:px-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-24 lg:px-12">
           <div>
             <p className="text-xs uppercase tracking-[0.32em] text-[#b9e583]">
-              04 — Chemical-free by intention
+              04 -  Chemical-free by intention
             </p>
             <h2 className="mt-6 text-5xl font-light leading-[0.92] tracking-[-0.05em] sm:text-8xl">
               Less chemicals.
@@ -253,7 +253,7 @@ export default function EcoAgroFarmPage() {
           <div className="flex items-end justify-between gap-8">
             <div>
               <p className="text-xs uppercase tracking-[0.32em] text-[#65825d]">
-                05 — Life at the farm
+                05 -  Life at the farm
               </p>
               <h2 className="mt-6 text-4xl font-medium sm:text-6xl">
                 A living, growing place.
@@ -294,7 +294,7 @@ export default function EcoAgroFarmPage() {
       <section className="bg-[#dce7d6] py-24 lg:py-32">
         <div className="mx-auto w-full max-w-[1400px] px-6 sm:px-8 lg:px-12">
           <p className="text-xs uppercase tracking-[0.32em] text-[#65825d]">
-            06 — Our impact
+            06 -  Our impact
           </p>
           <div className="mt-10 grid border-y border-[#173326]/20 sm:grid-cols-4">
             {[
@@ -328,7 +328,7 @@ export default function EcoAgroFarmPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#10251b] to-transparent" />
         <div className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pb-16 sm:px-8 lg:px-12 lg:pb-24">
           <p className="text-xs uppercase tracking-[0.32em] text-[#b9e583]">
-            07 — Meet the farm
+            07 -  Meet the farm
           </p>
           <h2 className="mt-6 max-w-3xl text-5xl font-light leading-[0.95] sm:text-7xl">
             From our fields
