@@ -57,9 +57,9 @@ export default function SampanMetroSquareFeature() {
             <span className="h-px w-9 bg-current" />
             Featured development · Ashulia
           </div>
-          <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-white/45">
+          {/* <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-white/45">
             Early-stage project · Enquiries open
-          </p>
+          </p> */}
         </div>
 
         <div className="my-auto max-w-3xl py-16 lg:py-12">
@@ -77,7 +77,7 @@ export default function SampanMetroSquareFeature() {
               residential project for people who want to invest in a future
               home, not only a plot.
             </p>
-            <div className="border-l-2 border-[#ef636b] pl-4">
+            {/* <div className="border-l-2 border-[#ef636b] pl-4">
               <p className="text-[0.62rem] font-bold uppercase tracking-[0.19em] text-[#ef9da2]">
                 The difference
               </p>
@@ -85,11 +85,11 @@ export default function SampanMetroSquareFeature() {
                 Own a legal land share, then build at the agreed construction
                 cost.
               </p>
-            </div>
+            </div> */}
           </div>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            {/* <Link
+            <Link
               href="/our_divisions/real-estate-land-investment/sampan-metro-square"
               className="group inline-flex min-h-14 items-center justify-between gap-8 bg-[#ef636b] px-6 text-xs font-bold uppercase tracking-[0.15em] text-[#071b13] transition duration-300 hover:bg-white"
             >
@@ -98,7 +98,8 @@ export default function SampanMetroSquareFeature() {
                 <Arrow />
               </span>
             </Link>
-            <Link
+
+            {/* <Link
               href="/contact?project=sampan-metro-square"
               className="group inline-flex min-h-14 items-center justify-between gap-8 border border-white/25 bg-white/[0.08] px-6 text-xs font-bold uppercase tracking-[0.15em] text-white backdrop-blur-xl transition duration-300 hover:border-white/45 hover:bg-white/[0.14]"
             >
@@ -106,7 +107,7 @@ export default function SampanMetroSquareFeature() {
               <span className="transition-transform duration-300 group-hover:translate-x-1">
                 <Arrow />
               </span>
-            </Link> */}
+            </Link>  */}
           </div>
         </div>
 

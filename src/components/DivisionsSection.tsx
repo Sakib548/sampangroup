@@ -95,7 +95,7 @@ export default function DivisionsSection() {
                 </p>
               </header>
 
-              <div className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="mb-8 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
                 {division.items.map((item) => {
                   const concern = findConcern(item.id);
                   const logo = concern?.logo;
@@ -103,44 +103,45 @@ export default function DivisionsSection() {
                   return (
                     <article
                       key={item.id}
-                      className="group/card relative min-h-[10rem] border border-[#183b2b]/10 bg-white/90 transition duration-300 hover:-translate-y-0.5 hover:border-[#008f68]/30 hover:bg-white hover:shadow-[0_14px_35px_rgba(14,47,33,0.07)]"
+                      className="group/card relative min-h-[9.25rem] border border-[#183b2b]/10 bg-white/90 transition duration-300 hover:-translate-y-0.5 hover:border-[#008f68]/30 hover:bg-white hover:shadow-[0_14px_35px_rgba(14,47,33,0.07)] sm:min-h-[10rem]"
                     >
                       <Link
                         href={item.href}
                         aria-label={`Explore ${item.label}`}
-                        className="flex min-h-[10rem] flex-col p-4 sm:p-5"
+                        className="flex min-h-[9.25rem] flex-col p-3 sm:min-h-[10rem] sm:p-5"
                       >
-                        <div className="flex items-start gap-4">
+                        <div className="flex items-start gap-2 sm:gap-4">
                           {logo ? (
-                            <div className="relative h-12 w-32 sm:h-14 sm:w-36">
+                            <div className="relative h-10 w-full max-w-[6.5rem] sm:h-14 sm:max-w-36">
                               <Image
                                 src={logo}
                                 alt={`${item.label} logo`}
                                 fill
-                                sizes="(max-width: 640px) 128px, 144px"
+                                sizes="(max-width: 639px) 104px, 144px"
                                 className="object-contain object-left transition-transform duration-500 group-hover/card:scale-[1.04]"
                               />
                             </div>
                           ) : (
-                            <span className="grid h-10 w-10 place-items-center rounded-full bg-[#e5eee8] text-[0.65rem] font-bold tracking-[0.12em] text-[#007d5b]">
+                            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#e5eee8] text-[0.58rem] font-bold tracking-[0.08em] text-[#007d5b] sm:h-10 sm:w-10 sm:text-[0.65rem] sm:tracking-[0.12em]">
                               {initials(item.label)}
                             </span>
                           )}
                         </div>
 
-                        <div className="mt-auto pt-4">
-                          <p className="line-clamp-1 text-[0.62rem] font-semibold leading-4 text-[#008f68]">
+                        <div className="mt-auto pt-3 sm:pt-4">
+                          <p className="line-clamp-2 text-[0.56rem] font-semibold leading-[0.9rem] text-[#008f68] sm:line-clamp-1 sm:text-[0.62rem] sm:leading-4">
                             {concern?.tagline ??
                               "Part of Sampan Group’s connected portfolio."}
                           </p>
 
-                          <div className="mt-2 flex items-end justify-between gap-4">
-                            <h4 className="line-clamp-2 max-w-[18ch] text-base font-medium leading-[1.25] tracking-[-0.025em] sm:text-lg">
+                          <div className="mt-2 flex items-end justify-between gap-2 sm:gap-4">
+                            <h4 className="line-clamp-2 min-w-0 text-sm font-medium leading-[1.2] tracking-[-0.02em] sm:max-w-[18ch] sm:text-lg sm:leading-[1.25] sm:tracking-[-0.025em]">
                               {item.label}
                             </h4>
+
                             <span
                               aria-hidden="true"
-                              className="shrink-0 pb-0.5 text-lg text-[#ef636b] transition-transform duration-300 group-hover/card:translate-x-1"
+                              className="shrink-0 pb-0.5 text-base text-[#ef636b] transition-transform duration-300 group-hover/card:translate-x-1 sm:text-lg"
                             >
                               →
                             </span>

@@ -34,7 +34,7 @@ export default function AboutPreview() {
       />
 
       <div className="relative mx-auto w-full max-w-[1400px]">
-        <header className="grid gap-8 border-b border-[#183b2b]/14 pb-10 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-end">
+        <header className="grid gap-8  pb-10 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-end">
           <div>
             <div className="flex items-center gap-3">
               <span className="h-2 w-2 bg-[#ef636b]" />
