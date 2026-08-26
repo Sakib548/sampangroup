@@ -76,15 +76,15 @@ export default function Counter() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_35%)]" />
 
       <div className="relative mx-auto w-full max-w-[1200px] px-2">
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center flex-start gap-4">
           <span className="h-px w-10 bg-emerald-400/70" />
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-emerald-300">
             By the numbers
           </p>
-          <span className="h-px w-10 bg-emerald-400/70" />
+          {/* <span className="h-px w-10 bg-emerald-400/70" /> */}
         </div>
 
-        <h2 className="mx-auto mt-5 max-w-2xl text-center text-3xl font-semibold tracking-tight sm:text-4xl">
+        <h2 className=" mt-5 flex-start max-w-2xl  text-3xl font-semibold tracking-tight sm:text-4xl">
           Growing with purpose.
         </h2>
 
