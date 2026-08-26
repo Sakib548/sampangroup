@@ -1,3 +1,4 @@
+import HighwayInnEditorial from "./HighwayInnEditorial";
 import HighwayInnHorizontalStory from "./HighwayInnHorizontalStory";
 
 export const metadata = {
@@ -6,5 +7,5 @@ export const metadata = {
 };
 
 export default function SampanHighwayInnProjectPage() {
-  return <HighwayInnHorizontalStory />;
+  return <HighwayInnEditorial />;
 }

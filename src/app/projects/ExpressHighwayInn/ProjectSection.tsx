@@ -10,7 +10,7 @@ export default function ExpressHighwayInn() {
           Delivered &amp; Operating
         </span>
       </div> */}
-      <ExpressHighwayStory />;
+      <ExpressHighwayStory />
     </section>
   );
 }

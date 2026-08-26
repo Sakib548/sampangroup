@@ -54,7 +54,7 @@ const slides: HeroSlide[] = [
     subhead:
       "Cozy rooms, honest meals, a place to breathe before the road takes you again.",
     cta: "Visit us",
-    href: "/sampan-highway-inn-restaurant-party-centre",
+    href: "https://www.sampangroup.com.bd/sampan-highway-inn-restaurant-party-centre",
     image: "/images/featuredConcerns/highway-inn.png",
     imagePosition: "center center",
     drift: "driftRight",
@@ -66,7 +66,7 @@ const slides: HeroSlide[] = [
     subhead:
       "A land-share residential project built for people who want to invest in a home, not just a plot.",
     cta: "Explore Metro Square",
-    href: "/sampan-metro-square",
+    href: "#",
     image: "/images/projects/sampan-metro-square.png",
     imagePosition: "center center",
     drift: "driftLeft",
@@ -78,7 +78,7 @@ const slides: HeroSlide[] = [
     subhead:
       "Everything travelers love about Sampan Highway Inn—modernized, elevated, and opening soon.",
     cta: "See What’s Coming",
-    href: "/express-highway-inn",
+    href: "https://www.expresshighwayinn.com/",
     image: "/images/featuredConcerns/express-highway-inn.png",
     imagePosition: "center center",
     drift: "driftRight",
@@ -90,7 +90,7 @@ const slides: HeroSlide[] = [
     subhead:
       "CIPS and CMI qualifications from London School of Higher Studies—study locally, get recognized globally.",
     cta: "Apply to LSHS",
-    href: "/london-school-of-higher-studies",
+    href: "https://london-schools-seven.vercel.app/",
     image: "/images/hero/lshs.jpg",
     imagePosition: "center center",
     drift: "driftLeft",
