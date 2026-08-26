@@ -21,7 +21,7 @@ const investments = [
     pitch: "Own a share of Ashulia's next residential address.",
     cta: "See open opportunities",
     href: "#land-share",
-    image: "/images.jpg", // Replace with actual image
+    image: "/images/projects/sampan-metro-square.png",
   },
   {
     model: "Club & Membership",
@@ -29,7 +29,7 @@ const investments = [
     pitch: "Exclusive access to the highway's most established lounge.",
     cta: "View membership tiers",
     href: "#club-membership",
-    image: "/images.jpg", // Replace with actual image
+    image: "/images/featuredConcerns/express-highway-innn.png",
   },
   {
     model: "Resort Membership",
@@ -38,7 +38,7 @@ const investments = [
       "Founding-member pricing on Bangladesh's newest golf and leisure destination.",
     cta: "Join the waitlist",
     href: "#resort-membership",
-    image: "/images.jpg", // Replace with actual image
+    image: "/images/featuredConcerns/sampan-agro-golf-resort.png",
   },
 ];
 
@@ -131,79 +131,82 @@ export default function InvestmentPortfolio() {
       </span>
 
       <div className="relative mx-auto max-w-[1400px] px-[5vw]">
-        {/* ====== SECTION HEADER ====== */}
-        <div className="ip-header mb-16 max-w-3xl lg:mb-24">
-          <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-neutral-950">
-            Ways to own a piece
-            <br />
-            <span className="text-neutral-400">of Sampan.</span>
-          </h2>
-          <p className="mt-8 max-w-xl text-base leading-[1.8] text-neutral-600 lg:text-lg">
+        {/* ====== EDITORIAL HEADER ====== */}
+        <div className="ip-header mb-16 flex flex-col justify-between gap-8 border-b border-emerald-900/10 pb-8 lg:mb-24 lg:flex-row lg:items-end">
+          <div>
+            <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-neutral-950">
+              Ways to own a piece
+              <br />
+              <span className="text-neutral-400">of Sampan.</span>
+            </h2>
+          </div>
+          <p className="max-w-xs text-sm leading-7 text-neutral-600 lg:text-right">
             Not just places to visit — assets to hold. Land share, club
             membership, and ship space share, explained plainly.
           </p>
         </div>
 
         {/* ====== INVESTMENT GRID ====== */}
-        <div className="ip-grid grid grid-cols-1 gap-8 md:grid-cols-3 lg:gap-8">
+        <div className="ip-grid grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
           {investments.map((inv) => (
             <Link
               key={inv.name}
               href={inv.href}
-              className="ip-card group relative flex flex-col overflow-hidden border border-neutral-200 bg-white transition-all duration-500 hover:border-emerald-600/40 hover:shadow-[0_20px_50px_-20px_rgba(16,185,129,0.15)]"
+              className="ip-card group relative block aspect-[4/5] w-full overflow-hidden border border-neutral-200 bg-neutral-950 transition-all duration-500 hover:border-emerald-600/40 hover:shadow-[0_30px_60px_-15px_rgba(16,185,129,0.15)]"
             >
               {/* Image Wrapper */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden">
-                <div className="ip-card-img absolute inset-0 h-[120%] w-full -top-[10%] will-change-transform">
-                  <Image
-                    src={inv.image}
-                    alt={inv.name}
-                    fill
-                    sizes="(min-width: 768px) 33vw, 100vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                </div>
+              <div className="ip-card-img absolute inset-0 h-[120%] w-full -top-[10%] will-change-transform">
+                <Image
+                  src={inv.image}
+                  alt={inv.name}
+                  fill
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  className="object-cover opacity-70 grayscale-[20%] transition-all duration-700 ease-out group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0"
+                />
+              </div>
 
-                {/* Light Cinematic Overlay for text legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              {/* Cinematic Overlays */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-all duration-500 group-hover:from-black/95 group-hover:via-black/60" />
 
-                {/* Model Name (Top Left) */}
-                <div className="absolute top-0 left-0 p-6 lg:p-8">
-                  <span className="bg-white/90 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-emerald-700 backdrop-blur-sm">
+              {/* Content */}
+              <div className="relative z-10 flex h-full flex-col justify-end p-6 lg:p-8">
+                {/* Model Tag (Top Left) - Absolute positioned over image */}
+                <div className="absolute top-6 left-6 lg:top-8 lg:left-8">
+                  <span className="bg-white/90 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-emerald-700 backdrop-blur-sm transition-all duration-500 group-hover:bg-emerald-600 group-hover:text-white">
                     {inv.model}
                   </span>
                 </div>
-              </div>
 
-              {/* Content */}
-              <div className="relative z-10 flex flex-grow flex-col p-6 lg:p-8">
-                {/* Project Name */}
-                <h3 className="text-[clamp(1.5rem,2vw,1.8rem)] font-semibold leading-[1.1] tracking-tight text-neutral-950 transition-colors duration-500 group-hover:text-emerald-700">
-                  {inv.name}
-                </h3>
+                {/* Bottom Content Block */}
+                <div className="flex flex-col">
+                  {/* Project Name (Always Visible) */}
+                  <h3 className="text-[clamp(1.5rem,2vw,1.8rem)] font-semibold leading-[1.1] tracking-tight text-white transition-colors duration-500 group-hover:text-emerald-400">
+                    {inv.name}
+                  </h3>
 
-                {/* One-liner Pitch */}
-                <p className="mt-4 text-sm leading-7 text-neutral-500">
-                  {inv.pitch}
-                </p>
-
-                {/* CTA (Pushed to bottom) */}
-                <div className="mt-auto pt-10">
-                  <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-900 transition-colors duration-500 group-hover:text-emerald-700">
-                    {inv.cta}
-                    <FiArrowRight className="h-3.5 w-3.5 transition-transform duration-500 group-hover:translate-x-2" />
+                  {/* Hidden Reveal Content (Pitch + CTA) */}
+                  <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:grid-rows-[1fr] group-hover:opacity-100">
+                    <div className="overflow-hidden">
+                      <p className="mt-4 text-sm leading-7 text-white/70">
+                        {inv.pitch}
+                      </p>
+                      <div className="mt-6 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-emerald-400">
+                        {inv.cta}
+                        <FiArrowRight className="h-3.5 w-3.5 transition-transform duration-500 group-hover:translate-x-2" />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 {/* Bottom Emerald Hover Line */}
-                <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-emerald-600 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:w-full" />
+                <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-emerald-500 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:w-full" />
               </div>
             </Link>
           ))}
         </div>
 
         {/* ====== BOTTOM STATEMENT ====== */}
-        <div className="mt-16 flex flex-col gap-5 border-t border-neutral-200 pt-6 lg:mt-24 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mt-16 flex flex-col gap-5 border-t border-emerald-900/10 pt-6 lg:mt-24 lg:flex-row lg:items-center lg:justify-between">
           <p className="max-w-md text-sm leading-6 text-neutral-500">
             From fractional land ownership to exclusive lifestyle memberships,
             Sampan Group creates pathways to invest in Bangladesh’s growth.
