@@ -190,17 +190,24 @@ export default function HighwayInnStory() {
   );
 
   return (
+<<<<<<< HEAD
     <section 
       ref={containerRef}
       className="relative w-full min-h-[100svh] overflow-hidden bg-[#050505] py-24 lg:py-32"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+=======
+    <section
+      aria-labelledby="highway-inn-title"
+      className="relative isolate overflow-hidden bg-[#e8efe9] px-5 py-16 text-[#123b2c] sm:px-10 sm:py-20 lg:h-[100svh] lg:min-h-0 lg:px-16 lg:py-12 xl:py-14"
+>>>>>>> 205dbd263fe49c0782e57bfe95400ceba7889b58
     >
       {/* Giant Ghost Background Text */}
       <span className="pointer-events-none absolute -right-6 top-10 select-none text-[14rem] font-black leading-none text-white opacity-[0.02] md:text-[20rem]">
         Inn
       </span>
 
+<<<<<<< HEAD
       <div className="relative mx-auto max-w-[1600px] px-[5vw]">
         
         {/* ====== EDITORIAL HEADER ====== */}
@@ -208,6 +215,15 @@ export default function HighwayInnStory() {
           <div>
             <p className="mb-6 font-mono text-[11px] font-semibold uppercase tracking-[0.4em] text-emerald-600">
               01 / Hospitality & Travel
+=======
+      <div className="relative mx-auto flex w-full max-w-[1400px] flex-col lg:h-full">
+        <div className="hidden shrink-0 lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(26rem,0.95fr)] lg:gap-24 xl:gap-32">
+          <span aria-hidden="true" />
+          <div className="flex items-center gap-3">
+            <span className="h-2 w-2 bg-[#ef636b]" />
+            <p className="text-[0.66rem] font-bold uppercase tracking-[0.25em] text-[#9b7410]">
+              Our Flagship Hospitality &amp; Travel Destination
+>>>>>>> 205dbd263fe49c0782e57bfe95400ceba7889b58
             </p>
             <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-white">
               The highway&apos;s most
@@ -220,6 +236,7 @@ export default function HighwayInnStory() {
           </p>
         </div>
 
+<<<<<<< HEAD
         {/* ====== SPLIT LAYOUT GRID ====== */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           
@@ -228,6 +245,41 @@ export default function HighwayInnStory() {
             <div className="hi-image-stage relative aspect-[4/5] w-full overflow-hidden border border-white/10 bg-neutral-950 sm:aspect-[16/10] lg:aspect-auto lg:h-[70vh]">
               
               {gallerySlides.map((slide, i) => (
+=======
+        <div className="mt-14 grid items-center gap-14 lg:mt-8 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(26rem,0.95fr)] lg:items-stretch lg:gap-24 xl:gap-32">
+          <div
+            className="relative mx-auto h-[390px] w-full max-w-[620px] touch-pan-y select-none sm:h-[500px] lg:h-[min(52svh,480px)] lg:self-start xl:h-[min(54svh,510px)]"
+            onTouchStart={(event) => {
+              touchStartX.current =
+                event.changedTouches.item(0)?.clientX ?? null;
+            }}
+            onTouchEnd={(event) => {
+              const startX = touchStartX.current;
+              const endX = event.changedTouches.item(0)?.clientX;
+
+              touchStartX.current = null;
+              if (startX === null || endX === undefined) return;
+
+              const amount = getSwipeGalleryAmount(startX, endX);
+              if (amount !== 0) move(amount);
+            }}
+          >
+            <div
+              aria-hidden="true"
+              className="absolute -left-4 top-7 h-[76%] w-[72%] border border-[#123b2c]/12 sm:-left-8 sm:top-10 lg:top-0 lg:h-full"
+            />
+
+            {imageLayers.map(({ index, offset }) => {
+              const image = galleryImages[index];
+              const isFront = offset === 0;
+              const rotation = offset === -1 ? -6 : offset === 1 ? 5 : 0;
+              const translateX =
+                offset === -1 ? "-7%" : offset === 1 ? "7%" : "0";
+              const translateY =
+                offset === -1 ? "2.5%" : offset === 1 ? "4%" : "0";
+
+              return (
+>>>>>>> 205dbd263fe49c0782e57bfe95400ceba7889b58
                 <div
                   key={slide.id}
                   ref={(el) => { if (el) imageRefs.current[i] = el; }}
@@ -285,6 +337,7 @@ export default function HighwayInnStory() {
             </div>
           </div>
 
+<<<<<<< HEAD
           {/* RIGHT: EDITORIAL CONTENT */}
           <div className="hi-content relative flex flex-col justify-center lg:col-span-5">
             
@@ -315,6 +368,98 @@ export default function HighwayInnStory() {
                   <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">
                     Hospitality Division
                   </p>
+=======
+          <div className="max-w-[38rem] lg:flex lg:h-full lg:min-h-0 lg:flex-col">
+            <div className="flex items-center gap-3 lg:hidden">
+              <span className="h-2 w-2 bg-[#ef636b]" />
+              <p className="text-[0.66rem] font-bold uppercase tracking-[0.25em] text-[#9b7410] ">
+                Our Flagship Hospitality &amp; Travel Destination
+              </p>
+            </div>
+
+            <h2
+              id="highway-inn-title"
+              className="mt-6 text-[clamp(3rem,5vw,5.75rem)] font-medium leading-[0.92] tracking-[-0.06em] text-balance lg:mt-0"
+            >
+              Sampan
+              <span className="mt-2 block text-[#b48812]">Highway Inn.</span>
+            </h2>
+
+            <p className="mt-7 max-w-xl text-base leading-8 text-[#123b2c]/66 sm:text-lg sm:leading-8">
+              One of Sampan&apos;s most recognized flagship projects, a familiar
+              name and trusted highway destination known to travelers across
+              Bangladesh.
+            </p>
+
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Link
+                href="/sampan-highway-inn-restaurant-party-centre"
+                className="group inline-flex min-h-14 items-center justify-between gap-10 bg-[#123b2c] px-6 text-[0.68rem] font-bold uppercase tracking-[0.17em] text-white transition duration-300 hover:bg-[#00a174]"
+              >
+                Explore More
+                <span className=" transition-transform duration-300 group-hover:translate-x-1">
+                  <Arrow />
+                </span>
+              </Link>
+
+              {/* {hasMultipleImages && (
+                <button
+                  type="button"
+                  onClick={() => move(1)}
+                  aria-label="Show next Highway Inn image"
+                  className="group hidden h-14 w-14 place-items-center border border-[#123b2c]/30 text-[#123b2c] transition duration-300 hover:border-[#ef636b] hover:bg-[#ef636b] hover:text-white sm:grid"
+                >
+                  <span className="transition-transform duration-300 group-hover:translate-x-0.5">
+                    <Arrow />
+                  </span>
+                </button>
+              )} */}
+            </div>
+
+            {hasMultipleImages && (
+              <div className="mt-12 flex items-center gap-4 border-t border-[#123b2c]/16 pt-5 lg:mt-auto">
+                <button
+                  type="button"
+                  onClick={() => move(-1)}
+                  aria-label="Show previous Highway Inn image"
+                  className="group grid h-10 w-10 shrink-0 place-items-center text-[#123b2c]/65 transition hover:text-[#ef636b]"
+                >
+                  <span className="transition-transform duration-300 group-hover:-translate-x-0.5">
+                    <Arrow direction="left" />
+                  </span>
+                </button>
+
+                <div
+                  className="flex min-w-0 flex-1 items-center gap-2"
+                  aria-label="Choose a Highway Inn image"
+                >
+                  {galleryImages.map((image, index) => {
+                    const isActive = index === activeIndex;
+
+                    return (
+                      <button
+                        key={image.id}
+                        type="button"
+                        onClick={() => showImage(index)}
+                        aria-label={`Show image ${index + 1}`}
+                        aria-current={isActive ? "true" : undefined}
+                        className={`relative h-1 overflow-hidden transition-[width,background-color] duration-500 ${
+                          isActive
+                            ? "w-14 bg-[#123b2c]/18"
+                            : "w-5 bg-[#123b2c]/22 hover:bg-[#123b2c]/40"
+                        }`}
+                      >
+                        {isActive && (
+                          <span
+                            key={`progress-${activeIndex}`}
+                            aria-hidden="true"
+                            className="shi-auto-progress absolute inset-0 origin-left bg-[#ef636b]"
+                          />
+                        )}
+                      </button>
+                    );
+                  })}
+>>>>>>> 205dbd263fe49c0782e57bfe95400ceba7889b58
                 </div>
               </div>
 

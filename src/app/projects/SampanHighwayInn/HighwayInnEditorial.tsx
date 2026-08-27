@@ -6,7 +6,7 @@ import { highwayInnFacilities } from "@/data/highwayInnFacility";
 
 const slides = highwayInnFacilities
   .slice(0, 5)
-  .map((item) => ({ name: item.title, image: item.image, copy: item.eyebrow }));
+  .map((item) => ({ name: item.title, image: item.image,  }));
 
 export default function HighwayInnEditorial() {
   const [active, setActive] = useState(0);
@@ -74,7 +74,7 @@ export default function HighwayInnEditorial() {
             {current.name}
           </h3>
           <p className="mt-5 text-base leading-7 text-[#123b2c]/70 sm:text-lg">
-            {current.copy}. Enjoy thoughtful spaces designed for travelers,
+            {/* {current.copy}. Enjoy thoughtful spaces designed for travelers, */}
             families, and guests.
           </p>
           <div className="mt-10 flex items-center gap-3">

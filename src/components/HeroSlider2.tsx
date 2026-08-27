@@ -96,7 +96,7 @@ export default function HeroSlider2() {
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#ef636b]">
             <span aria-hidden="true">— </span>
             {slide.eyebrow}
-            <span aria-hidden="true"> - </span>
+            <span aria-hidden="true"> —</span>
           </p>
           <h1 className="mt-4 text-[clamp(2.25rem,4.8vw,4.8rem)] font-medium leading-[0.92] tracking-[-0.05em]">
             {slide.name}

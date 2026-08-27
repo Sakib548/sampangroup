@@ -52,15 +52,15 @@ export default function SampanMetroSquareFeature() {
       <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#052e20] via-transparent to-transparent" />
 
       <div className="relative z-10 flex min-h-[740px] w-full flex-col px-6 py-20 sm:px-10 lg:min-h-[720px] lg:px-16 lg:py-24">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/15 pb-5">
+        {/* <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/15 pb-5">
           <div className="flex items-center gap-3 text-[0.65rem] font-bold uppercase tracking-[0.26em] text-[#c4e560]">
             <span className="h-px w-9 bg-current" />
             Featured development · Ashulia
           </div>
-          {/* <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-white/45">
+          <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-white/45">
             Early-stage project · Enquiries open
-          </p> */}
-        </div>
+          </p>
+        </div> */}
 
         <div className="my-auto max-w-3xl py-16 lg:py-12">
           <p className="mb-5 text-xs font-semibold uppercase tracking-[0.34em] text-white/55">

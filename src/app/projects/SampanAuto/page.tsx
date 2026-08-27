@@ -4,18 +4,18 @@ import Link from "next/link";
 const values = [
   {
     number: "01",
-    title: "Reliable",
-    copy: "Consistent performance and dependable service for every journey.",
+    title: "Quality Vehicles",
+    copy: " A curated selection of reliable vehicles.",
   },
   {
     number: "02",
-    title: "Stylish",
-    copy: "Refined design shaped around the way modern mobility should feel.",
+    title: "Japanese Imports",
+    copy: "Trusted Japanese vehicles sourced with quality.",
   },
   {
     number: "03",
-    title: "Sustainable",
-    copy: "Smarter, more efficient choices for a lower-impact road ahead.",
+    title: "Genuine Auto Parts",
+    copy: " Genuine parts and components.",
   },
 ] as const;
 
@@ -48,7 +48,7 @@ export default function SampanAutoFeature() {
       <div className="absolute inset-0 bg-gradient-to-t from-[#06111d]/95 via-[#06111d]/5 to-[#06111d]/20" />
 
       <div className="relative z-10 flex min-h-[100svh] w-full flex-col px-6 py-14 sm:px-10 sm:py-16 lg:px-16">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/20 pb-5">
+        {/* <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/20 pb-5">
           <div className="flex items-center gap-3 text-[0.64rem] font-bold uppercase tracking-[0.28em] text-[#4db7ff]">
             <span className="h-px w-9 bg-current" />
             Sampan Auto · Automotive &amp; Mobility
@@ -56,28 +56,28 @@ export default function SampanAutoFeature() {
           <p className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/45">
             Reliable · Stylish · Sustainable
           </p>
-        </div>
+        </div> */}
 
         <div className="my-auto max-w-[52rem] py-14 lg:py-10">
           <p className="mb-5 text-xs font-semibold uppercase tracking-[0.32em] text-[#ffc52f]">
-            Move with confidence
+            Our First & Well-Recognized Business
           </p>
           <h2 className="max-w-[10ch] text-[clamp(3.8rem,7.4vw,8rem)] font-medium leading-[0.79] tracking-[-0.072em]">
-            Mobility,
-            <span className="mt-2 block text-[#ffc52f]">
+            Sampan Auto
+            {/* <span className="mt-2 block text-[#ffc52f]">
               made for what&apos;s next.
-            </span>
+            </span> */}
           </h2>
           <p className="mt-7 max-w-xl text-base leading-7 text-white/70 sm:text-lg sm:leading-8">
-            Reliable performance, refined design, and more responsible mobility—
-            brought together for every road ahead.
+            One of Sampan’s pioneering and well-established businesses, offering
+            vehicle sales, imports, and genuine Japanese automotive parts.
           </p>
 
           <Link
             href="https://www.sampangroup.com.bd/sampan-auto"
             className="group mt-8 inline-flex min-h-14 items-center justify-between gap-10 bg-[#ffc52f] px-6 text-xs font-bold uppercase tracking-[0.15em] text-[#07131f] transition duration-300 hover:bg-white"
           >
-            Explore Sampan Auto
+            View Automobiles
             <span className="transition-transform duration-300 group-hover:translate-x-1">
               <Arrow />
             </span>

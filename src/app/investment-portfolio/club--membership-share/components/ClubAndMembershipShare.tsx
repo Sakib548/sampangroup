@@ -423,7 +423,7 @@ export default function ClubAndMembershipPage() {
         <div className="absolute inset-0">
           <div className="hero-bg-img absolute inset-0 scale-110">
             <Image
-                src="/images.jpg"
+              src="/images.jpg"
               alt="Sampan Club & Membership"
               fill
               priority
@@ -479,7 +479,7 @@ export default function ClubAndMembershipPage() {
           <div className="relative">
             <div className="cinematic-img-wrap relative aspect-[4/5] w-full overflow-hidden">
               <Image
-                  src="/images.jpg"
+                src="/images.jpg"
                 alt="Modern club infrastructure"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
@@ -533,7 +533,7 @@ export default function ClubAndMembershipPage() {
         <div className="mx-auto grid w-full max-w-[1400px] gap-12 px-6 lg:grid-cols-[1.2fr_1fr] lg:gap-20 lg:px-12">
           <div className="flex flex-col justify-center">
             <p className="parallax-text-fast mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
-              01 -  EXPRESS HIGHWAY INN
+              01 - EXPRESS HIGHWAY INN
             </p>
             <div className="relative mt-4">
               <div className="section-number absolute -left-4 -top-8 -z-10 text-[10rem] font-bold leading-none text-neutral-200">
@@ -576,7 +576,7 @@ export default function ClubAndMembershipPage() {
           </div>
           <div className="cinematic-img-wrap relative aspect-[4/5] w-full overflow-hidden">
             <Image
-                src="/images.jpg"
+              src="/images.jpg"
               alt="Express Highway Inn"
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
@@ -595,7 +595,7 @@ export default function ClubAndMembershipPage() {
         <div className="mx-auto w-full max-w-[1400px] px-6 lg:px-12">
           <div className="mb-16 max-w-2xl">
             <p className="parallax-text-fast mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">
-              02 -  AGRO & GOLF
+              02 - AGRO & GOLF
             </p>
             <h2 className="parallax-text-fast text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-tight tracking-tight">
               Where Leisure Meets Nature.
@@ -966,7 +966,7 @@ export default function ClubAndMembershipPage() {
             </p>
             <div className="cinematic-img-wrap relative mt-10 aspect-[16/10] w-full overflow-hidden border border-neutral-200">
               <Image
-                  src="/images.jpg"
+                src="/images.jpg"
                 alt="Transparency"
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"

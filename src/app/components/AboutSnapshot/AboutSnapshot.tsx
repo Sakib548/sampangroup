@@ -16,21 +16,21 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 const pillars = [
   {
     name: "Sampan Group",
-    desc: "A conglomerate that grew outward from a single highway stop into real estate, hospitality, education, agriculture, manufacturing, and mobility -  nine divisions, one motto: the village will be the city.",
+    desc: "A conglomerate that grew outward from a single highway stop into real estate, hospitality, education, agriculture, manufacturing, and mobility — nine divisions, one motto: the village will be the city.",
     cta: "Learn more about us",
     href: "#about-group",
     Icon: FiGlobe,
   },
   {
     name: "Sampan Development Ltd",
-    desc: "The land and construction arm behind Sampan's real estate portfolio -  outright sale, land share, and residential and commercial builds, backed by REHAB membership.",
+    desc: "The land and construction arm behind Sampan's real estate portfolio — outright sale, land share, and residential and commercial builds, backed by REHAB membership.",
     cta: "Explore our land projects",
     href: "#sdl",
     Icon: FiMap,
   },
   {
     name: "London School of Higher Studies",
-    desc: "UK-affiliated professional education offering CIPS and CMI qualifications -  taught in Bangladesh, recognized internationally.",
+    desc: "UK-affiliated professional education offering CIPS and CMI qualifications — taught in Bangladesh, recognized internationally.",
     cta: "Discover LSHS",
     href: "#lshs",
     Icon: FiBookOpen,
