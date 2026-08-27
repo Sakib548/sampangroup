@@ -315,66 +315,14 @@ export default function LeadershipMessage() {
       ref={containerRef}
       className="relative w-full overflow-hidden bg-[#F5F5F2]"
     >
-      {/* ── Film-grain noise ── */}
-      <svg
-        className="pointer-events-none absolute inset-0 z-50 h-full w-full opacity-[0.015]"
-        aria-hidden="true"
-      >
-        <filter id="lead-grain">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.8"
-            numOctaves="4"
-            stitchTiles="stitch"
-          />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#lead-grain)" />
-      </svg>
 
-      {/* ── Dot grid pattern ── */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-[0.02]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle, #000 0.5px, transparent 0.5px)",
-          backgroundSize: "28px 28px",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ── Ambient emerald glow ── */}
-      <div
-        className="pointer-events-none absolute -left-40 top-1/3 z-0 h-[600px] w-[600px] rounded-full opacity-[0.04]"
-        style={{
-          background: "radial-gradient(circle, #10b981, transparent 70%)",
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -right-32 bottom-0 z-0 h-[400px] w-[400px] rounded-full opacity-[0.02]"
-        style={{
-          background: "radial-gradient(circle, #10b981, transparent 70%)",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ── Main Content ── */}
-      <div className="relative z-10 mx-auto max-w-[1400px] px-[5vw] py-28 lg:py-40">
-        {/* ====== HEADER ====== */}
-        <div className="lead-header mb-16 lg:mb-24">
-          <div className="flex items-center gap-4">
-            <span className="h-px w-10 bg-gradient-to-r from-emerald-600/70 to-emerald-600/0" />
-            <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.5em] text-emerald-700/60">
-              Leadership
-            </span>
-          </div>
-        </div>
+      <div className="relative mx-auto max-w-[1400px] px-[5vw]">
 
         {/* ====== MAIN GRID ====== */}
-        <div className="lead-grid grid items-center gap-14 lg:grid-cols-12 lg:gap-20">
-          {/* ==================== VIDEO ==================== */}
-          <div className="lead-video relative lg:col-span-7">
-            <div className="relative aspect-[16/10] w-full overflow-hidden border border-neutral-200 bg-neutral-950">
+        <div className="lead-grid grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+          {/* ================= VIDEO ================= */}
+          <div className="lead-video group relative lg:col-span-7">
+            <div className="relative aspect-[16/10] w-full overflow-hidden border border-neutral-300/60 bg-neutral-950">
               {!playing ? (
                 <>
                   {/* Border draw segments (clockwise) */}
@@ -428,22 +376,6 @@ export default function LeadershipMessage() {
                       />
                     </span>
                   </button>
-
-                  {/* Bottom-left indicator */}
-                  <div className="absolute bottom-5 left-14 z-30 flex items-center gap-2.5">
-                    <span className="relative flex h-2 w-2">
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500/60 opacity-75" />
-                      <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
-                    </span>
-                    <span className="font-mono text-[8px] uppercase tracking-[0.35em] text-white/30">
-                      YouTube
-                    </span>
-                  </div>
-
-                  {/* Bottom-right timecode (decorative) */}
-                  <div className="absolute bottom-5 right-14 z-30 font-mono text-[8px] tracking-[0.2em] text-white/15">
-                    00:00
-                  </div>
                 </>
               ) : (
                 <iframe
@@ -457,15 +389,11 @@ export default function LeadershipMessage() {
               )}
             </div>
 
-            {/* Video caption bar */}
-            <div className="mt-4 hidden items-center justify-between px-1 lg:flex">
-              <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-neutral-400">
-                Managing Director
-              </span>
-              <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-neutral-400">
-                Sampan Group
-              </span>
-            </div>
+            {/* Video caption */}
+            {/* <div className="mt-4 flex items-center justify-between border-t border-neutral-300/60 pt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">
+              <span>Managing Director</span>
+              <span>YouTube Playback</span>
+            </div> */}
           </div>
 
           {/* ==================== QUOTE ==================== */}
@@ -498,18 +426,6 @@ export default function LeadershipMessage() {
                 ))}
               </blockquote>
 
-              {/* Attribution divider + info */}
-              <div className="lead-attribution mt-10 flex items-center gap-5">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-black/10 to-transparent" />
-                <div className="text-right">
-                  <p className="text-[13px] font-medium tracking-[-0.01em] text-neutral-700">
-                    Emamul Hasan
-                  </p>
-                  <p className="mt-1 font-mono text-[8px] uppercase tracking-[0.35em] text-emerald-700">
-                    Managing Director
-                  </p>
-                </div>
-              </div>
 
               {/* CTA (magnetic) */}
               <button

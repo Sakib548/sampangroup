@@ -23,7 +23,7 @@ export const Projects: Project[] = [
     id: "sampan-metro-square",
     name: "Sampan Metro Square",
     description: " .",
-    logo: "/images/projects/sampan-metro-square.png",
+    logo: "/images/projects/sampanmetrosquare.jpg",
     href: "",
     status: "ongoing",
   },

@@ -20,7 +20,7 @@ const slides = [
       "A land-share residential project built for people who want to invest in a home, not just a plot.",
     cta: "Explore Metro Square →",
     href: "/concerns",
-    image: "/images/projects/sampan-metro-square.png",
+    image: "/images/projects/sampanmetrosquare.jpg",
   },
   {
     name: "Express Highway Inn",

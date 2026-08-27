@@ -63,7 +63,7 @@ export default function SampanMetroSquareFeature() {
         </div> */}
 
         <div className="my-auto max-w-3xl py-16 lg:py-12">
-          <p className="text-xs font-semibold uppercase tracking-[0.34em] text-white/55">
+          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.34em] text-white/55">
             Sampan Development Ltd
           </p>
           <h2 className="text-[clamp(3.6rem,7.2vw,7.9rem)] font-medium leading-[0.8] tracking-[-0.07em]">

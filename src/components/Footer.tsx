@@ -1,227 +1,303 @@
 "use client";
 
+import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { FormEvent, useState } from "react";
-import { concerns } from "@/data/concerns";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { FiArrowRight, FiMail, FiPhone } from "react-icons/fi";
+import { FaFacebookF, FaLinkedinIn, FaYoutube, FaWhatsapp } from "react-icons/fa";
 
-const footerLinks = [
-  { label: "About us", href: "/about" },
-  { label: "Concerns", href: "/concerns" },
-  { label: "Projects", href: "/projects" },
-  { label: "Contact", href: "/contact" },
-];
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const selectedConcernIds = [
-  "sampan-auto",
-  "sampan-highway-inn",
-  "sampan-development-ltd",
-  "sampan-eco-agro",
-  "sampan-highway-motel",
-  "sampan-sweets-box",
+/* ------------------------------------------------------------------ */
+/*  SITEMAP DATA (Matching 9-Division IA)                              */
+/* ------------------------------------------------------------------ */
+
+const sitemap = [
+    {
+    title: "Company",
+    links: [
+      "About Us",
+      "Careers",
+      "Investment Portfolio",
+      "Newsroom",
+      "Accreditation & Awards",
+      "Contact Us",
+    ],
+  },
+  {
+    title: "Real Estate",
+    links: [
+      "SDL",
+      "Metro Square",
+      "Motalib Skyline",
+      "Nexus",
+      "Residency Tower 1 & 2",
+      "Taj",
+      "Niketon",
+      "21st Century",
+    ],
+  },
+  {
+    title: "Hospitality & Travel",
+    links: [
+      "Highway Inn",
+      "Express Highway Inn",
+      "EHCL",
+      "White Hall",
+      "Eco & Agro Resort",
+    ],
+  },
+  {
+    title: "Golf Zone",
+    links: [
+      "Agro & Golf Resort",
+      "Golf Academy",
+      "Short Drive Range",
+    ],
+  },
+  {
+    title: "Education",
+    links: [
+      "LSHS",
+    ],
+  },
+  {
+    title: "Agro & Retail",
+    links: [
+      "Eco & Agro",
+      "Sampan Mart",
+      "Mini Sampan",
+      "Trade Emporium",
+      "Sweet Box",
+    ],
+  },
+  {
+    title: "Manufacturing & Auto",
+    links: [
+      "Hollow Bricks & Tile",
+      "Pet & Beverage",
+      "Industrial Park",
+      "Sampan Auto",
+      "Cafe Metro",
+      "Filling Station",
+      "LPG / EV Charging",
+      "Towing",
+    ],
+  },
+  {
+    title: "Defense & Maritime",
+    links: [
+      "Fire Arms Co.",
+      "Nagar Arms",
+      "Floating Pearl",
+    ],
+  },
 ];
 
 const socialLinks = [
-  {
-    label: "Facebook",
-    href: "https://www.facebook.com/sampangroup/",
-    logo: "/images/socials/facebook.png",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/company/sampangroup/",
-    logo: "/images/socials/linkedin.png",
-  },
-  {
-    label: "YouTube",
-    href: "https://www.youtube.com/@SampanGroupbangladesh",
-    logo: "/images/socials/youtube.png",
-  },
+  { label: "Facebook", href: "https://www.facebook.com/sampangroup/", Icon: FaFacebookF },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/sampangroup/", Icon: FaLinkedinIn },
+  { label: "YouTube", href: "https://www.youtube.com/@SampanGroupbangladesh", Icon: FaYoutube },
+  { label: "WhatsApp", href: "https://wa.me/8801XXXXXXXXX", Icon: FaWhatsapp },
 ];
 
+/* ------------------------------------------------------------------ */
+/*  COMPONENT                                                          */
+/* ------------------------------------------------------------------ */
+
 export default function Footer() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!email.trim()) return;
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
 
-    // Connect this form to your API when the backend is ready.
+      mm.add("(prefers-reduced-motion: reduce)", () => {
+        gsap.set([".footer-top", ".footer-col", ".footer-bottom"], { opacity: 1, y: 0 });
+      });
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        /* TOP SECTION ENTRANCE */
+        gsap.fromTo(
+          ".footer-top > *",
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power3.out",
+            scrollTrigger: { trigger: ".footer-top", start: "top 90%", once: true },
+          }
+        );
+
+        /* SITEMAP COLUMNS STAGGER */
+        gsap.fromTo(
+          ".footer-col",
+          { y: 30, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: "power3.out",
+            scrollTrigger: { trigger: ".footer-sitemap", start: "top 95%", once: true },
+          }
+        );
+      });
+    },
+    { scope: containerRef }
+  );
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
     setSubmitted(true);
     setEmail("");
-  }
-
-  const selectedConcerns = selectedConcernIds
-    .map((id) => concerns.find((concern) => concern.id === id))
-    .filter((concern) => concern !== undefined);
+  };
 
   return (
-    <footer className="bg-[#080808] text-white">
-      <section className="border-b border-white/10 px-6 py-12 lg:px-10 lg:py-16">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-16">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.3em] text-emerald-300">
-              Stay connected
-            </p>
-            <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl">
-              Stories, progress, and news from Sampan.
+    <footer ref={containerRef} className="relative w-full overflow-hidden bg-[#050505] text-white">
+      {/* Giant Ghost Background Text */}
+      <span className="pointer-events-none absolute -bottom-10 left-0 select-none text-[12rem] font-black leading-none text-white opacity-[0.015] md:text-[18rem] lg:-bottom-20">
+        Sampan
+      </span>
+
+      <div className="relative z-10 mx-auto max-w-[1600px] px-[5vw] py-24 lg:py-32">
+
+        {/* ====== TOP: BRAND & NEWSLETTER ====== */}
+        <div className="footer-top flex flex-col gap-12 border-b border-white/10 pb-20 lg:flex-row lg:items-end lg:justify-between lg:gap-16">
+
+          {/* Brand Statement */}
+          <div className="max-w-2xl">
+            <Link href="/" className="mb-8 inline-flex items-center gap-3">
+              <img src={'/images/Sampan-Group.png'} />
+            </Link>
+            <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-white">
+              The village will be
+              <br />
+              <span className="text-emerald-500">the city.</span>
             </h2>
+            <p className="mt-8 max-w-md text-base leading-[1.8] text-white/50">
+              A diversified group building opportunities across industries, communities, and generations.
+            </p>
           </div>
 
-          <form
-            onSubmit={handleSubmit}
-            className="flex w-full max-w-xl border border-white/20 bg-white/[0.06] p-1 focus-within:border-emerald-300/70"
-          >
-            <label htmlFor="footer-email" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="footer-email"
-              type="email"
-              required
-              value={email}
-              onChange={(event) => {
-                setEmail(event.target.value);
-                setSubmitted(false);
-              }}
-              placeholder="Your email address"
-              className="min-w-0 flex-1 bg-transparent px-4 py-3 text-sm text-white outline-none placeholder:text-white/40"
-            />
-            <button
-              type="submit"
-              aria-label="Subscribe to newsletter"
-              className="bg-emerald-700 px-5 text-sm font-semibold transition hover:bg-emerald-600"
-            >
-              Subscribe <span aria-hidden="true">→</span>
-            </button>
-          </form>
+          {/* Architectural Newsletter */}
+          <div className="w-full max-w-md">
+            <p className="mb-6 font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-emerald-400">
+              Stay Connected
+            </p>
+            <p className="mb-8 text-sm leading-7 text-white/60">
+              Stories, progress, and news from the Sampan ecosystem.
+            </p>
+            <form onSubmit={handleSubmit} className="relative flex border-b border-white/20 focus-within:border-emerald-500 transition-colors duration-500">
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setSubmitted(false);
+                }}
+                placeholder="Your email address"
+                className="w-full flex-1 bg-transparent py-3 pr-4 text-sm text-white placeholder:text-white/30 focus:outline-none"
+              />
+              <button
+                type="submit"
+                aria-label="Subscribe to newsletter"
+                className="flex items-center gap-3 py-3 font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-colors duration-500 hover:text-emerald-400"
+              >
+                Subscribe
+                <FiArrowRight className="h-4 w-4" />
+              </button>
+            </form>
+            {submitted && (
+              <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-400">
+                ✓ Subscription request received.
+              </p>
+            )}
+          </div>
         </div>
 
-        {submitted && (
-          <p className="mx-auto mt-4 max-w-7xl text-sm text-emerald-300">
-            Thanks—your subscription request has been received.
-          </p>
-        )}
-      </section>
+        {/* ====== MIDDLE: SITEMAP DIRECTORY ====== */}
+        <div className="footer-sitemap grid grid-cols-2 gap-x-8 gap-y-12 py-20 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8">
+          {sitemap.map((section) => (
+            <div key={section.title} className="footer-col">
+              <h3 className="mb-6 font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-white/40">
+                {section.title}
+              </h3>
+              <ul className="space-y-3">
+                {section.links.map((link) => (
+                  <li key={link}>
+                    <Link
+                      href="#"
+                      className="group inline-flex items-center text-sm text-white/60 transition-colors duration-300 hover:text-white"
+                    >
+                      <span className="mr-0 h-px w-0 bg-emerald-500 transition-all duration-300 group-hover:mr-2 group-hover:w-3" />
+                      {link}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
 
-      <section className="px-6 py-16 lg:px-10 lg:py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 sm:grid-cols-2 lg:grid-cols-[1.15fr_0.7fr_1fr_1fr] lg:gap-16">
-          <div>
-            <Link href="/" className="inline-flex items-center gap-3">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-300/60 text-sm font-semibold text-emerald-300">
-                S
-              </span>
-              <span className="text-lg font-semibold tracking-[0.2em]">
-                SAMPAN
-              </span>
-            </Link>
+        {/* ====== BOTTOM: CONTACT, SOCIALS & LEGAL ====== */}
+        <div className="footer-bottom flex flex-col gap-8 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
 
-            <p className="mt-7 max-w-xs text-sm leading-7 text-white/55">
-              A diversified group building opportunities across industries,
-              communities, and generations.
-            </p>
+          {/* Contact Info */}
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-8">
+            <a href="mailto:info@sampangroup.com.bd" className="group flex items-center gap-3 text-sm text-white/60 transition-colors hover:text-white">
+              <FiMail className="h-4 w-4 text-emerald-500" />
+              info@sampangroup.com.bd
+            </a>
+            <a href="tel:+8801XXXXXXXXX" className="group flex items-center gap-3 text-sm text-white/60 transition-colors hover:text-white">
+              <FiPhone className="h-4 w-4 text-emerald-500" />
+              +880 1XXX XXXXXX
+            </a>
+          </div>
 
-            <p className="mt-8 text-sm font-medium text-emerald-300">
-              The village will be the city.
-            </p>
-
-            <div className="mt-8 flex gap-3">
-              {socialLinks.map((social) => (
+          {/* Socials */}
+          <div className="flex items-center gap-4">
+            {socialLinks.map((social) => {
+              const Icon = social.Icon;
+              return (
                 <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noreferrer"
                   aria-label={`Visit Sampan Group on ${social.label}`}
-                  className="flex h-10 w-10 items-center justify-center transition hover:scale-110"
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-white/60 transition-all duration-500 hover:border-emerald-500 hover:text-emerald-400"
                 >
-                  <Image
-                    src={social.logo}
-                    alt=""
-                    width={32}
-                    height={32}
-                    className="h-8 w-8 object-contain"
-                  />
+                  <Icon className="h-4 w-4" />
                 </a>
-              ))}
+              );
+            })}
+          </div>
+
+          {/* Legal */}
+          <div className="flex flex-col gap-3 text-xs text-white/40 sm:flex-row sm:items-center sm:gap-6">
+            <p>© {new Date().getFullYear()} Sampan Group. All rights reserved.</p>
+            <div className="flex gap-5">
+              <Link href="/privacy" className="transition-colors hover:text-white">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="transition-colors hover:text-white">
+                Terms
+              </Link>
             </div>
           </div>
-
-          <div>
-            <FooterHeading>Explore</FooterHeading>
-            <nav className="space-y-3">
-              {footerLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="block text-sm text-white/55 transition hover:text-white"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          <div>
-            <FooterHeading>Featured concerns</FooterHeading>
-            <nav className="space-y-3">
-              {selectedConcerns.slice(0, 3).map((concern) => (
-                <Link
-                  key={concern.id}
-                  href={concern.href ?? `/concerns#${concern.id}`}
-                  className="block text-sm text-white/55 transition hover:text-white"
-                >
-                  {concern.name}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          <div>
-            <FooterHeading>More from Sampan</FooterHeading>
-            <nav className="space-y-3">
-              {selectedConcerns.slice(3).map((concern) => (
-                <Link
-                  key={concern.id}
-                  href={concern.href ?? `/concerns#${concern.id}`}
-                  className="block text-sm text-white/55 transition hover:text-white"
-                >
-                  {concern.name}
-                </Link>
-              ))}
-              <Link
-                href="/concerns"
-                className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-emerald-300 transition hover:gap-3"
-              >
-                View all concerns <span aria-hidden="true">→</span>
-              </Link>
-            </nav>
-          </div>
         </div>
-      </section>
 
-      <section className="border-t border-white/10 px-6 py-6 lg:px-10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Sampan Group. All rights reserved.</p>
-          <div className="flex gap-5">
-            <Link href="/privacy" className="transition hover:text-white">
-              Privacy policy
-            </Link>
-            <Link href="/terms" className="transition hover:text-white">
-              Terms
-            </Link>
-          </div>
-        </div>
-      </section>
+      </div>
     </footer>
-  );
-}
-
-function FooterHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="mb-5 text-xs font-semibold uppercase tracking-[0.22em] text-white">
-      {children}
-    </h2>
   );
 }

@@ -21,7 +21,7 @@ const investments = [
     pitch: "Own a share of Ashulia's next residential address.",
     cta: "See open opportunities",
     href: "#land-share",
-    image: "/images/projects/sampan-metro-square.png",
+    image: "/images/projects/sampanmetrosquare.jpg",
   },
   {
     model: "Club & Membership",

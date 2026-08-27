@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { FiArrowUpRight } from "react-icons/fi";
+import { FiX, FiChevronLeft, FiChevronRight, FiMaximize2 } from "react-icons/fi";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -13,25 +13,22 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 /*  DATA                                                               */
 /* ------------------------------------------------------------------ */
 
-const awards = [
-  {
-    id: "award-01",
-    organization: "BRAC Bank",
-    year: "2005",
-    title: "1st Place, Sales Performance",
-    description: "Earned by MD Emamul Hasan before founding Sampan Auto.",
-    logo: "/images/awards/brac-bank.png",
-  },
-  {
-    id: "award-02",
-    organization: "Standard Chartered Bank",
-    year: "2009",
-    title: "High Flyer Bonanza Campaign Award",
-    description:
-      "Awarded to Sampan Auto for outstanding financial performance.",
-    logo: "/images/awards/standard-chartered.png",
-  },
+const galleryImages = [
+  { id: "img-01", src: "/images/awards/Our-Curated-Gallery-Photo-Frame.webp" },
+  { id: "img-02", src: "/images/awards/Our-Curated-Gallery-Photo-Frame-1.webp" },
+  { id: "img-03", src: "/images/awards/Our-Curated-Gallery-Photo-Frame-2.webp" },
+  { id: "img-04", src: "/images/awards/Our-Curated-Gallery-Photo-Frame-3.webp" },
+  { id: "img-05", src: "/images/awards/Our-Curated-Gallery-Photo-Frame-4.webp" },
+  { id: "img-06", src: "/images/awards/Our-Curated-Gallery-Photo-Frame-5.webp" },
+  { id: "img-07", src: "/images/awards/boss.jpeg" },
+  { id: "img-08", src: "/images/awards/purple.jpeg" },
+  { id: "img-09", src: "/images/awards/mou.jpeg" },
+  { id: "img-10", src: "/images/awards/express.jpeg" },
 ];
+
+// Duplicate for the seamless infinite loop
+const marqueeRow1 = [...galleryImages, ...galleryImages];
+const marqueeRow2 = [...galleryImages.slice().reverse(), ...galleryImages.slice().reverse()];
 
 /* ------------------------------------------------------------------ */
 /*  COMPONENT                                                          */
@@ -39,19 +36,68 @@ const awards = [
 
 export default function AwardsRecognition() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const lightboxRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
+  /* --- Lightbox Navigation Logic --- */
+  const showNext = useCallback(() => {
+    setActiveIndex((current) => (current !== null ? (current + 1) % galleryImages.length : null));
+  }, []);
+
+  const showPrev = useCallback(() => {
+    setActiveIndex((current) => (current !== null ? (current - 1 + galleryImages.length) % galleryImages.length : null));
+  }, []);
+
+  const closeLightbox = useCallback(() => setActiveIndex(null), []);
+
+  /* --- Keyboard Accessibility for Lightbox --- */
+  useEffect(() => {
+    if (activeIndex === null) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowRight") showNext();
+      if (e.key === "ArrowLeft") showPrev();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden"; // Prevent background scroll
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [activeIndex, closeLightbox, showNext, showPrev]);
+
+  /* --- GSAP Lightbox Entrance & Image Transitions --- */
+  useGSAP(
+    () => {
+      if (!lightboxRef.current || activeIndex === null) return;
+
+      // Animate backdrop
+      gsap.fromTo(
+        lightboxRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.4, ease: "power3.out" }
+      );
+
+      // Animate image container on open and change
+      gsap.fromTo(
+        ".lightbox-image-wrapper",
+        { scale: 0.95, opacity: 0, filter: "blur(8px)" },
+        { scale: 1, opacity: 1, filter: "blur(0px)", duration: 0.6, ease: "power4.out", delay: 0.1 }
+      );
+    },
+    { scope: containerRef, dependencies: [activeIndex] }
+  );
+
+  /* --- GSAP Dual-Row Marquee & Scroll Entrance --- */
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([".awd-header > *", ".awd-card", ".awd-timeline"], {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-        });
+        gsap.set(".marquee-track-1, .marquee-track-2", { x: 0, xPercent: 0 });
       });
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
@@ -65,173 +111,220 @@ export default function AwardsRecognition() {
             duration: 1,
             stagger: 0.15,
             ease: "power3.out",
-            scrollTrigger: {
-              trigger: ".awd-header",
-              start: "top 85%",
-              once: true,
-            },
-          },
+            scrollTrigger: { trigger: ".awd-header", start: "top 85%", once: true },
+          }
         );
 
-        /* CARDS STAGGERED ENTRANCE */
-        gsap.fromTo(
-          ".awd-card",
-          { y: 60, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.9,
-            stagger: 0.12,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: ".awd-strip",
-              start: "top 85%",
-              once: true,
-            },
-          },
-        );
+        /* PREMIUM DIRECTIONAL MARQUEE LOGIC */
+        const track1 = containerRef.current?.querySelector(".marquee-track-1") as HTMLElement;
+        const track2 = containerRef.current?.querySelector(".marquee-track-2") as HTMLElement;
 
-        /* TIMELINE ENTRANCE */
-        gsap.fromTo(
-          ".awd-timeline",
-          { y: 40, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: ".awd-timeline",
-              start: "top 90%",
-              once: true,
-            },
-          },
-        );
+        if (track1) {
+          // Row 1: Left to Right (Start at -50%, animate to 0%)
+          const tl1 = gsap.timeline({ repeat: -1 });
+          tl1.fromTo(track1, { xPercent: -50 }, { xPercent: 0, duration: 45, ease: "none" });
+
+          // Hover Slowdown for Row 1
+          const row1Wrapper = containerRef.current?.querySelector(".row-1-wrapper");
+          if (row1Wrapper) {
+            row1Wrapper.addEventListener("mouseenter", () => gsap.to(tl1, { timeScale: 0.2, duration: 0.5 }));
+            row1Wrapper.addEventListener("mouseleave", () => gsap.to(tl1, { timeScale: 1, duration: 0.5 }));
+          }
+        }
+
+        if (track2) {
+          // Row 2: Right to Left (Start at 0%, animate to -50%)
+          const tl2 = gsap.timeline({ repeat: -1 });
+          tl2.fromTo(track2, { xPercent: 0 }, { xPercent: -50, duration: 50, ease: "none" });
+
+          // Hover Slowdown for Row 2
+          const row2Wrapper = containerRef.current?.querySelector(".row-2-wrapper");
+          if (row2Wrapper) {
+            row2Wrapper.addEventListener("mouseenter", () => gsap.to(tl2, { timeScale: 0.2, duration: 0.5 }));
+            row2Wrapper.addEventListener("mouseleave", () => gsap.to(tl2, { timeScale: 1, duration: 0.5 }));
+          }
+        }
       });
     },
-    { scope: containerRef },
+    { scope: containerRef }
   );
 
   return (
-    <section
-      ref={containerRef}
+    <section 
+      ref={containerRef} 
       className="relative w-full overflow-hidden bg-[#F5F5F2] py-24 lg:py-32"
     >
-      {/* Giant Ghost Number */}
-      <span className="pointer-events-none absolute -right-6 top-10 select-none text-[14rem] font-black leading-none text-neutral-950 opacity-[0.02] md:text-[20rem]">
-        08
+      {/* Giant Ghost Background Text */}
+      <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none text-[10rem] font-black uppercase tracking-tighter text-neutral-950 opacity-[0.02] md:text-[16rem]">
+        Archive
       </span>
 
-      <div className="relative mx-auto max-w-[1400px] px-[5vw]">
-        {/* ====== EDITORIAL HEADER (One Line) ====== */}
+      <div className="relative mx-auto max-w-[1600px] px-[5vw]">
+        
+        {/* ====== EDITORIAL HEADER ====== */}
         <div className="awd-header mb-16 flex flex-col justify-between gap-8 border-b border-neutral-300/60 pb-8 lg:mb-24 lg:flex-row lg:items-end">
           <div>
             <p className="mb-6 font-mono text-[11px] font-semibold uppercase tracking-[0.4em] text-emerald-600">
-              08 / Awards & Recognition
+              Earned Across Two Decades of Business
             </p>
             <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-neutral-950 lg:whitespace-nowrap">
-              Recognized before the Sampan story began.
+              Recognition & Achievements
             </h2>
           </div>
+          <p className="max-w-xs text-sm leading-7 text-neutral-500 lg:text-right">
+            Click to enlarge. A visual timeline of milestones that shaped the foundation of Sampan Group.
+          </p>
         </div>
+      </div>
 
-        {/* ====== AWARDS STRIP ====== */}
-        <div className="awd-strip relative">
-          {/* Horizontal Scroll Track */}
-          <div
-            ref={trackRef}
-            className="awd-track flex cursor-grab gap-6 overflow-x-auto pb-8 active:cursor-grabbing"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            <style jsx>{`
-              .awd-track::-webkit-scrollbar {
-                display: none;
-              }
-            `}</style>
-
-            {awards.map((award, i) => {
-              const isHovered = hoveredIndex === i;
-
-              return (
-                <div
-                  key={award.id}
-                  className="awd-card group w-[85vw] flex-shrink-0 snap-start lg:w-[420px]"
-                  onMouseEnter={() => setHoveredIndex(i)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                >
-                  {/* Architectural Card Surface */}
-                  <div className="flex h-full flex-col border border-neutral-200 bg-white p-8 transition-all duration-500 hover:border-emerald-600/40 hover:shadow-[0_20px_50px_-20px_rgba(16,185,129,0.1)] lg:p-10">
-                    {/* Logo Area */}
-                    <div className="flex h-24 w-full items-center justify-center border border-neutral-100 bg-neutral-50/50 transition-colors duration-500 group-hover:border-neutral-200 lg:h-28">
-                      <div className="flex h-full w-full items-center justify-center transition-transform duration-500 group-hover:scale-105">
-                        {/* Replace with actual Image component when logos are available */}
-                        <span className="px-6 text-center text-[11px] font-bold uppercase tracking-[0.18em] text-neutral-900 leading-tight">
-                          {award.organization}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Emerald Accent Line */}
-                    <div className="mt-8 h-[2px] w-8 bg-emerald-500 transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:w-12" />
-
-                    {/* Year */}
-                    <p className="mt-6 font-mono text-xs tracking-widest text-neutral-400">
-                      {award.year}
-                    </p>
-
-                    {/* Title */}
-                    <h3 className="mt-3 text-lg font-semibold leading-snug tracking-tight text-neutral-950 transition-colors duration-500 group-hover:text-emerald-700">
-                      {award.title}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="mt-3 text-sm leading-7 text-neutral-500">
-                      {award.description}
-                    </p>
-
-                    {/* Learn More Row */}
-                    <div className="mt-auto flex items-center gap-2 border-t border-neutral-100 pt-6">
-                      <span className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-900 transition-colors duration-500 group-hover:text-emerald-700">
-                        Learn More
-                      </span>
-                      <FiArrowUpRight className="h-3.5 w-3.5 text-neutral-400 transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-emerald-700" />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+      {/* ====== DUAL-ROW MARQUEE CONTAINER ====== */}
+      <div className="relative flex flex-col gap-6 lg:gap-10">
+        
+        {/* ROW 1 (Left to Right) */}
+        <div 
+          className="row-1-wrapper relative w-full overflow-hidden"
+          style={{
+            maskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
+            WebkitMaskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
+          }}
+        >
+          <div className="marquee-track-1 flex w-max gap-6 items-center">
+            {marqueeRow1.map((image, i) => (
+              <MarqueeItem key={`r1-${i}`} image={image} index={i} onClick={() => setActiveIndex(i % galleryImages.length)} />
+            ))}
           </div>
         </div>
 
-        {/* ====== BOTTOM TIMELINE (Desktop) ====== */}
-        <div className="awd-timeline mt-20 hidden lg:mt-28 lg:block">
-          <div className="relative h-px w-full bg-neutral-200">
-            <div className="absolute left-0 top-1/2 flex w-full -translate-y-1/2 justify-between">
-              {awards.map((award) => (
-                <div key={award.id} className="flex flex-col items-center">
-                  <div className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
-                  <div className="mt-5 text-center">
-                    <p className="font-mono text-[11px] tracking-widest text-neutral-500">
-                      {award.year}
-                    </p>
-                    <p className="mt-1.5 max-w-[120px] text-center text-[9px] uppercase tracking-[0.15em] text-neutral-400 leading-tight">
-                      {award.organization}
-                    </p>
-                  </div>
-                </div>
-              ))}
-
-              {/* Future indicator */}
-              <div className="flex flex-col items-center">
-                <div className="h-2 w-2 rounded-full border border-neutral-300" />
-                <p className="mt-5 text-[10px] uppercase tracking-[0.15em] text-neutral-300">
-                  →
-                </p>
-              </div>
-            </div>
+        {/* ROW 2 (Right to Left - Hidden on Mobile to prevent clutter) */}
+        <div 
+          className="row-2-wrapper relative hidden w-full overflow-hidden lg:flex"
+          style={{
+            maskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
+            WebkitMaskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
+          }}
+        >
+          <div className="marquee-track-2 flex w-max gap-6 items-center">
+            {marqueeRow2.map((image, i) => (
+              <MarqueeItem key={`r2-${i}`} image={image} index={i} onClick={() => setActiveIndex(i % galleryImages.length)} />
+            ))}
           </div>
         </div>
       </div>
+
+      {/* ====== FULLSCREEN CINEMATIC LIGHTBOX ====== */}
+      {activeIndex !== null && (
+        <div
+          ref={lightboxRef}
+          className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-black/95 backdrop-blur-xl"
+          onClick={closeLightbox}
+        >
+          {/* Top Bar (Close & Counter) */}
+          <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between p-6 lg:p-8">
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/50">
+              Sampan Group Archive
+            </span>
+            <button
+              onClick={closeLightbox}
+              aria-label="Close lightbox"
+              className="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white transition-colors hover:border-white hover:bg-white hover:text-black"
+            >
+              <FiX className="h-5 w-5" />
+            </button>
+          </div>
+
+          {/* Previous Button */}
+          <button
+            onClick={(e) => { e.stopPropagation(); showPrev(); }}
+            aria-label="Previous image"
+            className="absolute left-4 md:left-8 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white transition-colors hover:border-white hover:bg-white hover:text-black"
+          >
+            <FiChevronLeft className="h-6 w-6" />
+          </button>
+
+          {/* Image Container */}
+          <div 
+            key={activeIndex} // Forces GSAP to re-trigger animation on image change
+            className="lightbox-image-wrapper relative h-[70vh] w-[90vw] max-w-5xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={galleryImages[activeIndex].src}
+              alt={`Enlarged view of Sampan Group Gallery Image ${activeIndex + 1}`}
+              fill
+              sizes="90vw"
+              className="object-contain"
+            />
+          </div>
+
+          {/* Next Button */}
+          <button
+            onClick={(e) => { e.stopPropagation(); showNext(); }}
+            aria-label="Next image"
+            className="absolute right-4 md:right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 text-white transition-colors hover:border-white hover:bg-white hover:text-black"
+          >
+            <FiChevronRight className="h-6 w-6" />
+          </button>
+
+          {/* Bottom Filmstrip / Counter */}
+          <div className="absolute bottom-0 left-0 right-0 z-50 flex flex-col items-center gap-4 p-6 lg:p-8" onClick={(e) => e.stopPropagation()}>
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/60">
+              <strong className="text-white">0{activeIndex + 1}</strong> / 0{galleryImages.length}
+            </span>
+            
+            {/* Square Thumbnails Filmstrip (Desktop Only) */}
+            <div className="hidden max-w-[600px] gap-2 overflow-x-auto rounded-md border border-white/10 bg-black/40 p-2 backdrop-blur-sm md:flex">
+              {galleryImages.map((img, i) => (
+                <button 
+                  key={img.id} 
+                  onClick={() => setActiveIndex(i)}
+                  className={`relative h-12 w-12 shrink-0 overflow-hidden border transition-all duration-300 ${
+                    activeIndex === i ? "border-emerald-400 scale-110" : "border-transparent opacity-50 hover:opacity-100"
+                  }`}
+                >
+                  <Image src={img.src} alt={`Thumbnail ${i+1}`} fill sizes="48px" className="object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      )}
     </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  MARQUEE ITEM SUBCOMPONENT                                          */
+/* ------------------------------------------------------------------ */
+
+function MarqueeItem({ image, index, onClick }: { image: typeof galleryImages[0]; index: number; onClick: () => void }) {
+  return (
+    // Updated height and width to be perfectly 1:1 (Square)
+    <div 
+      className="group relative h-[240px] w-[240px] shrink-0 cursor-pointer overflow-hidden border border-neutral-200 bg-neutral-100 lg:h-[380px] lg:w-[380px]"
+      onClick={onClick}
+    >
+      <Image
+        src={image.src}
+        alt={`Sampan Group Gallery Image ${index + 1}`}
+        fill
+        sizes="380px"
+        // Removed grayscale and opacity hover effects. Images are now always full color.
+        className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-105"
+      />
+      
+      {/* Architectural Top-Right Index (Always Visible) */}
+      <div className="absolute top-0 right-0 z-10 flex items-center gap-2 bg-black/30 py-1 pl-2 pr-3 text-white backdrop-blur-sm">
+        <span className="h-px w-3 bg-emerald-400"></span>
+        <span className="font-mono text-[10px] tracking-widest">
+          0{(index % galleryImages.length) + 1}
+        </span>
+      </div>
+
+      {/* Expand Icon (Always Visible) */}
+      <div className="absolute bottom-4 right-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-black/30 text-white backdrop-blur-sm transition-transform duration-500 ease-out group-hover:scale-110">
+        <FiMaximize2 className="h-4 w-4" />
+      </div>
+    </div>
   );
 }

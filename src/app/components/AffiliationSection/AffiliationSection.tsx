@@ -13,59 +13,22 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 /* ------------------------------------------------------------------ */
 
 const affiliations = [
-  {
-    num: "01",
-    name: "REHAB",
-    fullName: "Real Estate & Housing Association of Bangladesh",
-    desc: "Proud member, championing regulated and quality-driven real estate development across the country.",
-    logo: "/trust/rehab.webp", // Replace with actual REHAB logo
-    role: "Corporate Member",
-  },
-  {
-    num: "02",
-    name: "BIA",
-    fullName: "Bangladesh Indenting Association",
-    desc: "Member, representing Sampan's commitment to ethical and professional international trade.",
-    logo: "/trust/bia.jfif", // Replace with actual BIA logo
-    role: "Corporate Member",
-  },
-  {
-    num: "03",
-    name: "BARVIDA",
-    fullName: "Bangladesh Reconditioned Vehicles Importer & Dealer Association",
-    desc: "MD Emamul Hasan served as former Organizing Secretary, guiding the future of national mobility.",
-    logo: "/images/partners/7.b.png", // Replace with actual BARVIDA logo
-    role: "Leadership History",
-  },
-  {
-    num: "04",
-    name: "BADIA",
-    fullName: "Bangladesh Arms Dealer & Importer Association",
-    desc: "MD Emamul Hasan served as former Joint Secretary, ensuring licensed and regulated security supply.",
-    logo: "/images/partners/5.badia.png", // Replace with actual BADIA logo
-    role: "Leadership History",
-  },
-  {
-    num: "05",
-    name: "LSHS UK",
-    fullName: "CIPS and CMI Accredited Affiliation",
-    desc: "Delivering internationally recognized UK-accredited professional coursework right here in Bangladesh.",
-    logo: "/images/logos/5-lshs.png", // Replace with actual LSHS UK logo
-    role: "International Accreditation",
-  },
-  {
-    num: "06",
-    name: "Sampan Group",
-    fullName: "Integrated Ecosystem Compliance",
-    desc: "Operating across nine divisions with unified standards in safety, investment, and corporate governance.",
-    logo: "/images/Sampan-Group.png", // Replace with actual Sampan logo
-    role: "Corporate Standard",
-  },
+  { num: "01", name: "Real Estate & Housing Association of Bangladesh", logo: "/images/affiliation/rehab.png" },
+  { num: "02", name: "Federation of Bangladesh chambers of commerce & industry FBCCI", logo: "/images/affiliation/fbcci.png" },
+  { num: "03", name: "Bangladesh Reconditioned Vehicles Importers & Dealers Association (BARVIDA)", logo: "/images/affiliation/barvia.png" },
+  { num: "04", name: "Bangladesh Arm's Dealer and Impoter Association", logo: "/images/affiliation/bad.png" },
+  { num: "05", name: "Bangladesh PABX Association", logo: "/images/affiliation/pabx.png" },
+  { num: "06", name: "Bangladesh LPG Autogas Station & Conversion Workshop Ownerʼs Association", logo: "/images/affiliation/lpg.png" },
+  { num: "07", name: "Bangladesh volleyball federation (AD-Hoc Community)", logo: "/images/affiliation/bvf.png" },
+  { num: "08", name: "Barisal Bulls", logo: "/images/affiliation/barishalbulls.png" },
+  { num: "09", name: "Barisal Club (1864)", logo: "/images/affiliation/lis.png" },
+  { num: "10", name: "Bangladesh Premier League (BPL)", logo: "/images/affiliation/bpl.png" },
+  { num: "11", name: "Mercedes-Benz", logo: "/images/affiliation/mercedes.png" },
+  { num: "12", name: "Chartered Institute of Procurement & Supply UK-Authorized", logo: "/images/affiliation/cips.png" },
+  { num: "13", name: "Directorate General Defence Purchase", logo: "/images/affiliation/dgdp.png" },
+  { num: "14", name: "Shooter's Shooting Club", logo: "/images/affiliation/shoot.png" },
+  // Add your remaining 20+ logos here. The grid will automatically wrap beautifully.
 ];
-
-// Duplicate for the seamless infinite loop
-const marqueeRow1 = [...affiliations, ...affiliations];
-const marqueeRow2 = [...affiliations, ...affiliations];
 
 /* ------------------------------------------------------------------ */
 /*  COMPONENT                                                          */
@@ -79,9 +42,7 @@ export default function AffiliationSection() {
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        // Stop animation and allow native scrolling
-        gsap.set([".marquee-track-1", ".marquee-track-2"], { x: 0 });
-        gsap.set(".marquee-container", { overflowX: "auto" });
+        gsap.set([".aff-header > *", ".aff-cell"], { opacity: 1, y: 0, clipPath: "none" });
       });
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
@@ -95,198 +56,86 @@ export default function AffiliationSection() {
             duration: 1,
             stagger: 0.15,
             ease: "power3.out",
-            scrollTrigger: {
-              trigger: ".aff-header",
-              start: "top 85%",
-              once: true,
-            },
-          },
+            scrollTrigger: { trigger: ".aff-header", start: "top 85%", once: true },
+          }
         );
 
-        /* 
-          PREMIUM RIGHT-TO-LEFT MARQUEE LOGIC
-          We calculate exact pixel width (scrollWidth / 2) to guarantee a seamless loop.
-        */
-        const setupMarquee = (trackClass: string, duration: number) => {
-          const track = containerRef.current?.querySelector(
-            trackClass,
-          ) as HTMLElement;
-          if (!track) return null;
-
-          // Calculate the width of exactly one set of items
-          const totalWidth = track.scrollWidth / 2;
-
-          const tween = gsap.to(track, {
-            x: -totalWidth,
-            duration: duration,
-            ease: "none",
-            repeat: -1,
-          });
-
-          return tween;
-        };
-
-        const tl1 = setupMarquee(".marquee-track-1", 32);
-        const tl2 = setupMarquee(".marquee-track-2", 42); // Slightly slower for depth
-
-        // Hover Slowdown Interaction
-        const row1 = containerRef.current?.querySelector(".marquee-row-1");
-        const row2 = containerRef.current?.querySelector(".marquee-row-2");
-
-        if (row1 && tl1) {
-          row1.addEventListener("mouseenter", () =>
-            gsap.to(tl1, { timeScale: 0.2, duration: 0.5 }),
-          );
-          row1.addEventListener("mouseleave", () =>
-            gsap.to(tl1, { timeScale: 1, duration: 0.5 }),
-          );
-        }
-        if (row2 && tl2) {
-          row2.addEventListener("mouseenter", () =>
-            gsap.to(tl2, { timeScale: 0.2, duration: 0.5 }),
-          );
-          row2.addEventListener("mouseleave", () =>
-            gsap.to(tl2, { timeScale: 1, duration: 0.5 }),
-          );
-        }
+        /* RAPID GRID FADE & LIFT REVEAL */
+        gsap.fromTo(
+          ".aff-cell",
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.04, // Fast stagger for 30+ items
+            ease: "power3.out",
+            scrollTrigger: { trigger: ".aff-grid", start: "top 85%", once: true },
+          }
+        );
       });
     },
-    { scope: containerRef },
+    { scope: containerRef }
   );
 
   return (
-    <section
-      ref={containerRef}
+    <section 
+      ref={containerRef} 
       className="relative w-full overflow-hidden bg-[#F5F5F2] py-24 lg:py-32"
     >
       {/* Giant Ghost Background Text */}
-      <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none text-[10rem] font-black uppercase tracking-tighter text-neutral-950 opacity-[0.025] md:text-[15rem]">
+      <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none text-[10rem] font-black uppercase tracking-tighter text-neutral-950 opacity-[0.02] md:text-[15rem]">
         Affiliations
       </span>
 
       <div className="relative mx-auto max-w-[1600px] px-[5vw]">
+        
         {/* ====== SECTION HEADER ====== */}
-        <div className="aff-header mb-16 max-w-3xl lg:mb-24">
-          <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-neutral-950">
-            Connected to institutions
-            <br />
-            <span className="text-neutral-400">that shape our industries.</span>
-          </h2>
-          <p className="mt-8 max-w-xl text-base leading-[1.8] text-neutral-500 lg:text-lg">
-            Professional memberships, leadership roles, and international
-            affiliations that reflect the networks behind Sampan Group.
-          </p>
-        </div>
-
-        {/* ====== MARQUEE CONTAINER ====== */}
-        <div
-          className="marquee-container relative flex flex-col gap-12 lg:gap-16"
-          style={{
-            maskImage:
-              "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-            WebkitMaskImage:
-              "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
-          }}
-        >
-          {/* ROW 1 (Right to Left) */}
-          <div className="marquee-row-1 flex w-max overflow-hidden">
-            <div className="marquee-track-1 flex shrink-0 items-center">
-              {marqueeRow1.map((aff, i) => (
-                <MarqueeItem key={`r1-${i}`} aff={aff} size="lg" />
-              ))}
-            </div>
+        <div className="aff-header mb-16 flex flex-col justify-between gap-8 border-b border-neutral-300/60 pb-8 lg:mb-24 lg:flex-row lg:items-end">
+          <div>
+            <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-neutral-950">
+              Connected to institutions
+              <br />
+              <span className="text-neutral-400">that shape our industries.</span>
+            </h2>
           </div>
-
-          {/* ROW 2 (Right to Left - Slightly slower) - Hidden on Mobile */}
-          {/* <div className="marquee-row-2 hidden w-max overflow-hidden lg:flex">
-            <div className="marquee-track-2 flex shrink-0 items-center">
-              {marqueeRow2.map((aff, i) => (
-                <MarqueeItem key={`r2-${i}`} aff={aff} size="sm" />
-              ))}
-            </div>
-          </div> */}
+          <p className="max-w-xs text-sm leading-7 text-neutral-500 lg:text-right">
+            Professional memberships and international affiliations reflecting the networks behind Sampan Group.
+          </p>
         </div>
 
-        {/* ====== BOTTOM METADATA ====== */}
-        <div className="mt-16 flex items-center justify-between border-t border-neutral-300/60 pt-6 lg:mt-24">
-          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-neutral-500">
-            Professional Network
-          </p>
-          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-400">
-            <strong className="text-neutral-900">06</strong> Organizations /
-            Affiliations
-          </p>
+        {/* ====== PREMIUM ARCHITECTURAL GRID ====== */}
+        {/* Subtle borders create a clean ledger feel. Hover state lifts to pure white. */}
+        <div className="aff-grid grid grid-cols-2 border-l border-t border-neutral-200 sm:grid-cols-3 lg:grid-cols-6">
+          {affiliations.map((aff) => (
+            <div 
+              key={aff.num} 
+              className="aff-cell group relative flex flex-col items-center justify-center border-b border-r border-neutral-200 p-8 transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] hover:bg-white hover:shadow-[0_15px_30px_-10px_rgba(0,0,0,0.05)] hover:z-10"
+            >
+              {/* Logo Container - Fixed aspect ratio for perfect grid alignment */}
+              <div className="relative flex aspect-[16/10] w-full items-center justify-center">
+                <div className="relative h-full w-full max-w-[140px]">
+                  <Image
+                    src={aff.logo}
+                    alt={`${aff.name} Logo`}
+                    fill
+                    className="object-contain transition-transform duration-500 ease-out group-hover:scale-110"
+                    sizes="(min-width: 1024px) 16vw, 33vw"
+                  />
+                </div>
+              </div>
+
+              {/* Organization Name (Always visible, premium typography) */}
+              <div className="mt-8 flex items-center gap-3">
+                <span className="h-[1px] w-0 bg-emerald-500 transition-all duration-500 group-hover:w-4"></span>
+                <p className="text-center text-[10px] font-mono font-semibold uppercase tracking-[0.15em] text-neutral-400 transition-colors duration-500 group-hover:text-neutral-900 lg:text-[11px]">
+                  {aff.name}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  MARQUEE ITEM SUBCOMPONENT                                          */
-/* ------------------------------------------------------------------ */
-
-function MarqueeItem({
-  aff,
-  size,
-}: {
-  aff: (typeof affiliations)[0];
-  size: "lg" | "sm";
-}) {
-  const isLarge = size === "lg";
-
-  return (
-    <div className="group flex shrink-0 items-center">
-      <div
-        className={`relative flex flex-col ${isLarge ? "w-[400px]" : "w-[340px]"} px-12 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-[1.03]`}
-      >
-        {/* Logo */}
-        <div
-          className={`relative ${isLarge ? "h-20 w-full" : "h-14 w-full"} mb-6`}
-        >
-          <div
-            className={`relative mx-auto ${isLarge ? "h-20 w-44" : "h-14 w-36"}`}
-          >
-            <Image
-              src={aff.logo}
-              alt={`${aff.name} Logo`}
-              fill
-              className="object-contain transition-all duration-500 filter-none group-hover:scale-105"
-              sizes="200px"
-            />
-          </div>
-        </div>
-
-        {/* Organization Name */}
-        <h3 className="text-center text-xl font-semibold tracking-tight text-neutral-950 transition-colors duration-500 group-hover:text-[#007DC5] lg:text-2xl">
-          {aff.name}
-        </h3>
-
-        {/* Hidden Reveal Content */}
-        <div className="grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100">
-          <div className="overflow-hidden">
-            <p className="mt-4 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-600">
-              {aff.role}
-            </p>
-            <p className="mt-3 text-center text-xs leading-6 text-neutral-500">
-              {aff.fullName}
-            </p>
-            <p className="mt-4 text-center text-sm leading-6 text-neutral-600">
-              {aff.desc}
-            </p>
-          </div>
-        </div>
-
-        {/* Index Number (Subtle) */}
-        <span className="mt-8 text-center font-mono text-[10px] tracking-widest text-neutral-300 transition-colors duration-500 group-hover:text-emerald-400">
-          {aff.num}
-        </span>
-      </div>
-
-      {/* Visual Separator */}
-      <div className="relative h-16 w-px bg-neutral-300/50">
-        <span className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#007DC5]"></span>
-      </div>
-    </div>
   );
 }

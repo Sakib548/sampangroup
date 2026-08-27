@@ -9,6 +9,13 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+/* ── Storytelling scenes — adjust ranges to match actual video ── */
+const scenes = [
+  { start: 0, end: 0.33, label: "THE SHOWROOM", cardIndex: 0 },
+  { start: 0.33, end: 0.66, label: "LIFESTYLE & WELLNESS", cardIndex: 1 },
+  { start: 0.66, end: 1, label: "THE COMPLETE EXPERIENCE", cardIndex: 2 },
+];
+
 const cafeHighlights = [
   {
     number: "01",
@@ -54,8 +61,18 @@ export default function SampanCafeMetroFeature() {
   const featuresRef = useRef<HTMLDivElement>(null);
   const scrollExploreRef = useRef<HTMLDivElement>(null);
 
+  /* Scene system */
+  const sceneNumberRef = useRef<HTMLSpanElement>(null);
+  const sceneLabelRef = useRef<HTMLSpanElement>(null);
+  const sceneProgressLineRef = useRef<HTMLDivElement>(null);
+  const featureCardRefs = useRef<(HTMLArticleElement | null)[]>([
+    null,
+    null,
+    null,
+  ]);
+
   /* ------------------------------------------------------------------ */
-  /*  Set video source on mount                                           */
+  /*  Video source                                                       */
   /* ------------------------------------------------------------------ */
   useEffect(() => {
     const video = videoRef.current;
@@ -68,7 +85,7 @@ export default function SampanCafeMetroFeature() {
   }, []);
 
   /* ------------------------------------------------------------------ */
-  /*  GSAP — scroll-controlled video + entrance animation                 */
+  /*  GSAP — single master ScrollTrigger                                  */
   /* ------------------------------------------------------------------ */
   useEffect(() => {
     const section = sectionRef.current;
@@ -78,7 +95,9 @@ export default function SampanCafeMetroFeature() {
     let destroyed = false;
     let mainST: ScrollTrigger | null = null;
     let entranceDone = false;
-    let videoTime = 0;
+    let currentSceneIndex = -1;
+    let sceneLabelTween: gsap.core.Timeline | null = null;
+    let lastSeekTime = -1;
 
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -96,11 +115,14 @@ export default function SampanCafeMetroFeature() {
     gsap.set(ctaRef.current, { opacity: 0, y: 12 });
     gsap.set(featuresRef.current, { opacity: 0, y: 14 });
     gsap.set(scrollExploreRef.current, { opacity: 0, y: 8 });
+    gsap.set(sceneNumberRef.current, { opacity: 0, y: 6 });
+    gsap.set(sceneLabelRef.current, { opacity: 0, y: 6 });
 
     /* ---------- Entrance ---------- */
     const playEntrance = () => {
       if (destroyed) return;
       entranceDone = false;
+      currentSceneIndex = -1;
 
       const tl = gsap.timeline({
         defaults: { ease: "power3.out" },
@@ -150,6 +172,16 @@ export default function SampanCafeMetroFeature() {
           scrollExploreRef.current,
           { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
           "-=0.15"
+        )
+        .to(
+          sceneNumberRef.current,
+          { opacity: 1, y: 0, duration: 0.4 },
+          "-=0.2"
+        )
+        .to(
+          sceneLabelRef.current,
+          { opacity: 1, y: 0, duration: 0.4 },
+          "-=0.25"
         );
     };
 
@@ -157,7 +189,13 @@ export default function SampanCafeMetroFeature() {
     const resetContent = () => {
       if (destroyed) return;
       entranceDone = false;
-      videoTime = 0;
+      currentSceneIndex = -1;
+      lastSeekTime = -1;
+
+      if (sceneLabelTween) {
+        sceneLabelTween.kill();
+        sceneLabelTween = null;
+      }
 
       const targets = [
         { el: accentLineRef.current, v: { scaleX: 0, opacity: 0 } },
@@ -170,13 +208,76 @@ export default function SampanCafeMetroFeature() {
         { el: ctaRef.current, v: { opacity: 0, y: 12 } },
         { el: featuresRef.current, v: { opacity: 0, y: 14 } },
         { el: scrollExploreRef.current, v: { opacity: 0, y: 8 } },
+        { el: sceneNumberRef.current, v: { opacity: 0, y: 6 } },
+        { el: sceneLabelRef.current, v: { opacity: 0, y: 6 } },
       ];
       targets.forEach(({ el, v }) => {
         if (el) gsap.to(el, { ...v, duration: 0.3, overwrite: "auto" });
       });
+
+      featureCardRefs.current.forEach((card) => {
+        if (card) card.classList.remove("card-active");
+      });
+
+      if (sceneProgressLineRef.current) {
+        gsap.set(sceneProgressLineRef.current, { scaleX: 0 });
+      }
     };
 
-    /* ---------- Once video is ready ---------- */
+    /* ---------- Scene label transition ---------- */
+    const transitionScene = (newIndex: number) => {
+      const scene = scenes[newIndex];
+
+      if (sceneLabelTween) sceneLabelTween.kill();
+
+      featureCardRefs.current.forEach((card, idx) => {
+        if (card) card.classList.toggle("card-active", idx === newIndex);
+      });
+
+      const els = [sceneNumberRef.current, sceneLabelRef.current].filter(
+        Boolean
+      );
+
+      if (currentSceneIndex >= 0) {
+        sceneLabelTween = gsap
+          .timeline()
+          .to(els, {
+            y: -6,
+            opacity: 0,
+            duration: 0.18,
+            ease: "power2.in",
+          })
+          .call(() => {
+            if (sceneNumberRef.current) {
+              sceneNumberRef.current.textContent = `0${newIndex + 1} / 0${scenes.length}`;
+            }
+            if (sceneLabelRef.current) {
+              sceneLabelRef.current.textContent = scene.label;
+            }
+          })
+          .fromTo(
+            els,
+            { y: 6, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.28, ease: "power3.out" }
+          );
+      } else {
+        if (sceneNumberRef.current) {
+          sceneNumberRef.current.textContent = `0${newIndex + 1} / 0${scenes.length}`;
+        }
+        if (sceneLabelRef.current) {
+          sceneLabelRef.current.textContent = scene.label;
+        }
+        sceneLabelTween = gsap.fromTo(
+          els,
+          { y: 6, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }
+        );
+      }
+
+      currentSceneIndex = newIndex;
+    };
+
+    /* ---------- Video ready ---------- */
     const onVideoReady = () => {
       if (destroyed) return;
 
@@ -201,16 +302,49 @@ export default function SampanCafeMetroFeature() {
         gsap.set(ctaRef.current, { opacity: 1, y: 0 });
         gsap.set(featuresRef.current, { opacity: 1, y: 0 });
         gsap.set(scrollExploreRef.current, { opacity: 0, y: 0 });
+        gsap.set(sceneNumberRef.current, { opacity: 0, y: 0 });
+        gsap.set(sceneLabelRef.current, { opacity: 0, y: 0 });
         return;
       }
 
       video.pause();
 
-      /* Much longer scroll distance = slower, more cinematic video */
-      const isMobile = window.innerWidth < 768;
-      const scrollDistance = isMobile
-        ? Math.min(1800, Math.max(1200, window.innerHeight * 2))
-        : Math.min(3600, Math.max(2400, window.innerHeight * 3));
+      /* Three-tier scroll distance */
+      const vw = window.innerWidth;
+      let scrollDistance: number;
+      if (vw < 768) {
+        scrollDistance = Math.min(
+          2000,
+          Math.max(1400, window.innerHeight * 2)
+        );
+      } else if (vw < 1024) {
+        scrollDistance = Math.min(
+          2400,
+          Math.max(1800, window.innerHeight * 2.5)
+        );
+      } else {
+        scrollDistance = Math.min(
+          3200,
+          Math.max(2400, window.innerHeight * 3)
+        );
+      }
+
+      /* Smooth video proxy via quickTo — single tween, no accumulation */
+      const videoProxy = { progress: 0 };
+      const setVideoProgress = gsap.quickTo(videoProxy, "progress", {
+        duration: 0.3,
+        ease: "power2.out",
+        onUpdate: () => {
+          const targetTime =
+            videoProxy.progress * (video.duration || 1);
+          if (Math.abs(targetTime - lastSeekTime) > 0.015) {
+            video.currentTime = targetTime;
+            lastSeekTime = targetTime;
+          }
+        },
+      });
+
+      ScrollTrigger.refresh();
 
       mainST = ScrollTrigger.create({
         trigger: section,
@@ -218,27 +352,27 @@ export default function SampanCafeMetroFeature() {
         end: `+=${scrollDistance}`,
         pin: true,
         pinSpacing: true,
-        scrub: true,
+        scrub: 1.5,
         anticipatePin: 1,
 
         onUpdate: (self) => {
           if (destroyed) return;
           const p = self.progress;
-          const dur = video.duration || 1;
 
-          /* ── Smooth lerp for buttery video scrubbing ── */
-          const target = p * dur;
-          videoTime += (target - videoTime) * 0.35;
-          video.currentTime = videoTime;
+          /* ── Video (smooth proxy) ── */
+          setVideoProgress(p);
 
-          /* ── Progress bar (direct style — not GSAP-managed) ── */
+          /* ── Left progress indicator ── */
           if (progressBarRef.current) {
             progressBarRef.current.style.transform = `scaleY(${p})`;
           }
-
-          /* ── Progress dot — percentage-based, no hard-coded pixels ── */
           if (progressDotRef.current) {
             progressDotRef.current.style.top = `${p * 100}%`;
+          }
+
+          /* ── Scene progress line ── */
+          if (sceneProgressLineRef.current) {
+            sceneProgressLineRef.current.style.transform = `scaleX(${p})`;
           }
 
           /* ── Dynamic overlay ── */
@@ -248,14 +382,28 @@ export default function SampanCafeMetroFeature() {
             );
           }
 
-          /* ── Fade scroll indicator early ── */
+          /* ── Fade scroll indicator ── */
           if (scrollExploreRef.current && p > 0.02) {
             scrollExploreRef.current.style.opacity = String(
               Math.max(0, 1 - p * 28)
             );
           }
 
-          /* ── Subtle parallax (only after entrance completes) ── */
+          /* ── Scene detection & transition ── */
+          if (entranceDone) {
+            let sceneIdx = 0;
+            for (let i = scenes.length - 1; i >= 0; i--) {
+              if (p >= scenes[i].start) {
+                sceneIdx = i;
+                break;
+              }
+            }
+            if (sceneIdx !== currentSceneIndex) {
+              transitionScene(sceneIdx);
+            }
+          }
+
+          /* ── Subtle parallax ── */
           if (entranceDone) {
             gsap.set(eyebrowRef.current, { y: -p * 6 });
             gsap.set(headlineRef.current, {
@@ -295,6 +443,7 @@ export default function SampanCafeMetroFeature() {
       destroyed = true;
       clearTimeout(fallback);
       video.removeEventListener("loadeddata", handleLoaded);
+      if (sceneLabelTween) sceneLabelTween.kill();
       if (mainST) mainST.kill();
     };
   }, []);
@@ -305,8 +454,12 @@ export default function SampanCafeMetroFeature() {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[100svh] overflow-hidden bg-[#071b13] text-white"
-      style={{ width: "100vw", marginInline: "calc(-50vw + 50%)" }}
+      className="relative h-[100svh] bg-[#071b13] text-white"
+      style={{
+        width: "100vw",
+        marginInline: "calc(-50vw + 50%)",
+        overflow: "clip",
+      }}
     >
       {/* ── Gradient fallback ── */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_24%,rgba(168,223,115,0.18),transparent_30%),linear-gradient(135deg,#071b13,#123c2b)]" />
@@ -347,15 +500,15 @@ export default function SampanCafeMetroFeature() {
         className="pointer-events-none absolute -left-16 bottom-1/3 h-48 w-48 rounded-full bg-[#a8df73]/[0.03] blur-[80px]"
       />
 
-      {/* ── Progress indicator (left) ── */}
+      {/* ── Left progress indicator ── */}
       <div
         className="pointer-events-none absolute left-4 top-1/2 z-20 -translate-y-1/2 sm:left-8"
         aria-hidden="true"
       >
-        <div className="relative h-24 w-px bg-white/[0.07]">
+        <div className="relative h-24 w-px bg-white/[0.06]">
           <div
             ref={progressBarRef}
-            className="absolute bottom-0 left-0 w-full origin-bottom bg-[#a8df73]/40"
+            className="absolute bottom-0 left-0 w-full origin-bottom bg-[#a8df73]/30"
             style={{
               height: "100%",
               transform: "scaleY(0)",
@@ -370,14 +523,50 @@ export default function SampanCafeMetroFeature() {
               height: "4px",
               top: "0%",
               boxShadow:
-                "0 0 5px 1px rgba(168,223,115,0.4), 0 0 10px 2px rgba(168,223,115,0.15)",
+                "0 0 5px 1px rgba(168,223,115,0.35), 0 0 10px 2px rgba(168,223,115,0.12)",
             }}
           />
         </div>
       </div>
 
+      {/* ── Scene indicator — upper right ── */}
+      <div
+        className="pointer-events-none absolute right-5 top-[26%] z-20 sm:right-8 sm:top-[28%]"
+        aria-hidden="true"
+      >
+        <span
+          ref={sceneNumberRef}
+          className="block font-mono text-[0.48rem] font-bold tracking-[0.14em] text-white/25"
+        >
+          01 / 03
+        </span>
+        <div className="mt-2.5 h-px w-14 overflow-hidden bg-white/[0.06] sm:w-16">
+          <div
+            ref={sceneProgressLineRef}
+            className="h-full w-full origin-left bg-[#a8df73]/35"
+            style={{
+              transform: "scaleX(0)",
+              willChange: "transform",
+            }}
+          />
+        </div>
+        <span
+          ref={sceneLabelRef}
+          className="mt-2.5 block max-w-[8rem] text-[0.5rem] font-bold uppercase tracking-[0.2em] text-white/35 leading-tight sm:max-w-[10rem] sm:text-[0.55rem]"
+        >
+          THE SHOWROOM
+        </span>
+      </div>
+
       {/* ── Main content ── */}
-      <div className="relative z-10 flex h-full w-full flex-col justify-end px-5 pb-16 pt-10 sm:px-8 sm:pb-20 sm:pt-14 lg:px-16 lg:pb-24 lg:pt-18">
+      <div
+        className="relative z-10 flex h-full w-full flex-col justify-end px-5 pt-10 sm:px-8 sm:pt-14 lg:px-16 lg:pt-18"
+        style={{
+          paddingBottom:
+            "max(clamp(4rem, 5vw, 6rem), env(safe-area-inset-bottom, 0px))",
+          overflow: "clip",
+        }}
+      >
         <div className="max-w-[50rem]">
           {/* Accent line */}
           <div
@@ -400,7 +589,9 @@ export default function SampanCafeMetroFeature() {
           >
             Sampan
             <br />
-            <span className="mt-0.5 inline-block sm:mt-1.5">Cafe Metro</span>
+            <span className="mt-0.5 inline-block sm:mt-1.5">
+              Cafe Metro
+            </span>
           </h2>
 
           {/* Description */}
@@ -413,7 +604,7 @@ export default function SampanCafeMetroFeature() {
             experience — all under one roof.
           </p>
 
-          {/* CTA — border-fill hover */}
+          {/* CTA */}
           <Link
             ref={ctaRef}
             href="https://www.sampangroup.com.bd/sampan-auto"
@@ -433,13 +624,16 @@ export default function SampanCafeMetroFeature() {
         {/* ── Feature pillars ── */}
         <div
           ref={featuresRef}
-          className="mt-8 grid divide-y divide-white/[0.07] bg-[#071b13]/40 backdrop-blur-2xl sm:mt-10 sm:grid-cols-3 sm:divide-y-0 sm:border-y sm:border-white/[0.07]"
+          className="mt-8 grid divide-y divide-white/[0.06] bg-[#071b13]/40 backdrop-blur-2xl sm:mt-10 sm:grid-cols-3 sm:divide-y-0 sm:border-y sm:border-white/[0.06]"
         >
           {cafeHighlights.map((h, i) => (
             <article
               key={h.number}
-              className={`group relative overflow-hidden px-4 py-4 transition-colors duration-500 sm:px-6 sm:py-6 sm:even:border-x sm:border-x sm:border-white/[0.07] lg:px-7 lg:py-7 ${
-                i === 1 ? "sm:border-x sm:border-white/[0.07]" : ""
+              ref={(el) => {
+                featureCardRefs.current[i] = el;
+              }}
+              className={`group relative px-4 py-4 transition-all duration-500 ease-out sm:px-6 sm:py-6 lg:px-7 lg:py-7 ${
+                i > 0 ? "sm:border-l sm:border-white/[0.06]" : ""
               }`}
             >
               {/* Hover glow */}
@@ -447,14 +641,15 @@ export default function SampanCafeMetroFeature() {
                 aria-hidden="true"
                 className="absolute inset-0 bg-white/[0.02] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
               />
-              {/* Hover accent */}
+              {/* Accent bar */}
               <span
+                data-accent
                 aria-hidden="true"
                 className="absolute inset-x-0 top-0 h-[1.5px] origin-left scale-x-0 bg-gradient-to-r from-[#a8df73] to-[#a8df73]/20 transition-transform duration-700 ease-out group-hover:scale-x-100"
               />
 
               {/* Number */}
-              <span className="relative block font-mono text-[0.55rem] font-bold tracking-[0.16em] text-[#ef636b]/40 transition-colors duration-500 group-hover:text-[#ef636b]/70">
+              <span className="card-num relative block font-mono text-[0.55rem] font-bold tracking-[0.16em] text-[#ef636b]/40 transition-colors duration-500 group-hover:text-[#ef636b]/70">
                 {h.number}
               </span>
 
@@ -462,12 +657,12 @@ export default function SampanCafeMetroFeature() {
               <span className="relative mt-2 block h-px w-6 bg-white/[0.12] transition-all duration-500 group-hover:w-9 group-hover:bg-[#a8df73]/25" />
 
               {/* Title */}
-              <h3 className="relative mt-2.5 text-[1.05rem] font-medium leading-snug tracking-[-0.025em] text-white/85 transition-colors duration-500 group-hover:text-white sm:mt-3 sm:text-xl sm:tracking-[-0.03em] lg:text-[1.3rem]">
+              <h3 className="card-title relative mt-2.5 text-[1.05rem] font-medium leading-snug tracking-[-0.025em] text-white/85 transition-colors duration-500 group-hover:text-white sm:mt-3 sm:text-xl sm:tracking-[-0.03em] lg:text-[1.3rem]">
                 {h.title}
               </h3>
 
               {/* Copy */}
-              <p className="relative mt-1 max-w-[13rem] text-[0.65rem] leading-relaxed text-white/35 transition-colors duration-500 group-hover:text-white/55 sm:mt-1.5 sm:max-w-none sm:text-[0.72rem] sm:leading-[1.6]">
+              <p className="card-copy relative mt-1 max-w-[13rem] text-[0.65rem] leading-relaxed text-white/35 transition-colors duration-500 group-hover:text-white/55 sm:mt-1.5 sm:max-w-none sm:text-[0.72rem] sm:leading-[1.6]">
                 {h.copy}
               </p>
 
@@ -498,9 +693,7 @@ export default function SampanCafeMetroFeature() {
         </span>
         <span
           className="text-white/15"
-          style={{
-            animation: "cmscrollFloat 2.4s ease-in-out infinite",
-          }}
+          style={{ animation: "cmscrollFloat 2.4s ease-in-out infinite" }}
         >
           <svg
             viewBox="0 0 24 24"
@@ -511,13 +704,30 @@ export default function SampanCafeMetroFeature() {
         </span>
       </div>
 
-      {/* ── Keyframes (no styled-jsx dependency) ── */}
+      {/* ── Styles: animation keyframes + card-active states ── */}
       <style
         dangerouslySetInnerHTML={{
           __html: `
         @keyframes cmscrollFloat {
           0%, 100% { transform: translateY(0); opacity: 0.15; }
           50% { transform: translateY(4px); opacity: 0.05; }
+        }
+
+        .card-active {
+          background: rgba(255,255,255,0.04);
+          transform: translateY(-2px);
+        }
+        .card-active [data-accent] {
+          transform: scaleX(1);
+        }
+        .card-active .card-num {
+          color: rgba(239,99,107,0.85);
+        }
+        .card-active .card-title {
+          color: #ffffff;
+        }
+        .card-active .card-copy {
+          color: rgba(255,255,255,0.6);
         }
       `,
         }}
