@@ -10,16 +10,12 @@ import AffiliationSection from '../components/AffiliationSection/AffiliationSect
 import InvestmentPortfolio from '../components/InvestmentPortfolio/InvestmentPortfolio';
 import TrustBadges from '../components/TrustBadges/TrustBadges';
 import ContactCTA from '@/components/ContactCTA';
-<<<<<<< HEAD
-=======
-import NewsroomPreview from '../components/NewsroomPreview/NewsroomPreview';
->>>>>>> aef522dae09b0fc347a0c78d64f55c28cd86a0bf
 
 const HomePages = () => {
     return (
-        <div>
+        <div className='bg-white'>
             <HeroCarousel/>
-            <DivisionsGrid/>
+            {/* <DivisionsGrid/> */}
             <DivisionsGrid2/>
             <AboutSnapshot/>
             <LocationMap/>
@@ -29,10 +25,6 @@ const HomePages = () => {
             <InvestmentPortfolio/>
             <TrustBadges/>
             <ContactCTA/>
-<<<<<<< HEAD
-=======
-            <NewsroomPreview/>
->>>>>>> aef522dae09b0fc347a0c78d64f55c28cd86a0bf
         </div>
     );
 };

@@ -39,7 +39,7 @@ function Arrow() {
     <svg
       aria-hidden="true"
       viewBox="0 0 24 24"
-      className="h-4 w-4 fill-none stroke-current stroke-[1.8]"
+      className="h-4 w-4 fill-none stroke-current stroke-[1.8] transition-transform duration-300 group-hover:translate-x-1"
     >
       <path d="M5 12h13M13 6l6 6-6 6" />
     </svg>
@@ -50,17 +50,18 @@ export default function ExpressHighwayStory() {
   return (
     <section
       aria-labelledby="express-highway-title"
-      className="relative left-1/2 -ml-[50vw] min-h-[100svh] w-screen max-w-none overflow-hidden bg-[#071b13] text-white"
+      className="relative isolate w-full overflow-hidden bg-[#071b13] text-white min-h-[100svh]"
     >
       <Image
-        src="/images/projects/express-highway-inn.png"
-        alt=""
+        src="/images/projects/express-highway-inn.jpg"
+        alt="Express Highway Inn"
         fill
         priority
         sizes="100vw"
         className="object-cover"
       />
 
+      {/* Overlays */}
       <div className="absolute inset-0 bg-[#071b13]/20" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,27,19,0.68)_0%,rgba(7,27,19,0.10)_32%,rgba(7,27,19,0.38)_58%,rgba(7,27,19,0.96)_100%),linear-gradient(90deg,rgba(7,27,19,0.78)_0%,rgba(7,27,19,0.34)_45%,rgba(7,27,19,0.08)_78%)]" />
       <div
@@ -68,25 +69,14 @@ export default function ExpressHighwayStory() {
         className="absolute inset-0 opacity-[0.055] [background-image:linear-gradient(rgba(255,255,255,.36)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.36)_1px,transparent_1px)] [background-size:72px_72px]"
       />
 
-      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1480px] flex-col px-6 pb-8 pt-28 sm:px-10 sm:pb-10 lg:px-16 lg:pt-32">
-        {/* <header className="flex flex-col justify-between gap-6 border-b border-white/16 pb-5 sm:flex-row sm:items-start">
-          <div className="flex items-center gap-3">
-            <span className="h-1.5 w-1.5 bg-[#ef636b]" />
-            <p className="text-[0.66rem] font-bold uppercase tracking-[0.24em] text-[#58b9eb]">
-              Express Highway Inn
-            </p>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <span className="h-px w-10 bg-[#ef636b]" />
-            <p className="text-[0.62rem] font-bold uppercase tracking-[0.18em] text-white/52">
-              Opening soon
-            </p>
-          </div>
-        </header> */}
-
-        <div className="mt-auto grid items-end gap-8 pb-10 pt-16 lg:grid-cols-[minmax(0,1fr)_25rem] lg:gap-16 lg:pb-12">
-          <div>
+      {/* Content Container */}
+      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1480px] flex-col px-5 pb-10 pt-24 sm:px-10 sm:pb-12 lg:px-16 lg:pt-32">
+        
+        {/* Main Content Grid */}
+        <div className="mt-auto grid items-end gap-10 pb-10 lg:grid-cols-[minmax(0,1fr)_25rem] lg:gap-16">
+          
+          {/* Text Content */}
+          <div className="w-full">
             <div className="mb-5 flex items-center gap-3">
               <span className="h-px w-9 bg-[#ef636b]" />
               <p className="text-[0.64rem] font-bold uppercase tracking-[0.23em] text-[#58b9eb]">
@@ -96,44 +86,43 @@ export default function ExpressHighwayStory() {
 
             <h2
               id="express-highway-title"
-              className="max-w-5xl text-[clamp(3rem,6.2vw,7rem)] font-medium leading-[0.86] tracking-[-0.065em] text-balance"
+              className="max-w-5xl text-[clamp(2.5rem,8vw,7rem)] font-medium leading-[0.86] tracking-[-0.065em] text-balance"
             >
               Express
               <span className="block text-[#58b9eb]">Highway Inn.</span>
             </h2>
           </div>
 
-          <div className="max-w-md border-l border-[#58b9eb]/55 pl-5 lg:justify-self-end">
-            <p className="text-sm leading-7 text-white/70 sm:text-base sm:leading-8">
+          {/* Right Column Content */}
+          <div className="w-full border-l border-[#58b9eb]/55 pl-5 lg:justify-self-end">
+            <p className="max-w-md text-sm leading-7 text-white/70 sm:text-base sm:leading-8">
               A modern, premium evolution of the Sampan Highway Inn, designed
               for everyone seeking elevated comfort, convenience, and
               hospitality.
             </p>
             <Link
               href="/contact"
-              className="group mt-5 inline-flex min-h-12 items-center gap-6 border border-[#00a174]/55 bg-[#00a174]/24 px-5 text-[0.67rem] font-bold uppercase tracking-[0.16em] text-white backdrop-blur-xl transition duration-300 hover:border-[#00a174]/80 hover:bg-[#00a174]/38"
+              className="group mt-6 inline-flex min-h-12 items-center gap-6 border border-[#00a174]/55 bg-[#00a174]/24 px-5 text-[0.67rem] font-bold uppercase tracking-[0.16em] text-white backdrop-blur-xl transition duration-300 hover:border-[#00a174]/80 hover:bg-[#00a174]/38"
             >
               Membership Offer
-              <span className="text-[#58b9eb] transition-transform duration-300 group-hover:translate-x-1">
+              <span className="text-[#58b9eb]">
                 <Arrow />
               </span>
             </Link>
           </div>
         </div>
 
+        {/* Features Grid */}
         <div
-          className="grid grid-cols-2 border-l border-t border-white/16 bg-[#071b13]/42 backdrop-blur-xl lg:grid-cols-6"
+          className="grid grid-cols-2 border-l border-t border-white/16 bg-[#071b13]/42 backdrop-blur-xl sm:grid-cols-3 lg:grid-cols-6"
           aria-label="Express Highway Inn facilities"
         >
-          {features.map((feature, index) => (
+          {features.map((feature) => (
             <article
               key={feature.id}
-              className="group relative min-h-[8.75rem] border-b border-r border-white/16 p-4 transition-colors duration-300 hover:bg-white/[0.055] sm:p-5 lg:min-h-[9.5rem]"
+              className="group relative flex min-h-[8.75rem] flex-col border-b border-r border-white/16 p-4 transition-colors duration-300 hover:bg-white/[0.055] sm:p-5 lg:min-h-[9.5rem]"
             >
               <div className="flex items-center justify-between gap-4">
-                {/* <span className="font-mono text-[0.58rem] font-bold tracking-[0.16em] text-[#58b9eb]">
-                  {String(index + 1).padStart(2, "0")}
-                </span> */}
                 <span className="h-1.5 w-1.5 bg-[#ef636b]/80 transition-transform duration-300 group-hover:scale-150" />
               </div>
 

@@ -63,7 +63,7 @@ export default function SampanMetroSquareFeature() {
         </div> */}
 
         <div className="my-auto max-w-3xl py-16 lg:py-12">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.34em] text-white/55">
+          <p className="text-xs font-semibold uppercase tracking-[0.34em] text-white/55">
             Sampan Development Ltd
           </p>
           <h2 className="text-[clamp(3.6rem,7.2vw,7.9rem)] font-medium leading-[0.8] tracking-[-0.07em]">
@@ -77,15 +77,6 @@ export default function SampanMetroSquareFeature() {
               residential project for people who want to invest in a future
               home, not only a plot.
             </p>
-            {/* <div className="border-l-2 border-[#ef636b] pl-4">
-              <p className="text-[0.62rem] font-bold uppercase tracking-[0.19em] text-[#ef9da2]">
-                The difference
-              </p>
-              <p className="mt-2 text-sm leading-6 text-white/65">
-                Own a legal land share, then build at the agreed construction
-                cost.
-              </p>
-            </div> */}
           </div>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">

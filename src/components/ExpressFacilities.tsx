@@ -62,7 +62,7 @@ export default function ExpressFacilities() {
         <div>
           <div className="relative aspect-[0.82] overflow-hidden bg-[#211d1a]">
             <Image
-              src="/images/projects/express-highway-inn.png"
+              src="/images/projects/express-highway-inn.jpg"
               alt="Express Highway Inn facility"
               fill
               sizes="(min-width: 1024px) 38vw, 90vw"

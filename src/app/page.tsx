@@ -15,7 +15,7 @@ import CompletedProjectsShowcase from "@/components/CompletedProjectsShowcase";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-neutral-950">
+    <main className="min-h-screen bg-white overflow-hidden">
       {/* <HeroSlider2 /> */}
       <HeroCarousel defaultTransition="mask" showAnimationPicker={false} />
       <DivisionsSection />

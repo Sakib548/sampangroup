@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
-import Image from "next/image";
+import { useState, useRef, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -9,29 +8,112 @@ import { FiPlay, FiArrowRight } from "react-icons/fi";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
+/* ------------------------------------------------------------------ */
+/*  CONSTANTS                                                          */
+/* ------------------------------------------------------------------ */
+
+const YOUTUBE_ID = "YjhMZwyZZ_Y";
+const YOUTUBE_THUMBNAIL = `https://img.youtube.com/vi/${YOUTUBE_ID}/maxresdefault.jpg`;
+
+const QUOTE_WORDS = [
+  "We", "didn't", "start", "as", "a", "real", "estate", "company", "or", "a",
+  "hospitality", "brand.", "We", "started", "as", "a", "highway", "stop",
+  "—", "and", "grew", "because", "we", "listened", "to", "what", "the",
+  "road", "needed", "next.",
+];
+
+/* ------------------------------------------------------------------ */
+/*  COMPONENT                                                          */
+/* ------------------------------------------------------------------ */
+
 export default function LeadershipMessage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLButtonElement>(null);
+  const playBtnRef = useRef<HTMLButtonElement>(null);
   const [playing, setPlaying] = useState(false);
 
-  // YouTube Video ID from your link
-  const youtubeId = "YjhMZwyZZ_Y";
-  const youtubeThumbnail = `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
+  /* ── Magnetic CTA ────────────────────────────────────────────────── */
+  const handleCtaMove = useCallback((e: React.MouseEvent) => {
+    if (!ctaRef.current) return;
+    const rect = ctaRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    gsap.to(ctaRef.current, {
+      x: x * 0.25,
+      y: y * 0.25,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  }, []);
 
+  const handleCtaLeave = useCallback(() => {
+    if (!ctaRef.current) return;
+    gsap.to(ctaRef.current, {
+      x: 0,
+      y: 0,
+      duration: 0.7,
+      ease: "elastic.out(1, 0.3)",
+    });
+  }, []);
+
+  /* ── Magnetic Play Button ────────────────────────────────────────── */
+  const handlePlayMove = useCallback((e: React.MouseEvent) => {
+    if (!playBtnRef.current) return;
+    const rect = playBtnRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    gsap.to(playBtnRef.current, {
+      x: x * 0.15,
+      y: y * 0.15,
+      duration: 0.35,
+      ease: "power2.out",
+    });
+  }, []);
+
+  const handlePlayLeave = useCallback(() => {
+    if (!playBtnRef.current) return;
+    gsap.to(playBtnRef.current, {
+      x: 0,
+      y: 0,
+      duration: 0.8,
+      ease: "elastic.out(1, 0.25)",
+    });
+  }, []);
+
+  /* ── GSAP Animations ────────────────────────────────────────────── */
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
 
+      /* Reduced motion — show everything instantly */
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([".lead-header > *", ".lead-video", ".lead-content > *"], {
-          opacity: 1,
-          y: 0,
-          x: 0,
-          scale: 1,
-        });
+        gsap.set(
+          [
+            ".lead-header > *",
+            ".lead-video",
+            ".lead-content > *",
+            ".lead-corner",
+            ".lead-border-top",
+            ".lead-border-right",
+            ".lead-border-bottom",
+            ".lead-border-left",
+            ".lead-attribution",
+          ],
+          {
+            opacity: 1,
+            y: 0,
+            x: 0,
+            scale: 1,
+            scaleX: 1,
+            scaleY: 1,
+          }
+        );
+        gsap.set(".lead-word", { y: "0%" });
       });
 
+      /* Full animation suite */
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        /* HEADER ENTRANCE */
+        /* ── Header entrance ── */
         gsap.fromTo(
           ".lead-header > *",
           { y: 30, opacity: 0 },
@@ -46,10 +128,10 @@ export default function LeadershipMessage() {
               start: "top 85%",
               once: true,
             },
-          },
+          }
         );
 
-        /* VIDEO & CONTENT ENTRANCE */
+        /* ── Video + Content entrance timeline ── */
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: ".lead-grid",
@@ -60,22 +142,115 @@ export default function LeadershipMessage() {
 
         tl.fromTo(
           ".lead-video",
-          { y: 60, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1, ease: "power3.out" },
-        ).fromTo(
-          ".lead-content > *",
-          { y: 40, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            stagger: 0.12,
-            ease: "power3.out",
+          { y: 60, opacity: 0, scale: 0.97 },
+          { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" }
+        )
+          .fromTo(
+            ".lead-content > *",
+            { y: 40, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              stagger: 0.12,
+              ease: "power3.out",
+            },
+            "-=0.6"
+          )
+          .fromTo(
+            ".lead-attribution",
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" },
+            "-=0.3"
+          );
+
+        /* ── Border draw (clockwise: top → right → bottom → left) ── */
+        const borderTl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".lead-video",
+            start: "top 80%",
+            once: true,
           },
-          "-=0.6",
+        });
+
+        borderTl
+          .to(".lead-border-top", {
+            scaleX: 1,
+            duration: 0.6,
+            ease: "power2.inOut",
+          })
+          .to(
+            ".lead-border-right",
+            { scaleY: 1, duration: 0.6, ease: "power2.inOut" },
+            "-=0.3"
+          )
+          .to(
+            ".lead-border-bottom",
+            { scaleX: 1, duration: 0.6, ease: "power2.inOut" },
+            "-=0.3"
+          )
+          .to(
+            ".lead-border-left",
+            { scaleY: 1, duration: 0.6, ease: "power2.inOut" },
+            "-=0.3"
+          );
+
+        /* ── Corner marks entrance ── */
+        gsap.fromTo(
+          ".lead-corner",
+          { opacity: 0, scale: 0 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.4,
+            stagger: 0.08,
+            ease: "back.out(2)",
+            scrollTrigger: {
+              trigger: ".lead-video",
+              start: "top 80%",
+              once: true,
+              delay: 0.4,
+            },
+          }
         );
 
-        /* CINEMATIC IMAGE PARALLAX (Desktop) */
+        /* ── Split-text quote reveal ── */
+        gsap.fromTo(
+          ".lead-word",
+          { y: "110%" },
+          {
+            y: "0%",
+            duration: 0.5,
+            stagger: 0.022,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".lead-quote",
+              start: "top 85%",
+              once: true,
+            },
+          }
+        );
+
+        /* ── Play button subtle breathing pulse (GSAP, not CSS) ── */
+        gsap.to(".lead-pulse-outer", {
+          scale: 1.6,
+          opacity: 0,
+          duration: 2.5,
+          ease: "power1.out",
+          repeat: -1,
+          repeatDelay: 0.5,
+        });
+        gsap.to(".lead-pulse-inner", {
+          scale: 1.4,
+          opacity: 0,
+          duration: 2.5,
+          ease: "power1.out",
+          repeat: -1,
+          repeatDelay: 0.5,
+          delay: 0.4,
+        });
+
+        /* ── Cinematic parallax (Desktop) ── */
         mm.add("(min-width: 1024px)", () => {
           gsap.fromTo(
             ".lead-image",
@@ -91,13 +266,12 @@ export default function LeadershipMessage() {
                 end: "bottom top",
                 scrub: 1.5,
               },
-            },
+            }
           );
 
-          /* DYNAMIC OVERLAY MOTION */
           gsap.fromTo(
             ".lead-overlay",
-            { opacity: 0.6 },
+            { opacity: 0.5 },
             {
               opacity: 0.85,
               ease: "none",
@@ -107,11 +281,11 @@ export default function LeadershipMessage() {
                 end: "bottom top",
                 scrub: 1.5,
               },
-            },
+            }
           );
         });
 
-        /* CINEMATIC IMAGE PARALLAX (Mobile - Reduced Intensity) */
+        /* ── Cinematic parallax (Mobile — reduced) ── */
         mm.add("(max-width: 1023px)", () => {
           gsap.fromTo(
             ".lead-image",
@@ -127,198 +301,234 @@ export default function LeadershipMessage() {
                 end: "bottom top",
                 scrub: 1.5,
               },
-            },
+            }
           );
         });
       });
     },
-    { scope: containerRef },
+    { scope: containerRef }
   );
 
+  /* ── Render ─────────────────────────────────────────────────────── */
   return (
     <section
       ref={containerRef}
-      className="relative w-full overflow-hidden bg-[#F5F5F2] py-24 lg:py-32"
+      className="relative w-full overflow-hidden bg-[#F5F5F2]"
     >
-      {/* Giant Ghost Number (Editorial Depth) */}
-      <span className="pointer-events-none absolute -right-6 top-10 select-none text-[14rem] font-black leading-none text-neutral-950 opacity-[0.02] md:text-[20rem]">
-        05
-      </span>
+      {/* ── Film-grain noise ── */}
+      <svg
+        className="pointer-events-none absolute inset-0 z-50 h-full w-full opacity-[0.015]"
+        aria-hidden="true"
+      >
+        <filter id="lead-grain">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.8"
+            numOctaves="4"
+            stitchTiles="stitch"
+          />
+        </filter>
+        <rect width="100%" height="100%" filter="url(#lead-grain)" />
+      </svg>
 
-      <div className="relative mx-auto max-w-[1400px] px-[5vw]">
-        {/* ====== SECTION HEADER ====== */}
-        <div className="lead-header mb-16 flex items-center justify-between border-b border-neutral-300/60 pb-6 lg:mb-24">
+      {/* ── Dot grid pattern ── */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.02]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, #000 0.5px, transparent 0.5px)",
+          backgroundSize: "28px 28px",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Ambient emerald glow ── */}
+      <div
+        className="pointer-events-none absolute -left-40 top-1/3 z-0 h-[600px] w-[600px] rounded-full opacity-[0.04]"
+        style={{
+          background: "radial-gradient(circle, #10b981, transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute -right-32 bottom-0 z-0 h-[400px] w-[400px] rounded-full opacity-[0.02]"
+        style={{
+          background: "radial-gradient(circle, #10b981, transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Main Content ── */}
+      <div className="relative z-10 mx-auto max-w-[1400px] px-[5vw] py-28 lg:py-40">
+        {/* ====== HEADER ====== */}
+        <div className="lead-header mb-16 lg:mb-24">
           <div className="flex items-center gap-4">
-            <span className="h-px w-8 bg-emerald-500" />
-            <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.4em] text-neutral-600">
+            <span className="h-px w-10 bg-gradient-to-r from-emerald-600/70 to-emerald-600/0" />
+            <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.5em] text-emerald-700/60">
               Leadership
             </span>
           </div>
-          <span className="hidden font-mono text-[11px] uppercase tracking-[0.3em] text-neutral-400 lg:block">
-            Message from the Managing Director
-          </span>
         </div>
 
         {/* ====== MAIN GRID ====== */}
-        <div className="lead-grid grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-          {/* ================= VIDEO ================= */}
-          <div className="lead-video group relative lg:col-span-7">
-            {/* Vertical Name Tag */}
-            <div className="absolute -left-4 top-1/2 hidden -translate-y-1/2 -rotate-90 origin-left font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-500 lg:block">
-              Emamul Hasan / 01
-            </div>
-
-            <div className="relative aspect-[16/10] w-full overflow-hidden border border-neutral-300/60 bg-neutral-950">
+        <div className="lead-grid grid items-center gap-14 lg:grid-cols-12 lg:gap-20">
+          {/* ==================== VIDEO ==================== */}
+          <div className="lead-video relative lg:col-span-7">
+            <div className="relative aspect-[16/10] w-full overflow-hidden border border-neutral-200 bg-neutral-950">
               {!playing ? (
                 <>
-                  {/* Parallax Image Wrapper (Oversized to prevent empty edges) */}
+                  {/* Border draw segments (clockwise) */}
+                  <span className="lead-border-top absolute left-0 right-0 top-0 z-20 h-px origin-left scale-x-0 bg-black/10" />
+                  <span className="lead-border-right absolute right-0 top-0 bottom-0 z-20 w-px origin-top scale-y-0 bg-black/10" />
+                  <span className="lead-border-bottom absolute bottom-0 left-0 right-0 z-20 h-px origin-right scale-x-0 bg-black/10" />
+                  <span className="lead-border-left absolute left-0 top-0 bottom-0 z-20 w-px origin-bottom scale-y-0 bg-black/10" />
+
+                  {/* Parallax Image (oversized) */}
                   <div className="lead-image absolute inset-0 h-[120%] w-[110%] -left-[5%] -top-[10%] will-change-transform">
-                    {/* Using standard img tag to avoid next/image remote domain config issues for YouTube thumbnails */}
                     <img
-                      src={youtubeThumbnail}
+                      src={YOUTUBE_THUMBNAIL}
                       alt="Emamul Hasan, Managing Director of Sampan Group"
                       className="h-full w-full object-cover"
                     />
                   </div>
 
-                  {/* Cinematic Overlays (Animated opacity) */}
+                  {/* Cinematic overlays (kept dark for video legibility) */}
                   <div className="lead-overlay absolute inset-0 z-[1]">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-black/5" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/35 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-transparent" />
                   </div>
 
-                  {/* Play button */}
+                  {/* Corner marks */}
+                  <span className="lead-corner absolute left-5 top-5 z-30 h-6 w-6 border-l border-t border-white/25 transition-colors duration-700" />
+                  <span className="lead-corner absolute right-5 top-5 z-30 h-6 w-6 border-r border-t border-white/25 transition-colors duration-700" />
+                  <span className="lead-corner absolute bottom-5 left-5 z-30 h-6 w-6 border-l border-b border-white/25 transition-colors duration-700" />
+                  <span className="lead-corner absolute bottom-5 right-5 z-30 h-6 w-6 border-r border-b border-white/25 transition-colors duration-700" />
+
+                  {/* Play button (magnetic) */}
                   <button
+                    ref={playBtnRef}
                     type="button"
                     onClick={() => setPlaying(true)}
-                    aria-label="Play leadership message"
-                    className="absolute left-1/2 top-1/2 z-10 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/70 bg-black/30 text-white backdrop-blur-md transition-all duration-500 hover:scale-110 hover:border-emerald-400 hover:bg-emerald-500 hover:text-white"
+                    onMouseMove={handlePlayMove}
+                    onMouseLeave={handlePlayLeave}
+                    aria-label="Play leadership message from Emamul Hasan"
+                    className="group absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
                   >
-                    {/* Subtle Breathing Pulse */}
-                    <span className="absolute inset-0 h-20 w-20 animate-ping rounded-full border border-white/20 opacity-50"></span>
-                    <FiPlay
-                      size={20}
-                      className="relative ml-1"
-                      fill="currentColor"
-                    />
+                    {/* Outer pulse ring */}
+                    <span className="lead-pulse-outer absolute -inset-4 rounded-full border border-white/[0.08]" />
+                    {/* Inner pulse ring */}
+                    <span className="lead-pulse-inner absolute -inset-2 rounded-full border border-emerald-500/[0.06]" />
+                    {/* Main circle */}
+                    <span className="relative flex h-[88px] w-[88px] items-center justify-center rounded-full border border-white/[0.15] bg-black/30 backdrop-blur-2xl transition-all duration-700 md:h-24 md:w-24 group-hover:border-emerald-400/50 group-hover:bg-emerald-500/10 group-hover:shadow-[0_0_60px_rgba(16,185,129,0.15)]">
+                      <FiPlay
+                        size={20}
+                        className="ml-1 text-white/80 transition-colors duration-500 group-hover:text-emerald-400 md:h-5 md:w-5"
+                        fill="currentColor"
+                      />
+                    </span>
                   </button>
 
-                  {/* Bottom video metadata */}
-                  <div className="absolute bottom-0 left-0 right-0 z-10 flex items-end justify-between p-8">
-                    <div>
-                      <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.3em] text-emerald-400">
-                        Leadership Message
-                      </p>
-                      <p className="text-lg font-semibold text-white">
-                        Emamul Hasan
-                      </p>
-                    </div>
-                    <div className="hidden border border-white/20 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/70 sm:block">
-                      Play Film
-                    </div>
+                  {/* Bottom-left indicator */}
+                  <div className="absolute bottom-5 left-14 z-30 flex items-center gap-2.5">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500/60 opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
+                    </span>
+                    <span className="font-mono text-[8px] uppercase tracking-[0.35em] text-white/30">
+                      YouTube
+                    </span>
+                  </div>
+
+                  {/* Bottom-right timecode (decorative) */}
+                  <div className="absolute bottom-5 right-14 z-30 font-mono text-[8px] tracking-[0.2em] text-white/15">
+                    00:00
                   </div>
                 </>
               ) : (
                 <iframe
                   className="absolute inset-0 h-full w-full"
-                  src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`}
-                  title="Leadership Message - Emamul Hasan"
+                  src={`https://www.youtube.com/embed/${YOUTUBE_ID}?autoplay=1&rel=0&modestbranding=1&color=white`}
+                  title="Leadership Message — Emamul Hasan, Managing Director, Sampan Group"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                ></iframe>
+                />
               )}
             </div>
 
-            {/* Video caption */}
-            <div className="mt-4 flex items-center justify-between border-t border-neutral-300/60 pt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">
-              <span>Managing Director</span>
-              <span>YouTube Playback</span>
+            {/* Video caption bar */}
+            <div className="mt-4 hidden items-center justify-between px-1 lg:flex">
+              <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-neutral-400">
+                Managing Director
+              </span>
+              <span className="font-mono text-[8px] uppercase tracking-[0.3em] text-neutral-400">
+                Sampan Group
+              </span>
             </div>
           </div>
 
-          {/* ================= QUOTE ================= */}
+          {/* ==================== QUOTE ==================== */}
           <div className="lead-content relative lg:col-span-5">
-            {/* Oversized Background Quote Mark */}
-            <div className="pointer-events-none absolute -left-8 -top-20 z-0 select-none font-serif text-[220px] leading-none text-emerald-500/10 md:-left-12">
-              “
+            {/* Oversized decorative quotation mark */}
+            <div
+              className="pointer-events-none absolute -left-4 -top-20 z-0 select-none font-serif text-[200px] leading-none text-emerald-600/[0.08] md:-left-10 md:text-[260px]"
+              aria-hidden="true"
+            >
+              &ldquo;
             </div>
 
             <div className="relative z-10">
-              {/* Small label */}
-              <div className="mb-8 flex items-center gap-3">
-                <span className="h-px w-6 bg-emerald-500" />
-                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-neutral-500">
+              {/* Section label */}
+              <div className="mb-10 flex items-center gap-3">
+                <span className="h-px w-5 bg-gradient-to-r from-emerald-600/50 to-emerald-600/0" />
+                <span className="font-mono text-[8px] font-semibold uppercase tracking-[0.45em] text-neutral-400">
                   Our Beginning
                 </span>
               </div>
 
-              {/* Quote */}
-              <blockquote className="text-[clamp(1.8rem,3.5vw,3rem)] font-semibold leading-[1.15] tracking-[-0.03em] text-neutral-950">
-                We didn’t start as a real estate company or a hospitality brand.
-                We started as a highway stop — and grew because we listened to
-                what the road needed next.
+              {/* Split-text blockquote */}
+              <blockquote className="lead-quote text-[clamp(1.7rem,3vw,2.65rem)] font-semibold leading-[1.22] tracking-[-0.03em] text-neutral-950">
+                {QUOTE_WORDS.map((word, i) => (
+                  <span key={i} className="inline-block overflow-hidden">
+                    <span className="lead-word inline-block">
+                      {word === "—" ? "\u2014" : word}&nbsp;
+                    </span>
+                  </span>
+                ))}
               </blockquote>
 
-              {/* Author & Affiliations */}
-              <div className="mt-10 flex flex-col gap-6 border-t border-neutral-300/60 pt-8">
-                <div className="flex items-center gap-4">
-                  <div className="h-px w-12 bg-neutral-400" />
-                  <div>
-                    <p className="text-base font-semibold text-neutral-950">
-                      Emamul Hasan
-                    </p>
-                    <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">
-                      Managing Director
-                    </p>
-                  </div>
-                </div>
-
-                {/* Institutional Affiliations List */}
-                <div className="flex flex-wrap gap-x-4 gap-y-2">
-                  {[
-                    "President",
-                    "Vice President",
-                    "Joint Secretary",
-                    "Organizing Secretary",
-                    "GB Member",
-                    "Member",
-                    "Co-Owner",
-                    "MOU Partner",
-                    "Enlisted",
-                  ].map((role) => (
-                    <span
-                      key={role}
-                      className="font-mono text-[10px] uppercase tracking-[0.15em] text-neutral-400 transition-colors duration-300 hover:text-emerald-600"
-                    >
-                      {role}
-                    </span>
-                  ))}
+              {/* Attribution divider + info */}
+              <div className="lead-attribution mt-10 flex items-center gap-5">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+                <div className="text-right">
+                  <p className="text-[13px] font-medium tracking-[-0.01em] text-neutral-700">
+                    Emamul Hasan
+                  </p>
+                  <p className="mt-1 font-mono text-[8px] uppercase tracking-[0.35em] text-emerald-700">
+                    Managing Director
+                  </p>
                 </div>
               </div>
 
-              {/* CTA */}
+              {/* CTA (magnetic) */}
               <button
+                ref={ctaRef}
                 type="button"
                 onClick={() => setPlaying(true)}
-                className="group/cta cursor-pointer mt-12 inline-flex items-center gap-5 border-b border-neutral-400 pb-3 font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-neutral-900 transition-all duration-500 hover:border-emerald-500 hover:text-emerald-600"
+                onMouseMove={handleCtaMove}
+                onMouseLeave={handleCtaLeave}
+                className="group/cta mt-14 inline-flex cursor-pointer items-center gap-5 font-mono text-[9px] font-bold uppercase tracking-[0.35em] text-neutral-600 transition-colors duration-500 hover:text-emerald-700"
               >
-                Watch the full message
-                <FiArrowRight className="h-3.5 w-3.5 transition-transform duration-500 group-hover/cta:translate-x-2" />
+                <span className="relative pb-3 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gradient-to-r after:from-emerald-600 after:to-emerald-600/0 after:transition-all after:duration-500 after:ease-out group-hover/cta:after:w-full">
+                  Watch the full message
+                </span>
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 transition-all duration-500 group-hover/cta:border-emerald-600/30 group-hover/cta:bg-emerald-600/5">
+                  <FiArrowRight className="h-3 w-3 transition-transform duration-500 group-hover/cta:translate-x-0.5" />
+                </span>
               </button>
             </div>
           </div>
-        </div>
-
-        {/* ====== BOTTOM STATEMENT ====== */}
-        <div className="mt-20 flex flex-col gap-5 border-t border-neutral-300/60 pt-6 lg:mt-28 lg:flex-row lg:items-center lg:justify-between">
-          <p className="max-w-md text-sm leading-6 text-neutral-500">
-            From a single roadside destination to a growing group of businesses,
-            our journey has always been shaped by what comes next.
-          </p>
-          <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-emerald-600">
-            Sampan Group
-          </span>
         </div>
       </div>
     </section>

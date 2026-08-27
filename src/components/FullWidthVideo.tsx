@@ -29,7 +29,7 @@ export default function FullWidthVideo() {
       <section className="relative w-full overflow-hidden bg-neutral-950">
         <div className="relative min-h-[50vh] w-full sm:min-h-[65vh] lg:min-h-[78vh]">
           <Image
-            src="/images/projects/express-highway-inn.png"
+            src="/images/projects/express-highway-inn.jpg"
             alt="Sampan Group visual presentation"
             fill
             sizes="100vw"

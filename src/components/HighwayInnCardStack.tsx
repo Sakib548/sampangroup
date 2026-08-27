@@ -5,7 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { highwayInnFacilities } from "@/data/highwayInnFacility";
 
-const mainInnImage = "/images/projects/express-highway-inn.png";
+const mainInnImage = "/images/projects/express-highway-inn.jpg";
 const cardStep = 24;
 
 export default function HighwayInnCardStack() {

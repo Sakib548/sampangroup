@@ -6,7 +6,7 @@ export const Projects: Project[] = [
     name: "Sampan Express Highway Inn",
     description:
       "Express Highway Club & Lounge is our upcoming premium destination, offering luxury, comfort, and exclusive services for travelers and guests.",
-    logo: "/images/projects/express-highway-inn.png",
+    logo: "/images/projects/express-highway-inn.jpg",
     href: "https://www.expresshighwayinn.com/",
     status: "ongoing",
   },

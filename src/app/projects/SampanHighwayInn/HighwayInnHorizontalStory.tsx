@@ -97,7 +97,7 @@ export default function HighwayInnHorizontalStory() {
         className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(18,59,44,.75)_1px,transparent_1px),linear-gradient(90deg,rgba(18,59,44,.75)_1px,transparent_1px)] [background-size:64px_64px]"
       />
 
-      <div className="relative mx-auto flex w-full max-w-[1400px] flex-col lg:h-full">
+      <div className="relative mx-auto flex w-full max-w-350 px-[5vw] flex-col lg:h-full">
         <div className="hidden shrink-0 lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(26rem,0.95fr)] lg:gap-24 xl:gap-32">
           <span aria-hidden="true" />
           <div className="flex items-center gap-3">

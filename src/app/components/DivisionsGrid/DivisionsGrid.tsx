@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import gsap from "gsap";
@@ -18,103 +18,143 @@ import {
   FiShield,
   FiArrowRight,
 } from "react-icons/fi";
+import { Concern } from "@/types/Concern";
+import { concerns } from "@/data/concerns";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /* ------------------------------------------------------------------ */
-/*  DATA                                                               */
+/*  BUILD 9 DIVISIONS FROM CONCERNS DATA                             */
 /* ------------------------------------------------------------------ */
 
-const divisions = [
+type Division = {
+  num: string;
+  title: string;
+  shortTitle: string;
+  oneLiner: string;
+  cta: string;
+  href: string;
+  image: string;
+  Icon: typeof FiLayers;
+  subConcerns: Concern[];
+};
+
+const divisions: Division[] = [
   {
     num: "01",
     title: "Real Estate & Land Investment",
     shortTitle: "Real Estate",
-    oneLiner: "Own land, not just visit it.",
+    oneLiner:
+      "Land sale, share, condominium and building construction across Bangladesh.",
     cta: "Explore Real Estate",
-    href: "#real-estate",
-    image: "/images.jpg",
+    href: "https://www.sampangroup.com.bd/sampan-developments-limited",
+    image: "/images/brand/sampandevelopmentltd.png",
     Icon: FiLayers,
+    subConcerns: concerns.filter((c) => c.category === "Development & Construction"),
   },
   {
     num: "02",
     title: "Hospitality, Resort & Highway Travel",
     shortTitle: "Hospitality",
-    oneLiner: "Stay, celebrate, and unwind — on the highway and beyond.",
+    oneLiner:
+      "Flagship highway inns, resorts, restaurants and club lounges — the most recognized brand nationally.",
     cta: "Explore Hospitality",
-    href: "#hospitality",
-    image: "/images/projects/express-highway-inn.png",
+    href: "https://www.sampangroup.com.bd/sampan-highway-inn-restaurant-party-centre",
+    image: "/images/brand/sampanhighwayinn.png",
     Icon: FiMoon,
+    subConcerns: concerns.filter((c) => c.category === "Hospitality & Leisure"),
   },
   {
     num: "03",
     title: "Golf Zone",
     shortTitle: "Golf Zone",
-    oneLiner: "Bangladesh's first full golf destination, in the making.",
+    oneLiner:
+      "Professional golf training, dedicated practice zones, and a full resort destination.",
     cta: "Explore Golf",
     href: "#golf",
-    image: "/images/featuredConcerns/sampan-agro-golf-resort.png",
+    image: "/images/brand/agroandgolf.png",
     Icon: FiFlag,
+    subConcerns: concerns.filter((c) => c.category === "Golf Zone"),
   },
   {
     num: "04",
     title: "Professional Education",
     shortTitle: "Education",
-    oneLiner: "UK-recognized courses, taught close to home.",
+    oneLiner:
+      "UK-recognized CIPS, CMI and international courses — taught close to home.",
     cta: "Explore Education",
     href: "#education",
-    image: "/images/featuredConcerns/highway-inn.png",
+    image: "/images/brand/lshs.png",
     Icon: FiBookOpen,
+    subConcerns: concerns.filter((c) => c.category === "Professional Education"),
   },
   {
     num: "05",
     title: "Agro & Fresh Produce",
     shortTitle: "Agro",
-    oneLiner: "From our farm to your table.",
+    oneLiner:
+      "Bulk sale of vegetables, fruits, flowers, fish and meat — from our farm to your table.",
     cta: "Explore Agro",
-    href: "#agro",
-    image: "/images/sampan-3.png",
+    href: "https://www.sampangroup.com.bd/sampan-eco-agro",
+    image: "/images/brand/sampanechoagro.png",
     Icon: FiSun,
+    subConcerns: concerns.filter((c) => c.category === "Agro & Fresh Produce"),
   },
   {
     num: "06",
     title: "Retail Shop & Super Shop",
     shortTitle: "Retail",
-    oneLiner: "Everyday essentials, always nearby.",
+    oneLiner:
+      "Premium sweets, confectionery and everyday essentials — online and offline super shops.",
     cta: "Explore Retail",
-    href: "#retail",
-    image: "/images.jpg",
+    href: "https://www.sampangroup.com.bd/sampan-sweet-box",
+    image: "/images/brand/sampanretail.png",
     Icon: FiShoppingBag,
+    subConcerns: concerns.filter((c) => c.category === "Retail Shop & Super Shop"),
   },
   {
     num: "07",
     title: "Manufacturing & Industrial",
     shortTitle: "Industrial",
-    oneLiner: "Built by us, for what we build.",
+    oneLiner:
+      "Hollow bricks, tiles, PET bottles, beverages and a dedicated industrial park.",
     cta: "Explore Manufacturing",
     href: "#manufacturing",
-    image: "/images.jpg",
+    image: "/images/brand/sampanindustrial.png",
     Icon: FiBox,
+    subConcerns: concerns.filter((c) =>
+      c.category === "Development & Construction" &&
+      c.id.includes("industrial") || c.id.includes("hollow") || c.id.includes("pet")
+    ).length
+      ? concerns.filter((c) =>
+          c.category === "Development & Construction" &&
+          (c.id.includes("industrial") || c.id.includes("hollow") || c.id.includes("pet"))
+        )
+      : [concerns.find((c) => c.id === "sampan-industrial-park")!],
   },
   {
     num: "08",
     title: "Automotive, Fuel & Mobility",
     shortTitle: "Mobility",
-    oneLiner: "Everything that keeps you moving.",
+    oneLiner:
+      "Car sales, Japanese imports, fuel, LPG, EV charging and towing services.",
     cta: "Explore Mobility",
-    href: "#mobility",
-    image: "/images.jpg",
+    href: "https://www.sampangroup.com.bd/sampan-auto",
+    image: "/images/brand/sampanauto.png",
     Icon: FiTruck,
+    subConcerns: concerns.filter((c) => c.category === "Automotive & Energy"),
   },
   {
     num: "09",
     title: "Defense & Security",
     shortTitle: "Security",
-    oneLiner: "Licensed, regulated, trusted supply.",
+    oneLiner:
+      "Licensed, regulated and trusted firearms and defense supply — Nagar Arms & Fire Arms Co.",
     cta: "Explore Security",
-    href: "#security",
-    image: "/images.jpg",
+    href: "https://www.sampangroup.com.bd/sampan-fire-arms-co",
+    image: "/images/brand/firearmsco.png",
     Icon: FiShield,
+    subConcerns: concerns.filter((c) => c.category === "Security"),
   },
 ];
 
@@ -126,7 +166,6 @@ export default function DivisionsGrid() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Refs for GSAP targeting
   const desktopImgRefs = useRef<HTMLElement[]>([]);
   const desktopContentRefs = useRef<HTMLElement[]>([]);
   const desktopProgressRefs = useRef<HTMLElement[]>([]);
@@ -134,13 +173,12 @@ export default function DivisionsGrid() {
   const prevIndexRef = useRef(0);
   const initializedRef = useRef(false);
 
-  /* ====== GSAP SCROLLTRIGGER & PARALLAX (Runs Once) ====== */
+  /* ====== GSAP SCROLL ENTRANCE ====== */
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        /* HEADER ENTRANCE */
         gsap.fromTo(
           ".div-header > *",
           { y: 40, opacity: 0 },
@@ -155,10 +193,9 @@ export default function DivisionsGrid() {
               start: "top 85%",
               once: true,
             },
-          },
+          }
         );
 
-        /* DESKTOP LIST STAGGER ENTRANCE */
         gsap.fromTo(
           ".desktop-list-item",
           { x: -30, opacity: 0 },
@@ -173,10 +210,9 @@ export default function DivisionsGrid() {
               start: "top 80%",
               once: true,
             },
-          },
+          }
         );
 
-        /* ONE SCROLLTRIGGER FOR PARALLAX WRAPPER */
         gsap.fromTo(
           ".parallax-wrapper",
           { yPercent: 5 },
@@ -189,31 +225,30 @@ export default function DivisionsGrid() {
               end: "bottom top",
               scrub: 1,
             },
-          },
+          }
         );
       });
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
         gsap.set(
           [".div-header > *", ".desktop-list-item", ".parallax-wrapper"],
-          { opacity: 1, x: 0, y: 0, yPercent: 0 },
+          { opacity: 1, x: 0, y: 0, yPercent: 0 }
         );
       });
 
       return () => mm.revert();
     },
-    { scope: containerRef },
+    { scope: containerRef }
   );
 
-  /* ====== GSAP IMAGE REVEAL & CONTENT TRANSITION (Runs on activeIndex change) ====== */
+  /* ====== IMAGE REVEAL TRANSITIONS ====== */
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Initial mount setup
     if (!initializedRef.current) {
       initializedRef.current = true;
       const isReduced = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
+        "(prefers-reduced-motion: reduce)"
       ).matches;
 
       desktopImgRefs.current.forEach((img, i) => {
@@ -255,19 +290,18 @@ export default function DivisionsGrid() {
         gsap.fromTo(
           desktopProgressRefs.current[0],
           { scaleX: 0 },
-          { scaleX: 1, duration: 6, ease: "none" },
+          { scaleX: 1, duration: 6, ease: "none" }
         );
       }
       return;
     }
 
-    // Transition Logic
     const prev = prevIndexRef.current;
     const current = activeIndex;
-
     if (prev === current) return;
+
     const isReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
+      "(prefers-reduced-motion: reduce)"
     ).matches;
     if (isReduced) {
       prevIndexRef.current = current;
@@ -279,7 +313,6 @@ export default function DivisionsGrid() {
     const newImg = desktopImgRefs.current[current];
     const newContent = desktopContentRefs.current[current];
 
-    // Animate OLD out
     if (oldImg) {
       gsap.killTweensOf(oldImg);
       gsap.to(oldImg, {
@@ -300,7 +333,6 @@ export default function DivisionsGrid() {
       });
     }
 
-    // Animate NEW in
     if (newImg) {
       gsap.killTweensOf(newImg);
       gsap.set(newImg, {
@@ -318,7 +350,6 @@ export default function DivisionsGrid() {
         duration: 0.9,
         ease: "power4.out",
         onComplete: () => {
-          // Start Ken Burns for the new active image
           gsap.to(newImg, {
             scale: 1.06,
             duration: 9,
@@ -341,7 +372,6 @@ export default function DivisionsGrid() {
       });
     }
 
-    // Animate Progress Bars
     if (desktopProgressRefs.current[prev]) {
       gsap.killTweensOf(desktopProgressRefs.current[prev]);
       gsap.set(desktopProgressRefs.current[prev], { scaleX: 0 });
@@ -351,57 +381,81 @@ export default function DivisionsGrid() {
       gsap.fromTo(
         desktopProgressRefs.current[current],
         { scaleX: 0 },
-        { scaleX: 1, duration: 6, ease: "none" },
+        { scaleX: 1, duration: 6, ease: "none" }
       );
     }
 
     prevIndexRef.current = current;
   }, [activeIndex]);
 
+  /* ====== RENDER ====== */
   return (
     <section
       ref={containerRef}
       className="relative w-full overflow-hidden bg-white py-24 lg:py-32"
     >
-      <div className="mx-auto max-w-[1400px] px-[5vw]">
+      {/* ── Subtle dot pattern ── */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.025]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, #000 0.4px, transparent 0.4px)",
+          backgroundSize: "20px 20px",
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 mx-auto max-w-[1400px] px-[5vw]">
         {/* ====== SECTION HEADER ====== */}
         <div className="div-header mb-12 max-w-3xl lg:mb-16">
+          <div className="mb-6 flex items-center gap-4">
+            <span className="h-px w-10 bg-gradient-to-r from-emerald-600/60 to-emerald-600/0" />
+            <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.5em] text-emerald-700/50">
+              02 / Our Businesses
+            </span>
+          </div>
           <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-neutral-950">
             Nine businesses.
             <br />
-            One growing Sampan world.
+            <span className="text-neutral-400">One growing Sampan world.</span>
           </h2>
         </div>
 
         {/* ============================================================ */}
-        {/* MOBILE/TABLET LAYOUT (Horizontal Nav + Active Image)         */}
+        {/* MOBILE / TABLET LAYOUT                                        */}
         {/* ============================================================ */}
         <div className="lg:hidden">
-          {/* Horizontal Scroll Nav */}
-          <div className="mb-8 flex gap-8 overflow-x-auto pb-4 -mx-[5vw] px-[5vw] snap-x">
+          {/* Horizontal Nav */}
+          <div className="mb-8 flex gap-8 overflow-x-auto pb-4 -mx-[5vw] px-[5vw] snap-x scrollbar-none">
             {divisions.map((div, i) => (
               <button
                 key={div.num}
                 onClick={() => setActiveIndex(i)}
                 className={`flex-shrink-0 text-sm font-medium tracking-wide transition-colors whitespace-nowrap snap-start ${
-                  activeIndex === i ? "text-emerald-500" : "text-neutral-400"
+                  activeIndex === i
+                    ? "text-emerald-600"
+                    : "text-neutral-400"
                 }`}
               >
-                <span className="font-mono mr-2">{div.num}</span>
+                <span className="font-mono mr-2 text-[11px]">{div.num}</span>
                 {div.shortTitle}
               </button>
             ))}
           </div>
 
           {/* Active Image Stage */}
-          <div className="relative aspect-[4/4.5] w-full overflow-hidden bg-neutral-950 rounded-sm">
+          <div className="relative aspect-[4/4.5] w-full overflow-hidden bg-neutral-950 rounded-lg">
             {divisions.map((div, i) => {
               const Icon = div.Icon;
               const isActive = activeIndex === i;
               return (
                 <div
                   key={div.num}
-                  className={`absolute inset-0 transition-opacity duration-700 ease-out ${isActive ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                  className={`absolute inset-0 transition-opacity duration-700 ease-out ${
+                    isActive
+                      ? "opacity-100"
+                      : "opacity-0 pointer-events-none"
+                  }`}
                 >
                   <Image
                     src={div.image}
@@ -431,6 +485,25 @@ export default function DivisionsGrid() {
                       <p className="mt-4 text-sm leading-6 text-white/70">
                         {div.oneLiner}
                       </p>
+                      {div.subConcerns.length > 1 && (
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          {div.subConcerns.slice(0, 4).map((sc) => (
+                            <span
+                              key={sc.id}
+                              className="inline-block rounded-full border border-white/15 bg-white/5 px-2.5 py-1 font-mono text-[8px] uppercase tracking-wider text-white/50"
+                            >
+                              {sc.name.length > 22
+                                ? sc.name.slice(0, 20) + "…"
+                                : sc.name}
+                            </span>
+                          ))}
+                          {div.subConcerns.length > 4 && (
+                            <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-2.5 py-1 font-mono text-[8px] text-white/50">
+                              +{div.subConcerns.length - 4}
+                            </span>
+                          )}
+                        </div>
+                      )}
                       <Link
                         href={div.href}
                         className="group/cta mt-8 inline-flex items-center gap-5 border-b border-white/30 pb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80 transition-all duration-500 hover:border-emerald-400 hover:text-emerald-400"
@@ -447,11 +520,11 @@ export default function DivisionsGrid() {
         </div>
 
         {/* ============================================================ */}
-        {/* DESKTOP LAYOUT (Interactive Table of Contents + Reveal)       */}
+        {/* DESKTOP LAYOUT                                                */}
         {/* ============================================================ */}
         <div className="desktop-layout hidden lg:grid lg:grid-cols-[5fr_7fr] lg:gap-12 lg:h-[min(72vh,760px)] lg:min-h-[680px]">
           {/* LEFT: LIST */}
-          <div className="flex flex-col justify-center h-full">
+          <div className="flex h-full flex-col justify-center">
             {divisions.map((div, i) => {
               const isActive = activeIndex === i;
               return (
@@ -464,43 +537,61 @@ export default function DivisionsGrid() {
                   className="desktop-list-item group relative border-t border-neutral-200 py-4 last:border-b flex items-center gap-5"
                 >
                   <span
-                    className={`font-mono text-xs tracking-widest w-8 transition-colors duration-300 ${isActive ? "text-emerald-500" : "text-neutral-400 group-hover:text-neutral-600"}`}
+                    className={`font-mono text-xs tracking-widest w-8 transition-colors duration-300 ${
+                      isActive
+                        ? "text-emerald-600"
+                        : "text-neutral-400 group-hover:text-neutral-600"
+                    }`}
                   >
                     {div.num}
                   </span>
 
-                  {/* Progress / Line Wrapper */}
                   <div className="relative h-px w-12 bg-neutral-200 overflow-hidden">
                     <div
                       ref={(el) => {
                         if (el) desktopProgressRefs.current[i] = el;
                       }}
-                      className="absolute inset-0 bg-emerald-500 origin-left scale-x-0"
+                      className="absolute inset-0 bg-emerald-600 origin-left scale-x-0"
                     />
                   </div>
 
                   <h3
-                    className={`text-xl font-semibold tracking-tight transition-all duration-300 ${isActive ? "translate-x-1.5 text-neutral-950" : "text-neutral-400 group-hover:text-neutral-800 group-hover:translate-x-0"}`}
+                    className={`text-xl font-semibold tracking-tight transition-all duration-300 ${
+                      isActive
+                        ? "translate-x-1.5 text-neutral-950"
+                        : "text-neutral-400 group-hover:text-neutral-800 group-hover:translate-x-0"
+                    }`}
                   >
                     {div.shortTitle}
                   </h3>
 
+                  <span className="ml-auto hidden font-mono text-[9px] tracking-wider text-neutral-300 lg:inline-block">
+                    {String(div.subConcerns.length).padStart(2, "0")}
+                  </span>
+
                   <FiArrowRight
-                    className={`ml-auto h-5 w-5 transition-all duration-500 ${isActive ? "translate-x-0 text-emerald-500 opacity-100" : "-translate-x-4 text-neutral-400 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"}`}
+                    className={`ml-2 h-5 w-5 transition-all duration-500 lg:ml-0 ${
+                      isActive
+                        ? "translate-x-0 text-emerald-600 opacity-100"
+                        : "-translate-x-4 text-neutral-400 opacity-0 group-hover:translate-x-0 group-hover:opacity-100"
+                    }`}
                   />
                 </Link>
               );
             })}
           </div>
 
-          {/* RIGHT: LARGE IMAGE STAGE */}
-          <div className="image-stage relative h-full w-full overflow-hidden bg-neutral-950 rounded-sm">
-            {/* Subtle Film Grain */}
+          {/* RIGHT: IMAGE STAGE */}
+          <div className="image-stage relative h-full w-full overflow-hidden bg-neutral-950 rounded-lg">
+            {/* Film Grain */}
             <div
               className="pointer-events-none absolute inset-0 z-[100] opacity-[0.02] mix-blend-multiply"
               aria-hidden="true"
             >
-              <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                className="h-full w-full"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <filter id="noiseFilter">
                   <feTurbulence
                     type="fractalNoise"
@@ -509,11 +600,15 @@ export default function DivisionsGrid() {
                     stitchTiles="stitch"
                   />
                 </filter>
-                <rect width="100%" height="100%" filter="url(#noiseFilter)" />
+                <rect
+                  width="100%"
+                  height="100%"
+                  filter="url(#noiseFilter)"
+                />
               </svg>
             </div>
 
-            {/* Parallax Wrapper (One ScrollTrigger controls this) */}
+            {/* Parallax Wrapper */}
             <div className="parallax-wrapper absolute inset-0 h-[120%] -top-[10%]">
               {divisions.map((div, i) => {
                 const Icon = div.Icon;
@@ -534,17 +629,15 @@ export default function DivisionsGrid() {
                       priority={i === 0}
                     />
 
-                    {/* Cinematic Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" />
 
-                    {/* Content Over Image */}
                     <div
                       ref={(el) => {
                         if (el) desktopContentRefs.current[i] = el;
                       }}
                       className="absolute inset-0 flex flex-col justify-between p-10 lg:p-12"
                     >
-                      {/* Top: Number & Icon */}
+                      {/* Top */}
                       <div className="flex justify-between items-center">
                         <span className="font-mono text-xs tracking-widest text-white/70">
                           {div.num} / 09
@@ -555,7 +648,7 @@ export default function DivisionsGrid() {
                         />
                       </div>
 
-                      {/* Bottom: Title, One-liner & CTA */}
+                      {/* Bottom */}
                       <div className="max-w-md">
                         <h3 className="text-[clamp(2rem,3vw,3rem)] font-semibold leading-[0.95] tracking-tight text-white">
                           {div.title}
@@ -563,6 +656,27 @@ export default function DivisionsGrid() {
                         <p className="mt-4 text-sm leading-6 text-white/70">
                           {div.oneLiner}
                         </p>
+
+                        {/* Sub-concerns */}
+                        {div.subConcerns.length > 1 && (
+                          <div className="mt-5 flex flex-wrap gap-2">
+                            {div.subConcerns.slice(0, 5).map((sc) => (
+                              <span
+                                key={sc.id}
+                                className="inline-block rounded-full border border-white/15 bg-white/5 px-2.5 py-1 font-mono text-[8px] uppercase tracking-wider text-white/50 transition-colors duration-300 hover:border-white/30 hover:text-white/70"
+                              >
+                                {sc.name.length > 24
+                                  ? sc.name.slice(0, 22) + "…"
+                                  : sc.name}
+                              </span>
+                            ))}
+                            {div.subConcerns.length > 5 && (
+                              <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-2.5 py-1 font-mono text-[8px] text-white/50">
+                                +{div.subConcerns.length - 5}
+                              </span>
+                            )}
+                          </div>
+                        )}
 
                         <Link
                           href={div.href}

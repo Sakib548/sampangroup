@@ -13,38 +13,13 @@ const taglines: Record<string, string> = {
   mobility: "Everything that keeps you moving.",
   education: "UK-recognized courses, taught close to home.",
   security: "Licensed, regulated, trusted supply.",
+  "golf-zone": "Bangladesh's first full golf destination, in the making.",
+  maritime: "Alternative assets and maritime investments.",
 };
 
-const initials = (label: string) =>
-  label
-    .split(" ")
-    .filter(Boolean)
-    .filter((word) => word !== "&" && word !== "of" && word !== "(")
+// Updated to find the concern by numeric ID
+const findConcern = (id: number) => concerns.find((c) => c.id === id);
 
-    .slice(0)
-    .map((word) => word[0])
-    .join("")
-    .toUpperCase();
-
-// const findConcern = (label: string) => {
-//   const normalized = label.toLowerCase().replace(/[^a-z0-9]/g, "");
-
-//   return concerns.find((concern) => {
-//     const name = concern.id.toLowerCase().replace(/[^a-z0-9]/g, "");
-
-//     return name.includes(normalized) || normalized.includes(name);
-//   });
-// };
-const normalize = (value: string) =>
-  value.toLowerCase().replace(/[^a-z0-9]/g, "");
-
-const findConcern = (label: string) => {
-  const normalizedLabel = normalize(label);
-
-  return concerns.find(
-    (concern) => normalize(concern.name) === normalizedLabel,
-  );
-};
 const visibleDivisions = divisionGroups.filter(
   (division) => division.id !== "maritime",
 );
@@ -57,7 +32,7 @@ export default function DivisionsSection() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_4%,rgba(0,161,116,0.09),transparent_26%),radial-gradient(circle_at_94%_92%,rgba(239,99,107,0.07),transparent_23%)]"
       />
 
-      <div className="relative mx-auto max-w-[1400px]">
+      <div className="relative mx-auto max-w-350 px-[5vw]">
         <header className="grid gap-8 border-b border-[#183b2b]/14 pb-8 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-end">
           <div>
             <div className="flex items-center gap-3">
@@ -97,8 +72,11 @@ export default function DivisionsSection() {
 
               <div className="mb-8 grid grid-cols-2 gap-2 sm:gap-3 lg:grid-cols-4">
                 {division.items.map((item) => {
-                  const concern = findConcern(item.id);
-                  const logo = concern?.logo;
+                  // Look up the concern using the numeric concernId
+                  const concern = findConcern(item.concernId);
+                  
+                  // If the concern isn't found in the data, don't render anything
+                  if (!concern) return null;
 
                   return (
                     <article
@@ -107,36 +85,30 @@ export default function DivisionsSection() {
                     >
                       <Link
                         href={item.href}
-                        aria-label={`Explore ${item.label}`}
+                        aria-label={`Explore ${concern.name}`}
                         className="flex h-full min-h-[10rem] min-w-0 flex-col p-4 sm:p-5"
                       >
                         <div className="flex items-start gap-4">
-                          {logo ? (
-                            <div className="relative h-12 w-32 sm:h-14 sm:w-36">
-                              <Image
-                                src={logo}
-                                alt={`${item.label} logo`}
-                                fill
-                                sizes="(max-width: 640px) 128px, 144px"
-                                className="object-contain object-left transition-transform duration-500 group-hover/card:scale-[1.04]"
-                              />
-                            </div>
-                          ) : (
-                            <span className="grid h-10 w-10 place-items-center rounded-full bg-[#e5eee8] text-[0.65rem] font-bold tracking-[0.12em] text-[#007d5b]">
-                              {initials(item.label)}
-                            </span>
-                          )}
+                          <div className="relative h-12 w-32 sm:h-14 sm:w-36">
+                            <Image
+                              src={concern.logo}
+                              alt={`${concern.name} logo`}
+                              fill
+                              sizes="(max-width: 640px) 128px, 144px"
+                              className="object-contain object-left transition-transform duration-500 group-hover/card:scale-[1.04]"
+                            />
+                          </div>
                         </div>
 
                         <div className="mt-auto min-w-0 pt-4">
                           <p className="text-[0.62rem] font-semibold leading-4 text-[#008f68] [overflow-wrap:anywhere]">
-                            {concern?.tagline ??
+                            {concern.tagline ??
                               "Part of Sampan Group’s connected portfolio."}
                           </p>
 
                           <div className="mt-2 flex min-w-0 items-end justify-between gap-3">
                             <h4 className="min-w-0 max-w-[18ch] text-base font-medium leading-[1.25] tracking-[-0.025em] [overflow-wrap:anywhere] sm:text-lg">
-                              {item.label}
+                              {concern.name}
                             </h4>
 
                             <span
