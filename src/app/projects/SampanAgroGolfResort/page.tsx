@@ -36,7 +36,7 @@ export default function SampanAgroGolfFeature() {
       <div className="absolute inset-0 bg-gradient-to-t from-[#061b12]/95 via-transparent to-[#061b12]/25" />
 
       <div className="relative mx-auto flex min-h-[680px] w-full max-w-[1500px] flex-col px-6 py-16 sm:px-10 lg:min-h-[650px] lg:px-16 lg:py-20">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/20 pb-5">
+        {/* <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/20 pb-5">
           <div className="flex items-center gap-3 text-[0.64rem] font-bold uppercase tracking-[0.27em] text-[#d7e969]">
             <span className="h-px w-9 bg-current" />
             Sampan Agro &amp; Golf Resort
@@ -44,19 +44,20 @@ export default function SampanAgroGolfFeature() {
           <p className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/45">
             Podunapur · Moulvibazar
           </p>
-        </div>
+        </div> */}
 
         <div className="my-auto max-w-[53rem] py-14">
           <p className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] ">
-            A destination in development
+            A New Family Play Resort Experience
           </p>
           <h2 className="text-[clamp(3.6rem,7vw,7.6rem)] font-medium leading-[0.8] tracking-[-0.07em]">
-            Where the green
-            <span className="mt-2 block ">becomes the getaway.</span>
+            Sampan Agro & Golf Resort
+            {/* <span className="mt-2 block ">becomes the getaway.</span> */}
           </h2>
           <p className="mt-7 max-w-2xl text-base leading-7 text-white/70 sm:text-lg sm:leading-8">
-            Golf, sustainable agriculture, premium hospitality, and open-air
-            leisure—brought together within one living landscape.
+            A redefined family leisure destination combining golf, agriculture,
+            nature, recreation, and resort hospitality in one eco-luxury
+            environment.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -64,7 +65,7 @@ export default function SampanAgroGolfFeature() {
               href="https://sampangolfresort.com/"
               className="group inline-flex min-h-14 items-center justify-between gap-8 bg-[#d7e969] px-6 text-xs font-bold uppercase tracking-[0.15em] text-[#071b13] transition duration-300 hover:bg-white"
             >
-              Explore the resort
+              Membership Offer
               <span className="transition-transform duration-300 group-hover:translate-x-1">
                 <Arrow />
               </span>

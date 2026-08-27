@@ -29,7 +29,7 @@ export default function OngoingProjects() {
           </p>
         </div>
 
-        {/* Cards -  mobile: stacked column, desktop: horizontal flex row */}
+        {/* Cards — mobile: stacked column, desktop: horizontal flex row */}
         <div className="flex flex-col gap-2 overflow-hidden sm:flex-row sm:h-[430px] lg:h-[480px]">
           {projects.map((project, index) => {
             const isActive = activeIndex === index;
@@ -47,7 +47,7 @@ export default function OngoingProjects() {
                       : "sm:flex-[0.7]"
                 }`}
               >
-                {/* Image wrapper -  explicit relative + h-full guarantees
+                {/* Image wrapper — explicit relative + h-full guarantees
                     the fill image always has a computed height */}
                 <div className="absolute inset-0">
                   <Image

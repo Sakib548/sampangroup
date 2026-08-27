@@ -86,7 +86,7 @@ export default function HighwayInnHorizontalStory() {
   return (
     <section
       aria-labelledby="highway-inn-title"
-      className="relative isolate overflow-hidden bg-[#e8efe9] px-5 py-16 text-[#123b2c] sm:px-10 sm:py-20 lg:h-[100svh] lg:min-h-0 lg:px-16 lg:py-8 xl:py-10"
+      className="relative isolate overflow-hidden bg-[#e8efe9] px-5 py-16 text-[#123b2c] sm:px-10 sm:py-20 lg:h-[100svh] lg:min-h-0 lg:px-16 lg:py-12 xl:py-14"
     >
       <div
         aria-hidden="true"
@@ -98,7 +98,7 @@ export default function HighwayInnHorizontalStory() {
       />
 
       <div className="relative mx-auto flex w-full max-w-[1400px] flex-col lg:h-full">
-        <div className="hidden shrink-0 lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(28rem,0.95fr)] lg:gap-20">
+        <div className="hidden shrink-0 lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(26rem,0.95fr)] lg:gap-24 xl:gap-32">
           <span aria-hidden="true" />
           <div className="flex items-center gap-3">
             <span className="h-2 w-2 bg-[#ef636b]" />
@@ -108,9 +108,9 @@ export default function HighwayInnHorizontalStory() {
           </div>
         </div>
 
-        <div className="mt-14 grid items-center gap-14 lg:mt-5 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(28rem,0.95fr)] lg:items-stretch lg:gap-20">
+        <div className="mt-14 grid items-center gap-14 lg:mt-8 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(26rem,0.95fr)] lg:items-stretch lg:gap-24 xl:gap-32">
           <div
-            className="relative mx-auto h-[390px] w-full max-w-[620px] touch-pan-y select-none sm:h-[500px] lg:h-[min(60svh,540px)] lg:self-start"
+            className="relative mx-auto h-[390px] w-full max-w-[620px] touch-pan-y select-none sm:h-[500px] lg:h-[min(52svh,480px)] lg:self-start xl:h-[min(54svh,510px)]"
             onTouchStart={(event) => {
               touchStartX.current =
                 event.changedTouches.item(0)?.clientX ?? null;
@@ -200,35 +200,35 @@ export default function HighwayInnHorizontalStory() {
             )} */}
           </div>
 
-          <div className="max-w-[42rem] lg:flex lg:h-full lg:min-h-0 lg:flex-col">
+          <div className="max-w-[38rem] lg:flex lg:h-full lg:min-h-0 lg:flex-col">
             <div className="flex items-center gap-3 lg:hidden">
               <span className="h-2 w-2 bg-[#ef636b]" />
-              <p className="text-[0.66rem] font-bold uppercase tracking-[0.25em] text-[#9b7410]">
+              <p className="text-[0.66rem] font-bold uppercase tracking-[0.25em] text-[#9b7410] ">
                 Our Flagship Hospitality &amp; Travel Destination
               </p>
             </div>
 
             <h2
               id="highway-inn-title"
-              className="mt-6 text-[clamp(3rem,5.8vw,6.5rem)] font-medium leading-[0.88] tracking-[-0.065em] text-balance lg:mt-0"
+              className="mt-6 text-[clamp(3rem,5vw,5.75rem)] font-medium leading-[0.92] tracking-[-0.06em] text-balance lg:mt-0"
             >
               Sampan
               <span className="mt-2 block text-[#b48812]">Highway Inn.</span>
             </h2>
 
-            <p className="mt-8 max-w-xl text-base leading-8 text-[#123b2c]/66 sm:text-lg sm:leading-8">
+            <p className="mt-7 max-w-xl text-base leading-8 text-[#123b2c]/66 sm:text-lg sm:leading-8">
               One of Sampan&apos;s most recognized flagship projects, a familiar
               name and trusted highway destination known to travelers across
               Bangladesh.
             </p>
 
-            <div className="mt-9 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
                 href="/sampan-highway-inn-restaurant-party-centre"
                 className="group inline-flex min-h-14 items-center justify-between gap-10 bg-[#123b2c] px-6 text-[0.68rem] font-bold uppercase tracking-[0.17em] text-white transition duration-300 hover:bg-[#00a174]"
               >
                 Explore More
-                <span className="text-[#f5c84c] transition-transform duration-300 group-hover:translate-x-1">
+                <span className=" transition-transform duration-300 group-hover:translate-x-1">
                   <Arrow />
                 </span>
               </Link>

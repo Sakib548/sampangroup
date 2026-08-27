@@ -164,7 +164,7 @@ export const concerns: Concern[] = [
     // logo: "/images/logos/sampan-build-trade.png",
   },
   {
-    id: "express-highway-inn",
+    id: "express-trade-emporium",
     name: "Sampan Trade Emporium.",
     category: "Development & Construction",
     tagline: "Supermarket beside Express Highway Inn.",

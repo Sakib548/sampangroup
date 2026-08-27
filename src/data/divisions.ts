@@ -32,7 +32,7 @@ export const divisionGroups = [
   },
   {
     id: "hospitality",
-    title: "Hospitality & Highway Travel",
+    title: "Hospitality, Resort & Highway Travel",
     items: [
       "Sampan Highway Inn",
       "Sampan White House",
