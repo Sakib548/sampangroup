@@ -17,7 +17,7 @@ const slides = [
     name: "Sampan Metro Square",
     eyebrow: "Own a Piece of Ashulia's Next Address",
     subhead:
-      "A land-share residential project built for people who want to invest in a home, not just a plot.",
+      "A landshare residential project built for people who want to invest in a home, not just a plot.",
     cta: "Explore Metro Square →",
     href: "/concerns",
     image: "/images/projects/sampan-metro-square.png",
@@ -26,7 +26,7 @@ const slides = [
     name: "Express Highway Inn",
     eyebrow: "The Highway, Reimagined",
     subhead:
-      "Everything travelers love about Sampan Highway Inn - modernized, elevated, and opening soon.",
+      "Everything travellers love about Sampan Highway Inn is modernized, elevated, and opening soon.",
     cta: "See What's Coming →",
     href: "/concerns",
     image: "/images/featuredConcerns/express-highway-inn.png",

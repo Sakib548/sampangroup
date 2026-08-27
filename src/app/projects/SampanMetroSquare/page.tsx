@@ -50,7 +50,7 @@ export default function SampanMetroSquareFeature() {
               Sampan Development Ltd
             </p>
 
-            <h2 className="text-[clamp(3.6rem,7.2vw,7.9rem)] font-medium leading-[0.8] tracking-[-0.07em]">
+            <h2 className="text-[clamp(3rem,5vw,5.75rem)] font-medium leading-[0.8] tracking-[-0.07em]">
               Sampan
               <span className="mt-2 block">Metro Square.</span>
             </h2>
