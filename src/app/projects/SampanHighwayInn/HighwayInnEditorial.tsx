@@ -29,7 +29,7 @@ export default function HighwayInnEditorial() {
   }));
   return (
     <section className="overflow-hidden bg-[#e8efe9] px-6 py-16 text-[#123b2c] sm:px-10 lg:px-20 lg:py-24">
-      <div className="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      {/* <div className="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <div className="relative mx-auto h-[380px] w-full max-w-[500px] sm:h-[480px]">
           {layers.map(({ slide, offset }) => {
             const front = offset === 0;
@@ -107,7 +107,7 @@ export default function HighwayInnEditorial() {
             </span>
           </div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
