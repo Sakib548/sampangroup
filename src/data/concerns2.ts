@@ -2,7 +2,6 @@ import { Concern } from "@/types/Concern";
 
 // Update your Concern type to accept a number for id
 export const concerns: Concern[] = [
-  // Development & Construction
   { id: 1, name: "Sampan Development Ltd.", category: "Development & Construction", tagline: "Land sale, share, condominium, building construction", logo: "/images/brand/development.png", href: "https://www.sampangroup.com.bd/sampan-developments-limited" },
   { id: 2, name: "Sampan Metro Square", category: "Development & Construction", tagline: "Residential condominium project in Ashulia", logo: "/images/brand/sampandevelopmentltd.png" },
   { id: 3, name: "Sampan Motalib Skyline", category: "Development & Construction", tagline: "Commercial + residential construction project", logo: "/images/brand/sampandevelopmentltd.png" },
