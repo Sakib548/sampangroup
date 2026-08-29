@@ -65,11 +65,7 @@ export default function SampanCafeMetroFeature() {
   const sceneNumberRef = useRef<HTMLSpanElement>(null);
   const sceneLabelRef = useRef<HTMLSpanElement>(null);
   const sceneProgressLineRef = useRef<HTMLDivElement>(null);
-  const featureCardRefs = useRef<(HTMLArticleElement | null)[]>([
-    null,
-    null,
-    null,
-  ]);
+  const featureCardRefs = useRef<(HTMLElement | null)[]>([null, null, null]);
 
   /* ------------------------------------------------------------------ */
   /*  Video source                                                       */
@@ -96,11 +92,12 @@ export default function SampanCafeMetroFeature() {
     let mainST: ScrollTrigger | null = null;
     let entranceDone = false;
     let currentSceneIndex = -1;
-    let sceneLabelTween: gsap.core.Timeline | null = null;
+    // ✅ FIX: Changed type to gsap.core.Animation to support both Tweens and Timelines
+    let sceneLabelTween: gsap.core.Animation | null = null;
     let lastSeekTime = -1;
 
     const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
 
     /* ---------- Initial hidden states ---------- */
@@ -137,11 +134,7 @@ export default function SampanCafeMetroFeature() {
         duration: 0.9,
         ease: "power4.out",
       })
-        .to(
-          eyebrowRef.current,
-          { opacity: 1, y: 0, duration: 0.55 },
-          "-=0.4"
-        )
+        .to(eyebrowRef.current, { opacity: 1, y: 0, duration: 0.55 }, "-=0.4")
         .to(
           headlineRef.current,
           {
@@ -151,37 +144,33 @@ export default function SampanCafeMetroFeature() {
             duration: 0.95,
             ease: "expo.out",
           },
-          "-=0.3"
+          "-=0.3",
         )
         .to(
           descriptionRef.current,
           { opacity: 1, y: 0, duration: 0.55 },
-          "-=0.5"
+          "-=0.5",
         )
-        .to(
-          ctaRef.current,
-          { opacity: 1, y: 0, duration: 0.45 },
-          "-=0.3"
-        )
+        .to(ctaRef.current, { opacity: 1, y: 0, duration: 0.45 }, "-=0.3")
         .to(
           featuresRef.current,
           { opacity: 1, y: 0, duration: 0.65, ease: "power2.out" },
-          "-=0.2"
+          "-=0.2",
         )
         .to(
           scrollExploreRef.current,
           { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
-          "-=0.15"
+          "-=0.15",
         )
         .to(
           sceneNumberRef.current,
           { opacity: 1, y: 0, duration: 0.4 },
-          "-=0.2"
+          "-=0.2",
         )
         .to(
           sceneLabelRef.current,
           { opacity: 1, y: 0, duration: 0.4 },
-          "-=0.25"
+          "-=0.25",
         );
     };
 
@@ -235,7 +224,7 @@ export default function SampanCafeMetroFeature() {
       });
 
       const els = [sceneNumberRef.current, sceneLabelRef.current].filter(
-        Boolean
+        Boolean,
       );
 
       if (currentSceneIndex >= 0) {
@@ -258,7 +247,7 @@ export default function SampanCafeMetroFeature() {
           .fromTo(
             els,
             { y: 6, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.28, ease: "power3.out" }
+            { y: 0, opacity: 1, duration: 0.28, ease: "power3.out" },
           );
       } else {
         if (sceneNumberRef.current) {
@@ -270,7 +259,7 @@ export default function SampanCafeMetroFeature() {
         sceneLabelTween = gsap.fromTo(
           els,
           { y: 6, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" }
+          { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" },
         );
       }
 
@@ -313,20 +302,14 @@ export default function SampanCafeMetroFeature() {
       const vw = window.innerWidth;
       let scrollDistance: number;
       if (vw < 768) {
-        scrollDistance = Math.min(
-          2000,
-          Math.max(1400, window.innerHeight * 2)
-        );
+        scrollDistance = Math.min(2000, Math.max(1400, window.innerHeight * 2));
       } else if (vw < 1024) {
         scrollDistance = Math.min(
           2400,
-          Math.max(1800, window.innerHeight * 2.5)
+          Math.max(1800, window.innerHeight * 2.5),
         );
       } else {
-        scrollDistance = Math.min(
-          3200,
-          Math.max(2400, window.innerHeight * 3)
-        );
+        scrollDistance = Math.min(3200, Math.max(2400, window.innerHeight * 3));
       }
 
       /* Smooth video proxy via quickTo — single tween, no accumulation */
@@ -335,8 +318,7 @@ export default function SampanCafeMetroFeature() {
         duration: 0.3,
         ease: "power2.out",
         onUpdate: () => {
-          const targetTime =
-            videoProxy.progress * (video.duration || 1);
+          const targetTime = videoProxy.progress * (video.duration || 1);
           if (Math.abs(targetTime - lastSeekTime) > 0.015) {
             video.currentTime = targetTime;
             lastSeekTime = targetTime;
@@ -378,14 +360,14 @@ export default function SampanCafeMetroFeature() {
           /* ── Dynamic overlay ── */
           if (dynamicOverlayRef.current) {
             dynamicOverlayRef.current.style.opacity = String(
-              0.08 + Math.abs(p - 0.5) * 0.08
+              0.08 + Math.abs(p - 0.5) * 0.08,
             );
           }
 
           /* ── Fade scroll indicator ── */
           if (scrollExploreRef.current && p > 0.02) {
             scrollExploreRef.current.style.opacity = String(
-              Math.max(0, 1 - p * 28)
+              Math.max(0, 1 - p * 28),
             );
           }
 
@@ -589,9 +571,7 @@ export default function SampanCafeMetroFeature() {
           >
             Sampan
             <br />
-            <span className="mt-0.5 inline-block sm:mt-1.5">
-              Cafe Metro
-            </span>
+            <span className="mt-0.5 inline-block sm:mt-1.5">Cafe Metro</span>
           </h2>
 
           {/* Description */}

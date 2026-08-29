@@ -4,30 +4,44 @@ import { stats } from "../data/stats";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function Counter() {
   const section = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
-      const select = gsap.utils.selector(section);
+      if (!section.current) return;
 
-      const timeline = gsap.timeline({ paused: true });
+      // useGSAP automatically scopes this to the section ref
+      const valueElements = gsap.utils.toArray<HTMLElement>(".stat-value");
 
-      const valueElements = select(".stat-value") as HTMLElement[];
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: section.current,
+          start: "top 85%",
+          once: true,
+          invalidateOnRefresh: true, // ✅ FIX: Recalculates positions if page layout shifts (fonts/images loading)
+        },
+      });
 
-      timeline.from(select(".stat-card"), {
+      // Animate the cards fading in
+      timeline.from(".stat-card", {
         y: 20,
-        autoAlpha: 0,
+        opacity: 0,
         duration: 0.7,
         stagger: 0.12,
         ease: "power3.out",
       });
 
+      // Animate the numbers counting up
       valueElements.forEach((element) => {
-        const targetValue = Number(element.dataset.value ?? 0);
+        const rawValue = element.dataset.value || "0";
+        // ✅ FIX: Safely strip commas/spaces just in case data has formatting
+        const targetValue = Number(rawValue.replace(/[^0-9.-]/g, "")) || 0;
+
         const counter = { value: 0 };
 
         timeline.to(
@@ -43,31 +57,10 @@ export default function Counter() {
           0.2,
         );
       });
-
-      const sectionElement = section.current;
-
-      if (!sectionElement) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            timeline.play();
-            observer.disconnect();
-          }
-        },
-        {
-          threshold: 0.2,
-        },
-      );
-
-      observer.observe(sectionElement);
-
-      return () => {
-        observer.disconnect();
-      };
     },
     { scope: section },
   );
+
   return (
     <section
       ref={section}
@@ -76,15 +69,14 @@ export default function Counter() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_35%)]" />
 
       <div className="relative mx-auto w-full max-w-[1200px] px-2">
-        <div className="flex items-center flex-start gap-4">
+        <div className="flex items-center justify-start gap-4">
           <span className="h-px w-10 bg-emerald-400/70" />
           <p className="text-xs font-medium uppercase tracking-[0.3em] text-emerald-300">
             By the numbers
           </p>
-          {/* <span className="h-px w-10 bg-emerald-400/70" /> */}
         </div>
 
-        <h2 className=" mt-5 flex-start max-w-2xl  text-3xl font-semibold tracking-tight sm:text-4xl">
+        <h2 className="mt-5 max-w-2xl text-left text-3xl font-semibold tracking-tight sm:text-4xl">
           Growing with purpose.
         </h2>
 

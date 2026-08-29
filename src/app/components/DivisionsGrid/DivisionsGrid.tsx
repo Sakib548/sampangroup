@@ -50,7 +50,9 @@ const divisions: Division[] = [
     href: "https://www.sampangroup.com.bd/sampan-developments-limited",
     image: "/images/brand/sampandevelopmentltd.png",
     Icon: FiLayers,
-    subConcerns: concerns.filter((c) => c.category === "Development & Construction"),
+    subConcerns: concerns.filter(
+      (c) => c.category === "Development & Construction",
+    ),
   },
   {
     num: "02",
@@ -86,7 +88,9 @@ const divisions: Division[] = [
     href: "#education",
     image: "/images/brand/lshs.png",
     Icon: FiBookOpen,
-    subConcerns: concerns.filter((c) => c.category === "Professional Education"),
+    subConcerns: concerns.filter(
+      (c) => c.category === "Professional Education",
+    ),
   },
   {
     num: "05",
@@ -110,7 +114,9 @@ const divisions: Division[] = [
     href: "https://www.sampangroup.com.bd/sampan-sweet-box",
     image: "/images/brand/sampanretail.png",
     Icon: FiShoppingBag,
-    subConcerns: concerns.filter((c) => c.category === "Retail Shop & Super Shop"),
+    subConcerns: concerns.filter(
+      (c) => c.category === "Retail Shop & Super Shop",
+    ),
   },
   {
     num: "07",
@@ -122,15 +128,22 @@ const divisions: Division[] = [
     href: "#manufacturing",
     image: "/images/brand/sampanindustrial.png",
     Icon: FiBox,
-    subConcerns: concerns.filter((c) =>
-      c.category === "Development & Construction" &&
-      c.id.includes("industrial") || c.id.includes("hollow") || c.id.includes("pet")
-    ).length
-      ? concerns.filter((c) =>
-          c.category === "Development & Construction" &&
-          (c.id.includes("industrial") || c.id.includes("hollow") || c.id.includes("pet"))
-        )
-      : [concerns.find((c) => c.id === "sampan-industrial-park")!],
+    // FIX: Safely convert id to string to avoid TS errors and simplify logic
+    subConcerns: concerns.filter((c) => {
+      const idStr = String(c.id).toLowerCase();
+      const nameStr = c.name.toLowerCase();
+      return (
+        c.category === "Development & Construction" &&
+        (idStr.includes("industrial") ||
+          nameStr.includes("industrial") ||
+          idStr.includes("hollow") ||
+          nameStr.includes("hollow") ||
+          idStr.includes("pet") ||
+          nameStr.includes("pet") ||
+          idStr.includes("beverage") ||
+          nameStr.includes("beverage"))
+      );
+    }),
   },
   {
     num: "08",

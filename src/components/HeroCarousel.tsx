@@ -200,7 +200,7 @@ export default function HeroCarousel({
 
   return (
     <section
-      className={`${styles.hero} ${
+      className={`${styles.hero} relative w-full ${
         showAnimationPicker ? styles.heroWithPicker : ""
       }`}
       role="region"
@@ -257,7 +257,8 @@ export default function HeroCarousel({
 
       <div className={styles.overlay} aria-hidden="true" />
 
-      <div className={styles.shell}>
+      {/* ✅ Constrained content container */}
+      <div className={`${styles.shell} mx-auto w-full max-w-[1400px] px-[5vw]`}>
         {showAnimationPicker && (
           <div className={styles.animationLab}>
             <p className={styles.animationLabLabel}>Animation Lab</p>

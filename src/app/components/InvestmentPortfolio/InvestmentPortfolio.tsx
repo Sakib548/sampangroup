@@ -123,7 +123,7 @@ export default function InvestmentPortfolio() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full overflow-hidden bg-[#F0F4F1] py-24 lg:py-32"
+      className="relative w-full"
     >
       {/* Giant Ghost Background Text */}
       <span className="pointer-events-none absolute -right-6 top-10 select-none text-[14rem] font-black leading-none text-emerald-950 opacity-[0.03] md:text-[20rem]">
@@ -205,16 +205,6 @@ export default function InvestmentPortfolio() {
           ))}
         </div>
 
-        {/* ====== BOTTOM STATEMENT ====== */}
-        <div className="mt-16 flex flex-col gap-5 border-t border-emerald-900/10 pt-6 lg:mt-24 lg:flex-row lg:items-center lg:justify-between">
-          <p className="max-w-md text-sm leading-6 text-neutral-500">
-            From fractional land ownership to exclusive lifestyle memberships,
-            Sampan Group creates pathways to invest in Bangladesh’s growth.
-          </p>
-          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-emerald-700">
-            03 Investment Models
-          </p>
-        </div>
       </div>
     </section>
   );

@@ -95,8 +95,9 @@ export default function HighwayInnStory() {
         scaleX: 1,
         duration: AUTO_ADVANCE_MS / 1000,
         ease: "none",
-        onComplete: () => setActiveIndex((prev) => (prev + 1) % gallerySlides.length),
-      }
+        onComplete: () =>
+          setActiveIndex((prev) => (prev + 1) % gallerySlides.length),
+      },
     );
 
     if (isPaused) progressTween.current.pause();
@@ -109,7 +110,9 @@ export default function HighwayInnStory() {
   /* --- GSAP Cinematic Image Transitions --- */
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const isReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     if (isReduced) return;
 
     const current = activeIndex;
@@ -118,7 +121,11 @@ export default function HighwayInnStory() {
       if (!img) return;
       if (i === current) {
         gsap.killTweensOf(img);
-        gsap.set(img, { zIndex: 10, opacity: 0, clipPath: "inset(0 100% 0 0)" });
+        gsap.set(img, {
+          zIndex: 10,
+          opacity: 0,
+          clipPath: "inset(0 100% 0 0)",
+        });
         gsap.to(img, {
           opacity: 1,
           clipPath: "inset(0 0% 0 0)",
@@ -144,7 +151,11 @@ export default function HighwayInnStory() {
       const mm = gsap.matchMedia();
 
       mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set([".hi-header > *", ".hi-image-stage", ".hi-content"], { opacity: 1, y: 0, clipPath: "none" });
+        gsap.set([".hi-header > *", ".hi-image-stage", ".hi-content"], {
+          opacity: 1,
+          y: 0,
+          clipPath: "none",
+        });
       });
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
@@ -157,8 +168,12 @@ export default function HighwayInnStory() {
             duration: 1,
             stagger: 0.15,
             ease: "power3.out",
-            scrollTrigger: { trigger: ".hi-header", start: "top 85%", once: true },
-          }
+            scrollTrigger: {
+              trigger: ".hi-header",
+              start: "top 85%",
+              once: true,
+            },
+          },
         );
 
         gsap.fromTo(
@@ -169,8 +184,12 @@ export default function HighwayInnStory() {
             opacity: 1,
             duration: 1.2,
             ease: "power3.out",
-            scrollTrigger: { trigger: ".hi-image-stage", start: "top 85%", once: true },
-          }
+            scrollTrigger: {
+              trigger: ".hi-image-stage",
+              start: "top 85%",
+              once: true,
+            },
+          },
         );
 
         gsap.fromTo(
@@ -181,16 +200,20 @@ export default function HighwayInnStory() {
             opacity: 1,
             duration: 1,
             ease: "power3.out",
-            scrollTrigger: { trigger: ".hi-content", start: "top 85%", once: true },
-          }
+            scrollTrigger: {
+              trigger: ".hi-content",
+              start: "top 85%",
+              once: true,
+            },
+          },
         );
       });
     },
-    { scope: containerRef }
+    { scope: containerRef },
   );
 
   return (
-    <section 
+    <section
       ref={containerRef}
       className="relative w-full min-h-[100svh] overflow-hidden bg-[#050505] py-24 lg:py-32"
       onMouseEnter={() => setIsPaused(true)}
@@ -202,7 +225,6 @@ export default function HighwayInnStory() {
       </span>
 
       <div className="relative mx-auto max-w-[1600px] px-[5vw]">
-        
         {/* ====== EDITORIAL HEADER ====== */}
         <div className="hi-header mb-16 flex flex-col justify-between gap-8 border-b border-white/10 pb-8 lg:mb-24 lg:flex-row lg:items-end">
           <div>
@@ -216,23 +238,27 @@ export default function HighwayInnStory() {
             </h2>
           </div>
           <p className="max-w-xs text-sm leading-7 text-white/50 lg:text-right">
-            A premium hospitality destination strategically positioned along the Dhaka–Khulna Highway.
+            A premium hospitality destination strategically positioned along the
+            Dhaka–Khulna Highway.
           </p>
         </div>
 
         {/* ====== SPLIT LAYOUT GRID ====== */}
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
-          
           {/* LEFT: IMAGE STAGE */}
           <div className="lg:col-span-7">
             <div className="hi-image-stage relative aspect-[4/5] w-full overflow-hidden border border-white/10 bg-neutral-950 sm:aspect-[16/10] lg:aspect-auto lg:h-[70vh]">
-              
               {gallerySlides.map((slide, i) => (
                 <div
                   key={slide.id}
-                  ref={(el) => { if (el) imageRefs.current[i] = el; }}
+                  ref={(el) => {
+                    if (el) imageRefs.current[i] = el;
+                  }}
                   className="absolute inset-0"
-                  style={{ opacity: i === 0 ? 1 : 0, clipPath: i === 0 ? "inset(0 0% 0 0)" : "inset(0 100% 0 0)" }}
+                  style={{
+                    opacity: i === 0 ? 1 : 0,
+                    clipPath: i === 0 ? "inset(0 0% 0 0)" : "inset(0 100% 0 0)",
+                  }}
                 >
                   <Image
                     src={slide.image}
@@ -244,7 +270,7 @@ export default function HighwayInnStory() {
                   />
                   {/* Cinematic Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-                  
+
                   {/* Image Meta (Top) */}
                   <div className="absolute top-0 left-0 right-0 flex items-center justify-between p-6 lg:p-8">
                     <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/70">
@@ -287,7 +313,6 @@ export default function HighwayInnStory() {
 
           {/* RIGHT: EDITORIAL CONTENT */}
           <div className="hi-content relative flex flex-col justify-center lg:col-span-5">
-            
             {/* Small label */}
             <div className="mb-8 flex items-center gap-3">
               <span className="h-px w-6 bg-emerald-500" />
@@ -327,7 +352,6 @@ export default function HighwayInnStory() {
               </a>
             </div>
           </div>
-
         </div>
       </div>
 

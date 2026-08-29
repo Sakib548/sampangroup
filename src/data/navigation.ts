@@ -18,11 +18,28 @@ const concernMegaMenu = concernCategories.map((category) => ({
   items: concerns
     .filter((concern) => concern.category === category)
     .map((concern) => ({
-      id: concern.id,
+      id: String(concern.id), // ✅ FIX: Force string
       label: concern.name,
       href: concern.href ?? `/concerns#${concern.id}`,
       external: concern.external ?? false,
     })),
+}));
+
+const divisionMegaMenu = divisionGroups.map((group) => ({
+  id: group.id,
+  title: group.title,
+  items: group.items.map((item) => {
+    // ✅ FIX: Safely compare string/number ids
+    const concern = concerns.find(
+      (c) => String(c.id) === String(item.concernId),
+    );
+    return {
+      id: String(item.id), // ✅ FIX: Force string
+      label: concern?.name ?? group.title,
+      href: item.href,
+      external: false,
+    };
+  }),
 }));
 
 export const navItems: NavItem[] = [
@@ -31,7 +48,7 @@ export const navItems: NavItem[] = [
     id: "2",
     label: "Our Divisions",
     href: "/our_divisions",
-    megaMenu: divisionGroups,
+    megaMenu: divisionMegaMenu,
   },
   {
     id: "3",
@@ -40,6 +57,5 @@ export const navItems: NavItem[] = [
     megaMenu: concernMegaMenu,
   },
   { id: "4", label: "Projects", href: "/projects" },
-
   { id: "5", label: "Contact", href: "/contact" },
 ];

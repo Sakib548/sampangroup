@@ -7,16 +7,16 @@ import Navbar2 from "@/components/Navbar2";
 
 // const SITE_URL = "https://www.sampangroup.com.bd";
 const SITE_URL = "https://sampangroup.vercel.app";
-const LOGO_URL = `${SITE_URL}/images/Sampan-Group.png`;
+const LOGO_URL = `${SITE_URL}/images/brand/sampangroup.png`;
 
 export const metadata: Metadata = {
   // FIX: metadataBase must be the root URL of your site, not an image path
   metadataBase: new URL(SITE_URL),
   // FIX: Explicitly define icons so Next.js doesn't look for src/app/favicon.ico
   icons: {
-    icon: "/images/Sampan-Group.png",
-    shortcut: "/images/Sampan-Group.png",
-    apple: "/images/Sampan-Group.png",
+    icon: "/images/brand/sampangroup.png",
+    shortcut: "/images/brand/sampangroup.png",
+    apple: "/images/brand/sampangroup.png",
   },
   title: {
     default: "SAMPAN Group | Diversified Business Conglomerate in Bangladesh",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     images: [
       {
         // Relative paths are fine here because metadataBase is set correctly
-        url: "/images/Sampan-Group.png",
+        url: "/images/brand/sampangroup.png",
         width: 1200,
         height: 630,
         alt: "SAMPAN Group Logo",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     title: "SAMPAN Group | Diversified Business Conglomerate in Bangladesh",
     description:
       "Official website of SAMPAN Group, a diversified Bangladeshi business group.",
-    images: ["/images/Sampan-Group.png"],
+    images: ["/images/brand/sampangroup.png"],
   },
   robots: {
     index: true,

@@ -15,11 +15,12 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 const YOUTUBE_ID = "YjhMZwyZZ_Y";
 const YOUTUBE_THUMBNAIL = `https://img.youtube.com/vi/${YOUTUBE_ID}/maxresdefault.jpg`;
 
+// Updated quote to match your script exactly
 const QUOTE_WORDS = [
   "We", "didn't", "start", "as", "a", "real", "estate", "company", "or", "a",
   "hospitality", "brand.", "We", "started", "as", "a", "highway", "stop",
-  "—", "and", "grew", "because", "we", "listened", "to", "what", "the",
-  "road", "needed", "next.",
+  "and", "grew", "because", "we", "listened", "to", "what", "the", "road",
+  "needed", "next.",
 ];
 
 /* ------------------------------------------------------------------ */
@@ -203,13 +204,13 @@ export default function LeadershipMessage() {
             opacity: 1,
             scale: 1,
             duration: 0.4,
+            delay: 0.4,
             stagger: 0.08,
             ease: "back.out(2)",
             scrollTrigger: {
               trigger: ".lead-video",
               start: "top 80%",
               once: true,
-              delay: 0.4,
             },
           }
         );
@@ -315,13 +316,73 @@ export default function LeadershipMessage() {
       ref={containerRef}
       className="relative w-full overflow-hidden bg-[#F5F5F2]"
     >
-
       <div className="relative mx-auto max-w-[1400px] px-[5vw]">
-
         {/* ====== MAIN GRID ====== */}
+        {/* Reordered: Content on Left, Video on Right */}
         <div className="lead-grid grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-          {/* ================= VIDEO ================= */}
-          <div className="lead-video group relative lg:col-span-7">
+          
+          {/* ==================== QUOTE (LEFT) ==================== */}
+          <div className="lead-content relative lg:col-span-5 lg:order-1">
+            {/* Oversized decorative quotation mark */}
+            <div
+              className="pointer-events-none absolute -left-4 -top-20 z-0 select-none font-serif text-[200px] leading-none text-emerald-600/[0.08] md:-left-10 md:text-[260px]"
+              aria-hidden="true"
+            >
+              &ldquo;
+            </div>
+
+            <div className="relative z-10">
+              {/* Section label / Subtitle */}
+              <div className="mb-10 flex items-center gap-3">
+                <span className="h-px w-5 bg-gradient-to-r from-emerald-600/50 to-emerald-600/0" />
+                <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.45em] text-neutral-400">
+                  Message from the Managing Director
+                </span>
+              </div>
+
+              {/* Split-text blockquote */}
+              <blockquote className="lead-quote text-[clamp(1.7rem,3vw,2.65rem)] font-semibold leading-[1.22] tracking-[-0.03em] text-neutral-950">
+                {QUOTE_WORDS.map((word, i) => (
+                  <span key={i} className="inline-block overflow-hidden">
+                    <span className="lead-word inline-block">
+                      {word}&nbsp;
+                    </span>
+                  </span>
+                ))}
+              </blockquote>
+
+              {/* Attribution */}
+              <div className="lead-attribution mt-8 flex items-center gap-4">
+                <span className="h-px w-8 bg-neutral-300" />
+                <p className="text-sm font-semibold tracking-tight text-neutral-900">
+                  Emamul Hasan
+                  <span className="ml-2 font-normal text-neutral-500">
+                    Managing Director
+                  </span>
+                </p>
+              </div>
+
+              {/* CTA (magnetic) */}
+              <button
+                ref={ctaRef}
+                type="button"
+                onClick={() => setPlaying(true)}
+                onMouseMove={handleCtaMove}
+                onMouseLeave={handleCtaLeave}
+                className="group/cta mt-12 inline-flex cursor-pointer items-center gap-5 font-mono text-[9px] font-bold uppercase tracking-[0.35em] text-neutral-600 transition-colors duration-500 hover:text-emerald-700"
+              >
+                <span className="relative pb-3 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gradient-to-r after:from-emerald-600 after:to-emerald-600/0 after:transition-all after:duration-500 after:ease-out group-hover/cta:after:w-full">
+                  Watch the full message
+                </span>
+                <span className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 transition-all duration-500 group-hover/cta:border-emerald-600/30 group-hover/cta:bg-emerald-600/5">
+                  <FiArrowRight className="h-3 w-3 transition-transform duration-500 group-hover/cta:translate-x-0.5" />
+                </span>
+              </button>
+            </div>
+          </div>
+
+          {/* ================= VIDEO (RIGHT) ================= */}
+          <div className="lead-video group relative lg:col-span-7 lg:order-2">
             <div className="relative aspect-[16/10] w-full overflow-hidden border border-neutral-300/60 bg-neutral-950">
               {!playing ? (
                 <>
@@ -387,62 +448,6 @@ export default function LeadershipMessage() {
                   allowFullScreen
                 />
               )}
-            </div>
-
-            {/* Video caption */}
-            {/* <div className="mt-4 flex items-center justify-between border-t border-neutral-300/60 pt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">
-              <span>Managing Director</span>
-              <span>YouTube Playback</span>
-            </div> */}
-          </div>
-
-          {/* ==================== QUOTE ==================== */}
-          <div className="lead-content relative lg:col-span-5">
-            {/* Oversized decorative quotation mark */}
-            <div
-              className="pointer-events-none absolute -left-4 -top-20 z-0 select-none font-serif text-[200px] leading-none text-emerald-600/[0.08] md:-left-10 md:text-[260px]"
-              aria-hidden="true"
-            >
-              &ldquo;
-            </div>
-
-            <div className="relative z-10">
-              {/* Section label */}
-              <div className="mb-10 flex items-center gap-3">
-                <span className="h-px w-5 bg-gradient-to-r from-emerald-600/50 to-emerald-600/0" />
-                <span className="font-mono text-[8px] font-semibold uppercase tracking-[0.45em] text-neutral-400">
-                  Our Beginning
-                </span>
-              </div>
-
-              {/* Split-text blockquote */}
-              <blockquote className="lead-quote text-[clamp(1.7rem,3vw,2.65rem)] font-semibold leading-[1.22] tracking-[-0.03em] text-neutral-950">
-                {QUOTE_WORDS.map((word, i) => (
-                  <span key={i} className="inline-block overflow-hidden">
-                    <span className="lead-word inline-block">
-                      {word === "—" ? "\u2014" : word}&nbsp;
-                    </span>
-                  </span>
-                ))}
-              </blockquote>
-
-
-              {/* CTA (magnetic) */}
-              <button
-                ref={ctaRef}
-                type="button"
-                onClick={() => setPlaying(true)}
-                onMouseMove={handleCtaMove}
-                onMouseLeave={handleCtaLeave}
-                className="group/cta mt-14 inline-flex cursor-pointer items-center gap-5 font-mono text-[9px] font-bold uppercase tracking-[0.35em] text-neutral-600 transition-colors duration-500 hover:text-emerald-700"
-              >
-                <span className="relative pb-3 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-gradient-to-r after:from-emerald-600 after:to-emerald-600/0 after:transition-all after:duration-500 after:ease-out group-hover/cta:after:w-full">
-                  Watch the full message
-                </span>
-                <span className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 transition-all duration-500 group-hover/cta:border-emerald-600/30 group-hover/cta:bg-emerald-600/5">
-                  <FiArrowRight className="h-3 w-3 transition-transform duration-500 group-hover/cta:translate-x-0.5" />
-                </span>
-              </button>
             </div>
           </div>
         </div>

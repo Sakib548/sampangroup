@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { concerns } from "@/data/concerns2";
+import { concerns } from "@/data/concerns"; // Ensure this points to your correct file path
 import { divisionGroups } from "@/data/divisions";
 
 const taglines: Record<string, string> = {
@@ -74,7 +74,7 @@ export default function DivisionsSection() {
                 {division.items.map((item) => {
                   // Look up the concern using the numeric concernId
                   const concern = findConcern(item.concernId);
-                  
+
                   // If the concern isn't found in the data, don't render anything
                   if (!concern) return null;
 
@@ -91,7 +91,7 @@ export default function DivisionsSection() {
                         <div className="flex items-start gap-4">
                           <div className="relative h-12 w-32 sm:h-14 sm:w-36">
                             <Image
-                              src={concern.logo}
+                              src={concern.logo || "/images/default-logo.png"} // Added fallback
                               alt={`${concern.name} logo`}
                               fill
                               sizes="(max-width: 640px) 128px, 144px"

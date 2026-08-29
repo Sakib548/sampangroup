@@ -152,7 +152,7 @@ export default function AwardsRecognition() {
   return (
     <section 
       ref={containerRef} 
-      className="relative w-full overflow-hidden bg-[#F5F5F2] py-24 lg:py-32"
+      className="relative w-full overflow-hidden"
     >
       {/* Giant Ghost Background Text */}
       <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none text-[10rem] font-black uppercase tracking-tighter text-neutral-950 opacity-[0.02] md:text-[16rem]">
