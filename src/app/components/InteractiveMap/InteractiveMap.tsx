@@ -122,7 +122,9 @@ const locations: Location[] = [
 
 export default function LocationMap() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activeLocation, setActiveLocation] = useState<Location | null>(locations[0]);
+  const [activeLocation, setActiveLocation] = useState<Location | null>(
+    locations[0],
+  );
 
   useGSAP(
     () => {
@@ -148,8 +150,12 @@ export default function LocationMap() {
             duration: 1,
             stagger: 0.15,
             ease: "power3.out",
-            scrollTrigger: { trigger: ".map-header", start: "top 85%", once: true },
-          }
+            scrollTrigger: {
+              trigger: ".map-header",
+              start: "top 85%",
+              once: true,
+            },
+          },
         );
 
         /* MAP STAGE ENTRANCE */
@@ -161,8 +167,12 @@ export default function LocationMap() {
             opacity: 1,
             duration: 1.2,
             ease: "power3.out",
-            scrollTrigger: { trigger: ".map-stage", start: "top 85%", once: true },
-          }
+            scrollTrigger: {
+              trigger: ".map-stage",
+              start: "top 85%",
+              once: true,
+            },
+          },
         );
 
         /* MOBILE LIST STAGGER */
@@ -175,12 +185,16 @@ export default function LocationMap() {
             duration: 0.5,
             stagger: 0.06,
             ease: "power3.out",
-            scrollTrigger: { trigger: ".map-list", start: "top 85%", once: true },
-          }
+            scrollTrigger: {
+              trigger: ".map-list",
+              start: "top 85%",
+              once: true,
+            },
+          },
         );
       });
     },
-    { scope: containerRef }
+    { scope: containerRef },
   );
 
   return (
@@ -189,17 +203,24 @@ export default function LocationMap() {
       className="relative w-full overflow-hidden bg-[#050505] py-24 lg:py-32"
     >
       {/* Subtle Film Grain Overlay */}
-      <div className="pointer-events-none absolute inset-0 z-[100] opacity-[0.03] mix-blend-multiply" aria-hidden="true">
+      <div
+        className="pointer-events-none absolute inset-0 z-[100] opacity-[0.03] mix-blend-multiply"
+        aria-hidden="true"
+      >
         <svg className="h-full w-full" xmlns="http://www.w3.org/2000/svg">
           <filter id="noiseFilterMap">
-            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+            <feTurbulence
+              type="fractalNoise"
+              baseFrequency="0.65"
+              numOctaves="3"
+              stitchTiles="stitch"
+            />
           </filter>
           <rect width="100%" height="100%" filter="url(#noiseFilterMap)" />
         </svg>
       </div>
 
       <div className="mx-auto max-w-[1400px] px-[5vw]">
-        
         {/* ====== SECTION HEADER ====== */}
         <div className="map-header mb-16 max-w-3xl lg:mb-24">
           <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-white">
@@ -208,13 +229,14 @@ export default function LocationMap() {
             <span className="text-white/40">Bangladesh.</span>
           </h2>
           <p className="mt-8 max-w-xl text-base leading-[1.8] text-white/50 lg:text-lg">
-            From hospitality and real estate to industrial and lifestyle ventures, explore the locations where Sampan Group is building opportunities for tomorrow.
+            From hospitality and real estate to industrial and lifestyle
+            ventures, explore the locations where Sampan Group is building
+            opportunities for tomorrow.
           </p>
         </div>
 
         {/* ====== MAP STAGE ====== */}
         <div className="map-stage relative aspect-[16/9] w-full overflow-hidden border border-white/10 bg-neutral-950">
-          
           {/* Base Map Image */}
           <Image
             src="/images.jpg" // Replace with your dark architectural map of Bangladesh
@@ -226,7 +248,7 @@ export default function LocationMap() {
 
           {/* Map Overlays */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
-          
+
           {/* Grid Pattern */}
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:32px_32px]" />
 
@@ -245,7 +267,9 @@ export default function LocationMap() {
                 {/* Pulse Effect */}
                 <span
                   className={`absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full border border-emerald-500/40 ${
-                    isActive ? "animate-ping" : "opacity-0 group-hover:opacity-100"
+                    isActive
+                      ? "animate-ping"
+                      : "opacity-0 group-hover:opacity-100"
                   }`}
                 />
                 {/* Dot */}
@@ -259,7 +283,9 @@ export default function LocationMap() {
                 {/* Label */}
                 <span
                   className={`absolute left-1/2 top-full mt-3 -translate-x-1/2 whitespace-nowrap text-[9px] font-mono uppercase tracking-widest transition-all duration-300 ${
-                    isActive ? "text-emerald-300" : "text-white/40 group-hover:text-white"
+                    isActive
+                      ? "text-emerald-300"
+                      : "text-white/40 group-hover:text-white"
                   }`}
                 >
                   {location.name}
@@ -271,13 +297,14 @@ export default function LocationMap() {
           {/* Counter (Top Right) */}
           <div className="absolute right-6 top-6 z-20 border-l border-white/10 bg-black/30 px-4 py-2 backdrop-blur-sm">
             <span className="font-mono text-xs tracking-widest text-white/50">
-              <strong className="text-white">{locations.length}</strong> LOCATIONS
+              <strong className="text-white">{locations.length}</strong>{" "}
+              LOCATIONS
             </span>
           </div>
 
           {/* Active Location Information Panel (Bottom Left) */}
           {activeLocation && (
-            <div 
+            <div
               key={activeLocation.id} // Key forces re-mount for CSS animation
               className="absolute bottom-0 left-0 z-30 w-full max-w-md border-t border-white/10 bg-gradient-to-t from-black via-black/90 to-transparent p-8 lg:p-12 animate-[slideUp_0.5s_ease-out]"
             >
@@ -293,7 +320,7 @@ export default function LocationMap() {
               {/* Content */}
               <div className="flex flex-col">
                 <p className="mb-4 font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-emerald-400">
-                  {activeLocation.category} — {activeLocation.location}
+                  {activeLocation.category} - {activeLocation.location}
                 </p>
                 <h3 className="text-[clamp(2rem,3vw,3rem)] font-semibold leading-[0.95] tracking-tight text-white">
                   {activeLocation.name}
@@ -332,22 +359,29 @@ export default function LocationMap() {
                     isActive ? "bg-white/[0.02]" : "hover:bg-white/[0.02]"
                   }`}
                 >
-                  <span className={`font-mono text-xs tracking-widest transition-colors duration-300 ${isActive ? "text-emerald-400" : "text-white/40 group-hover:text-white/80"}`}>
+                  <span
+                    className={`font-mono text-xs tracking-widest transition-colors duration-300 ${isActive ? "text-emerald-400" : "text-white/40 group-hover:text-white/80"}`}
+                  >
                     0{i + 1}
                   </span>
                   <div className="flex-1">
-                    <h3 className={`text-lg font-semibold tracking-tight transition-colors duration-300 ${isActive ? "text-white" : "text-white/60 group-hover:text-white"}`}>
+                    <h3
+                      className={`text-lg font-semibold tracking-tight transition-colors duration-300 ${isActive ? "text-white" : "text-white/60 group-hover:text-white"}`}
+                    >
                       {location.name}
                     </h3>
-                    <p className="mt-1 text-xs text-white/40">{location.location}</p>
+                    <p className="mt-1 text-xs text-white/40">
+                      {location.location}
+                    </p>
                   </div>
-                  <FiMapPin className={`h-5 w-5 transition-colors duration-300 ${isActive ? "text-emerald-400" : "text-white/20 group-hover:text-white/50"}`} />
+                  <FiMapPin
+                    className={`h-5 w-5 transition-colors duration-300 ${isActive ? "text-emerald-400" : "text-white/20 group-hover:text-white/50"}`}
+                  />
                 </button>
               );
             })}
           </div>
         </div>
-
       </div>
     </section>
   );

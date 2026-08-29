@@ -47,10 +47,10 @@ export default function SampanAgroGolfFeature() {
         </div> */}
 
         <div className="my-auto max-w-[53rem] py-14">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] ">
+          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.3em] text-[#d7e969]">
             A New Family Play Resort Experience
           </p>
-          <h2 className="text-[clamp(3.6rem,7vw,7.6rem)] font-medium leading-[0.8] tracking-[-0.07em]">
+          <h2 className="text-[clamp(3rem,5vw,5.75rem)]  font-medium leading-[0.8] tracking-[-0.07em]">
             Sampan Agro & Golf Resort
             {/* <span className="mt-2 block ">becomes the getaway.</span> */}
           </h2>
@@ -94,9 +94,9 @@ export default function SampanAgroGolfFeature() {
           ))}
         </div>
 
-        <p className="mt-3 text-right text-[0.55rem] uppercase tracking-[0.17em] text-white/30">
+        {/* <p className="mt-3 text-right text-[0.55rem] uppercase tracking-[0.17em] text-white/30">
           Representative project imagery
-        </p>
+        </p> */}
       </div>
     </section>
   );

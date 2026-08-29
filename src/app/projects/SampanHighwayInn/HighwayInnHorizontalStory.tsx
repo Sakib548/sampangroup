@@ -7,6 +7,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { highwayInnFacilities } from "@/data/highwayInnFacility";
 import {
   getEditorialImageLayers,
+  getHighwayInnEditorialLayout,
   getSwipeGalleryAmount,
   getWrappedGalleryIndex,
 } from "./highway-inn-editorial-logic";
@@ -46,6 +47,7 @@ export default function HighwayInnHorizontalStory() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [turnDirection, setTurnDirection] = useState<TurnDirection>("next");
   const touchStartX = useRef<number | null>(null);
+  const editorialLayout = getHighwayInnEditorialLayout();
 
   const imageLayers = useMemo(
     () => getEditorialImageLayers(activeIndex, galleryImages.length),
@@ -98,19 +100,11 @@ export default function HighwayInnHorizontalStory() {
       />
 
       <div className="relative mx-auto flex w-full max-w-[1400px] flex-col lg:h-full">
-        <div className="hidden shrink-0 lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(26rem,0.95fr)] lg:gap-24 xl:gap-32">
-          <span aria-hidden="true" />
-          <div className="flex items-center gap-3">
-            <span className="h-2 w-2 bg-[#ef636b]" />
-            <p className="text-[0.66rem] font-bold uppercase tracking-[0.25em] text-[#9b7410]">
-              Our Flagship Hospitality &amp; Travel Destination
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-14 grid items-center gap-14 lg:mt-8 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(26rem,0.95fr)] lg:items-stretch lg:gap-24 xl:gap-32">
+        <div
+          className={`mt-14 grid items-center gap-14 lg:mt-0 lg:min-h-0 lg:flex-1 lg:grid-cols-[minmax(0,1.05fr)_minmax(26rem,0.95fr)] lg:gap-24 xl:gap-32 ${editorialLayout.desktopGridAlignment}`}
+        >
           <div
-            className="relative mx-auto h-[390px] w-full max-w-[620px] touch-pan-y select-none sm:h-[500px] lg:h-[min(52svh,480px)] lg:self-start xl:h-[min(54svh,510px)]"
+            className={`relative mx-auto h-[390px] w-full max-w-[620px] touch-pan-y select-none sm:h-[500px] lg:h-[min(52svh,480px)] xl:h-[min(54svh,510px)] ${editorialLayout.desktopImageAlignment}`}
             onTouchStart={(event) => {
               touchStartX.current =
                 event.changedTouches.item(0)?.clientX ?? null;
@@ -200,10 +194,15 @@ export default function HighwayInnHorizontalStory() {
             )} */}
           </div>
 
-          <div className="max-w-[38rem] lg:flex lg:h-full lg:min-h-0 lg:flex-col">
-            <div className="flex items-center gap-3 lg:hidden">
+          <div
+            className={`max-w-[38rem] lg:flex lg:min-h-0 lg:flex-col ${editorialLayout.desktopCopyAlignment}`}
+          >
+            <div className="flex items-center gap-3">
               <span className="h-2 w-2 bg-[#ef636b]" />
-              <p className="text-[0.66rem] font-bold uppercase tracking-[0.25em] text-[#9b7410] ">
+              <p
+                className="text-[0.66rem] font-bold uppercase tracking-[0.25em]"
+                style={{ color: editorialLayout.accentColor }}
+              >
                 Our Flagship Hospitality &amp; Travel Destination
               </p>
             </div>
@@ -213,7 +212,7 @@ export default function HighwayInnHorizontalStory() {
               className="mt-6 text-[clamp(3rem,5vw,5.75rem)] font-medium leading-[0.92] tracking-[-0.06em] text-balance lg:mt-0"
             >
               Sampan
-              <span className="mt-2 block text-[#b48812]">Highway Inn.</span>
+              <span className="mt-2 block">Highway Inn.</span>
             </h2>
 
             <p className="mt-7 max-w-xl text-base leading-8 text-[#123b2c]/66 sm:text-lg sm:leading-8">
@@ -248,7 +247,9 @@ export default function HighwayInnHorizontalStory() {
             </div>
 
             {hasMultipleImages && (
-              <div className="mt-12 flex items-center gap-4 border-t border-[#123b2c]/16 pt-5 lg:mt-auto">
+              <div
+                className={`mt-12 flex items-center gap-4 border-t border-[#123b2c]/16 pt-5 ${editorialLayout.desktopControlsSpacing}`}
+              >
                 <button
                   type="button"
                   onClick={() => move(-1)}

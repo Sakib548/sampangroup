@@ -3,6 +3,16 @@ export type EditorialImageLayer = {
   offset: -1 | 0 | 1;
 };
 
+export function getHighwayInnEditorialLayout() {
+  return {
+    accentColor: "#f5c84c",
+    desktopGridAlignment: "lg:items-center",
+    desktopImageAlignment: "lg:self-center",
+    desktopCopyAlignment: "lg:self-center",
+    desktopControlsSpacing: "lg:mt-10",
+  } as const;
+}
+
 export function getWrappedGalleryIndex(
   currentIndex: number,
   amount: number,
