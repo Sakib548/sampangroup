@@ -1,5 +1,5 @@
 import HighwayInnEditorial from "./HighwayInnEditorial";
-import HighwayInnHorizontalStory from "./HighwayInnHorizontalStory";
+// import HighwayInnHorizontalStory from "./HighwayInnHorizontalStory";
 
 export const metadata = {
   title: "Sampan Highway Inn Projects | Sampan Group",
@@ -7,5 +7,5 @@ export const metadata = {
 };
 
 export default function SampanHighwayInnProjectPage() {
-  return <HighwayInnEditorial />;
+  // return <HighwayInnEditorial />;
 }

@@ -12,7 +12,7 @@ export const divisionGroups = [
   {
     id: "golf-zone",
     title: "Golf Zone",
-    items: [22],
+    items: [22, 38],
   },
   {
     id: "education",
@@ -22,7 +22,7 @@ export const divisionGroups = [
   {
     id: "agro",
     title: "Agro & Fresh Produce",
-    items: [23],
+    items: [23, 37],
   },
   {
     id: "retail",

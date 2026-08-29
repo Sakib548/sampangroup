@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 
+import { getSampanAutoLayout } from "./sampan-auto-layout";
+
 const values = [
   {
     number: "01",
@@ -35,6 +37,8 @@ function ArrowIcon() {
 }
 
 export default function SampanAutoFeature() {
+  const layout = getSampanAutoLayout();
+
   return (
     <section className="relative w-full overflow-hidden bg-[#07131f] text-white">
       {/* ── Background Image ── */}

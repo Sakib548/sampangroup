@@ -6,10 +6,26 @@ import { useState } from "react";
 
 const hero = "/images/projects/sampan-highway-inn.png";
 const facilities = [
-  { name: "Rest", copy: "Pause, recharge and continue refreshed.", image: hero },
-  { name: "Dine", copy: "A reason to make the stop delicious.", image: "/images/facilities/highway_inn/all_day_comfort.png" },
-  { name: "Meet", copy: "Bring people together beyond the boardroom.", image: "/images/facilities/highway_inn/party_reservation.png" },
-  { name: "Celebrate", copy: "Make the occasion worth remembering.", image: "/images/facilities/highway_inn/party_reservation.png" },
+  {
+    name: "Rest",
+    copy: "Pause, recharge and continue refreshed.",
+    image: hero,
+  },
+  {
+    name: "Dine",
+    copy: "A reason to make the stop delicious.",
+    image: "/images/facilities/highway_inn/all_day_comfort.png",
+  },
+  {
+    name: "Meet",
+    copy: "Bring people together beyond the boardroom.",
+    image: "/images/facilities/highway_inn/party_reservation.png",
+  },
+  {
+    name: "Celebrate",
+    copy: "Make the occasion worth remembering.",
+    image: "/images/facilities/highway_inn/party_reservation.png",
+  },
 ];
 
 export default function HighwayInnExperiencePage() {

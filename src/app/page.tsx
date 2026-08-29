@@ -19,8 +19,10 @@ export default function Home() {
   return (
     <main className="min-h-screen  overflow-hidden space-y-24 flex flex-col bg-[#F5F5F2]">
       {/* <HeroSlider2 /> */}
-      <HeroCarousel defaultTransition="mask" showAnimationPicker={false} />
-      <DivisionsSection />
+      <div>
+        <HeroCarousel defaultTransition="mask" showAnimationPicker={false} />
+        <DivisionsSection />
+      </div>{" "}
       <AboutPreview />
       {/* <AboutUsEditorial /> */}
       <div>
@@ -28,7 +30,7 @@ export default function Home() {
         {/* <CompletedProjectsEditorial /> */}
         <ProjectsSection />
       </div>{" "}
-      <ClientLocationMap /> 
+      <ClientLocationMap />
       <LeadershipMessage />
       <AwardsRecognition />
       <AffiliationSection />

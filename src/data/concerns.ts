@@ -95,7 +95,7 @@ export const concerns: Concern[] = [
     name: "Sampan Cafe Metro",
     category: "Development & Construction",
     tagline: "New Auto showroom + cafe, car wash, facilities.",
-    logo: "/images/brand/sampanauto.png",
+    logo: "/images/brand/sampancafemetro.png",
   },
 
   // Hospitality, Resort & Highway Travel
@@ -128,7 +128,7 @@ export const concerns: Concern[] = [
     name: "Express Highway Inn",
     category: "Hospitality & Leisure",
     tagline: "Modern-tier sister property to Highway Inn",
-    logo: "/images/brand/sampanhighwayinn.png",
+    logo: "/images/brand/expresshighwayinn.png",
     href: "https://www.sampangroup.com.bd/express-highway-inn-club-lounge",
   },
   {
@@ -151,7 +151,7 @@ export const concerns: Concern[] = [
     name: "Sampan Agro & Golf Club & Lounge",
     category: "Hospitality & Leisure",
     tagline: "Club/membership share.",
-    logo: "/images/brand/golfacademy.png",
+    logo: "/images/brand/sampanagroandgolfclubandlounge.png",
   },
   {
     id: 21,
@@ -169,6 +169,13 @@ export const concerns: Concern[] = [
     tagline: "Professional Golf Training & Development",
     logo: "/images/brand/agroandgolf.png",
   },
+  {
+    id: 38,
+    name: "Sampan Golf Short Drive Range",
+    category: "Golf Zone",
+    tagline: "Dedicated Practice Zone for Better Performance",
+    logo: "/images/brand/golfrage.png",
+  },
 
   // Agro & Fresh Produce
   {
@@ -177,6 +184,14 @@ export const concerns: Concern[] = [
     category: "Agro & Fresh Produce",
     tagline: "Bulk sale of vegetables, fruits, flowers, etc",
     logo: "/images/brand/sampanechoagro.png",
+    href: "https://www.sampangroup.com.bd/sampan-eco-agro",
+  },
+  {
+    id: 37,
+    name: "Sampan Fish And Meat",
+    category: "Agro & Fresh Produce",
+    tagline: "Bulk sale of a variety of fish and meats",
+    logo: "/images/brand/fishandmeat.png",
     href: "https://www.sampangroup.com.bd/sampan-eco-agro",
   },
 
@@ -194,14 +209,14 @@ export const concerns: Concern[] = [
     name: "Sampan Mart",
     category: "Retail Shop & Super Shop",
     tagline: "Online + offline super shop, tied to Highway Inn",
-    logo: "/images/brand/sampansupershop.png",
+    logo: "/images/brand/sampanmart.png",
   },
   {
     id: 26,
     name: "Mini Sampan Super Shop",
     category: "Retail Shop & Super Shop",
     tagline: "Second super shop, tied to Highway Inn",
-    logo: "/images/brand/sampanretail.png",
+    logo: "/images/brand/happyshopping.png",
   },
 
   // Automotive, Fuel & Mobility
@@ -277,6 +292,6 @@ export const concerns: Concern[] = [
     name: "Sampan Floating Pearl",
     category: "Maritime / Alternative Assets",
     tagline: "Sampan Maritime Venture and ship-share.",
-    logo: "/images/brand/sampanindustrialpark.webp",
+    logo: "/images/brand/prak.webp",
   },
 ];

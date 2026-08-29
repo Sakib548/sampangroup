@@ -1,4 +1,4 @@
-import HighwayInnHorizontalStory from "./HighwayInnHorizontalStory";
+// import HighwayInnHorizontalStory from "./HighwayInnHorizontalStory";
 import HighwayInnEditorial from "./HighwayInnEditorial";
 export default function SampanHighwayInn() {
   return (
@@ -11,7 +11,7 @@ export default function SampanHighwayInn() {
           Delivered &amp; Operating
         </span>
       </div> */}
-      <HighwayInnHorizontalStory />
+      {/* <HighwayInnHorizontalStory /> */}
       {/* <HighwayInnEditorial /> */}
     </section>
   );

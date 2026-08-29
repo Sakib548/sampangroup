@@ -1,38 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const features = [
-  {
-    id: "highway-restaurant",
-    title: "Highway Restaurant",
-    copy: "Express Highway Inn 24/7",
-  },
-  {
-    id: "vvip-lounge",
-    title: "VVIP Lounge",
-    copy: "Premium Accommodation Room",
-  },
-  {
-    id: "billiards",
-    title: "Billiards & Card Room",
-    copy: "Play, Relax, Compete",
-  },
-  {
-    id: "super-shop",
-    title: "Super Shop",
-    copy: "Sampan Mart 24/7",
-  },
-  {
-    id: "ev-car-charging",
-    title: "EV Car Charging",
-    copy: "All kinds of Electric Car Charging",
-  },
-  {
-    id: "automatic-car-wash",
-    title: "Automatic Car Wash",
-    copy: "",
-  },
-] as const;
+import {
+  expressHighwayFeatures,
+  expressHighwayStoryContent,
+  getExpressHighwayStoryLayout,
+} from "./express-highway-story-data";
 
 function Arrow() {
   return (
@@ -47,10 +20,12 @@ function Arrow() {
 }
 
 export default function ExpressHighwayStory() {
+  const layout = getExpressHighwayStoryLayout();
+
   return (
     <section
       aria-labelledby="express-highway-title"
-      className="relative isolate w-full overflow-hidden bg-[#071b13] text-white min-h-[100svh]"
+      className="relative left-1/2 isolate min-h-[100svh] w-[100dvw] max-w-none -translate-x-1/2 overflow-hidden bg-[#071b13] text-white"
     >
       <Image
         src="/images/projects/express-highway-inn.jpg"
@@ -69,79 +44,78 @@ export default function ExpressHighwayStory() {
         className="absolute inset-0 opacity-[0.055] [background-image:linear-gradient(rgba(255,255,255,.36)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.36)_1px,transparent_1px)] [background-size:72px_72px]"
       />
 
-      {/* Content Container */}
-      <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1480px] flex-col px-5 pb-10 pt-24 sm:px-10 sm:pb-12 lg:px-16 lg:pt-32">
-        
-        {/* Main Content Grid */}
-        <div className="mt-auto grid items-end gap-10 pb-10 lg:grid-cols-[minmax(0,1fr)_25rem] lg:gap-16">
-          
-          {/* Text Content */}
-          <div className="w-full">
+      <div className="relative z-10 flex min-h-[100svh] w-full flex-col px-5 py-12 sm:px-10 sm:py-14 lg:px-16 lg:py-16">
+        <div
+          className="mx-auto flex w-full flex-1 flex-col"
+          style={{ maxWidth: `${layout.contentMaxWidth}px` }}
+        >
+          <div
+            className={`${layout.contentFlowClass} max-w-3xl py-12 lg:py-10`}
+          >
             <div className="mb-5 flex items-center gap-3">
-              <span className="h-px w-9 bg-[#ef636b]" />
-              <p className="text-[0.64rem] font-bold uppercase tracking-[0.23em] text-[#58b9eb]">
-                A Modern Highway Destination
+              <span className="h-1.5 w-1.5 bg-[#ef636b]" />
+              <p
+                className="text-[0.66rem] font-bold uppercase tracking-[0.24em]"
+                style={{ color: layout.accentColor }}
+              >
+                {expressHighwayStoryContent.eyebrow}
               </p>
             </div>
 
             <h2
               id="express-highway-title"
-              className="max-w-5xl text-[clamp(2.5rem,8vw,7rem)] font-medium leading-[0.86] tracking-[-0.065em] text-balance"
+              className="text-[clamp(3rem,5vw,5.75rem)]  font-medium leading-[0.8] tracking-[-0.07em] text-balance"
             >
               Express
-              <span className="block text-[#58b9eb]">Highway Inn.</span>
+              <span className="mt-2 block">Highway Inn.</span>
             </h2>
-          </div>
 
-          {/* Right Column Content */}
-          <div className="w-full border-l border-[#58b9eb]/55 pl-5 lg:justify-self-end">
-            <p className="max-w-md text-sm leading-7 text-white/70 sm:text-base sm:leading-8">
-              A modern, premium evolution of the Sampan Highway Inn, designed
-              for everyone seeking elevated comfort, convenience, and
-              hospitality.
+            <p className="mt-8 max-w-2xl text-base leading-7 text-white/70 sm:text-lg sm:leading-8">
+              {expressHighwayStoryContent.description}
             </p>
+
             <Link
-              href="/contact"
-              className="group mt-6 inline-flex min-h-12 items-center gap-6 border border-[#00a174]/55 bg-[#00a174]/24 px-5 text-[0.67rem] font-bold uppercase tracking-[0.16em] text-white backdrop-blur-xl transition duration-300 hover:border-[#00a174]/80 hover:bg-[#00a174]/38"
+              href={expressHighwayStoryContent.href}
+              className="group mt-9 inline-flex min-h-12 items-center gap-6 border border-[#00a174]/55 bg-[#00a174]/24 px-5 text-[0.67rem] font-bold uppercase tracking-[0.16em] text-white backdrop-blur-xl transition duration-300 hover:border-[#00a174]/80 hover:bg-[#00a174]/38"
             >
-              Membership Offer
-              <span className="text-[#58b9eb]">
+              {expressHighwayStoryContent.cta}
+              <span
+                className="transition-transform duration-300 group-hover:translate-x-1"
+                style={{ color: layout.accentColor }}
+              >
                 <Arrow />
               </span>
             </Link>
           </div>
-        </div>
 
-        {/* Features Grid */}
-        <div
-          className="grid grid-cols-2 border-l border-t border-white/16 bg-[#071b13]/42 backdrop-blur-xl sm:grid-cols-3 lg:grid-cols-6"
-          aria-label="Express Highway Inn facilities"
-        >
-          {features.map((feature) => (
-            <article
-              key={feature.id}
-              className="group relative flex min-h-[8.75rem] flex-col border-b border-r border-white/16 p-4 transition-colors duration-300 hover:bg-white/[0.055] sm:p-5 lg:min-h-[9.5rem]"
-            >
-              <div className="flex items-center justify-between gap-4">
-                <span className="h-1.5 w-1.5 bg-[#ef636b]/80 transition-transform duration-300 group-hover:scale-150" />
-              </div>
+          <div
+            className={`grid ${layout.mobileGridClass} border-l border-t border-white/16 bg-[#071b13]/42 backdrop-blur-xl ${layout.desktopGridClass}`}
+            aria-label="Express Highway Inn facilities"
+          >
+            {expressHighwayFeatures.map((feature) => (
+              <article
+                key={feature.id}
+                className="group relative min-h-[8.25rem] border-b border-r border-white/16 p-4 transition-colors duration-300 hover:bg-white/[0.055] sm:p-5 lg:min-h-[9rem]"
+              >
+                <span className="block h-1.5 w-1.5 bg-[#ef636b]/80 transition-transform duration-300 group-hover:scale-150" />
 
-              <h3 className="mt-5 max-w-[16ch] text-[0.72rem] font-bold uppercase leading-5 tracking-[0.13em] text-white">
-                {feature.title}
-              </h3>
+                <h3 className="mt-5 max-w-[16ch] text-[0.72rem] font-bold uppercase leading-5 tracking-[0.13em] text-white">
+                  {feature.title}
+                </h3>
 
-              {feature.copy && (
-                <p className="mt-2 max-w-[23ch] text-xs leading-5 text-white/48">
-                  {feature.copy}
-                </p>
-              )}
+                {feature.copy && (
+                  <p className="mt-2 max-w-[23ch] text-xs leading-5 text-white/48">
+                    {feature.copy}
+                  </p>
+                )}
 
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-[#58b9eb] transition-transform duration-500 group-hover:scale-x-100"
-              />
-            </article>
-          ))}
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-[#58b9eb] transition-transform duration-500 group-hover:scale-x-100"
+                />
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

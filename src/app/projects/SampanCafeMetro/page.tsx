@@ -16,6 +16,8 @@ const scenes = [
   { start: 0.66, end: 1, label: "THE COMPLETE EXPERIENCE", cardIndex: 2 },
 ];
 
+import { getCafeMetroLayout } from "./cafe-metro-layout";
+
 const cafeHighlights = [
   {
     number: "01",
