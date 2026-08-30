@@ -65,7 +65,7 @@ function LegacySampanHighwayInnPage() {
               Your perfect stopover
             </p>
             <h2 className="mt-5 text-[clamp(2rem,3.3vw,3.5rem)] font-semibold leading-tight tracking-tight">
-              Rest, refresh, and continue your journey
+              Rest, refresh, and continue your journey.
             </h2>
           </div>
           <div className="space-y-5 text-sm leading-7 text-slate-600 sm:text-base">
