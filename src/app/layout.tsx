@@ -104,7 +104,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" className="h-full antialiased js-focus-visible">
+    <html lang="en" className="h-full antialiased">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
