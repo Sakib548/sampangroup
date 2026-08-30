@@ -75,9 +75,9 @@ function LegacySampanHighwayInnPage() {
               a peaceful place to refresh, dine, meet, or celebrate.
             </p>
             <p>
-              Whether you are traveling with family, planning an official outing,
-              or arranging a party, our team is ready to make your stop simple
-              and memorable.
+              Whether you are traveling with family, planning an official
+              outing, or arranging a party, our team is ready to make your stop
+              simple and memorable.
             </p>
           </div>
         </div>
@@ -87,7 +87,7 @@ function LegacySampanHighwayInnPage() {
         <div className="mx-auto w-full max-w-[1200px]">
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
                 What we offer
               </p>
               <h2 className="mt-4 text-[clamp(2rem,3.3vw,3.5rem)] font-semibold tracking-tight">
@@ -102,14 +102,29 @@ function LegacySampanHighwayInnPage() {
 
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {highwayInnFacilities.map((facility) => (
-              <article key={facility.id} className="group overflow-hidden border border-slate-200 bg-white shadow-sm">
+              <article
+                key={facility.id}
+                className="group overflow-hidden border border-slate-200 bg-white shadow-sm"
+              >
                 <div className="relative aspect-[1.2] overflow-hidden">
-                  <Image src={facility.image} alt={facility.alt} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover transition duration-700 group-hover:scale-105" />
+                  <Image
+                    src={facility.image}
+                    alt={facility.alt}
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-cover transition duration-700 group-hover:scale-105"
+                  />
                 </div>
                 <div className="p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-600">0{facility.id}</p>
-                  <h3 className="mt-3 text-xl font-semibold tracking-tight">{facility.title}</h3>
-                  <p className="mt-3 text-sm leading-6 text-slate-500">{facility.description}</p>
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-600">
+                    0{facility.id}
+                  </p>
+                  <h3 className="mt-3 text-xl font-semibold tracking-tight">
+                    {facility.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-6 text-slate-500">
+                    {facility.description}
+                  </p>
                 </div>
               </article>
             ))}
@@ -120,12 +135,24 @@ function LegacySampanHighwayInnPage() {
       <section className="bg-[#123b2c] px-8 py-16 sm:px-12 lg:px-20 lg:py-20">
         <div className="mx-auto grid w-full max-w-[1200px] gap-8 md:grid-cols-2">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-red-200">Planning an event?</p>
-            <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">Make your celebration memorable.</h2>
-            <p className="mt-4 max-w-lg text-sm leading-7 text-white/70">From birthdays and reunions to corporate gatherings, our flexible spaces and attentive service are ready for your next event.</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-red-200">
+              Planning an event?
+            </p>
+            <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">
+              Make your celebration memorable.
+            </h2>
+            <p className="mt-4 max-w-lg text-sm leading-7 text-white/70">
+              From birthdays and reunions to corporate gatherings, our flexible
+              spaces and attentive service are ready for your next event.
+            </p>
           </div>
           <div className="flex items-center md:justify-end">
-            <a href="tel:+8801929918408" className="inline-flex border border-white/60 px-6 py-3 text-sm font-semibold uppercase tracking-[0.14em] transition hover:bg-white hover:text-[#123b2c]">Reserve a party</a>
+            <a
+              href="tel:+8801929918408"
+              className="inline-flex border border-white/60 px-6 py-3 text-sm font-semibold uppercase tracking-[0.14em] transition hover:bg-white hover:text-[#123b2c]"
+            >
+              Reserve a party
+            </a>
           </div>
         </div>
       </section>
@@ -134,15 +161,33 @@ function LegacySampanHighwayInnPage() {
         <div className="mx-auto w-full max-w-[1200px]">
           <div className="flex items-end justify-between gap-5">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">Gallery</p>
-              <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">A place to pause.</h2>
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-700">
+                Gallery
+              </p>
+              <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">
+                A place to pause.
+              </h2>
             </div>
-            <Link href="/contact" className="hidden text-sm font-semibold uppercase tracking-[0.14em] text-red-600 hover:text-red-700 sm:block">Contact us →</Link>
+            <Link
+              href="/contact"
+              className="hidden text-sm font-semibold uppercase tracking-[0.14em] text-red-600 hover:text-red-700 sm:block"
+            >
+              Contact us →
+            </Link>
           </div>
           <div className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
             {galleryImages.map((image, index) => (
-              <div key={`${image}-${index}`} className={`relative aspect-square overflow-hidden ${index === 0 ? "col-span-2 row-span-2" : ""}`}>
-                <Image src={image} alt={`Sampan Highway Inn gallery ${index + 1}`} fill sizes="(min-width: 768px) 25vw, 50vw" className="object-cover transition duration-700 hover:scale-105" />
+              <div
+                key={`${image}-${index}`}
+                className={`relative aspect-square overflow-hidden ${index === 0 ? "col-span-2 row-span-2" : ""}`}
+              >
+                <Image
+                  src={image}
+                  alt={`Sampan Highway Inn gallery ${index + 1}`}
+                  fill
+                  sizes="(min-width: 768px) 25vw, 50vw"
+                  className="object-cover transition duration-700 hover:scale-105"
+                />
               </div>
             ))}
           </div>

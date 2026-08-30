@@ -1,14 +1,14 @@
 import { Concern } from "@/types/Concern";
 
 // Update your Concern type to accept a number for id
-export const concerns: Concern[] = [
+export const concerns2: Concern[] = [
   {
     id: 1,
     name: "Sampan Development Ltd.",
     category: "Development & Construction",
     tagline: "Land sale, share, condominium, building construction",
     logo: "/images/brand/development.png",
-    href: "https://www.sampangroup.com.bd/sampan-developments-limited",
+    href: "/our_divisions/real-state-and-land-investment/sampan-development-ltd",
   },
   {
     id: 2,
@@ -105,7 +105,7 @@ export const concerns: Concern[] = [
     category: "Hospitality & Leisure",
     tagline: "Flagship, most recognized brand nationally",
     logo: "/images/brand/sampanhighwayinn.png",
-    href: "https://www.sampangroup.com.bd/sampan-highway-inn-restaurant-party-centre",
+    href: "/our_divisions/hospitality-highway-travel/sampan-highway-inn",
   },
   {
     id: 15,
@@ -113,7 +113,7 @@ export const concerns: Concern[] = [
     category: "Hospitality & Leisure",
     tagline: "Hotel beside Sampan Highway Inn",
     logo: "/images/brand/whitehouse.webp",
-    href: "https://www.sampangroup.com.bd/sampan-highway-motel-white-house",
+    href: "/our_divisions/hospitality-highway-travel/sampan-white-house",
   },
   {
     id: 16,
@@ -129,7 +129,7 @@ export const concerns: Concern[] = [
     category: "Hospitality & Leisure",
     tagline: "Modern-tier sister property to Highway Inn",
     logo: "/images/brand/sampanhighwayinn.png",
-    href: "https://www.sampangroup.com.bd/express-highway-inn-club-lounge",
+    href: "/our_divisions/hospitality-highway-travel/express-highway-inn",
   },
   {
     id: 18,
@@ -169,6 +169,13 @@ export const concerns: Concern[] = [
     tagline: "Professional Golf Training & Development",
     logo: "/images/brand/agroandgolf.png",
   },
+  // {
+  //   id: 23,
+  //   name: "Sampan Golf Short Drive Range",
+  //   category: "Golf Zone",
+  //   tagline: "Professional Golf Training & Development",
+  //   logo: "/images/brand/agroandgolf.png",
+  // },
 
   // Agro & Fresh Produce
   {
@@ -177,7 +184,7 @@ export const concerns: Concern[] = [
     category: "Agro & Fresh Produce",
     tagline: "Bulk sale of vegetables, fruits, flowers, etc",
     logo: "/images/brand/sampanechoagro.png",
-    href: "https://www.sampangroup.com.bd/sampan-eco-agro",
+    href: "/our_divisions/hospitality-highway-travel/sampan-eco-agro",
   },
 
   // Retail Shop & Super Shop
@@ -278,5 +285,19 @@ export const concerns: Concern[] = [
     category: "Maritime / Alternative Assets",
     tagline: "Sampan Maritime Venture and ship-share.",
     logo: "/images/brand/sampanindustrialpark.webp",
+  },
+  {
+    id: 36,
+    name: "Sampan Fish & Meat",
+    category: "Agro & Fresh Produce",
+    tagline: "Fresh, responsibly sourced food for every table",
+    logo: "/images/brand/sampanechoagro.png",
+  },
+  {
+    id: 38,
+    name: "Sampan Golf Short Drive Range",
+    category: "Golf Zone",
+    tagline: "Professional Golf Training & Development",
+    logo: "/images/brand/agroandgolf.png",
   },
 ];
