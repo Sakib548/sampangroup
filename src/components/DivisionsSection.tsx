@@ -84,7 +84,7 @@ export default function DivisionsSection() {
                       className="group/card relative h-full min-h-[10rem] border border-[#183b2b]/10 bg-white/90 transition duration-300 hover:-translate-y-0.5 hover:border-[#008f68]/30 hover:bg-white hover:shadow-[0_14px_35px_rgba(14,47,33,0.07)]"
                     >
                       <Link
-                        href={item.href}
+                        href={"/comming-soon"}
                         aria-label={`Explore ${concern.name}`}
                         className="flex h-full min-h-[10rem] min-w-0 flex-col p-4 sm:p-5"
                       >
