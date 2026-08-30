@@ -1,5 +1,6 @@
 import { NavItem } from "@/types/NavItem";
 import { concerns } from "@/data/concerns";
+import { concerns2 } from "@/data/concerns2";
 import { divisionGroups } from "@/data/divisions";
 
 const concernCategories = [
@@ -28,14 +29,15 @@ const concernMegaMenu = concernCategories.map((category) => ({
 const divisionMegaMenu = divisionGroups.map((group) => ({
   id: group.id,
   title: group.title,
+  href: group.href,
   items: group.items.map((item) => {
     // ✅ FIX: Safely compare string/number ids
-    const concern = concerns.find(
+    const concern = concerns2.find(
       (c) => String(c.id) === String(item.concernId),
     );
     return {
       id: String(item.id), // ✅ FIX: Force string
-      label: concern?.name ?? group.title,
+      label: item.label ?? concern?.name ?? group.title,
       href: item.href,
       external: false,
     };
