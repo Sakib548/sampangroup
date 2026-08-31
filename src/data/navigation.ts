@@ -45,7 +45,7 @@ const divisionMegaMenu = divisionGroups.map((group) => ({
 }));
 
 export const navItems: NavItem[] = [
-  { id: "1", label: "About", href: "/about" },
+  { id: "1", label: "Who Are We", href: "/about" },
   {
     id: "2",
     label: "Our Divisions",
@@ -54,10 +54,10 @@ export const navItems: NavItem[] = [
   },
   {
     id: "3",
-    label: "Concerns",
+    label: "Our Projects",
     href: "/concerns",
     megaMenu: concernMegaMenu,
   },
-  { id: "4", label: "Projects", href: "/projects" },
+  { id: "4", label: "Investment Portfoli", href: "/projects" },
   { id: "5", label: "Contact", href: "/contact" },
 ];

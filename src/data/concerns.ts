@@ -167,7 +167,7 @@ export const concerns: Concern[] = [
     name: "Sampan Golf Academy",
     category: "Golf Zone",
     tagline: "Professional Golf Training & Development",
-    logo: "/images/brand/agroandgolf.png",
+    logo: "/images/brand/golfacademy.png",
   },
   {
     id: 38,
@@ -249,7 +249,7 @@ export const concerns: Concern[] = [
     name: "Sampan EV Car Charging Station",
     category: "Automotive & Energy",
     tagline: "EV charging beside Highway Inn",
-    logo: "/images/brand/sampanfillingstation.png",
+    logo: "/images/brand/evc.png",
   },
   {
     id: 31,
