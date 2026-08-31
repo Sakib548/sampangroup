@@ -137,7 +137,7 @@ export const concerns2: Concern[] = [
     category: "Hospitality & Leisure",
     tagline: "Club/membership share",
     logo: "/images/brand/ecl.png",
-    href: "https://www.sampangroup.com.bd/express-highway-inn-club-lounge",
+    href: "/our_divisions/hospitality-highway-travel/express-highway-inn-club-lounge",
   },
   {
     id: 19,
@@ -159,6 +159,7 @@ export const concerns2: Concern[] = [
     category: "Hospitality & Leisure",
     tagline: "Resort around the Eco & Agro farm proven success.",
     logo: "/images/brand/sampanechoagro.png",
+    href: "/our_divisions/hospitality-highway-travel/sampan-eco-agro",
   },
 
   // Golf Zone
