@@ -134,20 +134,20 @@ const projectsList = [
 
 export default function RealEstateArchivePage() {
   return (
-    <main className="bg-[#f3f6f2] text-[#183b2b] antialiased min-h-screen selection:bg-[#ca8a04] selection:text-neutral-950">
+    <main className="bg-[#f3f6f2] text-[#183b2b] antialiased min-h-screen selection:bg-[#00a651] selection:text-white">
       
-      {/* Archive Dark Hero Header for Navbar Readability */}
+      {/* Archive Dark Hero Header with Brand Logo Colors (#00a651 & #38bdf8) */}
       <section className="relative pt-36 pb-24 border-b border-white/10 overflow-hidden bg-[#090d16] text-white">
         <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16 relative z-10">
           <div className="max-w-3xl space-y-6">
-            <div className="inline-flex items-center gap-2 border border-[#ca8a04]/40 bg-[#ca8a04]/10 px-4 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-[#ca8a04]">
+            <div className="inline-flex items-center gap-2 border border-[#00a651]/40 bg-[#00a651]/15 px-4 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-[#00a651]">
               <FaBuilding className="text-xs" />
               <span>Real Estate &amp; Land Investment Division</span>
             </div>
 
             <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-white">
               Property &amp; Development <br />
-              <span className="font-normal text-[#ca8a04]">Projects Archive</span>
+              <span className="font-normal text-[#38bdf8]">Projects Archive</span>
             </h1>
 
             <p className="text-base text-white/80 leading-relaxed font-normal">
@@ -157,15 +157,22 @@ export default function RealEstateArchivePage() {
         </div>
       </section>
 
-      {/* Projects Grid Section — DivisionsSection Background bg-[#f3f6f2] */}
-      <section className="py-20 bg-[#f3f6f2] text-[#183b2b]">
-        <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+      {/* Projects Grid Section with Signature Ambient Radial Overlay */}
+      <section className="py-20 bg-[#f3f6f2] text-[#183b2b] relative overflow-hidden">
+        
+        {/* Signature DivisionsSection Ambient Radial Mesh */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_4%,rgba(0,161,116,0.09),transparent_26%),radial-gradient(circle_at_94%_92%,rgba(239,99,107,0.07),transparent_23%)]"
+        />
+
+        <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projectsList.map((project) => (
               <div
                 key={project.id}
-                className="group border border-[#183b2b]/15 bg-white flex flex-col justify-between overflow-hidden hover:border-[#ca8a04] transition-all duration-500 shadow-sm hover:shadow-md"
+                className="group border border-[#183b2b]/15 bg-white flex flex-col justify-between overflow-hidden hover:border-[#00a651] transition-all duration-500 shadow-sm hover:shadow-md"
               >
                 <div>
                   {/* Image Header */}
@@ -178,7 +185,7 @@ export default function RealEstateArchivePage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-60" />
 
-                    <span className="absolute top-4 left-4 bg-white/95 border border-[#ca8a04]/40 text-[#ca8a04] font-mono text-[10px] font-bold uppercase tracking-wider px-3 py-1 backdrop-blur-md shadow-sm">
+                    <span className="absolute top-4 left-4 bg-white/95 border border-[#00a651]/40 text-[#00a651] font-mono text-[10px] font-bold uppercase tracking-wider px-3 py-1 backdrop-blur-md shadow-sm">
                       {project.category}
                     </span>
 
@@ -196,11 +203,11 @@ export default function RealEstateArchivePage() {
                   {/* Body Content */}
                   <div className="p-6 space-y-4">
                     <div className="flex items-center gap-2 text-xs font-mono opacity-75">
-                      <FaMapMarkerAlt className="text-[#ca8a04]" />
+                      <FaMapMarkerAlt className="text-[#00a651]" />
                       <span>{project.location}</span>
                     </div>
 
-                    <h3 className="text-2xl font-bold text-[#183b2b] group-hover:text-[#ca8a04] transition-colors leading-snug">
+                    <h3 className="text-2xl font-bold text-[#183b2b] group-hover:text-[#00a651] transition-colors leading-snug">
                       {project.name}
                     </h3>
 
@@ -211,7 +218,7 @@ export default function RealEstateArchivePage() {
                     <div className="pt-2 border-t border-[#183b2b]/10 space-y-1.5">
                       {project.highlights.map((h, i) => (
                         <div key={i} className="flex items-center gap-2 text-xs opacity-90">
-                          <FaCheckCircle className="text-[#ca8a04] text-[10px] shrink-0" />
+                          <FaCheckCircle className="text-[#00a651] text-[10px] shrink-0" />
                           <span>{h}</span>
                         </div>
                       ))}
@@ -222,7 +229,7 @@ export default function RealEstateArchivePage() {
                 <div className="p-6 pt-0">
                   <Link
                     href={project.link}
-                    className="w-full inline-flex items-center justify-between bg-[#183b2b] hover:bg-[#ca8a04] text-white hover:text-neutral-950 border border-[#183b2b] px-6 py-3.5 font-mono text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 shadow-sm"
+                    className="w-full inline-flex items-center justify-between bg-[#183b2b] hover:bg-[#00a651] text-white hover:text-white border border-[#183b2b] px-6 py-3.5 font-mono text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 shadow-sm"
                   >
                     <span>Explore Concern</span>
                     <FaArrowRight className="text-xs" />

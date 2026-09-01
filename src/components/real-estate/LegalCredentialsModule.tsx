@@ -21,17 +21,24 @@ export default function LegalCredentialsModule({
   title = "Legal & Registration Credentials",
   subtitle = "Complete regulatory compliance, government approvals, and verified land deed documentation.",
   credentials,
-  bgTheme = "divisions-green",
+  bgTheme = "about-ivory",
 }: LegalCredentialsModuleProps) {
   const containerClasses = {
     "divisions-green": "bg-[#f3f6f2] text-[#183b2b] border-b border-[#183b2b]/15",
-    "about-ivory": "bg-[#f3f6f2] text-[#183b2b] border-b border-[#183b2b]/15",
-    "white": "bg-white text-[#183b2b] border-b border-neutral-200",
+    "about-ivory": "bg-[#F5F5F2] text-neutral-950 border-b border-neutral-300/60",
+    "white": "bg-white text-neutral-950 border-b border-neutral-200",
   }[bgTheme];
 
   return (
-    <section id="legal-credentials" className={`py-24 relative ${containerClasses}`}>
-      <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+    <section id="legal-credentials" className={`py-24 relative overflow-hidden ${containerClasses}`}>
+      
+      {/* Signature DivisionsSection Radial Ambient Overlay */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_4%,rgba(0,161,116,0.09),transparent_26%),radial-gradient(circle_at_94%_92%,rgba(239,99,107,0.07),transparent_23%)]"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
@@ -40,11 +47,11 @@ export default function LegalCredentialsModule({
               <FaShieldAlt className="text-xs" />
               <span>Regulatory Approvals</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-[#183b2b]">
+            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-current">
               {title}
             </h2>
           </div>
-          <p className="max-w-md text-sm leading-relaxed text-[#183b2b]/75 font-normal">
+          <p className="max-w-md text-sm leading-relaxed opacity-80 font-normal">
             {subtitle}
           </p>
         </div>
@@ -54,7 +61,7 @@ export default function LegalCredentialsModule({
           {credentials.map((cred, idx) => (
             <div
               key={idx}
-              className="border border-[#183b2b]/15 bg-white p-8 flex flex-col justify-between relative overflow-hidden group hover:border-[#ca8a04] transition-all duration-500 shadow-sm"
+              className="border border-current/15 bg-white p-8 flex flex-col justify-between relative overflow-hidden group hover:border-[#ca8a04] transition-all duration-500 shadow-sm"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -70,19 +77,19 @@ export default function LegalCredentialsModule({
                   {cred.authority}
                 </span>
 
-                <h3 className="text-xl font-bold text-[#183b2b] leading-snug">{cred.approvalTitle}</h3>
+                <h3 className="text-xl font-bold text-current leading-snug">{cred.approvalTitle}</h3>
 
-                <div className="p-3 bg-[#f3f6f2] border border-[#183b2b]/10 font-mono text-xs">
-                  <span className="text-[#183b2b]/60 block text-[10px]">Ref / Memo No:</span>
+                <div className="p-3 bg-[#f3f6f2] border border-current/10 font-mono text-xs">
+                  <span className="opacity-60 block text-[10px]">Ref / Memo No:</span>
                   <span className="font-bold text-[#183b2b]">{cred.referenceNumber}</span>
                 </div>
 
-                <p className="text-xs text-[#183b2b]/75 leading-relaxed font-normal">
+                <p className="text-xs opacity-75 leading-relaxed font-normal">
                   {cred.description}
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-[#183b2b]/15 flex items-center gap-2 text-xs font-mono font-bold text-[#008f68]">
+              <div className="mt-6 pt-4 border-t border-current/15 flex items-center gap-2 text-xs font-mono font-bold text-emerald-700">
                 <FaCheckCircle />
                 <span>Verified Legal Clear Title</span>
               </div>

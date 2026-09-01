@@ -95,9 +95,9 @@ const landmarks = [
 
 export default function SampanTajPage() {
   return (
-    <main className="bg-[#f3f6f2] text-[#183b2b] antialiased selection:bg-[#ca8a04] selection:text-neutral-950">
+    <main className="bg-[#f3f6f2] text-[#183b2b] antialiased selection:bg-[#25633a] selection:text-white">
       
-      {/* 1. Hero Overview — Dark for Transparent Navbar */}
+      {/* 1. Hero Overview — Sampan Taj Green (#25633a) Accent from Logo */}
       <RealEstateHero
         title="Sampan Taj"
         subtitle="Boutique Luxury Residential Apartment Building"
@@ -107,16 +107,17 @@ export default function SampanTajPage() {
         description="Boutique luxury residential apartments offering single-unit-per-floor privacy, palatial 2,100 sq ft floor plans, and imported luxury finishes."
         image="/images/concerns/sampan-development-ltd.png"
         facts={facts}
-        theme="dark-slate"
+        accentColor="#25633a"
+        badgeColor="#25633a"
       />
 
-      {/* 2. Unit Configurations — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 2. Unit Configurations */}
       <UnitTypesAndSizes
         units={units}
         bgTheme="divisions-green"
       />
 
-      {/* 3. Land Share Model — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 3. Land Share Model */}
       <LandShareStructure
         totalLandArea="10 Katha"
         totalSharesCount="10 Boutique Land Shares"
@@ -125,7 +126,7 @@ export default function SampanTajPage() {
         bgTheme="about-ivory"
       />
 
-      {/* 4. Location + Map — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 4. Location + Map */}
       <RealEstateLocationMap
         projectName="Sampan Taj"
         address="Dhaka Residential Corridor, Bangladesh."
@@ -135,7 +136,7 @@ export default function SampanTajPage() {
         bgTheme="divisions-green"
       />
 
-      {/* 5. Construction Progress — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 5. Construction Progress */}
       <ConstructionProgressTracker
         overallCompletionPercentage={20}
         expectedHandoverDate="Q4 2028"
@@ -144,37 +145,37 @@ export default function SampanTajPage() {
         bgTheme="about-ivory"
       />
 
-      {/* 6. Floor Plans — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 6. Floor Plans */}
       <FloorPlansViewer
         plans={floorPlans}
         bgTheme="divisions-green"
       />
 
-      {/* 7. Legal Credentials — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 7. Legal Credentials */}
       <LegalCredentialsModule
         credentials={legalCredentials}
         bgTheme="about-ivory"
       />
 
-      {/* 8. 3D Renders — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 8. 3D Renders */}
       <WalkthroughRenderGallery
         items={renders}
         bgTheme="divisions-green"
       />
 
-      {/* 9. Payment Calculator — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 9. Payment Calculator */}
       <PaymentPlanCalculator
         defaultPropertyPriceBDT={14500000}
         bgTheme="about-ivory"
       />
 
-      {/* 10. Brochure Download — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 10. Brochure Download */}
       <DownloadableBrochureCTA
         projectName="Sampan Taj"
         bgTheme="divisions-green"
       />
 
-      {/* 11. Site Visit Form — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 11. Site Visit Form */}
       <SiteVisitBookingForm
         projectName="Sampan Taj"
         bgTheme="about-ivory"

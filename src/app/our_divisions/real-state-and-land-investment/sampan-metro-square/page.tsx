@@ -142,9 +142,9 @@ const landmarks = [
 
 export default function SampanMetroSquarePage() {
   return (
-    <main className="bg-[#f3f6f2] text-[#183b2b] antialiased selection:bg-[#ca8a04] selection:text-neutral-950">
+    <main className="bg-[#f3f6f2] text-[#183b2b] antialiased selection:bg-[#dc2626] selection:text-white">
       
-      {/* 1. Hero Overview — Dark for Transparent Navbar */}
+      {/* 1. Hero Overview — Custom Red (#dc2626) & Forest Green (#047857) from Logo */}
       <RealEstateHero
         title="Sampan Metro Square"
         subtitle="Ashulia Land-Share Residential Project"
@@ -154,10 +154,11 @@ export default function SampanMetroSquarePage() {
         description="Own a piece of Ashulia's next address—a land-share residential project for people who want to invest in a future home, not only a plot."
         image="/images/metro-square/tower-home.webp"
         facts={facts}
-        theme="dark-slate"
+        accentColor="#dc2626"
+        badgeColor="#047857"
       />
 
-      {/* 2. Unit Types & Sizes Breakdown — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 2. Unit Types & Sizes Breakdown */}
       <UnitTypesAndSizes
         title="Apartment Unit Configurations"
         subtitle="Explore available 3-bedroom unit layouts, square footage dimensions, and estimated pricing."
@@ -165,7 +166,7 @@ export default function SampanMetroSquarePage() {
         bgTheme="divisions-green"
       />
 
-      {/* 3. Land Share Structure — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 3. Land Share Structure */}
       <LandShareStructure
         title="Land Share Ownership Structure"
         subtitle="Direct Sub-Kabala land deed registration with zero middleman markups."
@@ -176,7 +177,7 @@ export default function SampanMetroSquarePage() {
         bgTheme="about-ivory"
       />
 
-      {/* 4. Location + Map — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 4. Location + Map */}
       <RealEstateLocationMap
         title="Ashulia Location & Accessibility"
         subtitle="Positioned right next to the Ashulia growth corridor, minutes from Uttara Metro."
@@ -188,7 +189,7 @@ export default function SampanMetroSquarePage() {
         bgTheme="divisions-green"
       />
 
-      {/* 5. Construction Progress — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 5. Construction Progress */}
       <ConstructionProgressTracker
         title="Live Construction Progress"
         subtitle="Track live site developments and foundation milestones for Sampan Metro Square."
@@ -199,7 +200,7 @@ export default function SampanMetroSquarePage() {
         bgTheme="about-ivory"
       />
 
-      {/* 6. Floor Plans Viewer — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 6. Floor Plans Viewer */}
       <FloorPlansViewer
         title="Floor Plans & Site Layouts"
         subtitle="Inspect structural blueprints and floor plan arrangements."
@@ -207,7 +208,7 @@ export default function SampanMetroSquarePage() {
         bgTheme="divisions-green"
       />
 
-      {/* 7. Legal Credentials — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 7. Legal Credentials */}
       <LegalCredentialsModule
         title="Legal & Regulatory Clearances"
         subtitle="100% clear land title deed mutation and municipality approvals."
@@ -215,7 +216,7 @@ export default function SampanMetroSquarePage() {
         bgTheme="about-ivory"
       />
 
-      {/* 8. 3D Walkthrough Gallery — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 8. 3D Walkthrough Gallery */}
       <WalkthroughRenderGallery
         title="3D Render Gallery"
         subtitle="Photorealistic architectural renders of Sampan Metro Square tower."
@@ -223,7 +224,7 @@ export default function SampanMetroSquarePage() {
         bgTheme="divisions-green"
       />
 
-      {/* 9. Payment Plan Calculator — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 9. Payment Plan Calculator */}
       <PaymentPlanCalculator
         title="Payment Plan & Installment Calculator"
         subtitle="Estimate down payment and monthly installment schedules."
@@ -231,13 +232,13 @@ export default function SampanMetroSquarePage() {
         bgTheme="about-ivory"
       />
 
-      {/* 10. Downloadable Brochure — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 10. Downloadable Brochure */}
       <DownloadableBrochureCTA
         projectName="Sampan Metro Square"
         bgTheme="divisions-green"
       />
 
-      {/* 11. Site Visit Booking Form — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 11. Site Visit Booking Form */}
       <SiteVisitBookingForm
         title="Book VIP Site Visit to Ashulia"
         subtitle="Schedule a guided site tour with our property team. Complimentary vehicle pickup available."

@@ -14,7 +14,7 @@ export default function SiteVisitBookingForm({
   title = "Book VIP Site Visit & Consultation",
   subtitle = "Schedule a guided site tour with our property team. Complimentary vehicle transport available upon request.",
   projectName,
-  bgTheme = "divisions-green",
+  bgTheme = "about-ivory",
 }: SiteVisitBookingFormProps) {
   const [submitted, setSubmitted] = useState(false);
 
@@ -25,15 +25,22 @@ export default function SiteVisitBookingForm({
 
   const containerClasses = {
     "divisions-green": "bg-[#f3f6f2] text-[#183b2b] border-b border-[#183b2b]/15",
-    "about-ivory": "bg-[#f3f6f2] text-[#183b2b] border-b border-[#183b2b]/15",
-    "white": "bg-white text-[#183b2b] border-b border-neutral-200",
+    "about-ivory": "bg-[#F5F5F2] text-neutral-950 border-b border-neutral-300/60",
+    "white": "bg-white text-neutral-950 border-b border-neutral-200",
   }[bgTheme];
 
   return (
-    <section id="site-visit" className={`py-24 relative ${containerClasses}`}>
-      <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+    <section id="site-visit" className={`py-24 relative overflow-hidden ${containerClasses}`}>
+      
+      {/* Signature DivisionsSection Radial Ambient Overlay */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_4%,rgba(0,161,116,0.09),transparent_26%),radial-gradient(circle_at_94%_92%,rgba(239,99,107,0.07),transparent_23%)]"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         
-        <div className="border border-[#183b2b]/15 bg-white p-8 sm:p-12 relative overflow-hidden shadow-sm">
+        <div className="border border-current/15 bg-white p-8 sm:p-12 relative overflow-hidden shadow-sm">
           <div className="absolute top-0 left-0 h-1.5 w-full bg-[#ca8a04]" />
 
           <div className="grid lg:grid-cols-12 gap-8 items-center">
@@ -44,15 +51,15 @@ export default function SiteVisitBookingForm({
                 <span>VIP Site Inspection</span>
               </div>
 
-              <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-[#183b2b] leading-tight">
+              <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-current leading-tight">
                 {title}
               </h2>
 
-              <p className="text-sm leading-relaxed text-[#183b2b]/75 font-normal max-w-xl">
+              <p className="text-sm leading-relaxed opacity-80 font-normal max-w-xl">
                 {subtitle}
               </p>
 
-              <div className="space-y-2 font-mono text-xs text-[#183b2b]/90 pt-2">
+              <div className="space-y-2 font-mono text-xs opacity-90 pt-2">
                 <div className="flex items-center gap-2">
                   <FaCheckCircle className="text-[#ca8a04]" />
                   <span>Complimentary AC Transport Pickup (Dhaka City)</span>
@@ -68,56 +75,56 @@ export default function SiteVisitBookingForm({
               </div>
             </div>
 
-            <div className="lg:col-span-6 bg-[#f3f6f2] border border-[#183b2b]/15 p-8 shadow-sm">
+            <div className="lg:col-span-6 bg-[#f3f6f2] border border-current/15 p-8 shadow-sm">
               {submitted ? (
                 <div className="py-12 text-center space-y-4">
                   <FaCheckCircle className="text-5xl text-emerald-700 mx-auto animate-bounce" />
-                  <h3 className="text-2xl font-bold text-[#183b2b]">Site Visit Confirmed!</h3>
-                  <p className="text-xs text-[#183b2b]/75">
+                  <h3 className="text-2xl font-bold text-neutral-950">Site Visit Confirmed!</h3>
+                  <p className="text-xs text-neutral-600">
                     Our team will contact you within 30 minutes to confirm vehicle pickup details for <span className="font-bold text-[#ca8a04]">{projectName}</span>.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4 text-xs font-mono">
-                  <div className="border-b border-[#183b2b]/15 pb-3">
+                  <div className="border-b border-current/15 pb-3">
                     <span className="text-[#ca8a04] uppercase font-bold">Schedule Inspection</span>
-                    <h3 className="text-lg font-bold text-[#183b2b] mt-0.5">{projectName}</h3>
+                    <h3 className="text-lg font-bold text-neutral-950 mt-0.5">{projectName}</h3>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block uppercase text-[#183b2b]/70">Full Name</label>
+                    <label className="block uppercase opacity-70">Full Name</label>
                     <input
                       type="text"
                       required
                       placeholder="Your Full Name"
-                      className="w-full bg-white border border-[#183b2b]/20 p-3 text-xs text-[#183b2b] focus:border-[#ca8a04] focus:outline-none"
+                      className="w-full bg-white border border-neutral-300 p-3 text-xs text-neutral-950 focus:border-[#ca8a04] focus:outline-none"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <label className="block uppercase text-[#183b2b]/70">Phone Number</label>
+                      <label className="block uppercase opacity-70">Phone Number</label>
                       <input
                         type="tel"
                         required
                         placeholder="+880 1711..."
-                        className="w-full bg-white border border-[#183b2b]/20 p-3 text-xs text-[#183b2b] focus:border-[#ca8a04] focus:outline-none"
+                        className="w-full bg-white border border-neutral-300 p-3 text-xs text-neutral-950 focus:border-[#ca8a04] focus:outline-none"
                       />
                     </div>
 
                     <div className="space-y-1">
-                      <label className="block uppercase text-[#183b2b]/70">Preferred Visit Date</label>
+                      <label className="block uppercase opacity-70">Preferred Visit Date</label>
                       <input
                         type="date"
                         required
-                        className="w-full bg-white border border-[#183b2b]/20 p-3 text-xs text-[#183b2b] focus:border-[#ca8a04] focus:outline-none"
+                        className="w-full bg-white border border-neutral-300 p-3 text-xs text-neutral-950 focus:border-[#ca8a04] focus:outline-none"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block uppercase text-[#183b2b]/70">Transport Pickup Needed?</label>
-                    <select className="w-full bg-white border border-[#183b2b]/20 p-3 text-xs text-[#183b2b] focus:border-[#ca8a04] focus:outline-none">
+                    <label className="block uppercase opacity-70">Transport Pickup Needed?</label>
+                    <select className="w-full bg-white border border-neutral-300 p-3 text-xs text-neutral-950 focus:border-[#ca8a04] focus:outline-none">
                       <option>Yes — Request AC Car Pickup</option>
                       <option>No — Self Driving to Site</option>
                     </select>

@@ -90,7 +90,7 @@ export const concerns2: Concern[] = [
     category: "Development & Construction",
     tagline: "Manufactures building materials",
     logo: "/images/brand/sampanhollowbricksandtiles.png",
-    href: "https://www.sampangroup.com.bd/sampan-hollow-bricks-tiles",
+    href: "/our_divisions/real-state-and-land-investment/",
   },
   {
     id: 12,
@@ -106,6 +106,7 @@ export const concerns2: Concern[] = [
     category: "Development & Construction",
     tagline: "New Auto showroom + cafe, car wash, facilities.",
     logo: "/images/brand/sampanauto.png",
+    href: "/our_divisions/real-state-and-land-investment/sampan-cafe-metro",
   },
 
   // Hospitality, Resort & Highway Travel

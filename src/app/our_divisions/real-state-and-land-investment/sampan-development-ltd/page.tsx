@@ -117,7 +117,7 @@ const landmarks = [
 export default function SampanDevelopmentLtdPage() {
   return (
     <main className="bg-[#f3f6f2] text-[#183b2b] antialiased selection:bg-[#ca8a04] selection:text-neutral-950">
-      
+
       {/* 1. Hero Overview — Dark for Transparent Navbar Contrast */}
       <RealEstateHero
         title="Sampan Development Ltd"
@@ -128,7 +128,8 @@ export default function SampanDevelopmentLtdPage() {
         description="The flagship real estate company of Sampan Group. Engineering commercial trade emporiums, residential land-share towers, and sustainable infrastructure across Bangladesh."
         image="/images/concerns/sampan-development-ltd.png"
         facts={facts}
-        theme="dark-slate"
+        accentColor="#0284c7"
+        badgeColor="#0284c7"
       />
 
       {/* 2. Unit Configurations — DivisionsSection Soft Green bg-[#f3f6f2] */}

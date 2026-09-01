@@ -25,9 +25,9 @@ const landmarks = [
 
 export default function SampanCafeMetroPage() {
   return (
-    <main className="bg-[#f3f6f2] text-[#183b2b] antialiased selection:bg-[#ca8a04] selection:text-neutral-950">
-      
-      {/* 1. Hero Overview — Dark for Transparent Navbar */}
+    <main className="bg-[#f3f6f2] text-[#183b2b] antialiased selection:bg-[#4c2a85] selection:text-white">
+
+      {/* 1. Hero Overview — Custom Purple (#4c2a85) Accent & Red (#b21f24) Badge from Logo */}
       <RealEstateHero
         title="Sampan Cafe Metro"
         subtitle="Auto Service, Hydro Car Wash & Garden Cafe"
@@ -35,15 +35,16 @@ export default function SampanCafeMetroPage() {
         statusBadge="Ongoing Operation"
         statusType="ongoing"
         description="A premier highway stopover combining high-pressure hydro car washing, organic coffee dining, and a curated Sampan Auto vehicle showroom."
-        image="/images/concerns/sampan-auto.png"
+        image="/images/projects/sampanmetrosquare.jpg"
         facts={facts}
-        theme="dark-slate"
+        accentColor="#4c2a85"
+        badgeColor="#b21f24"
       />
 
-      {/* 2. Cafe Metro Special Component — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 2. Cafe Metro Special Component */}
       <CafeMetroSpecial />
 
-      {/* 3. Location + Map — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 3. Location + Map */}
       <RealEstateLocationMap
         title="Expressway Location & Access"
         subtitle="Positioned along the main arterial corridor for fast stopovers."
@@ -55,7 +56,7 @@ export default function SampanCafeMetroPage() {
         bgTheme="about-ivory"
       />
 
-      {/* 4. Site Visit / Slot Enquiry — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 4. Site Visit / Slot Enquiry */}
       <SiteVisitBookingForm
         title="Inquire Auto Service & VIP Lounge"
         subtitle="Schedule a vehicle inspection or reserve a private dining table at Cafe Metro."

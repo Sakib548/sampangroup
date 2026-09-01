@@ -30,17 +30,24 @@ export default function ConstructionProgressTracker({
   currentPhase,
   milestones,
   sitePhotos = [],
-  bgTheme = "divisions-green",
+  bgTheme = "about-ivory",
 }: ConstructionProgressTrackerProps) {
   const containerClasses = {
     "divisions-green": "bg-[#f3f6f2] text-[#183b2b] border-b border-[#183b2b]/15",
-    "about-ivory": "bg-[#f3f6f2] text-[#183b2b] border-b border-[#183b2b]/15",
-    "white": "bg-white text-[#183b2b] border-b border-neutral-200",
+    "about-ivory": "bg-[#F5F5F2] text-neutral-950 border-b border-neutral-300/60",
+    "white": "bg-white text-neutral-950 border-b border-neutral-200",
   }[bgTheme];
 
   return (
-    <section id="construction-progress" className={`py-24 relative ${containerClasses}`}>
-      <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+    <section id="construction-progress" className={`py-24 relative overflow-hidden ${containerClasses}`}>
+      
+      {/* Signature DivisionsSection Radial Ambient Overlay */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_4%,rgba(0,161,116,0.09),transparent_26%),radial-gradient(circle_at_94%_92%,rgba(239,99,107,0.07),transparent_23%)]"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
@@ -49,34 +56,34 @@ export default function ConstructionProgressTracker({
               <FaHardHat className="text-xs" />
               <span>Live Site Status</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-[#183b2b]">
+            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-current">
               {title}
             </h2>
           </div>
 
           {/* Overall Progress Scorecard */}
-          <div className="border border-[#183b2b]/15 bg-white p-6 flex items-center gap-6 shadow-sm">
-            <div className="text-center border-r border-[#183b2b]/15 pr-6">
+          <div className="border border-current/15 bg-white p-6 flex items-center gap-6 shadow-sm">
+            <div className="text-center border-r border-current/15 pr-6">
               <span className="text-4xl font-mono font-bold text-[#ca8a04]">
                 {overallCompletionPercentage}%
               </span>
-              <span className="text-[10px] font-mono uppercase block text-[#183b2b]/60 mt-1">Overall Progress</span>
+              <span className="text-[10px] font-mono uppercase block opacity-60 mt-1">Overall Progress</span>
             </div>
             <div>
-              <p className="font-mono text-xs font-bold uppercase text-[#183b2b]">Target Handover</p>
+              <p className="font-mono text-xs font-bold uppercase text-current">Target Handover</p>
               <p className="text-sm font-bold text-[#ca8a04] mt-0.5">{expectedHandoverDate}</p>
-              <p className="text-xs text-[#183b2b]/60 mt-0.5">Current Phase: {currentPhase}</p>
+              <p className="text-xs opacity-60 mt-0.5">Current Phase: {currentPhase}</p>
             </div>
           </div>
         </div>
 
         {/* Overall Progress Bar */}
-        <div className="mb-16 border border-[#183b2b]/15 p-6 bg-white space-y-3 shadow-sm">
+        <div className="mb-16 border border-current/15 p-6 bg-white space-y-3 shadow-sm">
           <div className="flex justify-between font-mono text-xs font-bold">
-            <span className="text-[#183b2b]">Overall Construction Velocity</span>
+            <span className="opacity-80">Overall Construction Velocity</span>
             <span className="text-[#ca8a04]">{overallCompletionPercentage}% Completed</span>
           </div>
-          <div className="h-4 w-full bg-neutral-200 overflow-hidden p-0.5 border border-[#183b2b]/15">
+          <div className="h-4 w-full bg-neutral-200 overflow-hidden p-0.5 border border-current/15">
             <div
               className="h-full bg-[#ca8a04] transition-all duration-1000"
               style={{ width: `${overallCompletionPercentage}%` }}
@@ -89,7 +96,7 @@ export default function ConstructionProgressTracker({
           {milestones.map((m, idx) => (
             <div
               key={idx}
-              className="border border-[#183b2b]/15 p-6 bg-white flex flex-col justify-between space-y-4 shadow-sm"
+              className="border border-current/15 p-6 bg-white flex flex-col justify-between space-y-4 shadow-sm"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between font-mono text-xs">
@@ -105,16 +112,16 @@ export default function ConstructionProgressTracker({
                   </span>
                 </div>
 
-                <h3 className="text-lg font-bold text-[#183b2b] leading-snug">{m.stage}</h3>
-                <p className="text-xs text-[#183b2b]/75 leading-relaxed font-normal">{m.notes}</p>
+                <h3 className="text-lg font-bold text-current leading-snug">{m.stage}</h3>
+                <p className="text-xs opacity-75 leading-relaxed font-normal">{m.notes}</p>
               </div>
 
-              <div className="pt-3 border-t border-[#183b2b]/15 flex items-center justify-between text-xs font-mono">
-                <span className="flex items-center gap-1 text-[#183b2b]/60">
+              <div className="pt-3 border-t border-current/15 flex items-center justify-between text-xs font-mono">
+                <span className="flex items-center gap-1 opacity-60">
                   <FaCalendarAlt className="text-[10px]" />
                   <span>Target:</span>
                 </span>
-                <span className="font-bold text-[#183b2b]">{m.targetDate}</span>
+                <span className="font-bold text-current">{m.targetDate}</span>
               </div>
             </div>
           ))}
@@ -122,7 +129,7 @@ export default function ConstructionProgressTracker({
 
         {/* Site Photos Gallery if provided */}
         {sitePhotos && sitePhotos.length > 0 && (
-          <div className="space-y-6 pt-6 border-t border-[#183b2b]/15">
+          <div className="space-y-6 pt-6 border-t border-current/15">
             <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-[#ca8a04]">
               <FaCamera />
               <span>Recent On-Site Construction Photography</span>
@@ -130,7 +137,7 @@ export default function ConstructionProgressTracker({
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {sitePhotos.map((photo, i) => (
-                <div key={i} className="relative aspect-[4/3] border border-[#183b2b]/15 overflow-hidden bg-neutral-200 shadow-sm">
+                <div key={i} className="relative aspect-[4/3] border border-current/15 overflow-hidden bg-neutral-200 shadow-sm">
                   <Image
                     src={photo}
                     alt={`Site Photo ${i + 1}`}

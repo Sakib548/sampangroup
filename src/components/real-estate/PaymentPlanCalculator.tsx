@@ -15,7 +15,7 @@ export default function PaymentPlanCalculator({
   title = "Payment Plan & Installment Estimator",
   subtitle = "Calculate your down payment, flexible monthly installment schedule, and handover balance.",
   defaultPropertyPriceBDT = 8500000,
-  bgTheme = "divisions-green",
+  bgTheme = "about-ivory",
   onApplyPlan,
 }: PaymentPlanCalculatorProps) {
   const [totalPrice, setTotalPrice] = useState<number>(defaultPropertyPriceBDT);
@@ -30,13 +30,20 @@ export default function PaymentPlanCalculator({
 
   const containerClasses = {
     "divisions-green": "bg-[#f3f6f2] text-[#183b2b] border-b border-[#183b2b]/15",
-    "about-ivory": "bg-[#f3f6f2] text-[#183b2b] border-b border-[#183b2b]/15",
-    "white": "bg-white text-[#183b2b] border-b border-neutral-200",
+    "about-ivory": "bg-[#F5F5F2] text-neutral-950 border-b border-neutral-300/60",
+    "white": "bg-white text-neutral-950 border-b border-neutral-200",
   }[bgTheme];
 
   return (
-    <section id="payment-calculator" className={`py-24 relative ${containerClasses}`}>
-      <div className="mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
+    <section id="payment-calculator" className={`py-24 relative overflow-hidden ${containerClasses}`}>
+      
+      {/* Signature DivisionsSection Radial Ambient Overlay */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_8%_4%,rgba(0,161,116,0.09),transparent_26%),radial-gradient(circle_at_94%_92%,rgba(239,99,107,0.07),transparent_23%)]"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
@@ -45,11 +52,11 @@ export default function PaymentPlanCalculator({
               <FaCalculator className="text-xs" />
               <span>Financial Planner</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-[#183b2b]">
+            <h2 className="text-3xl sm:text-5xl font-light tracking-tight text-current">
               {title}
             </h2>
           </div>
-          <p className="max-w-md text-sm leading-relaxed text-[#183b2b]/75 font-normal">
+          <p className="max-w-md text-sm leading-relaxed opacity-80 font-normal">
             {subtitle}
           </p>
         </div>
@@ -57,12 +64,12 @@ export default function PaymentPlanCalculator({
         <div className="grid lg:grid-cols-12 gap-8 items-start">
           
           {/* Left Column: Sliders & Parameter Inputs */}
-          <div className="lg:col-span-7 border border-[#183b2b]/15 bg-white p-8 space-y-6 shadow-sm">
+          <div className="lg:col-span-7 border border-current/15 bg-white p-8 space-y-6 shadow-sm">
             
             {/* Input 1: Total Property Value */}
             <div className="space-y-3">
-              <div className="flex justify-between font-mono text-xs text-[#183b2b]">
-                <span className="font-bold uppercase text-[#183b2b]/70">Total Property / Share Price</span>
+              <div className="flex justify-between font-mono text-xs text-current">
+                <span className="font-bold uppercase opacity-70">Total Property / Share Price</span>
                 <span className="font-bold text-[#ca8a04]">BDT {totalPrice.toLocaleString()}</span>
               </div>
 
@@ -75,16 +82,16 @@ export default function PaymentPlanCalculator({
                 onChange={(e) => setTotalPrice(Number(e.target.value))}
                 className="w-full accent-[#ca8a04] cursor-pointer"
               />
-              <div className="flex justify-between font-mono text-[10px] text-[#183b2b]/60">
+              <div className="flex justify-between font-mono text-[10px] opacity-60">
                 <span>BDT 25 Lacs</span>
                 <span>BDT 2.5 Crore</span>
               </div>
             </div>
 
             {/* Input 2: Down Payment Percentage */}
-            <div className="space-y-3 pt-2 border-t border-[#183b2b]/15">
-              <div className="flex justify-between font-mono text-xs text-[#183b2b]">
-                <span className="font-bold uppercase text-[#183b2b]/70">Down Payment Percentage</span>
+            <div className="space-y-3 pt-2 border-t border-current/15">
+              <div className="flex justify-between font-mono text-xs text-current">
+                <span className="font-bold uppercase opacity-70">Down Payment Percentage</span>
                 <span className="font-bold text-[#ca8a04]">{downPaymentPercent}% (BDT {downPaymentAmount.toLocaleString()})</span>
               </div>
 
@@ -97,7 +104,7 @@ export default function PaymentPlanCalculator({
                     className={`py-2.5 border transition-all cursor-pointer font-bold ${
                       downPaymentPercent === pct
                         ? "bg-[#183b2b] text-white border-[#183b2b]"
-                        : "border-[#183b2b]/20 bg-[#f3f6f2] hover:bg-[#ca8a04] hover:text-neutral-950"
+                        : "border-current/20 bg-[#f3f6f2] hover:bg-[#ca8a04] hover:text-neutral-950 text-neutral-900"
                     }`}
                   >
                     {pct}%
@@ -107,9 +114,9 @@ export default function PaymentPlanCalculator({
             </div>
 
             {/* Input 3: Installment Duration */}
-            <div className="space-y-3 pt-2 border-t border-[#183b2b]/15">
-              <div className="flex justify-between font-mono text-xs text-[#183b2b]">
-                <span className="font-bold uppercase text-[#183b2b]/70">Installment Duration</span>
+            <div className="space-y-3 pt-2 border-t border-current/15">
+              <div className="flex justify-between font-mono text-xs text-current">
+                <span className="font-bold uppercase opacity-70">Installment Duration</span>
                 <span className="font-bold text-[#ca8a04]">{installmentDurationMonths} Months</span>
               </div>
 
@@ -122,7 +129,7 @@ export default function PaymentPlanCalculator({
                     className={`py-2.5 border transition-all cursor-pointer font-bold ${
                       installmentDurationMonths === months
                         ? "bg-[#183b2b] text-white border-[#183b2b]"
-                        : "border-[#183b2b]/20 bg-[#f3f6f2] hover:bg-[#ca8a04] hover:text-neutral-950"
+                        : "border-current/20 bg-[#f3f6f2] hover:bg-[#ca8a04] hover:text-neutral-950 text-neutral-900"
                     }`}
                   >
                     {months} Mos
@@ -134,37 +141,37 @@ export default function PaymentPlanCalculator({
           </div>
 
           {/* Right Column: Live Breakdown Card */}
-          <div className="lg:col-span-5 border border-[#183b2b]/15 bg-white text-[#183b2b] p-8 relative overflow-hidden shadow-lg space-y-6">
+          <div className="lg:col-span-5 border border-current/15 bg-white text-neutral-950 p-8 relative overflow-hidden shadow-lg space-y-6">
             <div className="absolute top-0 left-0 h-1.5 w-full bg-[#ca8a04]" />
 
-            <div className="flex items-center justify-between border-b border-[#183b2b]/15 pb-4">
+            <div className="flex items-center justify-between border-b border-neutral-200 pb-4">
               <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#ca8a04]">
                 Installment Breakdown
               </span>
-              <span className="font-mono text-[10px] text-[#183b2b]/70 bg-[#f3f6f2] border border-[#183b2b]/15 px-2.5 py-1">
+              <span className="font-mono text-[10px] text-neutral-600 bg-neutral-100 border border-neutral-200 px-2.5 py-1">
                 Zero Hidden Charges
               </span>
             </div>
 
             <div className="space-y-3 font-mono text-xs">
-              <div className="flex justify-between text-[#183b2b]/80">
+              <div className="flex justify-between text-neutral-700">
                 <span>Down Payment ({downPaymentPercent}%):</span>
                 <span className="text-[#ca8a04] font-bold">BDT {downPaymentAmount.toLocaleString()}</span>
               </div>
 
-              <div className="flex justify-between text-[#183b2b]/80">
+              <div className="flex justify-between text-neutral-700">
                 <span>Handover Balance (15%):</span>
-                <span className="text-[#183b2b] font-bold">BDT {handoverAmount.toLocaleString()}</span>
+                <span className="text-neutral-950 font-bold">BDT {handoverAmount.toLocaleString()}</span>
               </div>
 
-              <div className="flex justify-between text-[#183b2b]/70">
+              <div className="flex justify-between text-neutral-600">
                 <span>Installment Tenure:</span>
-                <span className="text-[#183b2b]">{installmentDurationMonths} Equal Monthly Payments</span>
+                <span className="text-neutral-950">{installmentDurationMonths} Equal Monthly Payments</span>
               </div>
             </div>
 
             <div className="border-y border-[#ca8a04]/30 bg-[#f3f6f2] p-5 text-center">
-              <span className="font-mono text-xs uppercase tracking-wider text-[#183b2b]/70 block">
+              <span className="font-mono text-xs uppercase tracking-wider text-neutral-600 block">
                 Estimated Monthly Installment
               </span>
               <div className="text-3xl font-mono font-bold text-[#ca8a04] mt-1">

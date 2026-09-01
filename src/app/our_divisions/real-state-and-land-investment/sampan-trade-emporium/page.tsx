@@ -108,9 +108,9 @@ const landmarks = [
 
 export default function SampanTradeEmporiumPage() {
   return (
-    <main className="bg-[#f3f6f2] text-[#183b2b] antialiased selection:bg-[#ca8a04] selection:text-neutral-950">
+    <main className="bg-[#f3f6f2] text-[#183b2b] antialiased selection:bg-[#026597] selection:text-white">
       
-      {/* 1. Hero Overview — Dark for Transparent Navbar */}
+      {/* 1. Hero Overview — Trade Emporium Blue (#026597) Accent from Logo */}
       <RealEstateHero
         title="Sampan Trade Emporium"
         subtitle="Commercial Trade Center & Corporate Office Hub"
@@ -120,10 +120,11 @@ export default function SampanTradeEmporiumPage() {
         description="A 12-storey commercial trade emporium engineered for retail outlets, executive corporate office suites, and high lease yields."
         image="/images/projects/Sampan-White-House-&-Motel.png"
         facts={facts}
-        theme="dark-slate"
+        accentColor="#026597"
+        badgeColor="#026597"
       />
 
-      {/* 2. Unit Configurations — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 2. Unit Configurations */}
       <UnitTypesAndSizes
         title="Retail Outlets & Office Configurations"
         subtitle="Explore commercial space dimensions, floor areas, and pricing."
@@ -131,7 +132,7 @@ export default function SampanTradeEmporiumPage() {
         bgTheme="divisions-green"
       />
 
-      {/* 3. Land Share Model — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 3. Land Share Model */}
       <LandShareStructure
         totalLandArea="14 Katha"
         totalSharesCount="42 Commercial Shares"
@@ -140,7 +141,7 @@ export default function SampanTradeEmporiumPage() {
         bgTheme="about-ivory"
       />
 
-      {/* 4. Location + Map — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 4. Location + Map */}
       <RealEstateLocationMap
         projectName="Sampan Trade Emporium"
         address="Commercial Corridor Hub, Dhaka, Bangladesh."
@@ -150,7 +151,7 @@ export default function SampanTradeEmporiumPage() {
         bgTheme="divisions-green"
       />
 
-      {/* 5. Construction Progress — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 5. Construction Progress */}
       <ConstructionProgressTracker
         overallCompletionPercentage={55}
         expectedHandoverDate="Q4 2028"
@@ -159,37 +160,37 @@ export default function SampanTradeEmporiumPage() {
         bgTheme="about-ivory"
       />
 
-      {/* 6. Floor Plans — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 6. Floor Plans */}
       <FloorPlansViewer
         plans={floorPlans}
         bgTheme="divisions-green"
       />
 
-      {/* 7. Legal Credentials — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 7. Legal Credentials */}
       <LegalCredentialsModule
         credentials={legalCredentials}
         bgTheme="about-ivory"
       />
 
-      {/* 8. 3D Renders — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 8. 3D Renders */}
       <WalkthroughRenderGallery
         items={renders}
         bgTheme="divisions-green"
       />
 
-      {/* 9. Payment Calculator — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 9. Payment Calculator */}
       <PaymentPlanCalculator
         defaultPropertyPriceBDT={12000000}
         bgTheme="about-ivory"
       />
 
-      {/* 10. Brochure Download — DivisionsSection Green bg-[#f3f6f2] */}
+      {/* 10. Brochure Download */}
       <DownloadableBrochureCTA
         projectName="Sampan Trade Emporium"
         bgTheme="divisions-green"
       />
 
-      {/* 11. Site Visit Form — AboutPreview Warm Ivory bg-[#F5F5F2] */}
+      {/* 11. Site Visit Form */}
       <SiteVisitBookingForm
         projectName="Sampan Trade Emporium"
         bgTheme="about-ivory"
