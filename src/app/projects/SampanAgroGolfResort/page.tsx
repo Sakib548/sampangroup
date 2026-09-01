@@ -94,9 +94,9 @@ export default function SampanAgroGolfFeature() {
           ))}
         </div>
 
-        {/* <p className="mt-3 text-right text-[0.55rem] uppercase tracking-[0.17em] text-white/30">
+        <p className="mt-3 text-right text-[0.55rem] uppercase tracking-[0.17em] text-white/30">
           Representative project imagery
-        </p> */}
+        </p>
       </div>
     </section>
   );
