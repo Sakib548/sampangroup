@@ -25,7 +25,8 @@ export default function SampanMetroSquareFeature() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_28%,rgba(196,229,96,0.18),transparent_30%),linear-gradient(115deg,#052e20_0%,#073b27_55%,#0b5134_100%)]" />
       <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(rgba(255,255,255,.65)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.65)_1px,transparent_1px)] [background-size:72px_72px]" />
 
-      <div className="pointer-events-none absolute bottom-[-1rem] right-[-15rem] z-[1] h-[57%] w-[57rem] opacity-65 sm:right-[-10rem] sm:h-[65%] lg:right-[-7rem] lg:h-[93%] lg:w-[68%] lg:opacity-100">
+      {/* Full-height, edge-to-edge architectural video panel on the right */}
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-[1] h-full w-full lg:w-[72%]">
         <video
           autoPlay
           muted
@@ -34,12 +35,13 @@ export default function SampanMetroSquareFeature() {
           preload="metadata"
           poster="/images/metro-square/tower-home.webp"
           aria-hidden="true"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-center"
         >
           <source src="/videos/metro-square.mp4" type="video/mp4" />
         </video>
       </div>
 
+      {/* Dark gradient overlays for text readability */}
       <div className="absolute inset-0 z-[2] bg-gradient-to-r from-[#052e20] via-[#052e20]/65 to-transparent" />
       <div className="absolute inset-0 z-[2] bg-gradient-to-t from-[#052e20] via-transparent to-transparent" />
 
