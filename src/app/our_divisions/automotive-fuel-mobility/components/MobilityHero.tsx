@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FaBuilding, FaFileDownload, FaPhoneAlt, FaCalendarCheck } from "react-icons/fa";
+import { FaCar, FaGasPump, FaPhoneAlt, FaWhatsapp, FaCalendarCheck } from "react-icons/fa";
 import { FiArrowRight } from "react-icons/fi";
 
 export interface HeroFact {
@@ -9,40 +9,42 @@ export interface HeroFact {
   label: string;
 }
 
-export interface RealEstateHeroProps {
+export interface MobilityHeroProps {
   title: string;
   subtitle: string;
   divisionName?: string;
   statusBadge: string;
-  statusType?: "ongoing" | "coming-soon" | "flagship";
+  statusType?: "active" | "coming-soon" | "24-7";
   description: string;
   image: string;
   facts: HeroFact[];
-  accentColor?: string; // e.g. "#dc2626" (Red), "#0088cc" (Blue), "#ca8a04" (Gold), "#4c2a85" (Purple), "#25633a" (Green)
-  badgeColor?: string;  // e.g. "#00a651"
-  theme?: "dark-slate" | "dark-emerald";
-  onBookSiteVisit?: () => void;
-  onDownloadBrochure?: () => void;
+  accentColor?: string; // e.g. "#4c2a85", "#dc2626", "#eab308", "#10b981", "#1e40af"
+  badgeColor?: string;
+  whatsappNumber?: string;
+  phoneHotline?: string;
+  onActionClick?: () => void;
+  actionText?: string;
 }
 
-export default function RealEstateHero({
+export default function MobilityHero({
   title,
   subtitle,
-  divisionName = "Sampan Development Ltd",
+  divisionName = "Automotive, Fuel & Mobility Division",
   statusBadge,
-  statusType = "ongoing",
+  statusType = "24-7",
   description,
   image,
   facts,
-  accentColor = "#ca8a04",
-  badgeColor = "#00a651",
-  theme = "dark-slate",
-  onBookSiteVisit,
-  onDownloadBrochure,
-}: RealEstateHeroProps) {
+  accentColor = "#dc2626",
+  badgeColor = "#047857",
+  whatsappNumber = "+8801929918408",
+  phoneHotline = "+8801929918408",
+  onActionClick,
+  actionText = "Online Service Request",
+}: MobilityHeroProps) {
 
   return (
-    <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-36 pb-24 bg-[#090d16] text-white border-b border-white/10">
+    <section className="relative overflow-hidden pt-28 pb-16 lg:pt-32 lg:pb-20 bg-[#090d16] text-white border-b border-white/10">
       
       {/* Background Image with Dark Vignette for Navbar Readability */}
       <div className="absolute inset-0 z-0">
@@ -54,10 +56,10 @@ export default function RealEstateHero({
           sizes="100vw"
           className="object-cover object-center brightness-[0.38]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#090d16]/95 via-[#090d16]/80 to-[#090d16]/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#090d16]/95 via-[#090d16]/85 to-[#090d16]/50" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16 py-12 lg:py-20">
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 sm:px-10 lg:px-16">
         <div className="max-w-4xl space-y-6">
           
           {/* Status Badges with Custom Logo Colors */}
@@ -70,23 +72,24 @@ export default function RealEstateHero({
                 backgroundColor: `${badgeColor}18`,
               }}
             >
-              <FaBuilding className="text-xs" />
+              <FaGasPump className="text-xs" />
               <span>{divisionName}</span>
             </div>
             
             <span
-              className="font-mono text-[11px] font-bold uppercase tracking-wider px-3 py-1 border backdrop-blur-md"
+              className="font-mono text-[11px] font-bold uppercase tracking-wider px-3 py-1 border backdrop-blur-md flex items-center gap-1.5"
               style={{
-                color: statusType === "flagship" ? "#38bdf8" : statusType === "coming-soon" ? "#f59e0b" : badgeColor,
-                borderColor: `${statusType === "flagship" ? "#38bdf8" : statusType === "coming-soon" ? "#f59e0b" : badgeColor}40`,
-                backgroundColor: `${statusType === "flagship" ? "#38bdf8" : statusType === "coming-soon" ? "#f59e0b" : badgeColor}15`,
+                color: statusType === "coming-soon" ? "#f59e0b" : accentColor,
+                borderColor: `${statusType === "coming-soon" ? "#f59e0b" : accentColor}40`,
+                backgroundColor: `${statusType === "coming-soon" ? "#f59e0b" : accentColor}15`,
               }}
             >
-              {statusBadge}
+              <FaCar className="text-[10px]" />
+              <span>{statusBadge}</span>
             </span>
           </div>
 
-          {/* Main Headline with Custom Accent Color */}
+          {/* Main Headline */}
           <h1 className="text-[clamp(2.5rem,5vw,4.8rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-white">
             {title} <br className="hidden sm:inline" />
             <span className="font-normal" style={{ color: accentColor }}>
@@ -99,37 +102,34 @@ export default function RealEstateHero({
             {description}
           </p>
 
-          {/* CTAs with Dynamic Logo Accent Colors */}
+          {/* CTAs: Primary Action, Call, WhatsApp */}
           <div className="flex flex-wrap items-center gap-4 pt-4">
             <button
-              onClick={onBookSiteVisit}
+              onClick={onActionClick}
               className="group inline-flex items-center justify-center gap-3 text-white px-8 py-4 font-mono text-xs font-bold uppercase tracking-[0.2em] shadow-lg transition-all duration-300 cursor-pointer hover:opacity-90"
               style={{ backgroundColor: accentColor }}
             >
               <FaCalendarCheck className="text-sm" />
-              <span>Book VIP Site Visit</span>
+              <span>{actionText}</span>
               <FiArrowRight className="text-sm transition-transform group-hover:translate-x-1" />
             </button>
 
-            <button
-              onClick={onDownloadBrochure}
-              className="inline-flex items-center justify-center gap-2 border px-7 py-4 font-mono text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 backdrop-blur-sm cursor-pointer hover:bg-white hover:text-neutral-950"
-              style={{
-                color: accentColor,
-                borderColor: `${accentColor}50`,
-                backgroundColor: `${accentColor}15`,
-              }}
+            <a
+              href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 border border-emerald-500/40 bg-emerald-500/15 hover:bg-emerald-500 hover:text-white px-6 py-4 font-mono text-xs font-bold uppercase tracking-[0.2em] text-emerald-400 transition-all duration-300 backdrop-blur-sm cursor-pointer"
             >
-              <FaFileDownload className="text-xs" />
-              <span>Download Brochure PDF</span>
-            </button>
+              <FaWhatsapp className="text-sm text-emerald-400" />
+              <span>WhatsApp Dispatch</span>
+            </a>
 
             <a
-              href="tel:+8801929918408"
+              href={`tel:${phoneHotline}`}
               className="inline-flex items-center justify-center gap-2 border border-white/20 bg-black/40 hover:bg-black px-6 py-4 font-mono text-xs font-bold uppercase tracking-[0.2em] text-white/90 transition-all duration-300"
             >
               <FaPhoneAlt className="text-xs" style={{ color: accentColor }} />
-              <span>Sales Hotline</span>
+              <span>Hotline Call</span>
             </a>
           </div>
 

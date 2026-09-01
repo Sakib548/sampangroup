@@ -31,14 +31,6 @@ const divisionMegaMenu: MegaMenuColumn[] = divisionGroups.map((group) => ({
   title: group.title,
   href: group.href,
   items: group.items.map((item) => {
-<<<<<<< HEAD
-    const concern = concerns.find(
-      (c) => String(c.id) === String(item.concernId),
-    );
-    return {
-      id: String(item.id),
-      label: concern?.name ?? group.title,
-=======
     // ✅ FIX: Safely compare string/number ids
     const concern = concerns2.find(
       (c) => String(c.id) === String(item.concernId),
@@ -46,7 +38,6 @@ const divisionMegaMenu: MegaMenuColumn[] = divisionGroups.map((group) => ({
     return {
       id: String(item.id), // ✅ FIX: Force string
       label: item.label ?? concern?.name ?? group.title,
->>>>>>> f9d196468a6220bbb9820a7e849545d851e5ae30
       href: item.href,
       external: false,
     };

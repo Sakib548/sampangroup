@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import RealEstateHero from "@/components/real-estate/RealEstateHero";
-import UnitTypesAndSizes from "@/components/real-estate/UnitTypesAndSizes";
-import LandShareStructure from "@/components/real-estate/LandShareStructure";
-import ConstructionProgressTracker from "@/components/real-estate/ConstructionProgressTracker";
-import FloorPlansViewer from "@/components/real-estate/FloorPlansViewer";
-import LegalCredentialsModule from "@/components/real-estate/LegalCredentialsModule";
-import WalkthroughRenderGallery from "@/components/real-estate/WalkthroughRenderGallery";
-import PaymentPlanCalculator from "@/components/real-estate/PaymentPlanCalculator";
-import SiteVisitBookingForm from "@/components/real-estate/SiteVisitBookingForm";
-import DownloadableBrochureCTA from "@/components/real-estate/DownloadableBrochureCTA";
-import RealEstateLocationMap from "@/components/real-estate/RealEstateLocationMap";
+import RealEstateHero from "../components/RealEstateHero";
+import UnitTypesAndSizes from "../components/UnitTypesAndSizes";
+import LandShareStructure from "../components/LandShareStructure";
+import ConstructionProgressTracker from "../components/ConstructionProgressTracker";
+import FloorPlansViewer from "../components/FloorPlansViewer";
+import LegalCredentialsModule from "../components/LegalCredentialsModule";
+import WalkthroughRenderGallery from "../components/WalkthroughRenderGallery";
+import PaymentPlanCalculator from "../components/PaymentPlanCalculator";
+import SiteVisitBookingForm from "../components/SiteVisitBookingForm";
+import DownloadableBrochureCTA from "../components/DownloadableBrochureCTA";
+import RealEstateLocationMap from "../components/RealEstateLocationMap";
 
 export const metadata: Metadata = {
   title: "Sampan Trade Emporium | Commercial Trade Center & Office Hub",

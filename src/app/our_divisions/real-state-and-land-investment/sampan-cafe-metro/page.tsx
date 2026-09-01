@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import RealEstateHero from "@/components/real-estate/RealEstateHero";
-import CafeMetroSpecial from "@/components/real-estate/CafeMetroSpecial";
-import RealEstateLocationMap from "@/components/real-estate/RealEstateLocationMap";
-import SiteVisitBookingForm from "@/components/real-estate/SiteVisitBookingForm";
+import RealEstateHero from "../components/RealEstateHero";
+import CafeMetroSpecial from "../components/CafeMetroSpecial";
+import WalkthroughRenderGallery from "../components/WalkthroughRenderGallery";
+import SiteVisitBookingForm from "../components/SiteVisitBookingForm";
+import RealEstateLocationMap from "../components/RealEstateLocationMap";
 
 export const metadata: Metadata = {
   title: "Sampan Cafe Metro | Auto, Hydro Car Wash & Cafe Lounge",
