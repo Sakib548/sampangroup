@@ -579,15 +579,15 @@ export default function SampanDevelopmentLtd() {
         {/* ============================================================ */}
         {/* 1. EDITORIAL SPLIT-PLANE HERO                                 */}
         {/* ============================================================ */}
-        <section className="sdl-hero relative min-h-screen overflow-hidden bg-black text-white">
+        <section className="sdl-hero relative min-h-screen overflow-hidden bg-[#F5F5F2] text-neutral-950">
           <div className="grid min-h-screen grid-cols-1 lg:grid-cols-12">
             {/* Left: Typography Zone */}
             <div className="h-typo-col relative col-span-1 flex flex-col justify-center px-8 pt-36 pb-24 lg:col-span-7 lg:px-20 lg:py-0">
-              <span className="h-giant-num pointer-events-none absolute -left-10 top-1/2 -z-10 -translate-y-1/2 select-none font-bold leading-none text-white opacity-0 mix-blend-overlay text-[clamp(16rem,32vw,30rem)]">
+              <span className="h-giant-num pointer-events-none absolute -left-10 top-1/2 -z-10 -translate-y-1/2 select-none font-bold leading-none text-neutral-900 opacity-5 text-[clamp(16rem,32vw,30rem)]">
                 01
               </span>
 
-              <p className="h-eyebrow relative z-10 mb-12 text-[11px] font-medium uppercase tracking-[0.4em] text-emerald-400">
+              <p className="h-eyebrow relative z-10 mb-12 text-[11px] font-medium uppercase tracking-[0.4em] text-emerald-700">
                 Real Estate &amp; Land Investment
               </p>
 
@@ -596,7 +596,7 @@ export default function SampanDevelopmentLtd() {
                 style={{ perspective: "1000px" }}
               >
                 <h1
-                  className="text-[clamp(3.5rem,9vw,10rem)] font-black leading-[0.84] tracking-[-0.05em]"
+                  className="text-[clamp(3.5rem,9vw,10rem)] font-black leading-[0.84] tracking-[-0.05em] text-neutral-950"
                   style={{ transformStyle: "preserve-3d" }}
                 >
                   <span
@@ -609,22 +609,22 @@ export default function SampanDevelopmentLtd() {
                     className="h-line-2 block"
                     style={{ transformOrigin: "bottom center" }}
                   >
-                    POSSIBILITIES<span className="text-emerald-500">.</span>
+                    POSSIBILITIES<span className="text-[#ca8a04]">.</span>
                   </span>
                 </h1>
               </div>
 
               <div className="h-label relative z-10 mt-12 flex items-center gap-8">
-                <span className="text-[13px] font-semibold uppercase tracking-[0.2em] text-white/40">
+                <span className="text-[13px] font-semibold uppercase tracking-[0.2em] text-neutral-500">
                   Sampan Development Ltd
                 </span>
-                <span className="h-px w-20 bg-white/15" />
+                <span className="h-px w-20 bg-neutral-300" />
               </div>
 
               <div className="h-cta relative z-10 mt-16">
                 <Link
                   href="#atlas"
-                  className="group inline-flex items-center gap-5 border-b-2 border-white/30 pb-3 text-[11px] font-bold uppercase tracking-[0.25em] text-white/70 transition-all duration-500 hover:border-emerald-500 hover:text-emerald-400"
+                  className="group inline-flex items-center gap-5 border-b-2 border-neutral-400 pb-3 text-[11px] font-bold uppercase tracking-[0.25em] text-neutral-900 transition-all duration-500 hover:border-[#ca8a04] hover:text-[#ca8a04]"
                 >
                   Explore Projects
                   <FiArrowRight className="h-3.5 w-3.5 transition-transform duration-500 group-hover:translate-x-2" />
