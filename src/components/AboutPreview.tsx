@@ -32,6 +32,7 @@ type Snapshot = {
   logo: string;
   copy: string;
   href: string;
+  domain: string;
   ctaText: string;
   socials: SocialLink[];
 };
@@ -43,6 +44,7 @@ const snapshots: Snapshot[] = [
     logo: "/images/brand/sampangroup.png",
     copy: "A conglomerate that grew outward from a single highway stop into real estate, hospitality, education, agriculture, manufacturing, and mobility - nine divisions, one motto: the village will be the city.",
     href: "https://sampangroup.com.bd/",
+    domain: "sampangroup.com.bd",
     ctaText: "Learn more about us",
     socials: [
       {
@@ -68,6 +70,7 @@ const snapshots: Snapshot[] = [
     logo: "/images/logos/6-sampan-dev-ltd.png",
     copy: "The land and construction arm behind Sampan's real estate portfolio - outright sale, land share, and residential and commercial builds, backed by REHAB membership.",
     href: "https://sampandevelopmentltd.com/",
+    domain: "sampandevelopmentltd.com",
     ctaText: "Explore our projects",
     socials: [
       {
@@ -83,6 +86,7 @@ const snapshots: Snapshot[] = [
     logo: "/images/logos/5-lshs.png",
     copy: "UK-affiliated professional education offering CIPS and CMI qualifications - taught in Bangladesh, recognized internationally.",
     href: "https://cips.lshs.co.uk/",
+    domain: "cips.lshs.co.uk",
     ctaText: "Discover LSHS",
     socials: [
       {
@@ -128,15 +132,14 @@ export default function AboutPreview() {
       });
 
       mm.add("(prefers-reduced-motion: no-preference)", () => {
-        /* HEADER ENTRANCE */
         gsap.fromTo(
           ".ap-header > *",
-          { y: 40, opacity: 0 },
+          { y: 25, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 1,
-            stagger: 0.15,
+            duration: 1.1,
+            stagger: 0.12,
             ease: "power3.out",
             scrollTrigger: {
               trigger: ".ap-header",
@@ -146,15 +149,14 @@ export default function AboutPreview() {
           },
         );
 
-        /* CARDS STAGGERED ENTRANCE */
         gsap.fromTo(
           ".ap-card",
-          { y: 60, opacity: 0 },
+          { y: 40, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.9,
-            stagger: 0.12,
+            duration: 0.95,
+            stagger: 0.1,
             ease: "power3.out",
             scrollTrigger: {
               trigger: ".ap-grid",
@@ -164,10 +166,9 @@ export default function AboutPreview() {
           },
         );
 
-        /* SOCIALS ENTRANCE */
         gsap.fromTo(
           ".ap-socials",
-          { y: 30, opacity: 0 },
+          { y: 20, opacity: 0 },
           {
             y: 0,
             opacity: 1,
@@ -190,33 +191,43 @@ export default function AboutPreview() {
       ref={containerRef}
       className="relative w-full overflow-hidden bg-[#F5F5F2]"
     >
-      {/* Giant Ghost Background Text */}
-      <span className="pointer-events-none absolute -left-6 bottom-0 select-none text-[14rem] font-black leading-none text-neutral-950 opacity-[0.02] md:text-[20rem]">
+      {/* ── Giant Ghost Background Watermark ── */}
+      <span
+        className="pointer-events-none absolute -left-6 bottom-0 select-none font-black leading-none text-neutral-950 text-[12rem] md:text-[18rem] lg:text-[22rem]"
+        style={{ opacity: 0.018 }}
+        aria-hidden="true"
+      >
         Group
       </span>
 
-      {/* Subtle Architectural Grid Background */}
+      {/* ── Subtle Architectural Grid ── */}
       <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-[0.02]"
+        className="pointer-events-none absolute inset-0 z-0"
         style={{
+          opacity: 0.02,
           backgroundImage:
-            "radial-gradient(circle, #000 0.5px, transparent 0.5px)",
-          backgroundSize: "24px 24px",
+            "radial-gradient(circle, #000 0.4px, transparent 0.4px)",
+          backgroundSize: "28px 28px",
         }}
         aria-hidden="true"
       />
 
-      <div className="relative mx-auto max-w-[1400px] px-[5vw]">
-        {/* ====== EDITORIAL HEADER ====== */}
-        <div className="ap-header mb-16 flex flex-col justify-between gap-8 border-b border-neutral-300/60 pb-8 lg:mb-20 lg:flex-row lg:items-end">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-[5vw] ">
+        {/* ═══════════════════════════════════════════════════════════ */}
+        {/*  EDITORIAL HEADER                                          */}
+        {/* ═══════════════════════════════════════════════════════════ */}
+        <div className="ap-header mb-10 flex flex-col justify-between gap-6 border-b border-neutral-300/50 pb-8 lg:mb-14 lg:flex-row lg:items-end lg:gap-10 lg:pb-10">
           <div>
-            <div className="mb-6 flex items-center gap-4">
-              <span className="h-px w-10 bg-emerald-600" />
-              <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.4em] text-neutral-600">
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-px w-8 bg-emerald-600/80" />
+              <span className="font-mono text-[10px] font-medium tracking-[0.2em] text-neutral-400">
+                01&nbsp;/
+              </span>
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.35em] text-neutral-500">
                 A closer look at Sampan
               </span>
             </div>
-            <h2 className="text-[clamp(2.5rem,5vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-neutral-950">
+            <h2 className="text-[clamp(2rem,4.5vw,3.8rem)] font-semibold leading-[0.95] tracking-[-0.03em] text-neutral-950">
               One group.
               <br />
               <span className="text-neutral-400">
@@ -224,66 +235,91 @@ export default function AboutPreview() {
               </span>
             </h2>
           </div>
-          <p className="max-w-xs text-sm leading-7 text-neutral-500 lg:text-right">
+          <p className="max-w-[280px] text-[13px] leading-[1.75] text-neutral-500 lg:text-right">
             A snapshot of the group and two concerns helping turn a shared
             vision into opportunity, expertise, and lasting value.
           </p>
         </div>
 
-        {/* ====== ARCHITECTURAL GRID ====== */}
-        <div className="ap-grid grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
-          {snapshots.map((snapshot) => (
+        {/* ═══════════════════════════════════════════════════════════ */}
+        {/*  CARDS GRID                                                */}
+        {/* ═══════════════════════════════════════════════════════════ */}
+        <div className="ap-grid grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3 lg:gap-6">
+          {snapshots.map((snapshot, i) => (
             <article
               key={snapshot.title}
-              className="ap-card group relative flex flex-col overflow-hidden border border-neutral-200 bg-white p-10 transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] hover:-translate-y-1.5 hover:border-neutral-300 hover:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.12)]"
+              className="ap-card group relative flex flex-col overflow-hidden rounded-sm border border-black/[0.08] bg-white p-7 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] hover:-translate-y-1 hover:border-black/[0.14] hover:shadow-[0_24px_48px_-16px_rgba(0,0,0,0.1)] lg:p-8"
             >
-              {/* Top Emerald Hover Line */}
-              <div className="absolute top-0 left-0 h-[3px] w-0 bg-emerald-600 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:w-full" />
+              {/* ── Top Emerald Hover Line ── */}
+              <div className="absolute top-0 left-0 h-[2px] w-0 bg-emerald-600 transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:w-full" />
 
-              {/* Logo Container */}
-              <div className="relative mb-12 h-24 w-full">
+              {/* ── Card Number ── */}
+              <span
+                className="absolute top-6 right-7 font-mono text-[9px] tracking-[0.15em] text-neutral-950/20 lg:top-7 lg:right-8"
+                aria-hidden="true"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+
+              {/* ── Logo ── */}
+              <div className="relative mb-6 h-14 w-full lg:h-16">
                 <Image
                   src={snapshot.logo}
                   alt={`${snapshot.title} logo`}
                   fill
                   sizes="300px"
-                  className="object-contain object-left transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-[1.05]"
+                  className="object-contain object-left transition-transform duration-700 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:scale-[1.04]"
                 />
               </div>
 
-              {/* Type Badge & Divider */}
-              <div className="mb-6 flex items-center gap-4">
-                <span className="inline-block bg-neutral-100 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-neutral-700">
+              {/* ── Type — Editorial Metadata ── */}
+              <div className="mb-3 flex items-center gap-2.5">
+                <span className="inline-block h-[3px] w-[3px] rounded-full bg-emerald-600/50" />
+                <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-neutral-500">
                   {snapshot.type}
                 </span>
-                <span className="h-px flex-1 bg-neutral-200" />
               </div>
 
-              {/* Title */}
-              <h3 className="text-[clamp(1.5rem,2vw,2rem)] font-semibold leading-[1.1] tracking-tight text-neutral-950">
+              {/* ── Title ── */}
+              <h3 className="text-[1.4rem] font-semibold leading-[1.05] tracking-[-0.02em] text-neutral-950 md:text-[1.5rem] lg:text-[1.65rem]">
                 {snapshot.title}
               </h3>
 
-              {/* Copy */}
-              <p className="mt-4 flex-1 text-sm leading-7 text-neutral-500">
+              {/* ── Description ── */}
+              <p className="mt-3 flex-1 text-[13px] leading-[1.75] text-neutral-500">
                 {snapshot.copy}
               </p>
 
-              {/* Footer: CTA + Individual Socials (Stacked) */}
-              <div className="mt-10 flex flex-col items-start gap-6 border-t border-neutral-100 pt-6">
-                {/* Refined "Learn more" Micro-Button */}
+              {/* ── Domain — Digital Signature ── */}
+              <a
+                href={snapshot.href}
+                target="_blank"
+                rel="noreferrer"
+                className="group/dom mt-4 inline-flex items-center gap-1.5 font-mono text-[10.5px] lowercase tracking-[0.14em] text-neutral-400 transition-colors duration-300 hover:text-neutral-600"
+              >
+                <span className="inline-block transition-all duration-300 group-hover/dom:translate-x-[3px] group-hover/dom:text-emerald-600 text-emerald-600/40">
+                  ↗
+                </span>
+                {snapshot.domain}
+              </a>
+
+              {/* ── Bottom Divider ── */}
+              <div className="mt-5 h-px w-full bg-neutral-100" />
+
+              {/* ── CTA + Socials ── */}
+              <div className="mt-5 flex items-center justify-between">
                 <Link
                   href={snapshot.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="group/cta inline-flex items-center gap-2 border border-neutral-300 px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-800 transition-all duration-300 hover:border-emerald-600 hover:bg-emerald-600 hover:text-white"
+                  className="group/cta relative inline-flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.12em] text-neutral-800 transition-colors duration-300 hover:text-emerald-700"
                 >
                   {snapshot.ctaText}
-                  <FiArrowRight className="h-3 w-3 transition-transform duration-500 group-hover/cta:translate-x-1" />
+                  <FiArrowRight className="h-3 w-3 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover/cta:translate-x-1" />
+                  <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-current transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover/cta:w-full" />
                 </Link>
 
-                {/* Individual Social Links */}
-                <div className="flex items-center gap-2">
+                <div className="ap-socials flex items-center gap-1.5">
                   {snapshot.socials.map((social) => {
                     const Icon = social.Icon;
                     return (
@@ -293,9 +329,9 @@ export default function AboutPreview() {
                         target="_blank"
                         rel="noreferrer"
                         aria-label={`Visit ${snapshot.title} on ${social.label}`}
-                        className="flex h-9 w-9 items-center justify-center rounded-full text-neutral-500 transition-all duration-300 hover:bg-neutral-900 hover:text-white"
+                        className="flex h-8 w-8 items-center justify-center rounded-full text-neutral-400 transition-all duration-300 hover:bg-neutral-900 hover:text-white"
                       >
-                        <Icon className="h-3.5 w-3.5" />
+                        <Icon className="h-3 w-3" />
                       </a>
                     );
                   })}

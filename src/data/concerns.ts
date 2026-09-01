@@ -72,7 +72,7 @@ export const concerns: Concern[] = [
     category: "Development & Construction",
     tagline:
       "Manufacturing hub (houses Hollow Bricks & Tiles, Pet & Beverage).",
-    logo: "/images/brand/sampanindustrial.png",
+    logo: "/images/brand/industrialpark.png",
   },
   {
     id: 11,
@@ -256,7 +256,7 @@ export const concerns: Concern[] = [
     name: "Sampan Towing Service",
     category: "Automotive & Energy",
     tagline: "Car towing around Highway Inn",
-    logo: "/images/brand/sampanauto.png",
+    logo: "/images/brand/towing.webp",
   },
 
   // Defense & Security

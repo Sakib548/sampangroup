@@ -260,7 +260,7 @@ export const concerns2: Concern[] = [
     name: "Sampan Towing Service",
     category: "Automotive & Energy",
     tagline: "Car towing around Highway Inn",
-    logo: "/images/brand/sampanauto.png",
+    logo: "/images/brand/towing.webp",
   },
 
   // Defense & Security
@@ -296,7 +296,7 @@ export const concerns2: Concern[] = [
     name: "Sampan Floating Pearl",
     category: "Maritime / Alternative Assets",
     tagline: "Sampan Maritime Venture and ship-share.",
-    logo: "/images/brand/sampanindustrialpark.webp",
+    logo: "/images/brand/industrialpark.png",
   },
   {
     id: 36,
