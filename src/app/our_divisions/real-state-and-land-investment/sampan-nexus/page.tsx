@@ -1,0 +1,187 @@
+import type { Metadata } from "next";
+import RealEstateHero from "../components/RealEstateHero";
+import UnitTypesAndSizes from "../components/UnitTypesAndSizes";
+import LandShareStructure from "../components/LandShareStructure";
+import ConstructionProgressTracker from "../components/ConstructionProgressTracker";
+import FloorPlansViewer from "../components/FloorPlansViewer";
+import LegalCredentialsModule from "../components/LegalCredentialsModule";
+import WalkthroughRenderGallery from "../components/WalkthroughRenderGallery";
+import PaymentPlanCalculator from "../components/PaymentPlanCalculator";
+import SiteVisitBookingForm from "../components/SiteVisitBookingForm";
+import DownloadableBrochureCTA from "../components/DownloadableBrochureCTA";
+import RealEstateLocationMap from "../components/RealEstateLocationMap";
+
+export const metadata: Metadata = {
+  title: "Sampan Nexus | Mawna Mixed-Use Growth Corridor Project",
+  description:
+    "Strategic mixed-use development integrating commercial spaces, retail zones, and residential land-share apartments in Mawna.",
+};
+
+const facts = [
+  { value: "Mawna", label: "Industrial Green Belt" },
+  { value: "Mixed-Use", label: "Commercial & Living" },
+  { value: "1,250+ sq ft", label: "Apartments" },
+  { value: "High Growth", label: "Appreciation" },
+];
+
+const units = [
+  {
+    id: "nex-a",
+    name: "Nexus Residential Unit — 1,250 sq ft",
+    category: "3-Bedroom Apartment",
+    sizeSqFt: "1,250 sq ft",
+    bedrooms: 3,
+    bathrooms: 2,
+    balconies: 2,
+    priceRange: "BDT 42 Lacs",
+    orientation: "Green View Facing",
+    highlights: ["Affordable Growth Investment", "Cross Ventilation Layout", "Dedicated Parking Share"],
+  },
+];
+
+const landShareTiers = [
+  {
+    title: "Nexus Growth Land Share",
+    shareSize: "1.0 Katha Undivided",
+    equityRatio: "1 Residential Unit Share",
+    deedRegistration: "Sub-Kabala Registered",
+    keyBenefits: ["Low Entry Capital", "High Industrial Corridor Demand", "Transparent Cost Model"],
+  },
+];
+
+const progressMilestones = [
+  { stage: "Land Acquisition & Survey", completionPercent: 100, status: "Completed" as const, targetDate: "Done (2025)", notes: "Title deed verified & mutated" },
+  { stage: "Master Layout & Soil Test", completionPercent: 50, status: "In Progress" as const, targetDate: "Q4 2026", notes: "Soil test & master plan design" },
+  { stage: "Construction Start", completionPercent: 0, status: "Upcoming" as const, targetDate: "Q2 2027", notes: "Foundation piling start" },
+];
+
+const floorPlans = [
+  {
+    id: "fp-nex-1",
+    name: "Sampan Nexus Master Site Layout",
+    category: "Master Plan",
+    sizeSqFt: "16 Katha Footprint",
+    image: "/images/concerns/3-sampan-eco-agro.png",
+    description: "Mixed-use layout integrating ground commercial retail with residential towers.",
+    features: ["Mixed-Use Zoning", "Wide Internal Access Roads", "Green Landscaping"],
+  },
+];
+
+const legalCredentials = [
+  {
+    authority: "Ministry of Land",
+    approvalTitle: "Clear Title Deed Mutation",
+    referenceNumber: "Khatian No. 554/Mawna",
+    status: "100% Cleared",
+    description: "Verified clear land deed title.",
+  },
+];
+
+const renders = [
+  {
+    id: "r-nex-1",
+    title: "Sampan Nexus Mixed-Use Render",
+    category: "exterior" as const,
+    categoryLabel: "Exterior Renders",
+    image: "/images/concerns/3-sampan-eco-agro.png",
+    type: "image" as const,
+    description: "Modern mixed-use architecture in the Mawna growth hub.",
+  },
+];
+
+const landmarks = [
+  { landmark: "Mawna Highway Junction", distance: "3 km", driveTime: "5 Mins" },
+  { landmark: "Dhaka-Mymensingh Expressway", distance: "1 km", driveTime: "2 Mins" },
+];
+
+export default function SampanNexusPage() {
+  return (
+    <main className="bg-[#f3f6f2] text-[#183b2b] antialiased selection:bg-[#0284c7] selection:text-white">
+      
+      {/* 1. Hero Overview — Custom Ocean Blue (#0284c7) Accent & Green (#10b981) Badge from Logo */}
+      <RealEstateHero
+        title="Sampan Nexus"
+        subtitle="Mawna Mixed-Use Industrial Corridor Project"
+        divisionName="Sampan Development Ltd"
+        statusBadge="Coming Soon — Early Inquiries"
+        statusType="coming-soon"
+        description="A strategic mixed-use project combining commercial spaces and residential land-share apartments in the rapidly growing Mawna industrial belt."
+        image="/images/concerns/3-sampan-eco-agro.png"
+        facts={facts}
+        accentColor="#0284c7"
+        badgeColor="#10b981"
+      />
+
+      {/* 2. Unit Configurations */}
+      <UnitTypesAndSizes
+        units={units}
+        bgTheme="divisions-green"
+      />
+
+      {/* 3. Land Share Model */}
+      <LandShareStructure
+        totalLandArea="16 Katha"
+        totalSharesCount="48 Land Shares"
+        registrationStatus="Sub-Kabala Ready"
+        tiers={landShareTiers}
+        bgTheme="about-ivory"
+      />
+
+      {/* 4. Location + Map */}
+      <RealEstateLocationMap
+        projectName="Sampan Nexus"
+        address="Mawna Growth Hub Corridor, Bangladesh."
+        gpsCoordinates="24.2312° N, 90.3954° E"
+        embedMapUrl="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14545.6!2d90.3954!3d24.2312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDEzJzUyLjMiTiA5MMKwMjMnNDMuNCJF!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd"
+        landmarks={landmarks}
+        bgTheme="divisions-green"
+      />
+
+      {/* 5. Construction Progress */}
+      <ConstructionProgressTracker
+        overallCompletionPercentage={20}
+        expectedHandoverDate="Q4 2029"
+        currentPhase="Master Layout & Soil Testing"
+        milestones={progressMilestones}
+        bgTheme="about-ivory"
+      />
+
+      {/* 6. Floor Plans */}
+      <FloorPlansViewer
+        plans={floorPlans}
+        bgTheme="divisions-green"
+      />
+
+      {/* 7. Legal Credentials */}
+      <LegalCredentialsModule
+        credentials={legalCredentials}
+        bgTheme="about-ivory"
+      />
+
+      {/* 8. 3D Renders */}
+      <WalkthroughRenderGallery
+        items={renders}
+        bgTheme="divisions-green"
+      />
+
+      {/* 9. Payment Calculator */}
+      <PaymentPlanCalculator
+        defaultPropertyPriceBDT={4200000}
+        bgTheme="about-ivory"
+      />
+
+      {/* 10. Brochure Download */}
+      <DownloadableBrochureCTA
+        projectName="Sampan Nexus"
+        bgTheme="divisions-green"
+      />
+
+      {/* 11. Site Visit Form */}
+      <SiteVisitBookingForm
+        projectName="Sampan Nexus"
+        bgTheme="about-ivory"
+      />
+
+    </main>
+  );
+}

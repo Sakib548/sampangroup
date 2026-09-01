@@ -42,7 +42,6 @@ function NavigationLink({
 
 export default function Navbar2() {
   const pathname = usePathname();
-  const isAboutPage = pathname === "/about";
   const isLightPage = lightNavbarRoutes.some(
     (route) => pathname === route || pathname.startsWith(`${route}/`),
   );
@@ -51,13 +50,8 @@ export default function Navbar2() {
   const [desktopMenuOpen, setDesktopMenuOpen] = useState(false);
   const [openMegaId, setOpenMegaId] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileConcernsOpen, setMobileConcernsOpen] = useState(false);
+  const [openMobileMegaId, setOpenMobileMegaId] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
-
-  const concernItem = navItems.find((item) => item.megaMenu);
-  const standardItems = navItems.filter(
-    (item) => !item.megaMenu && item.href !== "/contact",
-  );
 
   function closeMenus() {
     if (closeTimerRef.current !== null) {
@@ -67,7 +61,7 @@ export default function Navbar2() {
     setDesktopMenuOpen(false);
     setOpenMegaId(null);
     setMobileMenuOpen(false);
-    setMobileConcernsOpen(false);
+    setOpenMobileMegaId(null);
   }
 
   function keepDesktopMenuOpen() {
@@ -78,7 +72,6 @@ export default function Navbar2() {
   }
 
   function scheduleDesktopMenuClose() {
-    // 180ms delay allows the cursor to bridge the gap between the trigger and the dropdown
     closeTimerRef.current = window.setTimeout(() => {
       setDesktopMenuOpen(false);
       setOpenMegaId(null);
@@ -108,7 +101,6 @@ export default function Navbar2() {
     };
   }, []);
 
-  // Determine if navbar should show solid background
   const showSolidNav = isScrolled || isLightPage;
 
   return (
@@ -119,10 +111,9 @@ export default function Navbar2() {
           : "border-b border-transparent bg-transparent py-5 text-white"
       }`}
     >
-      {/* Removed broad onMouseEnter/Leave from this container */}
       <div className="relative mx-auto max-w-[1500px] px-6 lg:px-12">
         <div className="flex items-center justify-between">
-          {/* LOGO - Significantly Increased Size */}
+          {/* LOGO */}
           <Link
             href="/"
             onClick={closeMenus}
@@ -157,7 +148,6 @@ export default function Navbar2() {
                   type="button"
                   aria-expanded={desktopMenuOpen && openMegaId === item.id}
                   aria-controls="navbar2-concerns"
-                  // Attach hover directly to the trigger
                   onMouseEnter={() => {
                     keepDesktopMenuOpen();
                     setDesktopMenuOpen(true);
@@ -191,9 +181,10 @@ export default function Navbar2() {
                   >
                     ▼
                   </span>
-                  {/* Active Underline */}
                   <span
-                    className={`absolute -bottom-1 left-4 right-4 h-px origin-left scale-x-0 bg-emerald-500 transition-transform duration-300 group-hover:scale-x-100 ${isActive ? "scale-x-100" : ""}`}
+                    className={`absolute -bottom-1 left-4 right-4 h-px origin-left scale-x-0 bg-emerald-500 transition-transform duration-300 group-hover:scale-x-100 ${
+                      isActive ? "scale-x-100" : ""
+                    }`}
                   />
                 </button>
               ) : (
@@ -255,9 +246,8 @@ export default function Navbar2() {
           </button>
         </div>
 
-        {/* MEGA MENU DROPDOWN */}
+        {/* MEGA MENU DROPDOWN (DESKTOP) */}
         {desktopMenuOpen && openMegaId && (
-          // Wrap the dropdown in a hover-aware div to bridge the gap from the trigger
           <div
             onMouseEnter={keepDesktopMenuOpen}
             onMouseLeave={scheduleDesktopMenuClose}
@@ -279,59 +269,78 @@ export default function Navbar2() {
             className="absolute inset-x-0 top-full max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-x border-b border-neutral-200 bg-white text-neutral-950 shadow-2xl lg:hidden"
           >
             <div className="flex flex-col p-8">
-              {standardItems.map((item, index) => (
-                <NavigationLink
-                  key={item.id}
-                  item={item}
-                  onClick={closeMenus}
-                  className={`py-5 text-3xl font-semibold tracking-tight transition-colors hover:text-emerald-600 ${
-                    index ? "border-t border-neutral-100" : ""
-                  }`}
-                />
-              ))}
-
-              {concernItem?.megaMenu && (
-                <div className="border-t border-neutral-100">
-                  <button
-                    type="button"
-                    aria-expanded={mobileConcernsOpen}
-                    onClick={() => setMobileConcernsOpen((open) => !open)}
-                    className="flex w-full items-center justify-between py-5 text-3xl font-semibold tracking-tight"
+              {navItems
+                .filter((i) => i.href !== "/contact")
+                .map((item, index) => (
+                  <div
+                    key={item.id}
+                    className={index !== 0 ? "border-t border-neutral-100" : ""}
                   >
-                    {concernItem.label}
-                    <span
-                      aria-hidden="true"
-                      className={`text-2xl text-neutral-400 transition-transform duration-300 ${
-                        mobileConcernsOpen ? "rotate-45" : ""
-                      }`}
-                    >
-                      +
-                    </span>
-                  </button>
+                    {item.megaMenu ? (
+                      <div>
+                        <button
+                          type="button"
+                          aria-expanded={openMobileMegaId === item.id}
+                          onClick={() =>
+                            setOpenMobileMegaId(
+                              openMobileMegaId === item.id ? null : item.id,
+                            )
+                          }
+                          className="flex w-full items-center justify-between py-5 text-3xl font-semibold tracking-tight"
+                        >
+                          {item.label}
+                          <span
+                            aria-hidden="true"
+                            className={`text-2xl text-neutral-400 transition-transform duration-300 ${
+                              openMobileMegaId === item.id ? "rotate-45" : ""
+                            }`}
+                          >
+                            +
+                          </span>
+                        </button>
 
-                  {mobileConcernsOpen && (
-                    <div className="space-y-6 border-t border-neutral-100 bg-neutral-50 px-4 py-6">
-                      {concernItem.megaMenu.map((column) => (
-                        <div key={column.id}>
-                          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-700">
-                            {column.title}
-                          </p>
-                          <div className="space-y-1">
-                            {column.items.map((item) => (
-                              <NavigationLink
-                                key={item.id}
-                                item={item}
-                                onClick={closeMenus}
-                                className="block py-2 text-lg text-neutral-600 transition hover:text-emerald-800"
-                              />
+                        {openMobileMegaId === item.id && (
+                          <div className="space-y-6 border-t border-neutral-100 bg-neutral-50 px-4 py-6">
+                            {item.megaMenu.map((column) => (
+                              <div key={column.id}>
+                                {item.layout === "concerns" && (
+                                  <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-700">
+                                    {column.title}
+                                  </p>
+                                )}
+                                <div className="space-y-1">
+                                  {column.items.map((link) => (
+                                    <div
+                                      key={link.id}
+                                      className="flex items-center justify-between gap-2 py-2"
+                                    >
+                                      <NavigationLink
+                                        item={link}
+                                        onClick={closeMenus}
+                                        className="text-lg text-neutral-600 transition hover:text-emerald-800"
+                                      />
+                                      {link.comingSoon && (
+                                        <span className="rounded-full border border-emerald-700/30 bg-emerald-50 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.18em] text-emerald-700">
+                                          Coming Soon
+                                        </span>
+                                      )}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
                             ))}
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
+                        )}
+                      </div>
+                    ) : (
+                      <NavigationLink
+                        item={item}
+                        onClick={closeMenus}
+                        className="block py-5 text-3xl font-semibold tracking-tight transition-colors hover:text-emerald-600"
+                      />
+                    )}
+                  </div>
+                ))}
             </div>
 
             <div className="border-t border-neutral-100 p-8">

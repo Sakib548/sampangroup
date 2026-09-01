@@ -18,7 +18,7 @@ const cafeHighlights = [
     title: "Complete Car Care",
     copy: "Professional Car Wash.",
   },
-] as const;
+];
 
 function Arrow() {
   return (

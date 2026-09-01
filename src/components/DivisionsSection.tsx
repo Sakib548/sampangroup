@@ -101,7 +101,7 @@ export default function DivisionsSection() {
                         </div>
 
                         <div className="mt-auto min-w-0 pt-4">
-                          <p className="text-[0.62rem] font-semibold leading-4 text-[#008f68] [overflow-wrap:anywhere]">
+                          <p className="text-[0.62rem] font-semibold leading-4 text-[#91b594] [overflow-wrap:anywhere]">
                             {concern.tagline ??
                               "Part of Sampan Group’s connected portfolio."}
                           </p>

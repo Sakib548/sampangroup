@@ -5,6 +5,9 @@ export type NavItem = {
   children?: NavItem[];
   external?: boolean;
   megaMenu?: MegaMenuColumn[];
+  comingSoon?: boolean;
+  description?: string;
+  layout?: "concerns" | "corporate" | "investment";
 };
 
 export type MegaMenuColumn = {
