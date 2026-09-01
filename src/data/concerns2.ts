@@ -16,6 +16,8 @@ export const concerns2: Concern[] = [
     category: "Development & Construction",
     tagline: "Residential condominium project in Ashulia",
     logo: "/images/brand/sampanmetrosquare.png",
+    href: "/our_divisions/real-state-and-land-investment/sampan-metro-square",
+
   },
   {
     id: 3,
@@ -23,6 +25,7 @@ export const concerns2: Concern[] = [
     category: "Development & Construction",
     tagline: "Commercial + residential construction project",
     logo: "/images/brand/sampanmotolibskyline.webp",
+    href: "/our_divisions/real-state-and-land-investment/sampan-motalib-skyline",
   },
   {
     id: 4,
@@ -30,6 +33,7 @@ export const concerns2: Concern[] = [
     category: "Development & Construction",
     tagline: "Residential building, Mawna via SDL.",
     logo: "/images/brand/sampannexus.png",
+    href: "/our_divisions/real-state-and-land-investment/sampan-nexus",
   },
   {
     id: 5,
@@ -37,6 +41,7 @@ export const concerns2: Concern[] = [
     category: "Development & Construction",
     tagline: "Commercial Mall beside Express Highway Inn",
     logo: "/images/brand/sampantradeemporium.png",
+    href: "/our_divisions/real-state-and-land-investment/sampan-trade-emporium",
   },
   {
     id: 6,
@@ -44,6 +49,7 @@ export const concerns2: Concern[] = [
     category: "Development & Construction",
     tagline: "Hotel/motel beside Express Highway Inn.",
     logo: "/images/brand/sampantower.png",
+    href: "/our_divisions/real-state-and-land-investment/sampan-residency-tower-1-2",
   },
   {
     id: 7,
@@ -51,6 +57,7 @@ export const concerns2: Concern[] = [
     category: "Development & Construction",
     tagline: "Residential condominium in Bashundhara R/A",
     logo: "/images/brand/sampan21.png",
+    href: "/our_divisions/real-state-and-land-investment/sampan-21st-century",
   },
   {
     id: 8,
@@ -58,6 +65,7 @@ export const concerns2: Concern[] = [
     category: "Development & Construction",
     tagline: "Residential condominium in Bashundhara R/A",
     logo: "/images/brand/sampantaj.png",
+    href: "/our_divisions/real-state-and-land-investment/sampan-taj",
   },
   {
     id: 9,
@@ -65,6 +73,7 @@ export const concerns2: Concern[] = [
     category: "Development & Construction",
     tagline: "Residential condominium in Niketon",
     logo: "/images/brand/sampanniketon.webp",
+    href: "/our_divisions/real-state-and-land-investment/sampan-niketon",
   },
   {
     id: 10,
@@ -73,6 +82,7 @@ export const concerns2: Concern[] = [
     tagline:
       "Manufacturing hub (houses Hollow Bricks & Tiles, Pet & Beverage).",
     logo: "/images/brand/sampanindustrial.png",
+    href: "/our_divisions/real-state-and-land-investment/sampan-industrial-park",
   },
   {
     id: 11,

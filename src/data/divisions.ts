@@ -5,7 +5,7 @@ export const divisionGroups = [
     id: "real-estate",
     title: "Real Estate & Land Investment",
     href: "/our_divisions/real-state-and-land-investment",
-    items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    items: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13],
   },
   {
     id: "hospitality",
